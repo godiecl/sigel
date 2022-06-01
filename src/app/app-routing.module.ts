@@ -11,6 +11,7 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./protected/protected.module').then(m => m.ProtectedModule)
   },
+  
   {
     path: '**',
     redirectTo:'auth'

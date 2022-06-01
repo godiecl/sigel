@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterUsuarioComponent } from './administrador/register-usuario/register-usuario.component';
 
 const routes: Routes = [
 
@@ -8,6 +9,7 @@ const routes: Routes = [
     path:'',
     children: [
       { path: '', component: DashboardComponent},
+      { path: 'register-usuario', component: RegisterUsuarioComponent},
       { path: '**', redirectTo: '' },
     ]
   }

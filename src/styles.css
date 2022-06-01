@@ -175,6 +175,14 @@
     text-align: center;
   }
   
+  .login200-form-title {
+    display: block;
+    font-family: Poppins-Bold;
+    font-size: 49px;
+    color: #333333;
+    line-height: 1.2;
+    text-align: center;
+  }
   
   
   /*------------------------------------------------------------------
