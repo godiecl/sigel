@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
     console.log('valor formulario de crear empresa:',this.empresaForm.value);
     console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
 
-    this.router.navigateByUrl('/register-contacto');
+    this.router.navigateByUrl('/auth/register-contacto');
   }
 
 }
