@@ -1,4 +1,4 @@
-<form class="login100-form" autocomplete="off">
+<form class="login100-form" autocomplete="off" [formGroup]="empresaForm">
                 
     <span class="login100-form-title p-b-49">
         Registrar empresa
@@ -7,24 +7,24 @@
     <div class="wrap-input100 m-b-23">
         <span class="label-input100">Nombre</span>
         <input class="input100"
-               name="email" 
-               placeholder="Ingrese nombre de la empresa">
+               placeholder="Ingrese nombre de la empresa"
+               formControlName="nombreEmpresa">
         <span class="focus-input100"></span>
     </div>
 
     <div class="wrap-input100">
         <span class="label-input100">Rut</span>
         <input class="input100"
-               name="password" 
-               placeholder="Ingrese rut de la empresa">
+               placeholder="Ingrese rut de la empresa"
+               formControlName="rutEmpresa">
         <span class="focus-input100"></span>
     </div>
 
     <div class="wrap-input100">
         <span class="label-input100">Giro</span>
         <input class="input100"
-               name="password" 
-               placeholder="Ingrese giro de la empresa">
+               placeholder="Ingrese giro de la empresa"
+               formControlName="giroEmpresa">
         <span class="focus-input100"></span>
     </div>
     
@@ -33,8 +33,8 @@
     <div class="container-login100-form-btn">
         <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn">
-                Registrar
+            <button class="login100-form-btn" (click)="crearEmpresa()" [disabled]="empresaForm.invalid">
+                Registrar empresa
             </button>
         </div>
     </div>
@@ -49,3 +49,6 @@
         </a>
     </div> 
 </form>
+
+
+<span> LOL {{ this.empresaForm.value }}</span>
