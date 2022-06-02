@@ -5,14 +5,25 @@ import { RegisterUsuarioComponent } from './administrador/register-usuario/regis
 
 const routes: Routes = [
 
+
   {
     path:'',
+    component: DashboardComponent,
     children: [
-      { path: '', component: DashboardComponent},
-      { path: 'register-usuario', component: RegisterUsuarioComponent},
-      { path: '**', redirectTo: '' },
+      { path:'',},
+      { path:'register-usuario', component: RegisterUsuarioComponent},
+      { path:'**', redirectTo: ''},
     ]
-  }
+  },
+
+  // {
+  //   path:'',
+  //   children: [
+  //     { path: '', component: DashboardComponent},
+  //     { path: 'register-usuario', component: RegisterUsuarioComponent},
+  //     { path: '**', redirectTo: '' },
+  //   ]
+  // }
 ];
 
 @NgModule({

@@ -15,8 +15,8 @@ export class RegisterContactoComponent implements OnInit {
 
     nombre: ['',[Validators.required]],
     rut: ['', [Validators.required]],
-    apellidoP: ['', [Validators.required]],
-    apellidoM: ['', [Validators.required]],
+    apellidop: ['', [Validators.required]],
+    apellidom: ['', [Validators.required]],
     correo: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
     cargo: ['', [Validators.required]],
     telefono: ['', [Validators.required]],

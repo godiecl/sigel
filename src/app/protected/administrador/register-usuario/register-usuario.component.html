@@ -1,113 +1,97 @@
 
+<form class="login100-form" 
+    autocomplete="off"
+    [formGroup]="usuarioForm"
+    (ngSubmit)="crearUsuario()">
+                
+        <span class="login100-form-title p-b-49">
+            Crear usuario
+        </span>
 
-<div class="limiter">
-    <div class="container-login100" style="background-image: url('../../../../assets/images/bg-01.jpg');">
-        <div class="row">
-            <div class="col flex-col-c">
-                <span class="login200-form-title p-b-17">
-                    Sistema Práctica Capstone
-                </span>
-                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                        <form class="login100-form" 
-                        autocomplete="off"
-                        [formGroup]="usuarioForm"
-                        (ngSubmit)="crearUsuario()">
-                                    
-                            <span class="login100-form-title p-b-49">
-                                Crear usuario
-                            </span>
+        <div class="wrap-input100 m-b-23">
+            <span class="label-input100">Nombre</span>
+            <input class="input100"
+                    formControlName="nombre"
+                    placeholder="Ingrese su nombre">
+            <span class="focus-input100"></span>
+        </div>
 
-                            <div class="wrap-input100 m-b-23">
-                                <span class="label-input100">Nombre</span>
-                                <input class="input100"
-                                        formControlName="nombre"
-                                        placeholder="Ingrese su nombre">
-                                <span class="focus-input100"></span>
-                            </div>
+        <div class="wrap-input100">
+            <span class="label-input100">Apellido paterno</span>
+            <input class="input100"
+                    formControlName="apellidop"
+                    placeholder="Ingrese su apellido paterno">
+            <span class="focus-input100"></span>
+        </div>
 
-                            <div class="wrap-input100">
-                                <span class="label-input100">Apellido paterno</span>
-                                <input class="input100"
-                                        formControlName="apellidoP"
-                                        placeholder="Ingrese su apellido paterno">
-                                <span class="focus-input100"></span>
-                            </div>
+        <div class="wrap-input100">
+            <span class="label-input100">Apellido materno</span>
+            <input class="input100"
+                placeholder="Ingrese su apellido materno"
+                formControlName="apellidom">
+            <span class="focus-input100"></span>
+        </div>
 
-                            <div class="wrap-input100">
-                                <span class="label-input100">Apellido materno</span>
-                                <input class="input100"
-                                    placeholder="Ingrese su apellido materno"
-                                    formControlName="apellidoM">
-                                <span class="focus-input100"></span>
-                            </div>
+        <div class="wrap-input100">
+            <span class="label-input100">Rut</span>
+            <input class="input100"
+                placeholder="Ingrese su rut"
+                formControlName="rut"
+                >
+            <span class="focus-input100"></span>
+        </div>
 
-                            <div class="wrap-input100">
-                                <span class="label-input100">Rut</span>
-                                <input class="input100"
-                                    placeholder="Ingrese su rut"
-                                    formControlName="rut"
-                                    >
-                                <span class="focus-input100"></span>
-                            </div>
+        <div class="wrap-input100">
+            <span class="label-input100">Correo</span>
+            <input class="input100"
+                placeholder="Ingrese su correo"
+                formControlName="correo"
+                >
+            <span class="focus-input100"></span>
+        </div>
 
-                            <div class="wrap-input100">
-                                <span class="label-input100">Correo</span>
-                                <input class="input100"
-                                    placeholder="Ingrese su correo"
-                                    formControlName="correo"
-                                    >
-                                <span class="focus-input100"></span>
-                            </div>
+        <div class="wrap-input100">
+            <span class="label-input100">Contraseña</span>
+            <input class="input100"
+                    type="password"
+                placeholder="Ingrese su contraseña"
+                formControlName="password">
+            <span class="focus-input100"></span>
+        </div>
 
-                            <div class="wrap-input100">
-                                <span class="label-input100">Contraseña</span>
-                                <input class="input100"
-                                        type="password"
-                                    placeholder="Ingrese su contraseña"
-                                    formControlName="password">
-                                <span class="focus-input100"></span>
-                            </div>
-
-                            <div class="wrap-input100">
-                                <span class="label-input100">Confirmar contraseña</span>
-                                <input class="input100"
-                                    type="password"
-                                    placeholder="Confirme su contraseña"
-                                    formControlName="confirmPassword">
-                                <span class="focus-input100"></span>
-                            </div>
-                            
-                            <!-- CHECKBOX ROLES-->
-                            <div>
-                                <div class="col">
-                                <span class="label-input100">Roles: (máximo 3)</span>
-                                <label>                                   
-                                    <input  type="checkbox"
-                                            id="estudiante"
-                                            value="estudianteRol"> Estudiante    
-                                </label>
-                                <span class="focus-input100"></span>
-                                </div>
-                                
-                            </div>
-                            
-                            <div class="text-right p-t-8 p-b-31"></div>
-                            
-                            <div class="container-login100-form-btn">
-                                <div class="wrap-login100-form-btn">
-                                    <div class="login100-form-bgbtn"></div>
-                                    <button class="login100-form-btn" 
-                                            [disabled]="usuarioForm.invalid">
-                                        Registrar
-                                    </button>
-                                </div>
-                            </div>
-
-                    </form>
-                </div>
+        <div class="wrap-input100">
+            <span class="label-input100">Confirmar contraseña</span>
+            <input class="input100"
+                type="password"
+                placeholder="Confirme su contraseña"
+                formControlName="confirmPassword">
+            <span class="focus-input100"></span>
+        </div>
+        
+        <!-- CHECKBOX ROLES-->
+        <div>
+            <div class="col">
+            <span class="label-input100">Roles: (máximo 3)</span>
+            <label>                                   
+                <input  type="checkbox"
+                        id="estudiante"
+                        value="estudianteRol"> Estudiante    
+            </label>
+            <span class="focus-input100"></span>
             </div>
             
         </div>
         
-    </div>
-</div>
+        <div class="text-right p-t-8 p-b-31"></div>
+        
+        <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <button class="login100-form-btn" 
+                        [disabled]="usuarioForm.invalid">
+                    Registrar
+                </button>
+            </div>
+        </div>
+
+</form>
