@@ -1,9 +1,4 @@
 
 node_modules/validator/validator.min.js
-*.js
-*.md
-*.js
-*.js
-*.js
 node_modules/lodash/_baseSortedIndexBy.js
 node_modules
