@@ -36,19 +36,19 @@ export class RegisterUsuarioComponent implements OnInit {
 
   crearUsuario(): void{
     this.usuario = new UserModel(this.usuarioForm.value);
-    this.usuario.nombre = this.usuarioForm.value.nombre;
-    this.usuario.apellidop = this.usuarioForm.value.apellidop;
-    this.usuario.apellidom = this.usuarioForm.value.apellidom;
-    this.usuario.rut = this.usuarioForm.value.rut;
+    // this.usuario.nombre = this.usuarioForm.value.nombre;
+    // this.usuario.apellidop = this.usuarioForm.value.apellidop;
+    // this.usuario.apellidom = this.usuarioForm.value.apellidom;
+    // this.usuario.rut = this.usuarioForm.value.rut;
     this.usuario.password = this.usuarioForm.value.password;
-    this.usuario.correo = this.usuarioForm.value.correo;
-    this.usuario.rol = this.usuarioForm.value.rol;
+    // this.usuario.correo = this.usuarioForm.value.correo;
+    // this.usuario.rol = this.usuarioForm.value.rol;
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     console.log('this usuario', this.usuario);
     const observable = this.adminService.crearUsuario(this.usuario).subscribe(
       (res: any) => {
-        console.log(res);
+        console.log('respuesta peticion', res);
       }
     );
 

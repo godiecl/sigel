@@ -20,6 +20,8 @@ export class AdministradorService {
     console.log(url);
     //  const body = { user.nombre, user.apellidoP, user.apellidoM, user.}
 
+
+
     return this.http.post<User>(url, {user});
   }
 }
