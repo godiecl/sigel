@@ -17,7 +17,7 @@ const getUsers = async (req, res) => {
 
 // const createUser = async (req, res) => {
 //     const { nombre, apellidop, apellidom, rut, password, correo, rol } = req.body;
-//     const response = await pool.query('INSERT INTO users (nombre, apellidop, apellidom, rut, password, correo, rol) VALUES ($1, $2, $3, $,4, $5, $6, $7)', [nombre, apellidop, apellidom, rut, password, correo, rol], (error, results) => {
+//     const response = await pool.query('INSERT INTO users (nombre, apellidop, apellidom, rut, password, correo, rol) VALUES ($1, $2, $3, $4, $5, $6, $7)', [nombre, apellidop, apellidom, rut, password, correo, rol], (error, results) => {
 //         if (error) {
 //           throw error
 //         }
@@ -27,18 +27,19 @@ const getUsers = async (req, res) => {
 //     res.send('user created');
 // };
 
-const createUser = (request, response) => {
+const createUser = async (request, response) => {
 
     console.log('req del body en crear user', request.body);
     const { nombre, apellidop, apellidom, rut, password, correo, rol } = request.body.user
 
     console.log('request body user', request.body.user);
   
-    pool.query('INSERT INTO users (nombre, apellidop, apellidom, rut, password, correo, rol) VALUES ($1, $2, $3, $4, $5, $6, $7)', [nombre, apellidop, apellidom, rut, password, correo, rol], (error, results) => {
+    await pool.query('INSERT INTO users (nombre, apellidop, apellidom, rut, password, correo, rol) VALUES ($1, $2, $3, $4, $5, $6, $7)', [nombre, apellidop, apellidom, rut, password, correo, rol], (error, results) => {
       if (error) {
+        console.log('error', error);
         throw error
       }
-      response.status(201).send(`User added`)
+      response.status(200).send({msg: 'User added'})
     })
   }
 
