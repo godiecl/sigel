@@ -24,21 +24,33 @@ export class RegisterUsuarioComponent implements OnInit {
     correo: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(4)]],
     confirmPassword: ['', [Validators.required,]],
-    roles: [, [,]],
+    rol: [, [,]],
   });
-  constructor(private fb: FormBuilder, private adminService: AdministradorService) { }
+  constructor(private fb: FormBuilder, private adminService: AdministradorService) 
+  { 
+
+  }
 
   ngOnInit(): void {
   }
 
-  crearUsuario(){
-    this.usuario = new UserModel(
-      this.usuarioForm.value )
-
+  crearUsuario(): void{
+    this.usuario = new UserModel(this.usuarioForm.value);
+    this.usuario.nombre = this.usuarioForm.value.nombre;
+    this.usuario.apellidop = this.usuarioForm.value.apellidop;
+    this.usuario.apellidom = this.usuarioForm.value.apellidom;
+    this.usuario.rut = this.usuarioForm.value.rut;
     this.usuario.password = this.usuarioForm.value.password;
+    this.usuario.correo = this.usuarioForm.value.correo;
+    this.usuario.rol = this.usuarioForm.value.rol;
+
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     console.log('this usuario', this.usuario);
-    this.adminService.crearUsuario(this.usuario);
+    const observable = this.adminService.crearUsuario(this.usuario).subscribe(
+      (res: any) => {
+        console.log(res);
+      }
+    );
 
 
   }
