@@ -1,4 +1,4 @@
-
+<!-- FALTA CONVERTIR ESTE FORMULARIO EN DOS COLUMNAS Y LISTAR ROLES -->
 <form class="login100-form" 
     autocomplete="off"
     [formGroup]="usuarioForm"
@@ -59,7 +59,7 @@
             <span class="focus-input100"></span>
         </div>
 
-        <div class="wrap-input100">
+        <div class="wrap-input100 m-b-23">
             <span class="label-input100">Confirmar contraseña</span>
             <input class="input100"
                 type="password"
@@ -67,16 +67,47 @@
                 formControlName="confirmPassword">
             <span class="focus-input100"></span>
         </div>
+
+        
         
         <!-- CHECKBOX ROLES-->
-        <div>
+        <div class="text-center m">
             <div class="col">
-            <span class="label-input100">Roles: (máximo 3)</span>
-            <label>                                   
-                <input  type="checkbox"
-                        id="estudiante"
-                        value="estudianteRol"> Estudiante    
-            </label>
+                
+            <span class="label-input100">Roles: (máximo 4)</span>
+            
+                <fieldset class="checkboxgroup text-left">
+                    <label>    <input  type="checkbox"
+                                id="administrador"
+                                value="administradorRol"> Administrador    
+                    </label>
+                    <label>                                   
+                        <input  type="checkbox"
+                                id="estudiante"
+                                value="estudianteRol"> Estudiante    
+                    </label>
+                    <label>                                   
+                        <input  type="checkbox"
+                                id="encargadoPracticaTitulacion"
+                                value="encargadoPracticaTitulacionRol"> Encargado de Practica y Titulación    
+                    </label>
+                    <label>                                   
+                        <input  type="checkbox"
+                                id="asistenteAcademica"
+                                value="asistenteAcademicaRol"> Asistente Académica    
+                    </label>
+                    <label>                                   
+                        <input  type="checkbox"
+                                id="profesorComisionCorreccion"
+                                value="profesorComisionCorreccionRol"> Profesor de Comisión de Corrección    
+                    </label>
+                    <label>                                   
+                        <input  type="checkbox"
+                                id="profesorGuiaCP"
+                                value="profesorGuiaCPRol"> Profesor Guía de Capstone    
+                    </label>                  
+    
+                </fieldset>
             <span class="focus-input100"></span>
             </div>
             

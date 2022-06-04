@@ -76,7 +76,18 @@
       margin: 0px;
       list-style-type: none;
   }
-  
+  .checkboxgroup{
+    width: 25em;
+    overflow: auto;
+  }
+  .checkboxgroup p{
+    width: 7em;
+    text-align: right;
+  }
+  .checkboxgroup label{
+    width: 24em;
+    float: right;
+  }
   
   /*---------------------------------------------*/
   input {
