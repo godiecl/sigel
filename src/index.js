@@ -1,28 +1,25 @@
-console.log('Iniciando node');
-
 // imports
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
 
-// crea el servidor
-const app = express();
+import express from 'express';
+import app from './app.js';
+import { sequelize } from './database/database.js';
+import dotenv from 'dotenv';
+dotenv.config();
+  
+async function main(){
+    
+   try {
+      await sequelize.sync({force: false});
+      console.log('Connection has been established successfully.');
+        
+      app.listen(process.env.PORT);
+      console.log(`Server on port: ${ process.env.PORT }`);
+      
+    } catch (error) {
+      console.error('Unable to connect to the database:', error);
+    }
+}
 
-// directorio publico
-app.use( express.static('public'));
-
-// cors 
-app.use( cors() );
-
-// middlewares
-// lectura y parseo del body  
-app.use(express.json());
+main();
 
 
-app.use(express.urlencoded({extended: false}));
-
-// routes
-app.use(require('./routes/user'));
-
-app.listen(process.env.PORT);
-console.log(`Server on port: ${ process.env.PORT }`);

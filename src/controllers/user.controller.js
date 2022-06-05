@@ -1,46 +1,43 @@
+import {Usuario} from '../models/Usuario.js'
 
-const { Pool } = require('pg');
-
-const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: 'disc2022',
-    database: 'sistemaPracticaCapstone',
-    port: '5432'
-});
-
-
-const getUsers = async (req, res) => {
-    const response = await pool.query('SELECT * FROM users');
-    res.status(200).json(response.rows);
+export const getUsers = async (req, res) => {
+  const users = await Usuario.findAll();
+  console.log('desplegando todos los usuarios', (users));
 }
 
-const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
+
   const { correo, password } = req.body.user;
   console.log(correo, password);
 
-  return await pool.query('SELECT FROM users ()')
+  return await sequelize.query('SELECT FROM users ()')
 }
 
-const createUser = async (request, response) => {
+export const createUser = async (request, response) => {
 
-    console.log('req del body en crear user', request.body);
-    const { nombre, apellidop, apellidom, rut, password, correo, rol } = request.body.user
+    try{
+      console.log('req del body en crear user', request.body);
+      const { nombre, apellidop, apellidom, rut, password, correo, roles } = request.body.user
 
-    console.log('request body user', request.body.user);
+      const newUsuario = await Usuario.create({
+        nombre: nombre,
+        apellidop: apellidop,
+        apellidom: apellidom,
+        rut: rut,
+        password: password,
+        correo: correo, 
+        roles: roles
+      })
+
+      console.log('nuevo usuario', (newUsuario));
+
+    }catch(error){
+      return response.status(500).json({ message: error.message})
+      
+    }
+
+    
   
-    await pool.query('INSERT INTO users (nombre, apellidop, apellidom, rut, password, correo) VALUES ($1, $2, $3, $4, $5, $6)', [nombre, apellidop, apellidom, rut, password, correo], (error, results) => {
-      if (error) {
-        console.log('error', error);
-        throw error
-      }
-      response.status(200).send({msg: 'User added'})
-    })
   }
 
 
-module.exports = {
-    getUsers,
-    createUser,
-    loginUser
-}
