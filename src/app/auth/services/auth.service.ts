@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,4 +8,11 @@ import { Injectable } from '@angular/core';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
+
+
+  login(correo: string, password: string)
+  {
+    // const url = environment.baseUrl;
+    // this.http.get(url+'login/'+correo+'='+password);
+  }
 }

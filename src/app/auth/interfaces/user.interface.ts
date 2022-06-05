@@ -8,5 +8,5 @@ export interface User{
     password?: string,    
     correo: string,
     cpassword?: string,
-    rol: string,
+    roles: Array<string>,
 }

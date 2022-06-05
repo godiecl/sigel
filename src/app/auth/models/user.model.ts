@@ -7,7 +7,7 @@ export class UserModel implements User {
     apellidom: string;
     rut: string;
     correo: string;
-    rol: string;
+    roles: Array<string>;
 
     constructor(data: User){
 
@@ -17,7 +17,7 @@ export class UserModel implements User {
             this.apellidom = data.apellidom;
             this.rut = data.rut;
             this.correo = data.correo;
-            this.rol = data.rol;
+            this.roles = data.roles; 
 
     }
 }

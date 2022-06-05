@@ -194,6 +194,12 @@
     line-height: 1.2;
     text-align: center;
   }
+
+  .form-text-login {
+    color: red;
+    font-size: 15px;
+    text-align: center;
+  }
   
   
   /*------------------------------------------------------------------

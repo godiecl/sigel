@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Estudiante } from '../../../auth/interfaces/estudiante.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,24 @@ export class AdministradorService {
 
   crearUsuario(user: User): Observable<User>{
 
-    console.log('peticion enviada');
+    console.log('peticion enviada a users');
     const url = `${this.baseUrl}users`;
-    console.log(url);
     //  const body = { user.nombre, user.apellidoP, user.apellidoM, user.}
 
 
 
     return this.http.post<User>(url, {user});
   }
+
+  crearEstudiante(estudiante: Estudiante): Observable<Estudiante>{
+
+    console.log('peticion enviada a estudiantes');
+    const url = `${this.baseUrl}estudiantes`;
+
+
+
+    return this.http.post<Estudiante>(url, {estudiante});
+  }
+
+  
 }
