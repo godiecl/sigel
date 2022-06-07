@@ -2,21 +2,20 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 import { Usuario } from "./Usuario.js";
 
-export const AsistenteAcademica = sequelize.define('asistentes_academica',{
+export const EncargadoPractica = sequelize.define('encargados_practica',{
 
-    id_asistente: {
+    id_encargadoPractica: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     }
 })
-
-Usuario.hasOne(AsistenteAcademica, {
+Usuario.hasOne(EncargadoPractica, {
     foreignKey: 'id_usuario',
     sourceKey: 'id'
 })
 
-AsistenteAcademica.belongsTo(Usuario, {
+EncargadoPractica.belongsTo(Usuario, {
     foreignKey: 'id_usuario',
     targetKey: 'id'
 })
