@@ -20,7 +20,7 @@ async function main(){
     
    try {
      //colocar false al terminar
-      await sequelize.sync({force: true});
+      await sequelize.sync({force: false});
       console.log('Connection has been established successfully.');
         
       app.listen(process.env.PORT);
