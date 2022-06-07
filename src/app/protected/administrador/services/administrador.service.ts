@@ -14,25 +14,29 @@ export class AdministradorService {
 
   constructor(private http: HttpClient) { }
 
+
   crearUsuario(user: User): Observable<User>{
 
     console.log('peticion enviada a users');
     const url = `${this.baseUrl}users`;
     //  const body = { user.nombre, user.apellidoP, user.apellidoM, user.}
-
-
-
     return this.http.post<User>(url, {user});
+
   }
+
+  // obtenerUsuarioPorID(id: string){
+
+  //   const url = `{this.baseUrl}users/{id}`;
+  //   return this.http.get(url);
+
+  // }
 
   crearEstudiante(estudiante: Estudiante): Observable<Estudiante>{
 
     console.log('peticion enviada a estudiantes');
     const url = `${this.baseUrl}estudiantes`;
-
-
-
     return this.http.post<Estudiante>(url, {estudiante});
+
   }
 
   

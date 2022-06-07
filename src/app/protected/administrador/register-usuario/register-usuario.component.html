@@ -79,7 +79,7 @@
                 <fieldset class="checkboxgroup text-left">
                     <label>    <input  type="checkbox"
                                 id="administrador"
-                                value="rolAdministrador"> Administrador    
+                                formControlName="rolAdministrador"> Administrador    
                     </label>
                     <label>                                   
                         <input  type="checkbox"
@@ -94,17 +94,22 @@
                     <label>                                   
                         <input  type="checkbox"
                                 id="asistenteAcademica"
-                                value="rolAsistenteAcademica"> Asistente Académica    
+                                formControlName="rolAsistenteAcademica"> Asistente Académica    
+                    </label>
+                    <label>                                   
+                        <input  type="checkbox"
+                                id="jefeCarrera"
+                                formControlName="rolJefeCarrera"> Jefe de Carrera    
                     </label>
                     <label>                                   
                         <input  type="checkbox"
                                 id="profesorComisionCorreccion"
-                                value="rolProfesorCC"> Profesor de Comisión de Corrección    
+                                formControlName="rolProfesorCC"> Profesor de Comisión de Corrección    
                     </label>
                     <label>                                   
                         <input  type="checkbox"
                                 id="profesorGuiaCP"
-                                value="rolProfesorGuiaCP"> Profesor Guía de Capstone    
+                                formControlName="rolProfesorGuiaCP"> Profesor Guía de Capstone    
                     </label>                  
     
                 </fieldset>
@@ -113,28 +118,34 @@
             
         </div>
 
-        <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+        <div>
 
-            <span class="label-input100">Correo personal</span>
-            <input class="input100"
+            <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+                <span class="label-input100">Correo personal</span>
+                <input class="input100"
                 placeholder="Ingrese correo personal"
                 formControlName="correoPersonal">
-            <span class="focus-input100"></span>
+                <span class="focus-input100"></span>
+            </div>
+            
 
-
-            <span class="label-input100">Carrera</span>
-            <input class="input100"
+            <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+                <span class="label-input100">Carrera</span>
+                <input class="input100"
                 placeholder="Seleccione carrera"
                 formControlName="carrera">
-            <span class="focus-input100"></span>
+                <span class="focus-input100"></span>
+            </div>
+            
 
-
-            <span class="label-input100">Telefono</span>
-            <input class="input100"
+            <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+                <span class="label-input100">Telefono</span>
+                <input class="input100"
                 placeholder="Ingrese telefono"
                 formControlName="telefono">
-            <span class="focus-input100"></span>
-
+                <span class="focus-input100"></span>
+            </div>
+            
             
         </div>
         

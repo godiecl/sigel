@@ -5,6 +5,18 @@
                 <span class="login200-form-title p-b-17">
                     Sistema Práctica Capstone
                 </span>
+
+                <p>
+                        ESTO SOLO LO VE EL USER LOGEADO
+                </p>
+
+                <H4> USER INFO </H4>
+
+                <PRE>{{usuario | json}} </PRE>
+
+                <button (click)="logout()">
+                    Logout
+                </button>
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                     <!-- Distribuir según rol -->
                     <router-outlet></router-outlet>

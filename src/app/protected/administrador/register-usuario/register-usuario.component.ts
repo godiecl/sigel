@@ -18,6 +18,8 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
   
   mostrarAtributosEstudiante: boolean = false;
+  mostrarAtributosProfesorGuiaCP: boolean = false;
+  mostrarAtributosProfesorCC: boolean = false;
 
   
   private usuario?: User;
@@ -44,6 +46,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     rolAsistenteAcademica: [false, [,]],
     rolProfesorCC: [false, [,]],
     rolProfesorGuiaCP: [false, [,]],
+    rolJefeCarrera: [false, []]
   });
 
 
@@ -67,17 +70,16 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
-    this.usuarioForm.valueChanges.pipe(takeUntil(this._unsubscribeAll)).subscribe( ({ rolEstudiante, ...rest}) => {
-      if(rolEstudiante){
-        // Si el checkbox rol estudiante es true
+    this.usuarioForm.valueChanges.pipe(takeUntil(this._unsubscribeAll)).subscribe( ({ rolEstudiante, rolProfesorCC, rolProfesorGuiaCP, ...rest}) => {
+      // Si el checkbox rol estudiante es true
+      if(rolEstudiante){ this.mostrarAtributosEstudiante=true; }else{ this.mostrarAtributosEstudiante=false;}
 
-        this.mostrarAtributosEstudiante=true;
-        this.usuario?.roles.push('estudiante'); // this.usuario.roles= [...roles, 'estudiante'];
+      // Si el checkbox rol profesor guia capstones es true
+      if(rolProfesorGuiaCP){ this.mostrarAtributosProfesorGuiaCP=true;}else{ this.mostrarAtributosProfesorGuiaCP=false;}
+      
+      // si es profesor de comision correccion
+      if(rolProfesorCC){ this.mostrarAtributosProfesorCC=true; } else{ this.mostrarAtributosProfesorCC=false;}
 
-        console.log(this.usuario?.roles);
-      }else{
-        this.mostrarAtributosEstudiante=false;
-      }
     } );
     
   }
@@ -93,10 +95,27 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
 
     this.usuario = new UserModel(this.usuarioForm.value);
-    if(this.usuarioForm.value.rolEstudiante){
-      this.usuario.roles=[... '', 'estudiante']
-    }
+    
     this.usuario.password = this.usuarioForm.value.password;
+
+    if(this.usuarioForm.value.rolEstudiante){ this.usuario.roles=[... this.usuario.roles,'Estudiante']; }
+
+    if(this.usuarioForm.value.rolAdministrador){ this.usuario.roles=[... this.usuario.roles,'Administrador']; }
+
+    if(this.usuarioForm.value.rolAsistenteAcademica){this.usuario.roles = [... this.usuario.roles, 'AsistenteAcademica']
+      if(!this.usuario.roles.includes('ComisionTitulacionPractica')){  this.usuario.roles= [... this.usuario.roles, 'ComisionTitulacionPractica'];}}
+
+    if(this.usuarioForm.value.rolEncargadoPracticaTitulacion){ this.usuario.roles= [... this.usuario.roles, 'EncargadoPracticaTitulacion']
+      if(!this.usuario.roles.includes('ComisionTitulacionPractica')){this.usuario.roles= [... this.usuario.roles, 'ComisionTitulacionPractica']; }
+    }
+
+    if(this.usuarioForm.value.rolJefeCarrera){ this.usuario.roles= [... this.usuario.roles, 'JefeCarrera']
+      if(!this.usuario.roles.includes('ComisionTitulacionPractica')){this.usuario.roles= [... this.usuario.roles, 'ComisionTitulacionPractica'];}}
+
+    if(this.usuarioForm.value.rolProfesorCC){ this.usuario.roles= [... this.usuario.roles, 'ProfesorCC']}
+
+    if(this.usuarioForm.value.rolProfesorGuiaCP){ this.usuario.roles= [... this.usuario.roles, 'ProfesorGuiaCP'] }
+
 
     // crear for que recorra roles de usuario, si x rol existe, entonces hacer x funcion.
 
@@ -105,14 +124,17 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     console.log('this usuario', this.usuario);
 
     this.adminService.crearUsuario(this.usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-      (userX: User) => {
-        console.log('si entro aqui')
-        if(userX.roles.includes('estudiante')){
-          console.log('funciono el if rol estudiante');
-          this.estudiantePorCrear.id_user = userX._id;
+      (respuesta: any) => {
+        if(respuesta.roles.includes('Estudiante')){
+          this.estudiantePorCrear.id_user = respuesta.id;
+          this.nuevoEstudiante();
         }
       }
     );
+
+  }
+
+  nuevoEstudiante() {
 
     this.estudiante = new EstudianteModel(0,
       this.estudiantePorCrear.id_user,
@@ -123,15 +145,12 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
       false,
       0,0
     );
-    console.log('Estudiante por crear:', this.estudiante);
 
     const observable2 = this.adminService.crearEstudiante(this.estudiante).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) =>{
         console.log('respuesta peticion', res);
       }
     )
-
-
 
   }
 
