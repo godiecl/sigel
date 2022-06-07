@@ -39,5 +39,13 @@ export class AdministradorService {
 
   }
 
+  crearAdmin(idUser: string): Observable<any>{
+
+    console.log('peticion enviada a admins');
+    const url = `${this.baseUrl}admins`;
+    return this.http.post<any>(url, {idUser});
+
+  }
+
   
 }

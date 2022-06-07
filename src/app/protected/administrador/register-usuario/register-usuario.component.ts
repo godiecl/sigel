@@ -6,7 +6,7 @@ import { UserModel } from '../../../auth/models/user.model';
 import { User } from '../../../auth/interfaces/user.interface';
 import { Estudiante } from '../../../auth/interfaces/estudiante.interface';
 import { EstudianteModel } from '../../../auth/models/estudiante.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register-usuario',
@@ -129,6 +129,9 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
           this.estudiantePorCrear.id_user = respuesta.id;
           this.nuevoEstudiante();
         }
+        if(respuesta.roles.includes('Administrador')){
+          this.nuevoAdmin(respuesta.id);
+        }
       }
     );
 
@@ -148,10 +151,18 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     const observable2 = this.adminService.crearEstudiante(this.estudiante).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) =>{
-        console.log('respuesta peticion', res);
+        console.log('respuesta peticion crear estudiante', res);
       }
     )
 
+  }
+
+  nuevoAdmin(idUser: string){
+    const observable3 = this.adminService.crearAdmin(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      (res: any) => {
+        console.log('respuesta de la peticion crear admin', res);
+      }
+    )
   }
 
  
