@@ -19,12 +19,3 @@ export const Empresa = sequelize.define('empresas',{
         type: DataTypes.STRING,
     }
 })
-Usuario.hasOne(Empresa, {
-    foreignKey: 'id_usuario',
-    sourceKey: 'id'
-})
-
-Empresa.belongsTo(Usuario, {
-    foreignKey: 'id_usuario',
-    targetKey: 'id'
-})

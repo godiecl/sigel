@@ -1,6 +1,6 @@
-import { Admin } from '../models/Admin.js'
+import { EncargadoPractica } from '../models/EncargadoPractica.js'
 
-export const createAdmin = async (request, response) =>{
+export const createEncargadoPractica = async (request, response) =>{
 
     try{
         console.log('request', request);
@@ -10,18 +10,18 @@ export const createAdmin = async (request, response) =>{
         console.log('request body', request.body);
 
         // Crear en la bdd
-        const newAdmin = await Admin.create({
+        const newEncargadoPractica = await EncargadoPractica.create({
             id_user: _id_user
         })
 
         return response.status(200).json({
             ok: true,
-            msg: 'Admin added.'
+            msg: 'Encargado Practica added.'
         })
     }catch(error){
         return response.status(401).json({
             ok: false,
-            msg: 'Didnt added admin.'
+            msg: 'Didnt added Encargado Practica.'
         })
     }
 

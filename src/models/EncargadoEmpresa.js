@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
+import { Empresa } from "./Empresa.js";
 import { Usuario } from "./Usuario.js";
 
 export const EncargadoEmpresa = sequelize.define('encargados_empresa',{
@@ -24,4 +25,12 @@ Usuario.hasOne(EncargadoEmpresa, {
 EncargadoEmpresa.belongsTo(Usuario, {
     foreignKey: 'id_usuario',
     targetKey: 'id'
+})
+Empresa.hasMany(EncargadoEmpresa, {
+    foreignKey: 'id_empresa',
+    sourceKey: 'id_empresa'
+})
+EncargadoEmpresa.belongsTo(Empresa, {
+    foreignKey: 'id_empresa',
+    targetKey: 'id_empresa'
 })
