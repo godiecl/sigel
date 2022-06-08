@@ -9,6 +9,9 @@ import { EstudianteModel } from '../../../auth/models/estudiante.model';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../../auth/services/auth.service';
+import { ProfesorCC } from '../../../auth/interfaces/profesorCC.interface';
+import { ProfesorCCModel } from '../../../auth/models/profesorCC.model';
+import { ProfesorGuiaCPModel } from '../../../auth/models/profesorGuiaCP.model';
 
 @Component({
   selector: 'app-register-usuario',
@@ -46,22 +49,24 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     telefono: [''],
     rolEncargadoPracticaTitulacion: [false, [,]],
     rolAsistenteAcademica: [false, [,]],
+    rolJefeCarrera: [false, []],
     rolProfesorCC: [false, [,]],
+    telefonoCC: [''],
     rolProfesorGuiaCP: [false, [,]],
-    rolJefeCarrera: [false, []]
+    disc_empresa: ['',]
   });
 
 
 
-  estudiantePorCrear = {
-    id_user: 1,
-    correoPersonal: '',
-    carrera: 0,
-    practicaAprobada: false,
-    telefono: '',
-    estadoAsignacionCP: false,
+  // estudiantePorCrear = {
+  //   id_user: 1,
+  //   correoPersonal: '',
+  //   carrera: 0,
+  //   practicaAprobada: false,
+  //   telefono: '',
+  //   estadoAsignacionCP: false,
 
-  }
+  // }
  
 
   constructor(
@@ -135,11 +140,28 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
           // retornó un usuario
           if(respuesta.roles.includes('Estudiante')){
-            this.estudiantePorCrear.id_user = respuesta.id;
-            this.nuevoEstudiante();
+            
+            this.nuevoEstudiante(respuesta.id);
           }
           if(respuesta.roles.includes('Administrador')){
             this.nuevoAdmin(respuesta.id);
+          }
+          if(respuesta.roles.includes('EncargadoPracticaTitulacion')){
+            this.nuevoEncargadoPracticaTitulacion(respuesta.id);
+            this.nuevoComisionTitulacionPractica(respuesta.id, false);
+          }
+          else if(respuesta.roles.includes('AsistenteAcademica')){
+            this.nuevoAsistenteAcademica(respuesta.id);
+            this.nuevoComisionTitulacionPractica(respuesta.id, false);
+          }
+          else if(respuesta.roles.includes('JefeCarrera')){
+            this.nuevoComisionTitulacionPractica(respuesta.id, true);
+          }
+          if(respuesta.roles.includes('ProfesorCC')){
+            this.nuevoProfesorCC(respuesta.id, this.usuarioForm.value.telefonoCC);
+          }
+          if(respuesta.roles.includes('ProfesorGuiaCP')){
+            this.nuevoProfesorGuiaCP(respuesta.id, this.usuarioForm.value.telefonoCC, false, this.usuarioForm.value.disc_empresa);
           }
         }else {
           // error
@@ -151,10 +173,10 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
   }
 
-  nuevoEstudiante() {
+  nuevoEstudiante(idUser: number) {
 
     this.estudiante = new EstudianteModel(0,
-      this.estudiantePorCrear.id_user,
+      idUser,
       this.usuarioForm.value.correoPersonal, 
       this.usuarioForm.value.carrera, 
       this.usuarioForm.value.practicaAprobada, 
@@ -171,17 +193,61 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
   }
 
-  nuevoAdmin(idUser: string){
+  nuevoAdmin(idUser: number){
     const observable3 = this.adminService.crearAdmin(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
         console.log('respuesta de la peticion crear admin', res);
       }
     )
   }
-
-  logout(){
-    this.authService.logout();
+  
+  nuevoEncargadoPracticaTitulacion(idUser: number){
+    const observable3 = this.adminService.crearEncargadoPracticaCP(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      (res: any) => {
+        console.log('respuesta de la peticion crear encargado practica titulacion', res);
+      }
+    )
   }
- 
+
+  nuevoAsistenteAcademica(idUser: number){
+    const observable3 = this.adminService.crearAsistenteAcademica(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      (res: any) => {
+        console.log('respuesta de la peticion crear asistente academica', res);
+      }
+    )
+  }
+
+  nuevoComisionTitulacionPractica(idUser: number, jefeCarrera: boolean){
+    const observable3 = this.adminService.crearComisionTitulacion(idUser, jefeCarrera).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      (res: any) => {
+        console.log('respuesta de la peticion crear comisionTitulacionPracticas', res);
+      }
+    )
+  }
+
+  nuevoProfesorCC(idUser: number, telefonoCC: string){
+    
+    const profesorCC = new ProfesorCCModel(
+      0, idUser, true, telefonoCC
+    )
+    const observable3 = this.adminService.crearProfesorCC(profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      (res: any) => {
+        console.log('respuesta de la peticion crear profesorCCs', res);
+      });
+  }
+
+  nuevoProfesorGuiaCP(idUser: number, telefono: string, estado: boolean, empresa: string){
+
+    const profesorGuiaCP = new ProfesorGuiaCPModel(
+      0, idUser, telefono, estado, empresa
+    )
+
+    const observable3 = this.adminService.crearProfesorGuiaCP(profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      (res: any) => {
+        console.log('respuesta de la peticion crear profesorGuiaCPs', res);
+      });
+  }
+
+
 
 }

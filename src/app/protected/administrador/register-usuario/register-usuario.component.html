@@ -145,6 +145,20 @@
                 formControlName="telefono">
                 <span class="focus-input100"></span>
             </div>
+            <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC || mostrarAtributosProfesorGuiaCP">
+                <span class="label-input100">Telefono</span>
+                <input class="input100"
+                placeholder="Ingrese telefono"
+                formControlName="telefonoCC">
+                <span class="focus-input100"></span>
+            </div>
+            <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
+                <span class="label-input100">Empresa</span>
+                <input class="input100"
+                placeholder="Ingrese empresa"
+                formControlName="disc_empresa">
+                <span class="focus-input100"></span>
+            </div>
             
             
         </div>

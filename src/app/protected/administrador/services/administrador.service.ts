@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Estudiante } from '../../../auth/interfaces/estudiante.interface';
 import { ProfesorCC } from '../../../auth/interfaces/profesorCC.interface';
+import { ProfesorGuiaCP } from '../../../auth/interfaces/profesorGuiaCP.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -40,14 +41,14 @@ export class AdministradorService {
 
   }
 
-  crearAdmin(idUser: string): Observable<any>{
+  crearAdmin(idUser: number): Observable<any>{
 
     console.log('peticion enviada a admins');
     const url = `${this.baseUrl}admins`;
     return this.http.post<any>(url, {idUser});
 
   }
-  crearEncargadoPracticaCP(idUser: string): Observable<any>{
+  crearEncargadoPracticaCP(idUser: number): Observable<any>{
 
     console.log('peticion enviada a encargadoPracticaCapstones');
     const url = `${this.baseUrl}encargadoPracticaCPs`;
@@ -55,7 +56,7 @@ export class AdministradorService {
 
   }
 
-  crearAsistenteAcademica(idUser: string): Observable<any>{
+  crearAsistenteAcademica(idUser: number): Observable<any>{
 
     console.log('peticion enviada a asistenteAcademicas');
     const url = `${this.baseUrl}asistenteAcademicas`;
@@ -63,7 +64,7 @@ export class AdministradorService {
 
   }
 
-  crearComisionTitulacion(idUser: string, jefeCarrera: boolean): Observable<any>{
+  crearComisionTitulacion(idUser: number, jefeCarrera: boolean): Observable<any>{
 
     console.log('peticion enviada a comisionTitulacionPracticas');
     const url = `${this.baseUrl}comisionTitulacionPracticas`;
@@ -79,11 +80,11 @@ export class AdministradorService {
 
   }
 
-  crearProfesorGuiaCP(idUser: string): Observable<any>{
+  crearProfesorGuiaCP(profesorGuiaCP: ProfesorGuiaCP): Observable<any>{
 
     console.log('peticion enviada a profesorGuiaCPs');
     const url = `${this.baseUrl}profesorGuiaCPs`;
-    return this.http.post<any>(url, {idUser});
+    return this.http.post<any>(url, {profesorGuiaCP});
 
   }
   
