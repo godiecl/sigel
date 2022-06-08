@@ -5,6 +5,12 @@ import { createEstudiante } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
 import { createAdmin } from '../controllers/admin.controller.js';
+import { createProfesorGuiaCP } from '../controllers/profesorGuiaCP.controller.js';
+import { createProfesorComisionCorreccion } from '../controllers/profesorComisionCorreccion.controller.js'
+import { createEncargadoPractica } from '../controllers/encargadoPractica.controller.js';
+import { createEncargadoEmpresa } from '../controllers/encargadoEmpresa.controller.js';
+import { createComisionPracticaTitulacion } from '../controllers/comisionPracticaTitulacion.controller.js';
+import { createAsistenteAcademica } from '../controllers/asistenteAcademica.controller.js';
 
 const router = Router();
 
@@ -13,17 +19,36 @@ const router = Router();
 router.post('/auth', loginUser);
 router.get('/auth/renew', validarJWT, revalidarToken);
 
-// Usuarios
-router.get('/users', getUsers);
-router.post('/users', createUser);
+
+
+
+// Admin
+router.post('/admins', createAdmin);
+
+// AsistenteAcademica
+router.post('/asistenteAcademicas', createAsistenteAcademica);
+
+// ComisionPracticaTitulacion
+router.post('/comisionTitulacionPracticas', createComisionPracticaTitulacion);
+
+// EncargadoEmpresa
+router.post('/encargadoEmpresas', createEncargadoEmpresa);
+
+// EncargadoPractica
+router.post('/encargadoPracticaCPs', createEncargadoPractica)
 
 // Estudiantes
 router.post('/estudiantes', createEstudiante);
 
-// Admin
-router.post('/admins', createAdmin)
+// ProfesorCC
+router.post('/profesorCCs', createProfesorComisionCorreccion)
 
+// ProfesorGuiaCP
+router.post('/profesorGuiaCPs', createProfesorGuiaCP)
 
+// Usuarios
+router.get('/users', getUsers);
+router.post('/users', createUser);
 
 router.post('/', [
     check('correo', 'El correo es obligatorio').isEmail(),
