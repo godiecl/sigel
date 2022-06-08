@@ -6,26 +6,40 @@ import { AuthService } from '../../auth/services/auth.service';
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styles: [
-    `
-    *{
-      margin: 15px;
-    }
-    `
+   
   ]
 })
 export class DashboardComponent implements OnInit {
+
+
 
   get usuario(){
     return this.authService.usuario;
   }
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) { 
+
+      
+  }
 
   ngOnInit(): void {
+
+    
+
   }
+
+  hasRoute(route: string) {
+    return this.router.url.includes(route);
+  }
+  
 
   logout(){
     this.router.navigateByUrl('/auth');
+    this.authService.logout();
+  }
+
+  registrarUsuario(){
+    this.router.navigateByUrl('/dashboard/register-usuario');
   }
 
 }

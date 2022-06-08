@@ -6,7 +6,9 @@ import { UserModel } from '../../../auth/models/user.model';
 import { User } from '../../../auth/interfaces/user.interface';
 import { Estudiante } from '../../../auth/interfaces/estudiante.interface';
 import { EstudianteModel } from '../../../auth/models/estudiante.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-register-usuario',
@@ -62,7 +64,10 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   }
  
 
-  constructor(private fb: FormBuilder, private adminService: AdministradorService, ) 
+  constructor(
+              private fb: FormBuilder, 
+              private adminService: AdministradorService, 
+              private authService: AuthService) 
   { 
     
     this._unsubscribeAll = new Subject();
@@ -125,13 +130,22 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     this.adminService.crearUsuario(this.usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (respuesta: any) => {
-        if(respuesta.roles.includes('Estudiante')){
-          this.estudiantePorCrear.id_user = respuesta.id;
-          this.nuevoEstudiante();
+
+        if(respuesta.id){
+
+          // retornó un usuario
+          if(respuesta.roles.includes('Estudiante')){
+            this.estudiantePorCrear.id_user = respuesta.id;
+            this.nuevoEstudiante();
+          }
+          if(respuesta.roles.includes('Administrador')){
+            this.nuevoAdmin(respuesta.id);
+          }
+        }else {
+          // error
+          Swal.fire('Error', respuesta.error, 'error');
         }
-        if(respuesta.roles.includes('Administrador')){
-          this.nuevoAdmin(respuesta.id);
-        }
+        
       }
     );
 
@@ -165,6 +179,9 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     )
   }
 
+  logout(){
+    this.authService.logout();
+  }
  
 
 }

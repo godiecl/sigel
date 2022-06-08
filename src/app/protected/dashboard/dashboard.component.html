@@ -1,29 +1,42 @@
-<div class="limiter">
-    <div class="container-login100" style="background-color: rgb(35, 65, 91);">
-        <div class="row">
-            <div class="col flex-col-c">
-                <span class="login200-form-title p-b-17">
-                    Sistema Práctica Capstone
-                </span>
-
-                <p>
-                        ESTO SOLO LO VE EL USER LOGEADO
-                </p>
-
-                <H4> USER INFO </H4>
-
-                <PRE>{{usuario | json}} </PRE>
-
-                <button (click)="logout()">
-                    Logout
+<div class="limiter ">
+    <div class="container-login200" style="background-image: url('../../../../assets/images/bg-01.jpg');">
+        <div class="boton-logout">
+            <div class="logoDisc ">
+            </div>
+            <div class="align-items: center p-t-30">
+                <h1> Usuario </h1>
+                <button class="boton-logout p-l-30" (click)="logout()">
+                    Cerrar sesión
                 </button>
-                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-                    <!-- Distribuir según rol -->
-                    <router-outlet></router-outlet>
+            </div>
+        </div>
+        <div class="container-login150" >
+            
+            <div class="row">
+                <div class="col flex-col-c">
+                    <span class="login200-form-title p-b-17">
+                        Sistema Práctica Capstone
+                    </span>
+                    <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                        <!-- Distribuir según rol -->
+
+                        
+                        <button *ngIf="!hasRoute('register-usuario')" class="boton-dashboard m-b-23" (click)="registrarUsuario()">
+                            Registrar Usuario
+                        </button>
+
+                        <button *ngIf="!hasRoute('register-usuario')" class="boton-dashboard m-b-23" >
+                            Editar Usuario
+                        </button>
+                        <button *ngIf="!hasRoute('register-usuario')" class="boton-dashboard m-b-23" >
+                            Eliminar Usuario
+                        </button> 
+                        <router-outlet></router-outlet>
+                    </div>
                 </div>
+                
             </div>
             
         </div>
-        
-    </div>
+    </div>    
 </div>
