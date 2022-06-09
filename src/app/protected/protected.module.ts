@@ -13,6 +13,7 @@ import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-us
   declarations: [
     DashboardComponent,
     RegisterUsuarioComponent,
+    DeleteUsuarioComponent,
     EditUsuarioComponent,
     DeleteUsuarioComponent
   ],
