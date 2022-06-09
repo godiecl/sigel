@@ -14,7 +14,7 @@ export const createProfesorGuiaCP = async (request, response) =>{
             disc_Empresa,
             interesOtroCP,
             telefono,
-            id_user: _id_user
+            id_usuario: _id_user
         })
 
         return response.status(200).json({

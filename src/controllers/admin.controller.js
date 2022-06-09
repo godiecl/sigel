@@ -3,15 +3,15 @@ import { Admin } from '../models/Admin.js'
 export const createAdmin = async (request, response) =>{
 
     try{
-        console.log('request', request);
         // Tomo parametros de la request.
-        const { _id_user} = request.body.idUser;
+        const  _id_user = request.body.idUser;
 
         console.log('request body', request.body);
+        console.log(_id_user);
 
         // Crear en la bdd
         const newAdmin = await Admin.create({
-            id_user: _id_user
+            id_usuario: _id_user
         })
 
         return response.status(200).json({

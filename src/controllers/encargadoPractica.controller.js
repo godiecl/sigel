@@ -11,7 +11,7 @@ export const createEncargadoPractica = async (request, response) =>{
 
         // Crear en la bdd
         const newEncargadoPractica = await EncargadoPractica.create({
-            id_user: _id_user
+            id_usuario: _id_user
         })
 
         return response.status(200).json({

@@ -13,7 +13,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
         const newEncargadoEmpresa = await EncargadoEmpresa.create({
             cargo,
             telefono,
-            id_user: _id_user,
+            id_usuario: _id_user,
             id_empresa: id_empresa
         })
 

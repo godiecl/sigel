@@ -12,7 +12,7 @@ export const createComisionPracticaTitulacion = async (request, response) =>{
         // Crear en la bdd
         const newComisionPracticaTitulacion = await ComisionPracticaTitulacion.create({
             jefeCarrera,
-            id_user: _id_user
+            id_usuario: _id_user
         })
 
         return response.status(200).json({

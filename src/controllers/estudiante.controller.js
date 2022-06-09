@@ -2,7 +2,6 @@ import { Estudiante } from '../models/Estudiante.js'
 
 export const createEstudiante = async (request, response) => {
 
-    console.log('request',request);
 
     const { correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP, _id_user } = request.body.estudiante;
     
