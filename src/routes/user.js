@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import { getUsers, createUser, loginUser, revalidarToken } from  '../controllers/user.controller.js';
+import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut } from  '../controllers/user.controller.js';
 import { createEstudiante } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
@@ -49,6 +49,10 @@ router.post('/profesorGuiaCPs', createProfesorGuiaCP)
 // Usuarios
 router.get('/users', getUsers);
 router.post('/users', createUser);
+router.delete('/users:id', deleteUser);
+router.patch('/users:id', updateUser);
+router.get('/users:id', getUsuarioPorId);
+router.get('/users/rut:id', getUsuarioPorRut);
 
 router.post('/', [
     check('correo', 'El correo es obligatorio').isEmail(),

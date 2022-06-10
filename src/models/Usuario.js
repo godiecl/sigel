@@ -27,6 +27,9 @@ export const Usuario = sequelize.define('users',{
     },
     roles: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+    estado: {
+        type: DataTypes.BOOLEAN,
     }
 }, { 
     timestamps: true

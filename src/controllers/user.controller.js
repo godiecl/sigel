@@ -62,7 +62,7 @@ export const createUser = async (request, response) => {
 
     try{
 
-      const { nombre, apellidop, apellidom, rut, password, correo, roles } = request.body.user
+      const { nombre, apellidop, apellidom, rut, password, correo, roles, estado } = request.body.user
 
       // Hash contraseña
       const salt = bcrypt.genSaltSync(10)
@@ -78,7 +78,8 @@ export const createUser = async (request, response) => {
         rut: rut,
         password: passHash,
         correo: correo, 
-        roles: roles
+        roles: roles,
+        estado: estado
       })
 
 
@@ -94,22 +95,101 @@ export const createUser = async (request, response) => {
     }
 }
 
-// export const getUsuarioPorId = async (req, res) => {
+export const updateUser = async (req, res) => {
 
-//   try{  
-//       console.log('res',res);
-      
-//       console.log('res body',res.body);
-//       const user = await Usuario.findByPk(req);
+  try{
 
-//       return user instanceof Usuario;
+    const { id } = req.params;
+    const { nombre, apellidop, apellidom, rut, password, correo, roles } = request.body.user;
 
+    const usuario = await Usuario.findByPk(id);
+    usuario.nombre = nombre
+    usuario.apellidop = apellidop
+    usuario.apellidom = apellidom
+    usuario.rut = rut
+    usuario.password = password
+    usuario.correo = correo;
+    usuario.roles = roles;  
+    await usuario.save();
+    
 
-//   }catch(error){
-//     return res.status(500).json({message: error.message})
-//   }
+    const resp = { roles: usuario.roles, id: usuario.id }
+    return res.json(resp);
+
+  } catch (error){
+
+    return res.status(500).json({message: error.message});
+
+  }
+
+}
+
+export const deleteUser = async (req, res) => {
+
+  try{
+
+    const { id }= req.params;
   
-// }
+    await Usuario.destroy({
+      where: {
+        id: id
+      }
+    });
+
+    res.sendStatus(204)
+
+  }catch(error){
+    res.status(500).json({message: error.message});
+  }
+}
+
+
+
+export const getUsuarioPorId = async (req, res) => {
+
+  try{  
+        console.log('res',res);
+
+        const { id } = req.params;
+        const user = await Usuario.findOne({
+          where: {
+            id: id
+        },});
+
+        if(!user) return res.status(404).json({ message: 'El usuario no existe'})
+
+      
+        return res.json(user);
+
+
+      }catch(error){
+        return res.status(500).json({message: error.message})
+      }
+  
+ }
+
+ export const getUsuarioPorRut = async (req, res) => {
+
+  try{  
+        console.log('res',res);
+
+        const { id } = req.params;
+        const user = await Usuario.findOne({
+          where: {
+            id: id
+        },});
+
+        if(!user) return res.status(404).json({ message: 'El usuario no existe'})
+
+      
+        return res.json(user);
+
+
+      }catch(error){
+        return res.status(500).json({message: error.message})
+      }
+  
+ }
 
 export const revalidarToken = async (req, res = response) => {
 

@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
 
-app.use(userRoutes);
+app.use('/api',userRoutes);
 
 
 export default app;
