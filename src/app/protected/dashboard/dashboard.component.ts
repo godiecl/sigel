@@ -42,4 +42,8 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/register-usuario');
   }
 
+  eliminarUsuario(){
+    this.router.navigateByUrl('/dashboard/delete-usuario')
+  }
+
 }
