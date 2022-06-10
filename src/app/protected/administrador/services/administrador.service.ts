@@ -17,21 +17,50 @@ export class AdministradorService {
   constructor(private http: HttpClient) { }
 
 
+  /**
+   * 
+   * USUARIO 
+   * 
+   * 
+   * 
+   *   
+   */
+
+
   crearUsuario(user: User): Observable<any>{
 
-    console.log('peticion enviada a users');
+    console.log('peticion post enviada a users');
     const url = `${this.baseUrl}users`;
     //  const body = { user.nombre, user.apellidoP, user.apellidoM, user.}
     return this.http.post<User>(url, {user});
 
   }
 
-  // obtenerUsuarioPorID(id: string){
+  eliminarUsuario(rut: string): any {
+    console.log('peticion delete enviada a users');
+    const url = `${this.baseUrl}users/${rut}`;
 
-  //   const url = `{this.baseUrl}users/{id}`;
-  //   return this.http.get(url);
+    return this.http.delete(url);
 
-  // }
+  }
+
+  obtenerUsuarioPorID(id: string): Observable<User>{
+
+    console.log('peticion obtener por id');
+
+    const url = `${this.baseUrl}users/${id}`;
+    return this.http.get<User>(url);
+
+  }
+  
+  obtenerUsuarioPorRut(rut: string): Observable<User>{
+
+    console.log('peticion obtener por id');
+
+    const url = `${this.baseUrl}users/rut/${rut}}`;
+    return this.http.get<User>(url);
+
+  }
 
   crearEstudiante(estudiante: Estudiante): Observable<Estudiante>{
 

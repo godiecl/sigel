@@ -107,6 +107,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     this.usuario = new UserModel(this.usuarioForm.value);
     
     this.usuario.password = this.usuarioForm.value.password;
+    this.usuario.estado = true;
 
     if(this.usuarioForm.value.rolEstudiante){ this.usuario.roles=[... this.usuario.roles,'Estudiante']; }
 

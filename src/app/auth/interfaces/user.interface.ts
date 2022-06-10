@@ -9,4 +9,5 @@ export interface User{
     correo: string,
     cpassword?: string,
     roles: string[],
+    estado?: boolean
 }
