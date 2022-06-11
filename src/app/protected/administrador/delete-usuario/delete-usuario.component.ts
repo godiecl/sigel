@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
-import { AdministradorService } from '../../services/administrador.service';
+import { AdministradorService } from '../services/administrador.service';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import Swal from 'sweetalert2';
@@ -50,15 +50,29 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
         Swal.fire('Saved!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')
+        return;
       }
     })
     
-    // this.adminService.obtenerUsuarioPorRut(rut)
-    //   .pipe(takeUntil(this._unsubscribeAll)).subscribe(
-    //     (usuario: User) =>{
+    this.adminService.obtenerUsuarioPorRut(rut)
+      .pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        (respuesta: User) =>{
 
-    //     }
-    //   )
+            if(respuesta._id){
+              // si existe
+              this.adminService.eliminarUsuario(rut)
+                .pipe(takeUntil(this._unsubscribeAll)).subscribe(
+                    (respuesta: any) => {
+                      console.log(respuesta);
+                    }
+                  )
+
+            }else{
+              console.log("Ha ocurrido un error");
+            }
+
+        }
+      )
 
 
 
@@ -70,5 +84,6 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
 
 
   }
+  
 
 }

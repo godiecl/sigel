@@ -25,15 +25,12 @@ export class AdministradorService {
    * 
    *   
    */
-
-
   crearUsuario(user: User): Observable<any>{
 
     console.log('peticion post enviada a users');
     const url = `${this.baseUrl}users`;
     //  const body = { user.nombre, user.apellidoP, user.apellidoM, user.}
     return this.http.post<User>(url, {user});
-
   }
 
   eliminarUsuario(rut: string): any {
@@ -47,51 +44,93 @@ export class AdministradorService {
   obtenerUsuarioPorID(id: string): Observable<User>{
 
     console.log('peticion obtener por id');
-
     const url = `${this.baseUrl}users/${id}`;
     return this.http.get<User>(url);
 
   }
   
   obtenerUsuarioPorRut(rut: string): Observable<User>{
-
     console.log('peticion obtener por id');
-
     const url = `${this.baseUrl}users/rut/${rut}}`;
     return this.http.get<User>(url);
 
   }
 
+  /** ESTUDIANTE
+   * 
+   * @param estudiante 
+   * @returns 
+   */
   crearEstudiante(estudiante: Estudiante): Observable<Estudiante>{
-
     console.log('peticion enviada a estudiantes');
     const url = `${this.baseUrl}estudiantes`;
     return this.http.post<Estudiante>(url, {estudiante});
-
   }
 
-  crearAdmin(idUser: number): Observable<any>{
+  // eliminarEstudiante(id: number): any {
+  //   console.log('peticion delete enviada a estudiante');
+  //   const url = `${this.baseUrl}estudiantes/${id}`;
+  //   return this.http.delete(url);
+  // } 
 
+  /** ADMINS
+   * 
+   * @param idUser 
+   * 
+   * @returns 
+   */
+  crearAdmin(idUser: number): Observable<any>{
     console.log('peticion enviada a admins');
     const url = `${this.baseUrl}admins`;
     return this.http.post<any>(url, {idUser});
-
   }
-  crearEncargadoPracticaCP(idUser: number): Observable<any>{
 
+  // eliminarAdmin(idUser: number): any{
+  //   console.log('peticion delete enviada a admins');
+  //   const url = `${this.baseUrl}admins`;
+  //   return this.http.post(url, idUser)
+  // }
+
+  /** ENCARGADO PRACTICA
+   * 
+   * @param idUser 
+   * @returns 
+   */
+  crearEncargadoPracticaCP(idUser: number): Observable<any>{
     console.log('peticion enviada a encargadoPracticaCapstones');
     const url = `${this.baseUrl}encargadoPracticaCPs`;
-    return this.http.post<any>(url, {idUser});
-
+    return this.http.post<any>(url, {idUser})
   }
 
-  crearAsistenteAcademica(idUser: number): Observable<any>{
+  // eliminarEncargadoPracticaCP(idUser: number): any{
+  //   console.log('peticion delete enviada a encargadoPracticaCPs');
+  //   const url = `${this.baseUrl}encargadoPracticaCPs`;
+  //   return this.http.post(url, idUser)
+  // }
 
+  /** ASISTENTE ACADEMICA
+   * 
+   * @param idUser 
+   * @returns 
+   */
+  crearAsistenteAcademica(idUser: number): Observable<any>{
     console.log('peticion enviada a asistenteAcademicas');
     const url = `${this.baseUrl}asistenteAcademicas`;
     return this.http.post<any>(url, {idUser});
-
   }
+
+  // eliminarAsistenteAcademica(idUser: number): any{
+  //   console.log('peticion delete enviada a asistenteAcademicas');
+  //   const url = `${this.baseUrl}asistenteAcademicas`;
+  //   return this.http.post(url, idUser)
+  // }
+
+  /** COMISION TITULACION PRACTICA
+   * 
+   * @param idUser 
+   * @param jefeCarrera 
+   * @returns 
+   */
 
   crearComisionTitulacion(idUser: number, jefeCarrera: boolean): Observable<any>{
 
@@ -101,20 +140,43 @@ export class AdministradorService {
 
   }
 
-  crearProfesorCC(profesorCC: ProfesorCC): Observable<any>{
+  // eliminarComisionTitulacion(idUser: number): any{
+  //   console.log('peticion delete enviada a comisionTitulacionPracticas');
+  //   const url = `${this.baseUrl}comisionTitulacionPracticas`;
+  //   return this.http.post(url, idUser)
+  // }
 
+  /** PROFESOR COMISION CORRECCION
+   * 
+   * @param profesorCC 
+   * @returns 
+   */
+  crearProfesorCC(profesorCC: ProfesorCC): Observable<any>{
     console.log('peticion enviada a profesorCCs');
     const url = `${this.baseUrl}profesorCCs`;
     return this.http.post<any>(url, {profesorCC});
-
   }
 
-  crearProfesorGuiaCP(profesorGuiaCP: ProfesorGuiaCP): Observable<any>{
+  // eliminarProfesorCC(idUser: number): any{
+  //   console.log('peticion delete enviada a profesorCCs');
+  //   const url = `${this.baseUrl}profesorCCs`;
+  //   return this.http.post(url, idUser)
+  // }
 
+  /** PROFESOR GUIA CAPSTONE
+   * *
+   * 
+   */
+  crearProfesorGuiaCP(profesorGuiaCP: ProfesorGuiaCP): Observable<any>{
     console.log('peticion enviada a profesorGuiaCPs');
     const url = `${this.baseUrl}profesorGuiaCPs`;
     return this.http.post<any>(url, {profesorGuiaCP});
-
   }
+
+  // eliminarProfesorGuiaCP(idUser: number): any{
+  //   console.log('peticion delete enviada a profesorGuiaCPs');
+  //   const url = `${this.baseUrl}profesorGuiaCPs`;
+  //   return this.http.post(url, idUser)
+  // }
   
 }

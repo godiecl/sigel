@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterUsuarioComponent } from './administrador/register-usuario/register-usuario.component';
-import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario/delete-usuario.component';
+import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 
 const routes: Routes = [
 
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path:'',},
       { path:'register-usuario', component: RegisterUsuarioComponent},
       { path:'delete-usuario', component: DeleteUsuarioComponent},
+      { path:'main-menu', component: MainMenuComponent},
       { path:'**', redirectTo: ''},
     ]
   },
