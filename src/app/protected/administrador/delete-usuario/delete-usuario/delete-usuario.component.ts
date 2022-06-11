@@ -34,7 +34,7 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
   {
 
     Swal.fire({
-      title: 'Do you want to save the changes?',
+      title: 'Esta seguro de querer deshabilitar este usuario?',
       showDenyButton: true,
       showCancelButton: true,
       confirmButtonText: 'Yes',
@@ -47,9 +47,9 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
+        Swal.fire('Usuario se ha deshabilitado con exito!', '', 'success')
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.fire('Los cambios no se han guardado', '', 'info')
       }
     })
     
