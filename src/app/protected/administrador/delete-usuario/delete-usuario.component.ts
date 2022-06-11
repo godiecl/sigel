@@ -4,6 +4,7 @@ import { AdministradorService } from '../services/administrador.service';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-delete-usuario',
@@ -14,8 +15,13 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
   
   private _unsubscribeAll: Subject<any>;
 
+  deleteForm: FormGroup = this.fb.group({
+    rut: ['', Validators.required]
+  })
+
   constructor(
-    private adminService: AdministradorService
+    private adminService: AdministradorService,
+    private fb: FormBuilder,
   ) {
     this._unsubscribeAll = new Subject();
    }
@@ -34,10 +40,10 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
   {
 
     Swal.fire({
-      title: 'Do you want to save the changes?',
+      title: 'Esta seguro de querer deshabilitar este usuario?',
       showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
+      showCancelButton: false,
+      confirmButtonText: 'Si',
       denyButtonText: 'No',
       customClass: {
         actions: 'my-actions',
@@ -47,32 +53,42 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Saved!', '', 'success')
+
+        this.adminService.obtenerUsuarioPorRut(rut)
+          .pipe(takeUntil(this._unsubscribeAll)).subscribe(
+            (respuesta: User) =>{
+
+                if(respuesta._id){
+                  // si existe
+                  this.adminService.eliminarUsuario(rut)
+                    .pipe(takeUntil(this._unsubscribeAll)).subscribe(
+                        (respuesta: any) => {
+                          console.log(respuesta);
+
+                        if(respuesta.ok){
+                          Swal.fire('Usuario se ha deshabilitado con exito!', '', 'success')
+                        }else{
+
+                        } 
+                        }
+                      )
+
+                }else{
+                  Swal.fire('Ha ocurrido un error', '', 'error' );
+                }
+
+            }
+          )
+
       } else if (result.isDenied) {
-        Swal.fire('Changes are not saved', '', 'info')
+        Swal.fire('Los cambios no se han guardado', '', 'info')
+        return;
+      }else {
         return;
       }
     })
     
-    this.adminService.obtenerUsuarioPorRut(rut)
-      .pipe(takeUntil(this._unsubscribeAll)).subscribe(
-        (respuesta: User) =>{
-
-            if(respuesta._id){
-              // si existe
-              this.adminService.eliminarUsuario(rut)
-                .pipe(takeUntil(this._unsubscribeAll)).subscribe(
-                    (respuesta: any) => {
-                      console.log(respuesta);
-                    }
-                  )
-
-            }else{
-              console.log("Ha ocurrido un error");
-            }
-
-        }
-      )
+    
 
 
 
