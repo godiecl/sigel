@@ -3,11 +3,11 @@ import { EncargadoPractica } from '../models/EncargadoPractica.js'
 export const createEncargadoPractica = async (request, response) =>{
 
     try{
-        console.log('request', request);
         // Tomo parametros de la request.
-        const { _id_user} = request.body.idUser;
+        const _id_user = request.body.idUser;
 
-        console.log('request body', request.body);
+        // console.log('request body', request.body);
+        // console.log(' _id_user', _id_user)
 
         // Crear en la bdd
         const newEncargadoPractica = await EncargadoPractica.create({

@@ -109,7 +109,8 @@ export const updateUser = async (req, res) => {
     usuario.rut = rut
     usuario.password = password
     usuario.correo = correo;
-    usuario.roles = roles;  
+    usuario.roles = roles;
+    usuario.estado = estado;  
     await usuario.save();
     
 
@@ -128,15 +129,19 @@ export const deleteUser = async (req, res) => {
 
   try{
 
-    const { id }= req.params;
+    const { rut }= req.params;
   
-    await Usuario.destroy({
+    const user = await Usuario.findOne({
       where: {
-        id: id
+        rut: rut
       }
     });
 
-    res.sendStatus(204)
+    if(!user) return res.status(404).json({ message: 'El usuario no existe'})
+
+    user.estado = false;    
+    await user.save();
+    res.sendStatus(204);
 
   }catch(error){
     res.status(500).json({message: error.message});

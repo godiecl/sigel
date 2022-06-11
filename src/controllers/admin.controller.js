@@ -6,8 +6,8 @@ export const createAdmin = async (request, response) =>{
         // Tomo parametros de la request.
         const  _id_user = request.body.idUser;
 
-        console.log('request body', request.body);
-        console.log(_id_user);
+        // console.log('request body', request.body);
+        // console.log(_id_user);
 
         // Crear en la bdd
         const newAdmin = await Admin.create({

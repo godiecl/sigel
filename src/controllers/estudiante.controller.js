@@ -5,7 +5,7 @@ export const createEstudiante = async (request, response) => {
 
     const { correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP, _id_user } = request.body.estudiante;
     
-    console.log('request body estudiante', request.body);
+    // console.log('request body estudiante', request.body);
   
     const newEstudiante = await Estudiante.create({
       
@@ -18,7 +18,7 @@ export const createEstudiante = async (request, response) => {
     });
 
     //imprimir por consola
-    console.log('nuevo estudiante', newEstudiante);
+    // console.log('nuevo estudiante', newEstudiante);
 
     return response.status(200).json({msg: 'Estudiante added'})
 

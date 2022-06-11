@@ -3,9 +3,9 @@ import { ProfesorGuiaCP } from '../models/ProfesorGuiaCP.js'
 export const createProfesorGuiaCP = async (request, response) =>{
 
     try{
-        console.log('request', request);
+        // console.log('request', request);
         // Tomo parametros de la request.
-        const { disc_Empresa, interesOtroCP, telefono, _id_user} = request.body;
+        const { disc_Empresa, interesOtroCP, telefono, _id_user} = request.body.profesorGuiaCP;
 
         console.log('request body', request.body);
 

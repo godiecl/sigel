@@ -3,11 +3,11 @@ import { EncargadoEmpresa } from '../models/EncargadoEmpresa.js'
 export const createEncargadoEmpresa = async (request, response) =>{
 
     try{
-        console.log('request', request);
+        // console.log('request', request);
         // Tomo parametros de la request.
         const { cargo, telefono, _id_user, id_empresa} = request.body;
 
-        console.log('request body', request.body);
+        // console.log('request body', request.body);
 
         // Crear en la bdd
         const newEncargadoEmpresa = await EncargadoEmpresa.create({

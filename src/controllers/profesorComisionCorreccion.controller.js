@@ -3,11 +3,11 @@ import { ProfesorComisionCorrecion } from '../models/ProfesorComisionCorreccion.
 export const createProfesorComisionCorreccion  = async (request, response) =>{
 
     try{
-        console.log('request', request);
+        // console.log('request', request);
         // Tomo parametros de la request.
-        const { estadoDisponible, telefono, _id_user} = request.body;
+        const { estadoDisponible, telefono, _id_user} = request.body.profesorCC;
 
-        console.log('request body', request.body);
+        // console.log('request body', request.body.profesorCC);
 
         // Crear en la bdd
         const newProfesorComisionCorreccion = await ProfesorComisionCorrecion.create({

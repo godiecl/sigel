@@ -3,11 +3,11 @@ import { AsistenteAcademica } from '../models/AsistenteAcademica.js'
 export const createAsistenteAcademica = async (request, response) =>{
 
     try{
-        console.log('request', request);
+        // console.log('request', request);
         // Tomo parametros de la request.
-        const { _id_user} = request.body.idUser;
+        const  _id_user = request.body.idUser;
 
-        console.log('request body', request.body);
+        // console.log('request body', request.body);
 
         // Crear en la bdd
         const newAsistenteAcademica = await AsistenteAcademica.create({

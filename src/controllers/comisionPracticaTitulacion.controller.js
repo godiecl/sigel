@@ -3,15 +3,16 @@ import { ComisionPracticaTitulacion } from '../models/ComisionPracticaTitulacion
 export const createComisionPracticaTitulacion = async (request, response) =>{
 
     try{
-        console.log('request', request);
+        
         // Tomo parametros de la request.
-        const { jefeCarrera, _id_user} = request.body.idUser;
+        const  jefeCarrera = request.body.jefeCarrera;
+        const  _id_user  = request.body.idUser;
 
-        console.log('request body', request.body);
+        // console.log('request body comision practica', request.body);
 
         // Crear en la bdd
         const newComisionPracticaTitulacion = await ComisionPracticaTitulacion.create({
-            jefeCarrera,
+            jefeCarrera: jefeCarrera,
             id_usuario: _id_user
         })
 
