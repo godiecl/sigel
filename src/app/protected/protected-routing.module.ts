@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterUsuarioComponent } from './administrador/register-usuario/register-usuario.component';
 import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
+import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario/edit-usuario.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path:'',},
       { path:'register-usuario', component: RegisterUsuarioComponent},
       { path:'delete-usuario', component: DeleteUsuarioComponent},
+      { path:'edit-usuario', component: EditUsuarioComponent},
       { path:'main-menu', component: MainMenuComponent},
       { path:'**', redirectTo: ''},
     ]

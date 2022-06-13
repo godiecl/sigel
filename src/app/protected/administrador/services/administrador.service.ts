@@ -69,7 +69,7 @@ export class AdministradorService {
    * @returns 
    */
   crearEstudiante(estudiante: Estudiante): Observable<Estudiante>{
-    console.log('peticion enviada a estudiantes');
+    console.log('peticion post enviada a estudiantes');
     const url = `${this.baseUrl}estudiantes`;
     return this.http.post<Estudiante>(url, {estudiante});
   }
@@ -79,6 +79,12 @@ export class AdministradorService {
   //   const url = `${this.baseUrl}estudiantes/${id}`;
   //   return this.http.delete(url);
   // } 
+
+  obtenerEstudiante(idUser: number): Observable<Estudiante>{
+    console.log('peticion get enviada a estudiantes');
+    const url = `${this.baseUrl}estudiantes${idUser}`;
+    return this.http.get<Estudiante>(url);
+  }
 
   /** ADMINS
    * 
