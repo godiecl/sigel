@@ -4,6 +4,8 @@ import { catchError, map, of, tap, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../interfaces/authResponse.interface';
 import { UsuarioLog } from '../interfaces/usuarioLog.interface';
+import { Empresa } from '../interfaces/empresa.interface';
+import { EncargadoEmpresa } from '../interfaces/encargadoEmpresa.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +71,18 @@ export class AuthService {
 
   }
 
+  /*
+    EMPRESA
+   */
+
+  crearEmpresa(empresa: Empresa){
+    const url = `${this.baseUrl}empresas`
+    return this.http.post<Empresa>(url, {empresa});
+  }
+
+  crearEncargadoEmpresa(encargadoEmpresa: EncargadoEmpresa){
+    const url = `${this.baseUrl}/encargado-empresas`
+    return this.http.post<EncargadoEmpresa>(url, {encargadoEmpresa}); 
+  }
 
 }
