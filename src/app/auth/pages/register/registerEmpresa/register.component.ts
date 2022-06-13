@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Empresa } from '../../../interfaces/empresa.interface';
 import { EmpresaModel } from '../../../models/empresa.model';
 import Swal from 'sweetalert2';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -12,9 +14,10 @@ import Swal from 'sweetalert2';
   styles: [
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   empresa!: Empresa;
+  private _unsubscribeAll: Subject<any>;
 
   empresaForm: FormGroup = this.fb.group({
       rutEmpresa: ['', [Validators.required]],
@@ -25,9 +28,17 @@ export class RegisterComponent implements OnInit {
   constructor(private fb:FormBuilder,
               private router: Router,
               private authService: AuthService
-              ) { }
+              ) { 
+                this._unsubscribeAll = new Subject();
+              }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next(null);
+        this._unsubscribeAll.complete();
   }
 
   crearEmpresa(){
@@ -38,7 +49,7 @@ export class RegisterComponent implements OnInit {
       this.empresaForm.value.nombreEmpresa,this.empresaForm.value.rutEmpresa, this.empresaForm.value.giroEmpresa
     );
 
-    this.authService.crearEmpresa(this.empresa).subscribe(
+    this.authService.crearEmpresa(this.empresa).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (resp: any) => {
         if(resp){
           Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
