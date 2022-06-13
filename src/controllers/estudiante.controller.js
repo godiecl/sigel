@@ -30,3 +30,54 @@ export const createEstudiante = async (request, response) => {
   //     )
   // })
 }
+
+export const getEstudiantePorId = async (req, res) => {
+
+  try{  
+
+
+        const { id } = req.params;
+        
+        console.log(id);
+        const estudiante = await Estudiante.findOne({
+          where: {
+            id_usuario: id
+        },});
+
+        if(!estudiante) return res.status(404).json({ message: 'El estudiante no existe'})
+
+      
+        return res.json(estudiante);
+
+
+      }catch(error){
+        return res.status(500).json({message: error.message})
+      }
+  
+ }
+
+ export const updateEstudiante = async (req, res) => {
+
+  try{
+
+    console.log('request body estudiante update', request.body.estudiante);
+    const { id, correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP} = request.body.estudiante;
+
+    const estudiante = await Estudiante.findByPk(id);
+
+    estudiante.correoPersonal = correoPersonal;
+    estudiante.carrera = carrera;
+    estudiante.practicaAprobada = practicaAprobada;
+    estudiante.telefono = telefono;
+    estudiante.estadoAsignacionCP = estadoAsignacionCP;    
+    await estudiante.save();
+    
+    return res.json();
+
+  } catch (error){
+
+    return res.status(500).json({message: error.message});
+
+  }
+
+}

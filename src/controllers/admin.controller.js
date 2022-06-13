@@ -25,7 +25,5 @@ export const createAdmin = async (request, response) =>{
         })
     }
 
-    
-
-
 }
+

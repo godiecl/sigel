@@ -27,8 +27,52 @@ export const createProfesorGuiaCP = async (request, response) =>{
             msg: 'Didnt added Profesor Guia CP.'
         })
     }
-
-    
-
-
 }
+
+export const getProfesorGuiaCPPorId = async (req, res) => {
+
+    try{  
+          console.log('res',res);
+  
+          const { id } = req.params;
+          const profesorguiacp = await ProfesorGuiaCP.findOne({
+            where: {
+              id_usuario: id
+          },});
+  
+          if(!profesorguiacp) return res.status(404).json({ message: 'El Profesor Guia Capstone no existe'})
+  
+        
+          return res.json(profesorguiacp);
+  
+  
+        }catch(error){
+          return res.status(500).json({message: error.message})
+        }
+    
+   }
+  
+   export const updateProfesorGuiaCP = async (req, res) => {
+  
+    try{
+  
+      console.log('request body profesor cc update', request.body.profesorGuiaCP);
+      const { id, estadoDisponible, telefono} = request.body.profesorGuiaCP;
+  
+      const profesorguiacp = await ProfesorGuiaCP.findByPk(id);
+
+      if(!profesorguiacp) return res.status(404).json({ message: 'El Profesor Guia Capstone no existe'})
+  
+      profesorguiacp.telefono = telefono;
+      profesorguiacp.estadoDisponible = estadoDisponible;    
+      await profesorguiacp.save();
+      
+      return res.json();
+  
+    } catch (error){
+  
+      return res.status(500).json({message: error.message});
+  
+    }
+  
+  }

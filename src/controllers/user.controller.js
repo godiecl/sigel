@@ -4,6 +4,8 @@ import {generarJWT} from '../helpers/jwt.js'
 
 export const getUsers = async (req, res) => {
   const users = await Usuario.findAll();
+
+  return res.send(users);
 }
 
 export const loginUser = async (req, res) => {
@@ -99,8 +101,8 @@ export const updateUser = async (req, res) => {
 
   try{
 
-    const { id } = req.params;
-    const { nombre, apellidop, apellidom, rut, password, correo, roles } = request.body.user;
+    console.log('request body user update', request.body.user);
+    const { id, nombre, apellidop, apellidom, rut, password, correo, roles } = request.body.user;
 
     const usuario = await Usuario.findByPk(id);
     usuario.nombre = nombre
@@ -129,22 +131,27 @@ export const deleteUser = async (req, res) => {
 
   try{
 
-    const { rut }= req.params;
+    // console.log('req params delete user', req.params)
+    const id = req.params.id;
+
+    // console.log(id);
   
     const user = await Usuario.findOne({
       where: {
-        rut: rut
+        id: id
       }
     });
+
+    // hacer if si ya se encontraba desactivado.
 
     if(!user) return res.status(404).json({ message: 'El usuario no existe'})
 
     user.estado = false;    
     await user.save();
-    res.sendStatus(204);
+    return res.sendStatus(204);
 
   }catch(error){
-    res.status(500).json({message: error.message});
+    return res.status(500).json({message: error.message});
   }
 }
 
@@ -176,12 +183,12 @@ export const getUsuarioPorId = async (req, res) => {
  export const getUsuarioPorRut = async (req, res) => {
 
   try{  
-        console.log('res',res);
+        console.log('req params get usuario por rut',req.params);
 
-        const { id } = req.params;
+        const rut = req.params.rut;
         const user = await Usuario.findOne({
           where: {
-            id: id
+            rut: rut
         },});
 
         if(!user) return res.status(404).json({ message: 'El usuario no existe'})

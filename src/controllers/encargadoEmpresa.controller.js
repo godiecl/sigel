@@ -5,7 +5,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
     try{
         // console.log('request', request);
         // Tomo parametros de la request.
-        const { cargo, telefono, _id_user, id_empresa} = request.body;
+        const { cargo, telefono, _id_user, id_empresa} = request.body.encargadoEmpresa;
 
         // console.log('request body', request.body);
 
