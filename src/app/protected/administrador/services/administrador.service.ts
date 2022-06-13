@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -33,11 +33,11 @@ export class AdministradorService {
     return this.http.post<User>(url, {user});
   }
 
-  eliminarUsuario(rut: string): any {
-    console.log('peticion delete enviada a users');
-    const url = `${this.baseUrl}users/${rut}`;
+  eliminarUsuario(id: string): any {
+    console.log('peticion delete enviada a users', id);
+    const url = `${this.baseUrl}users${id}`;
 
-    return this.http.delete(url);
+    return this.http.delete<any>(url);
 
   }
 
@@ -49,11 +49,18 @@ export class AdministradorService {
 
   }
   
-  obtenerUsuarioPorRut(rut: string): Observable<User>{
-    console.log('peticion obtener por id');
-    const url = `${this.baseUrl}users/rut/${rut}}`;
-    return this.http.get<User>(url);
+  obtenerUsuarioPorRut(rut: string): Observable<any>{
+    console.log('peticion obtener por rut', rut);
+    const url = `${this.baseUrl}users/rut${rut}`;
+    console.log('url', url);
+    return this.http.get<any>(url);
 
+  }
+
+  actualizarUsuario(user: User): Observable<User>{
+
+    const url = `${this.baseUrl}users${user._id}`
+    return this.http.patch<User>(url, {user});
   }
 
   /** ESTUDIANTE

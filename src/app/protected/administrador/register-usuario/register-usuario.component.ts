@@ -72,7 +72,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   constructor(
               private fb: FormBuilder, 
               private adminService: AdministradorService, 
-              private authService: AuthService) 
+              ) 
   { 
     
     this._unsubscribeAll = new Subject();

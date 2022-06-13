@@ -36,8 +36,10 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  deleteUsuario(rut: string)
+  deleteUsuario()
   {
+
+    
 
     Swal.fire({
       title: 'Esta seguro de querer deshabilitar este usuario?',
@@ -54,29 +56,34 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.adminService.obtenerUsuarioPorRut(rut)
-          .pipe(takeUntil(this._unsubscribeAll)).subscribe(
-            (respuesta: User) =>{
+        console.log("delete form: ",this.deleteForm.value.rut)
 
-                if(respuesta._id){
+        this.adminService.obtenerUsuarioPorRut(this.deleteForm.value.rut)
+          .pipe(takeUntil(this._unsubscribeAll)).subscribe(
+            (resp: any) =>{
+
+              // TODO: falta hacer validacion si no existe el rut
+
+                console.log('respuesta obtener',resp);
+                if(!resp.error){
                   // si existe
-                  this.adminService.eliminarUsuario(rut)
+                  this.adminService.eliminarUsuario(resp.id)
                     .pipe(takeUntil(this._unsubscribeAll)).subscribe(
                         (respuesta: any) => {
-                          console.log(respuesta);
+                          console.log('respuesta eliminar',respuesta);
 
-                        if(respuesta.ok){
+                        if(!respuesta){
                           Swal.fire('Usuario se ha deshabilitado con exito!', '', 'success')
                         }else{
-
+                          Swal.fire('Lo sentimos. Ha ocurrido un error', '', 'error' );
                         } 
                         }
                       )
 
                 }else{
                   Swal.fire('Ha ocurrido un error', '', 'error' );
+                  return
                 }
-
             }
           )
 
