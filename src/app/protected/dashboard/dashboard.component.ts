@@ -12,6 +12,8 @@ import { AuthService } from '../../auth/services/auth.service';
 export class DashboardComponent implements OnInit {
 
 
+  mostrarBotonBack: boolean=false;
+  routerUrl !: string;
 
   get usuario(){
     return this.authService.usuario;
@@ -19,6 +21,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) { 
 
+    // this.router = routerUrl.url;
       
   }
 
@@ -26,6 +29,15 @@ export class DashboardComponent implements OnInit {
 
     
 
+  }
+
+  isRoute(route: string){
+    console.log('route ',route);
+    console.log('ruta del ruter', this.router.url)
+    if(this.router.url === route){
+      return true
+    }
+    return false;
   }
 
   hasRoute(route: string) {
@@ -43,7 +55,11 @@ export class DashboardComponent implements OnInit {
   }
 
   eliminarUsuario(){
-    this.router.navigateByUrl('/dashboard/delete-usuario')
+    this.router.navigateByUrl('/dashboard/delete-usuario');
+  }
+
+  volverMenu(){
+    this.router.navigateByUrl('/dashboard/main-menu');
   }
 
 }
