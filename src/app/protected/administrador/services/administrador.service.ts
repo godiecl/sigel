@@ -165,9 +165,15 @@ export class AdministradorService {
    * @returns 
    */
   crearProfesorCC(profesorCC: ProfesorCC): Observable<any>{
-    console.log('peticion enviada a profesorCCs');
+    console.log('peticion post enviada a profesorCCs');
     const url = `${this.baseUrl}profesorCCs`;
     return this.http.post<any>(url, {profesorCC});
+  }
+
+  obtenerProfesorCC(idUser: number): Observable<ProfesorCC>{
+    console.log('peticion get enviada a profesorCCs');
+    const url = `${this.baseUrl}profesorCCs${idUser}`;
+    return this.http.get<ProfesorCC>(url);
   }
 
   // eliminarProfesorCC(idUser: number): any{
@@ -184,6 +190,12 @@ export class AdministradorService {
     console.log('peticion enviada a profesorGuiaCPs');
     const url = `${this.baseUrl}profesorGuiaCPs`;
     return this.http.post<any>(url, {profesorGuiaCP});
+  }
+
+  obtenerProfesorGuiaCP(idUser: number): Observable<ProfesorGuiaCP>{
+    console.log('peticion get enviada a profesorGuiaCPs');
+    const url = `${this.baseUrl}profesorGuiaCPs${idUser}`;
+    return this.http.get<ProfesorGuiaCP>(url);
   }
 
   // eliminarProfesorGuiaCP(idUser: number): any{

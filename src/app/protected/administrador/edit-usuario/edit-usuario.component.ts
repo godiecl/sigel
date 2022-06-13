@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AdministradorService } from '../../services/administrador.service';
+import { AdministradorService } from '../services/administrador.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
-import { User } from '../../../../auth/interfaces/user.interface';
-import { Estudiante } from '../../../../auth/interfaces/estudiante.interface';
-import { ProfesorCC } from '../../../../auth/interfaces/profesorCC.interface';
-import { ProfesorGuiaCP } from '../../../../auth/interfaces/profesorGuiaCP.interface';
-import { EstudianteModel } from '../../../../auth/models/estudiante.model';
+import { User } from '../../../auth/interfaces/user.interface';
+import { Estudiante } from '../../../auth/interfaces/estudiante.interface';
+import { ProfesorCC } from '../../../auth/interfaces/profesorCC.interface';
+import { ProfesorGuiaCP } from '../../../auth/interfaces/profesorGuiaCP.interface';
+import { EstudianteModel } from '../../../auth/models/estudiante.model';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-edit-usuario',
@@ -17,7 +18,7 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any>;
 
-  rutUsuarioPorBuscar!: string;
+  rutUsuarioPorBuscar!: string; // DEBE SER INGRESADO POR LA VIEW, CREAR FORMULARIO.
   usuarioPorEditar!: User;
   estudianteEditar!: Estudiante;
   profesorCC!: ProfesorCC; 
@@ -68,12 +69,16 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
 
   actualizarUsuario(){
 
+    this.usuarioPorEditar = this.updateForm.value;
+
     this.adminService.actualizarUsuario(this.usuarioPorEditar)
       .pipe(takeUntil(this._unsubscribeAll)).subscribe((respuesta: any)=>{
         if(respuesta){
           console.log(respuesta);
         }
       })
+
+
 
   }
 
@@ -100,15 +105,26 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
       if(this.usuarioPorEditar.roles.includes('ProfesorCC')){ 
         
         // obtener profesorcc por id usuario
-        this.mostrarAtributosProfesorCC = true; 
+        this.adminService.obtenerProfesorCC(this.usuarioPorEditar._id)
+          .pipe(takeUntil(this._unsubscribeAll)).subscribe((profesorComision)=>{
+            if(profesorComision){
+              this.profesorCC = profesorComision;
+              this.mostrarAtributosProfesorCC = true;
+            }
+          })
       }
 
       if(this.usuarioPorEditar.roles.includes('ProfesorGuiaCP')){ 
 
         // obtener profesor guia cp por id usuario
-        this.mostrarAtributosProfesorGuiaCP = true; 
+        this.adminService.obtenerProfesorGuiaCP(this.usuarioPorEditar._id)
+          .pipe(takeUntil(this._unsubscribeAll)).subscribe((profesorguia)=>{
+            if(profesorguia){
+              this.profesorGuiaCP = profesorguia;
+              this.mostrarAtributosProfesorGuiaCP = true; 
+            }
+          })
       }
-      
     })
   }
 

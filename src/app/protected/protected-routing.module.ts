@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterUsuarioComponent } from './administrador/register-usuario/register-usuario.component';
 import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario/edit-usuario.component';
+import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
 
 const routes: Routes = [
 

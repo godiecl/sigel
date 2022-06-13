@@ -10,23 +10,20 @@
         <div class="wrap-input100 m-b-23">
             <span class="label-input100">Nombre</span>
             <input class="input100"
-                    formControlName="nombre"
-                    placeholder="Ingrese su nombre">
+                    formControlName="nombre">
             <span class="focus-input100"></span>
         </div>
 
         <div class="wrap-input100">
             <span class="label-input100">Apellido paterno</span>
             <input class="input100"
-                    formControlName="apellidop"
-                    placeholder="Ingrese su apellido paterno">
+                    formControlName="apellidop">
             <span class="focus-input100"></span>
         </div>
 
         <div class="wrap-input100">
             <span class="label-input100">Apellido materno</span>
             <input class="input100"
-                placeholder="Ingrese su apellido materno"
                 formControlName="apellidom">
             <span class="focus-input100"></span>
         </div>
@@ -34,7 +31,6 @@
         <div class="wrap-input100">
             <span class="label-input100">Rut</span>
             <input class="input100"
-                placeholder="Ingrese su rut"
                 formControlName="rut"
                 >
             <span class="focus-input100"></span>
@@ -43,7 +39,6 @@
         <div class="wrap-input100">
             <span class="label-input100">Correo</span>
             <input class="input100"
-                placeholder="Ingrese su correo"
                 formControlName="correo"
                 >
             <span class="focus-input100"></span>
@@ -53,7 +48,6 @@
             <span class="label-input100">Contraseña</span>
             <input class="input100"
                     type="password"
-                placeholder="Ingrese su contraseña"
                 formControlName="password">
             <span class="focus-input100"></span>
         </div>
@@ -62,7 +56,6 @@
             <span class="label-input100">Confirmar contraseña</span>
             <input class="input100"
                 type="password"
-                placeholder="Confirme su contraseña"
                 formControlName="confirmPassword">
             <span class="focus-input100"></span>
         </div>
@@ -122,7 +115,6 @@
             <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
                 <span class="label-input100">Correo personal</span>
                 <input class="input100"
-                placeholder="Ingrese correo personal"
                 formControlName="correoPersonal">
                 <span class="focus-input100"></span>
             </div>
@@ -131,7 +123,6 @@
             <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
                 <span class="label-input100">Carrera</span>
                 <input class="input100"
-                placeholder="Seleccione carrera"
                 formControlName="carrera">
                 <span class="focus-input100"></span>
             </div>
@@ -140,21 +131,18 @@
             <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
                 <span class="label-input100">Telefono</span>
                 <input class="input100"
-                placeholder="Ingrese telefono"
                 formControlName="telefono">
                 <span class="focus-input100"></span>
             </div>
             <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC || mostrarAtributosProfesorGuiaCP">
                 <span class="label-input100">Telefono</span>
                 <input class="input100"
-                placeholder="Ingrese telefono"
                 formControlName="telefonoCC">
                 <span class="focus-input100"></span>
             </div>
             <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
                 <span class="label-input100">Empresa</span>
                 <input class="input100"
-                placeholder="Ingrese empresa"
                 formControlName="disc_empresa">
                 <span class="focus-input100"></span>
             </div>
