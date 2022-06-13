@@ -32,9 +32,10 @@ export const createProfesorGuiaCP = async (request, response) =>{
 export const getProfesorGuiaCPPorId = async (req, res) => {
 
     try{  
-          console.log('res',res);
+          // console.log('res',res);
   
           const { id } = req.params;
+          
           const profesorguiacp = await ProfesorGuiaCP.findOne({
             where: {
               id_usuario: id

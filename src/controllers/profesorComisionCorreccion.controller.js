@@ -32,7 +32,7 @@ export const createProfesorComisionCorreccion  = async (request, response) =>{
 export const getProfesorCCPorId = async (req, res) => {
 
     try{  
-          console.log('res',res);
+          // console.log('res',res);
   
           const { id } = req.params;
           const profesorcc = await ProfesorComisionCorrecion.findOne({

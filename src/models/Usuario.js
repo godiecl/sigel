@@ -30,6 +30,9 @@ export const Usuario = sequelize.define('users',{
     },
     estado: {
         type: DataTypes.BOOLEAN,
+    },
+    resetToken: {
+        type: DataTypes.STRING
     }
 }, { 
     timestamps: true

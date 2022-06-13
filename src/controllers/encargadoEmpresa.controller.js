@@ -27,8 +27,4 @@ export const createEncargadoEmpresa = async (request, response) =>{
             msg: 'Didnt added Encargado Empresa.'
         })
     }
-
-    
-
-
 }

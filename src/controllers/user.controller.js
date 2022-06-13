@@ -1,6 +1,11 @@
 import {Usuario} from '../models/Usuario.js'
 import bcrypt from 'bcrypt';
 import {generarJWT} from '../helpers/jwt.js'
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 
 export const getUsers = async (req, res) => {
   const users = await Usuario.findAll();
@@ -215,6 +220,96 @@ export const revalidarToken = async (req, res = response) => {
     nombre: nombre,
     token
   })
+
+}
+
+export const olvidePassword = async (req, res) =>{
+
+  const {correo} = req.body;
+  if(!(correo)){
+    return res.status(400).json({message: 'Correo es requerido'})
+  }
+
+  const message = 'Revisa tu correo para ver el link para establecer la contraseña'
+  let verificationLink;
+  let correoStatus = 'OK';
+  let user;
+
+  try{
+      console.log(correo);
+      
+      console.log(process.env.SECRET_JWT_SEED);
+      // BUSCAR USUARIO EN BDD
+      user = await Usuario.findOne({
+        where: {
+          correo: correo
+        }
+      })
+
+
+      const token = jwt.sign({userId: user.id, correo: user.correo,}, process.env.SECRET_JWT_SEED, {expiresIn: '10m'});
+      verificationLink = `http://localhost:3000/api/auth/new-password/${token}`;
+      user.resetToken = token;
+      
+  }catch (errors){
+    console.log('error');
+    return res.json({message: errors});
+  }
+
+  // enviar email
+
+  try{
+    await user.save();
+
+  }catch(error){
+    correoStatus = error;
+    return res.status(400).json({message: 'Ha ocurrido un error'});
+  }
+
+  res.json({message, info: correoStatus, test: verificationLink})
+
+}
+
+export const crearNuevoPassword = async (req, res) =>{
+  const {newPassword} = req.body;
+  const resetTokenPassword = req.params.resetToken;
+  console.log(req.body);
+
+  if(!(resetTokenPassword && newPassword)){
+    res.status(400).json({message: 'Ha ocurrido un error, faltan campos'});
+  }
+
+  
+  let jwtPayload;
+  let usuario;
+
+  try {
+    console.log(resetTokenPassword)
+    // jwtPayload = jwt.verify(resetTokenPassword, process.env.SECRET_JWT_SEED_RESET);
+    usuario = await Usuario.findOne({
+      where: {
+        resetToken:resetTokenPassword
+      }
+    }) 
+    
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({message: 'Algo va mal.'})
+  }
+
+  
+  const salt = bcrypt.genSaltSync(10)
+  const passHash = bcrypt.hashSync(newPassword, salt);
+  usuario.password = passHash;
+  // const validationOps = {validationError: {target: false, value: false}}
+  // const errors = await validate(usuario, validationOps);
+  try {
+    // hacer hash a password 
+    await usuario.save();
+    res.json({message: 'Contraseña cambiada exitosamente!'})
+  } catch (error) {
+    return res.status(401).json({message: 'Algo ha ido mal.'})
+  }
 
 }
 
