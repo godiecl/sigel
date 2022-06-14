@@ -37,21 +37,30 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
         // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
+        // this._unsubscribeAll.next(null);
+        // this._unsubscribeAll.complete();
   }
 
   crearEmpresa(){
     console.log('valor formulario de crear empresa:',this.empresaForm.value);
     console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
 
-    this.empresa = new EmpresaModel(
+    this.empresa = new EmpresaModel(0,
       this.empresaForm.value.nombreEmpresa,this.empresaForm.value.rutEmpresa, this.empresaForm.value.giroEmpresa
     );
 
-    this.authService.crearEmpresa(this.empresa).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-      (resp: any) => {
-        if(resp){
+    this.authService.crearEmpresa(this.empresa).
+      // pipe(takeUntil(this._unsubscribeAll)).
+        subscribe(
+      (empresa: Empresa) => {
+        console.log('respuesta', empresa);
+        if(empresa){
+
+          // console.log('empresa id', empresa.id_empresa);
+          this.authService.actualizarEmpresaActual(empresa.id_empresa);
+          // let idEmpresaxd;
+          // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
+          //  console.log('subject',idEmpresaxd )
           Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
         }else{
           Swal.fire('Ha ocurrido un error', '', 'error');
@@ -59,7 +68,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       }
       )
 
-    this.router.navigateByUrl('/auth/register-contacto');
+     this.router.navigateByUrl('/auth/register-contacto');
   }
 
 }

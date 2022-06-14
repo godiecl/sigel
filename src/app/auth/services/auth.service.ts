@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of, tap, Observable } from 'rxjs';
+import { catchError, map, of, tap, Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../interfaces/authResponse.interface';
 import { UsuarioLog } from '../interfaces/usuarioLog.interface';
@@ -14,12 +14,17 @@ export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
   private _usuario!: UsuarioLog;
-
+  private _empresa = new BehaviorSubject<number>(0);
+  empresaActual = this._empresa.asObservable();
   get usuario(){
     return {... this._usuario};
   }
 
   constructor(private http: HttpClient) { }
+
+  actualizarEmpresaActual(idEmpresa: number){
+    this._empresa.next(idEmpresa);
+  }
 
 
   login(correo: string, password: string)
@@ -75,13 +80,13 @@ export class AuthService {
     EMPRESA
    */
 
-  crearEmpresa(empresa: Empresa){
+  crearEmpresa(empresa: Empresa): Observable<Empresa>{
     const url = `${this.baseUrl}empresas`
     return this.http.post<Empresa>(url, {empresa});
   }
 
   crearEncargadoEmpresa(encargadoEmpresa: EncargadoEmpresa){
-    const url = `${this.baseUrl}/encargado-empresas`
+    const url = `${this.baseUrl}encargado-empresas`
     return this.http.post<EncargadoEmpresa>(url, {encargadoEmpresa}); 
   }
 
