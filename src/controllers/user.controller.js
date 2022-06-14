@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import {generarJWT} from '../helpers/jwt.js'
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import {transporter} from '../middlewares/mailer.js'
 
 dotenv.config();
 
@@ -69,7 +70,9 @@ export const createUser = async (request, response) => {
 
     try{
 
-      const { nombre, apellidop, apellidom, rut, password, correo, roles, estado } = request.body.user
+      const { nombre, apellidop, apellidom, rut, password, correo, roles, estado } = request.body.user;
+
+      console.log('request del body user', request.body.user)
 
       // Hash contraseña
       const salt = bcrypt.genSaltSync(10)
@@ -248,7 +251,7 @@ export const olvidePassword = async (req, res) =>{
 
 
       const token = jwt.sign({userId: user.id, correo: user.correo,}, process.env.SECRET_JWT_SEED, {expiresIn: '10m'});
-      verificationLink = `http://localhost:3000/api/auth/new-password/${token}`;
+      verificationLink = `http://localhost:4200/api/auth/new-password/${token}`;
       user.resetToken = token;
       
   }catch (errors){
@@ -257,6 +260,23 @@ export const olvidePassword = async (req, res) =>{
   }
 
   // enviar email
+
+  try {
+
+     await transporter.sendMail({
+      from: '"Sistema Capis 👻" <walter.sierra.vega@gmail.com>', // sender address
+      to: user.correo, // list of receivers
+      subject: "Reestablecer contraseña ✔", // Subject line
+      text: "Ingrese al link para reestablecer contraseña", // plain text body
+      html: `
+        <b>Por favor, haga click en el siguiente link, o péguelo en su navegador: </b>
+        <a href="${verificationLink}">${verificationLink}</a>
+      `, // html body
+    });
+    
+  } catch (errorcito) {
+    
+  }
 
   try{
     await user.save();

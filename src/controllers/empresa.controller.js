@@ -5,11 +5,29 @@ export const createEmpresa = async (request, response) =>{
     // funcionando.
 
     try{
-        console.log('request', request);
-        // Tomo parametros de la request.
-        const { nombreEmpresa, rutEmpresa, giroEmpresa} = request.body.empresa;
+        // console.log('request', request);
 
-        console.log('request body', request.body);
+        // Tomo parametros de la request.
+        const nombreEmpresa = request.body.empresa.nombreEmpresa;
+        const rutEmpresa = request.body.empresa.rutEmpresa;
+        const giroEmpresa = request.body.empresa.giroEmpresa;
+
+        console.log(rutEmpresa);
+
+        console.log(nombreEmpresa);
+        console.log(giroEmpresa);
+        const empresaRepetida = await Empresa.findOne({
+          where: {
+            rutEmpresa: rutEmpresa
+          }
+        })
+
+        if(empresaRepetida){
+          return response.status(401).json({
+            ok: false,
+            msg: 'No se agregó la empresa, porque ya está registrada.'
+        })
+        }
 
         // Crear en la bdd
         const newEmpresa = await Empresa.create({
@@ -18,10 +36,9 @@ export const createEmpresa = async (request, response) =>{
             giroEmpresa,
         })
 
-        return response.status(200). json({
-            ok: true,
-            msg: 'Empresa added.'
-        })
+        
+
+        return response.json(newEmpresa);
     }catch(error){
         return response.status(401).json({
             ok: false,
