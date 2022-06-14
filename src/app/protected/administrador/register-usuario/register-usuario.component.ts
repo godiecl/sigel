@@ -132,7 +132,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     
-    console.log('this usuario', this.usuario);
+    // console.log('this usuario', this.usuario);
 
     this.adminService.crearUsuario(this.usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (respuesta: any) => {
