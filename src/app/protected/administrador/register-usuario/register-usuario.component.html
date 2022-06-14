@@ -131,10 +131,24 @@
 
             <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
                 <span class="label-input100">Carrera</span>
-                <input class="input100"
+
+                <select class="input100 m-b-23" formControlName="carrera">
+                    <option class="input102" [ngValue]="null" disabled >Selecciona Carrera </option>
+                    <option class="input102" *ngFor="let carrera of carreras" [ngValue]="carrera.id"> {{carrera.name}} </option>
+                </select>
+
+                <!-- <input class="input100"
                 placeholder="Seleccione carrera"
                 formControlName="carrera">
-                <span class="focus-input100"></span>
+                <span class="focus-input100"></span> -->
+            </div>
+
+            <!--Checkbox práctica aprobada-->
+            <div class="wrap-input100 m-b-40" *ngIf="mostrarAtributosEstudiante">
+                <span class="label-input100">¿Práctica ha sido aprobada?</span>
+                <div class="text-center m-b-23">
+                    <input formControlName="practicaAprobada" type="checkbox"> Si
+                </div>
             </div>
             
 
