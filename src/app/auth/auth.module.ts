@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 import { RegisterComponent } from './pages/register/registerEmpresa/register.component';
 import { RegisterContactoComponent } from './pages/register/register-contacto/register-contacto.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { RegisterContactoComponent } from './pages/register/register-contacto/re
     RegisterComponent,
     MainComponent,
     RegisterContactoComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,

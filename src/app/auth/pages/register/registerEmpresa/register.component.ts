@@ -42,33 +42,58 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   crearEmpresa(){
-    console.log('valor formulario de crear empresa:',this.empresaForm.value);
-    console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
-
-    this.empresa = new EmpresaModel(0,
-      this.empresaForm.value.nombreEmpresa,this.empresaForm.value.rutEmpresa, this.empresaForm.value.giroEmpresa
-    );
-
-    this.authService.crearEmpresa(this.empresa).
-      // pipe(takeUntil(this._unsubscribeAll)).
-        subscribe(
-      (empresa: Empresa) => {
-        console.log('respuesta', empresa);
-        if(empresa){
-
-          // console.log('empresa id', empresa.id_empresa);
-          this.authService.actualizarEmpresaActual(empresa.id_empresa);
-          // let idEmpresaxd;
-          // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
-          //  console.log('subject',idEmpresaxd )
-          Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
-        }else{
-          Swal.fire('Ha ocurrido un error', '', 'error');
-        }
+    
+    Swal.fire({
+      title: '¿Esta seguro de querer registrarse?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
       }
-      )
+    }).then((result) => {
+      if (result.isConfirmed) {
 
-     this.router.navigateByUrl('/auth/register-contacto');
+        console.log('valor formulario de crear empresa:',this.empresaForm.value);
+        console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
+
+        this.empresa = new EmpresaModel(0,
+          this.empresaForm.value.nombreEmpresa,this.empresaForm.value.rutEmpresa, this.empresaForm.value.giroEmpresa
+        );
+
+        this.authService.crearEmpresa(this.empresa).
+          // pipe(takeUntil(this._unsubscribeAll)).
+            subscribe(
+          (empresa: Empresa) => {
+            console.log('respuesta', empresa);
+            if(empresa){
+
+              // console.log('empresa id', empresa.id_empresa);
+              this.authService.actualizarEmpresaActual(empresa.id_empresa);
+              // let idEmpresaxd;
+              // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
+              //  console.log('subject',idEmpresaxd )
+              Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
+            }else{
+              Swal.fire('Ha ocurrido un error', '', 'error');
+            }
+          }
+          )
+
+        this.router.navigateByUrl('/auth/register-contacto');
+
+        //se borra todo lo que contiene el formulario
+        //this.empresaForm.reset();
+      } else if (result.isDenied) {
+        Swal.fire('No se ha registrado', '', 'info')
+      }
+    })
+
+    
   }
 
 }

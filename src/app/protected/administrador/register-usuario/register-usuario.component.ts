@@ -101,8 +101,37 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
         this._unsubscribeAll.complete();
   }
 
+  alertaUsuario():void{
+    Swal.fire({
+      title: '¿Esta seguro de querer agregar este usuario?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        //
+        this.crearUsuario();
+
+        Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
+        //se borra todo lo que contiene el formulario
+        this.usuarioForm.reset();
+      } else if (result.isDenied) {
+        Swal.fire('Los cambios no se han guardado', '', 'info')
+      }
+    })
+  }
+
   crearUsuario(): void{
 
+    
 
     this.usuario = new UserModel(this.usuarioForm.value);
     
@@ -132,8 +161,11 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     
-    // console.log('this usuario', this.usuario);
+    
 
+    
+
+    console.log('this usuario', this.usuario);
     this.adminService.crearUsuario(this.usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (respuesta: any) => {
 
@@ -168,7 +200,6 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
           // error
           Swal.fire('Error', respuesta.error, 'error');
         }
-        
       }
     );
 
@@ -248,7 +279,5 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
         console.log('respuesta de la peticion crear profesorGuiaCPs', res);
       });
   }
-
-
 
 }

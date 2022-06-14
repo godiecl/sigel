@@ -63,28 +63,51 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
   registrarContacto(){
 
     // colocar alerta, SI SI: SIGUE, SI NO: RETURN.
+    Swal.fire({
+      title: '¿Esta seguro de querer registrar este contacto?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuario = new UserModel( this.contactoForm.value );
+        this.usuario.password = this.contactoForm.value.password;
+        this.usuario.roles = [...this.usuario.roles, 'EncargadoEmpresa'];
+        this.usuario.estado = false;
 
-    this.usuario = new UserModel( this.contactoForm.value );
-    this.usuario.password = this.contactoForm.value.password;
-    this.usuario.roles = [...this.usuario.roles, 'EncargadoEmpresa'];
-    this.usuario.estado = false;
-
-    this.adminService.crearUsuario(this.usuario)
-      .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp: any)=>{
-        if(resp){
-          this.encargadoEmpresa = new EncargadoEmpresaModel(
-            this.contactoForm.value.cargo, this.contactoForm.value.telefono, resp.id, this.idEmpresaActual
-          )
-          this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
-            .pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any)=>{
-              // colocar alerta se ha registrado exitosamente
-              console.log(response);
-          })
-      }else{
-        // imprimir error
-        console.log('aqui fallo')
+        this.adminService.crearUsuario(this.usuario)
+          .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp: any)=>{
+            if(resp){
+              this.encargadoEmpresa = new EncargadoEmpresaModel(
+                this.contactoForm.value.cargo, this.contactoForm.value.telefono, resp.id, this.idEmpresaActual
+              )
+              this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
+                .pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any)=>{
+                  // colocar alerta se ha registrado exitosamente
+                  console.log(response);
+              })
+          }else{
+            // imprimir error
+            Swal.fire('Ha ocurrido un error.', '', 'info')
+            console.log('aqui fallo')
+          }
+        })
+        Swal.fire('Se ha registrado con exito!!', '', 'success')
+        //se borra todo lo que contiene el formulario
+        //this.empresaForm.reset();
+      } else if (result.isDenied) {
+        Swal.fire('No se ha registrado', '', 'info')
       }
     })
+
+    
   }
 
 

@@ -90,4 +90,10 @@ export class AuthService {
     return this.http.post<EncargadoEmpresa>(url, {encargadoEmpresa}); 
   }
 
+  forgotPassword(correo: string): Observable<any>{
+    const url = `${this.baseUrl}auth/forgot-password`;
+    
+    return this.http.put<any>(url, correo);
+  }
+
 }
