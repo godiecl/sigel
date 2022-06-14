@@ -45,7 +45,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     rolEstudiante: [false, [,]],
     correoPersonal: [''],
     carrera: [],
-    practicaAprobada: [],
+    practicaAprobada: [false],
     telefono: [''],
     rolEncargadoPracticaTitulacion: [false, [,]],
     rolAsistenteAcademica: [false, [,]],
@@ -55,6 +55,11 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     rolProfesorGuiaCP: [false, [,]],
     disc_empresa: ['',]
   });
+
+  carreras = [
+    { id:0, name: 'Ingeniería en Computación e Informática'},
+    { id:1, name: 'Ingeniería Civil en Computación e Informática'}
+  ];
 
 
 
@@ -161,7 +166,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     
-    
+    console.log('this usuario', this.usuario);
 
     
 

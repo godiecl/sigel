@@ -71,6 +71,10 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
 
     this.usuarioPorEditar = this.updateForm.value;
 
+    if(this.usuarioPorEditar.roles.includes('Estudiante')){ }
+    if(this.usuarioPorEditar.roles.includes('ProfesorCC')){ }
+    if(this.usuarioPorEditar.roles.includes('ProfesorGuiaCP')){ }
+
     this.adminService.actualizarUsuario(this.usuarioPorEditar)
       .pipe(takeUntil(this._unsubscribeAll)).subscribe((respuesta: any)=>{
         if(respuesta){
