@@ -228,6 +228,8 @@ export const revalidarToken = async (req, res = response) => {
 
 export const olvidePassword = async (req, res) =>{
 
+  console.log(req.body);
+
   const {correo} = req.body;
   if(!(correo)){
     return res.status(400).json({message: 'Correo es requerido'})
@@ -250,8 +252,8 @@ export const olvidePassword = async (req, res) =>{
       })
 
 
-      const token = jwt.sign({userId: user.id, correo: user.correo,}, process.env.SECRET_JWT_SEED, {expiresIn: '10m'});
-      verificationLink = `http://localhost:4200/api/auth/new-password/${token}`;
+      const token = jwt.sign({userId: user.id, correo: user.correo,}, process.env.SECRET_JWT_SEED, {expiresIn: '1d'});
+      verificationLink = `http://localhost:4200/auth/new-password/${token}`;
       user.resetToken = token;
       
   }catch (errors){
@@ -286,7 +288,7 @@ export const olvidePassword = async (req, res) =>{
     return res.status(400).json({message: 'Ha ocurrido un error'});
   }
 
-  res.json({message, info: correoStatus, test: verificationLink})
+  res.json({message, info: correoStatus})
 
 }
 
