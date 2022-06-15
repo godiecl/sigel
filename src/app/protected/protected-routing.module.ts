@@ -6,6 +6,7 @@ import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-us
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
 import { EditComponent } from './administrador/edit-usuario/edit/edit.component';
+import { UsuarioEditResolver } from './administrador/administrador.resolver';
 
 const routes: Routes = [
 
@@ -20,7 +21,7 @@ const routes: Routes = [
       { path:'edit-usuario', component: EditUsuarioComponent, 
                               children: [ 
                                            {path:'',},
-                                           {path:'edit/:id', component: EditComponent},
+                                           {path:':id', component: EditComponent, resolve: { user: UsuarioEditResolver }},
                                             
                                         ]
 

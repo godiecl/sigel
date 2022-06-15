@@ -44,7 +44,7 @@ export class AdministradorService {
   obtenerUsuarioPorID(id: string | null): Observable<User>{
 
     console.log('peticion obtener por id');
-    const url = `${this.baseUrl}users/${id}`;
+    const url = `${this.baseUrl}users${id}`;
     return this.http.get<User>(url);
 
   }

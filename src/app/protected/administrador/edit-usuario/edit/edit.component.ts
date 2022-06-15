@@ -23,87 +23,108 @@ export class EditComponent implements OnInit {
   usuarioPorEditar!: any;
   estudianteEditar!: Estudiante;
   profesorCC!: ProfesorCC;
+  updateForm!: FormGroup;
 
   
   mostrarAtributosEstudiante: boolean = false;
   mostrarAtributosProfesorGuiaCP: boolean = false;
   mostrarAtributosProfesorCC: boolean = false;
+
+  // idUser = this.router.snapshot.paramMap.get('id');
+  //   this.usuarioPorEditar = this.adminService.obtenerUsuarioPorID(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe((x)=>{
+  //     console.log('listo');
+  //   })
   
 
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
-  updateForm: FormGroup = this.fb.group({
-    nombre: [this.usuarioPorEditar.nombre, [Validators.required,]],
-    apellidop: [this.usuarioPorEditar.apellidop, [Validators.required,]],
-    apellidom: [this.usuarioPorEditar.apellidom, [Validators.required,]],
-    rut: [this.usuarioPorEditar.rut, [Validators.required,]],
-    correo: [this.usuarioPorEditar.correo, [Validators.required, Validators.pattern(this.emailPattern)]],
-    rolAdministrador: [this.usuarioPorEditar.roles.includes('Administrador'), [,]],
-    rolEstudiante: [this.usuarioPorEditar.roles.includes('Estudiante'), [,]],
-    correoPersonal: [this.estudianteEditar.correoPersonal, ],
-    carrera: [this.estudianteEditar.carrera ,],
-    practicaAprobada: [this.estudianteEditar.practicaAprobada, ],
-    telefono: [this.estudianteEditar.telefono, ],
-    rolEncargadoPracticaTitulacion: [this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion'), [,]],
-    rolAsistenteAcademica: [this.usuarioPorEditar.roles.includes('AsistenteAcademica'), [,]],
-    rolJefeCarrera: [this.usuarioPorEditar.roles.includes('ComisionTitulacion'), []],
-    rolProfesorCC: [this.usuarioPorEditar.roles.includes('ProfesorCC'), [,]],
-    telefonoCC: [this.profesorCC.telefono],
-    rolProfesorGuiaCP: [this.usuarioPorEditar.roles.includes('ProfesorGuiaCP'), [,]],
-    disc_empresa: ['',]
-  });
-
+  
   constructor( private fb: FormBuilder, 
                private authService: AuthService, 
                private adminService: AdministradorService,
                private router: ActivatedRoute ) { 
     this._unsubscribeAll = new Subject();
-    let idUser = this.router.snapshot.paramMap.get('id');
-    this.usuarioPorEditar = this.adminService.obtenerUsuarioPorID(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe((x)=>{
-      console.log('listo');
-    })
+    
   }
 
   ngOnInit(): void {
 
-    
+     this.router.data.subscribe(({user}) =>{
+      this.usuarioPorEditar = user;
+      console.log('user resolver',user);
+    })
+
 
     if(this.usuarioPorEditar.roles.includes('Estudiante')){ 
         
-        // obtener estudiante por id usuario
-        this.adminService.obtenerEstudiante(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe((estudiante)=>{
-            console.log(estudiante)
-            if(estudiante){
-              this.estudianteEditar = estudiante;
-              this.mostrarAtributosEstudiante = true; 
-            }
-          })
-        // this.estudianteEditar = new EstudianteModel()
+      // obtener estudiante por id usuario
+      this.adminService.obtenerEstudiante(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe((estudiante)=>{
+          console.log(estudiante)
+          if(estudiante){
+            this.estudianteEditar = estudiante;
+            this.mostrarAtributosEstudiante = true; 
+          }
+        })
+      // this.estudianteEditar = new EstudianteModel()
+    }
+    if(this.usuarioPorEditar.roles.includes('ProfesorCC')){ 
       
-      }
+      // obtener profesorcc por id usuario
+      this.adminService.obtenerProfesorCC(this.usuarioPorEditar.id)
+        .pipe(takeUntil(this._unsubscribeAll)).subscribe((profesorComision)=>{
+          if(profesorComision){
+            this.profesorCC = profesorComision;
+            this.mostrarAtributosProfesorCC = true;
+          }
+        })
+    }
 
-      if(this.usuarioPorEditar.roles.includes('ProfesorCC')){ 
-        
-        // obtener profesorcc por id usuario
-        this.adminService.obtenerProfesorCC(this.usuarioPorEditar.id)
-          .pipe(takeUntil(this._unsubscribeAll)).subscribe((profesorComision)=>{
-            if(profesorComision){
-              this.profesorCC = profesorComision;
-              this.mostrarAtributosProfesorCC = true;
-            }
-          })
-      }
+    if(this.usuarioPorEditar.roles.includes('ProfesorGuiaCP')){ 
 
-      if(this.usuarioPorEditar.roles.includes('ProfesorGuiaCP')){ 
+      // obtener profesor guia cp por id usuario
+      this.adminService.obtenerProfesorGuiaCP(this.usuarioPorEditar.id)
+        .pipe(takeUntil(this._unsubscribeAll)).subscribe((profesorguia)=>{
+          if(profesorguia){
+            this.mostrarAtributosProfesorGuiaCP = true; 
+          }
+        })
+    }
+    
+    this.updateForm = this.fb.group({
+      nombre: [this.usuarioPorEditar.nombre, [Validators.required,]],
+      apellidop: [this.usuarioPorEditar.apellidop, [Validators.required,]],
+      apellidom: [this.usuarioPorEditar.apellidom, [Validators.required,]],
+      rut: [this.usuarioPorEditar.rut, [Validators.required,]],
+      correo: [this.usuarioPorEditar.correo, [Validators.required, Validators.pattern(this.emailPattern)]],
+      rolAdministrador: [this.usuarioPorEditar.roles.includes('Administrador'), [,]],
+      rolEstudiante: [this.usuarioPorEditar.roles.includes('Estudiante'), [,]],
+      correoPersonal: [
+        // this.estudianteEditar.correoPersonal
+        , ],
+      carrera: [
+        // this.estudianteEditar.carrera 
+        ,],
+      practicaAprobada: [
+        // this.estudianteEditar.practicaAprobada
+        , ],
+      telefono: [
+        // this.estudianteEditar.telefono
+        , ],
+      rolEncargadoPracticaTitulacion: [this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion'), [,]],
+      rolAsistenteAcademica: [this.usuarioPorEditar.roles.includes('AsistenteAcademica'), [,]],
+      rolJefeCarrera: [this.usuarioPorEditar.roles.includes('ComisionTitulacion'), []],
+      rolProfesorCC: [this.usuarioPorEditar.roles.includes('ProfesorCC'), [,]],
+      telefonoCC: [
+        // this.profesorCC.telefono
+      ],
+      rolProfesorGuiaCP: [this.usuarioPorEditar.roles.includes('ProfesorGuiaCP'), [,]],
+      disc_empresa: ['',]
+    });
+  
 
-        // obtener profesor guia cp por id usuario
-        this.adminService.obtenerProfesorGuiaCP(this.usuarioPorEditar.id)
-          .pipe(takeUntil(this._unsubscribeAll)).subscribe((profesorguia)=>{
-            if(profesorguia){
-              this.mostrarAtributosProfesorGuiaCP = true; 
-            }
-          })
-      }
+    
+
+    
 
   }
 
