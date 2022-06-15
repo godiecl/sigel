@@ -21,7 +21,7 @@ router.post('/auth', loginUser);
 router.get('/auth/renew', validarJWT, revalidarToken);
 // forgot password
 router.put('/auth/forgot-password', olvidePassword );
-
+// change password
 router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 
 
