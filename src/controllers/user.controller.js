@@ -79,7 +79,18 @@ export const createUser = async (request, response) => {
 
       const passHash = bcrypt.hashSync(password, salt);
 
-      
+      const UsuarioRepetido = await Usuario.findOne({
+        where: {
+          rut: rut
+        }
+      })
+
+      if(UsuarioRepetido){
+        return response.status(401).json({
+          ok: false,
+          msg: 'No se agregó el usuario, porque ya está registrado.'
+      })
+      }
 
       const newUsuario = await Usuario.create({
         nombre: nombre,
@@ -227,6 +238,8 @@ export const revalidarToken = async (req, res = response) => {
 }
 
 export const olvidePassword = async (req, res) =>{
+
+  console.log('req body olvide password',req.body);
 
   const {correo} = req.body;
   if(!(correo)){
