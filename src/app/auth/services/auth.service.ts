@@ -91,9 +91,20 @@ export class AuthService {
   }
 
   forgotPassword(correo: string): Observable<any>{
+
+    console.log('service correo', correo)
     const url = `${this.baseUrl}auth/forgot-password`;
+    const body = { correo };
+    console.log(body);  
     
-    return this.http.put<any>(url, correo);
+    return this.http.put<any>(url, body);
+  }
+
+  cambiarPassword(newPassword: string, token: string): Observable<any>{
+    console.log('service cambiar pass');
+    const url = `${this.baseUrl}auth/new-password/${token}`
+    const body = {newPassword, token}
+    return this.http.put<any>(url, body);
   }
 
 }
