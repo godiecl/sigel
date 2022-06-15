@@ -17,7 +17,7 @@ const routes: Routes = [
       { path:'register-empresa', component: RegisterComponent},
       { path:'register-contacto', component: RegisterContactoComponent},
       { path:'forgot-password', component: ForgotPasswordComponent },
-      { path:'new-password/:params', component: NewPasswordComponent },
+      { path:'new-password/:token', component: NewPasswordComponent },
       { path:'**', redirectTo: 'login'}
     ]
   },

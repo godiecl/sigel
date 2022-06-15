@@ -100,7 +100,7 @@ export class AuthService {
     return this.http.put<any>(url, body);
   }
 
-  cambiarPassword(newPassword: string, token: string): Observable<any>{
+  cambiarPassword(newPassword: string, token: string | null): Observable<any>{
     console.log('service cambiar pass');
     const url = `${this.baseUrl}auth/new-password/${token}`
     const body = {newPassword, token}

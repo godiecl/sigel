@@ -13,7 +13,7 @@ export class ForgotPasswordComponent implements OnInit {
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
   forgotForm: FormGroup = this.fb.group({
-    correo: ['', [Validators.pattern(this.emailPattern)]]
+    correo: [, [Validators.pattern(this.emailPattern), Validators.required]]
   })
 
 
@@ -21,7 +21,18 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  campoEsValido(campo: string){
+    return this.forgotForm.controls[campo].errors && this.forgotForm.controls[campo].touched;
+  }
+
   recuperarPassword(){
+    
+    if(this.forgotForm.invalid){
+      this.forgotForm.markAllAsTouched();
+      return;
+    }
+
 
     // implementar alertas
     // implementar if si no existe correo
