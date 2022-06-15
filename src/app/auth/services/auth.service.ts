@@ -80,9 +80,17 @@ export class AuthService {
     EMPRESA
    */
 
-  crearEmpresa(empresa: Empresa): Observable<Empresa>{
+  crearEmpresa(empresa: Empresa) {
     const url = `${this.baseUrl}empresas`
-    return this.http.post<Empresa>(url, {empresa});
+    // ESTE CODIGO RETORNA BIEN LA EMPRESA
+    return this.http.post<any>(url, {empresa});
+
+
+    // ESTE CODIGO RETORNA BIEN EL ERROR
+    // return this.http.post<any>(url, {empresa}).pipe(
+    //   map(resp => resp.ok),
+    //   catchError(err => of(err.error.msg) )
+    // )
   }
 
   crearEncargadoEmpresa(encargadoEmpresa: EncargadoEmpresa){

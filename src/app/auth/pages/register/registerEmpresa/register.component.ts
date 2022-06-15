@@ -67,24 +67,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
         this.authService.crearEmpresa(this.empresa).
           // pipe(takeUntil(this._unsubscribeAll)).
-            subscribe(
-          (empresa: Empresa) => {
-            console.log('respuesta', empresa);
-            if(empresa){
-
+            subscribe( resp => {
+            console.log('respuesta', resp);
+            if(resp.ok === true){
               // console.log('empresa id', empresa.id_empresa);
-              this.authService.actualizarEmpresaActual(empresa.id_empresa);
+              this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
               // let idEmpresaxd;
               // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
               //  console.log('subject',idEmpresaxd )
               Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
+              this.router.navigateByUrl('/auth/register-contacto');
             }else{
-              Swal.fire('Ha ocurrido un error', '', 'error');
+              Swal.fire(resp.msg, resp.ok, 'error');
             }
           }
           )
 
-        this.router.navigateByUrl('/auth/register-contacto');
+       
 
         //se borra todo lo que contiene el formulario
         //this.empresaForm.reset();

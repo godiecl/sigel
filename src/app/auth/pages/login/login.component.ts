@@ -48,9 +48,9 @@ export class LoginComponent implements OnInit {
 
       if(ok === true){
         this.router.navigateByUrl('/dashboard/main-menu');
-      }else{
+      }else {
         //mostrar mensaje de error
-        Swal.fire('Error', ok, 'error');
+        Swal.fire(ok.message, ok, 'error');
       }
     })
 

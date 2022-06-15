@@ -5,6 +5,7 @@ import { RegisterUsuarioComponent } from './administrador/register-usuario/regis
 import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
+import { EditComponent } from './administrador/edit-usuario/edit/edit.component';
 
 const routes: Routes = [
 
@@ -16,7 +17,14 @@ const routes: Routes = [
       { path:'',},
       { path:'register-usuario', component: RegisterUsuarioComponent},
       { path:'delete-usuario', component: DeleteUsuarioComponent},
-      { path:'edit-usuario', component: EditUsuarioComponent},
+      { path:'edit-usuario', component: EditUsuarioComponent, 
+                              children: [ 
+                                           {path:'',},
+                                           {path:'edit/:id', component: EditComponent},
+                                            
+                                        ]
+
+      },
       { path:'main-menu', component: MainMenuComponent},
       { path:'**', redirectTo: ''},
     ]
