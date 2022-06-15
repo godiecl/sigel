@@ -1,4 +1,5 @@
 import { EncargadoEmpresa } from '../models/EncargadoEmpresa.js'
+import { Usuario } from '../models/Usuario.js';
 
 export const createEncargadoEmpresa = async (request, response) =>{
 
@@ -9,6 +10,20 @@ export const createEncargadoEmpresa = async (request, response) =>{
 
          console.log('request body', request.body);
          console.log('request body encargadoEmpresa', request.body.encargadoEmpresa);
+
+
+         const encargadoEmpresaRepetida = await Usario.findOne({
+            where: {
+              rut: rut
+            }
+          })
+  
+          if(encargadoEmpresaRepetida){
+            return response.status(401).json({
+              ok: false,
+              msg: 'No se agregó el encargado empresa, porque ya está registrado.'
+          })
+          }
 
         // Crear en la bdd
         const newEncargadoEmpresa = await EncargadoEmpresa.create({
