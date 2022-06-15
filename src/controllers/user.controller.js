@@ -41,6 +41,15 @@ export const loginUser = async (req, res) => {
       })
     }
 
+    if(!usuarioDB.estado){
+
+      return res.status(400).json({
+        ok:false,
+        msg: 'El usuario esta sin permiso para ingresar'
+      })
+
+    }
+
     const token = await generarJWT(usuarioDB.id, usuarioDB.nombre);
 
     return res.json({

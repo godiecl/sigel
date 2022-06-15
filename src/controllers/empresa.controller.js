@@ -38,11 +38,11 @@ export const createEmpresa = async (request, response) =>{
 
         
 
-        return response.json(newEmpresa);
+        return response.json( {ok: true, newEmpresa});
     }catch(error){
         return response.status(401).json({
             ok: false,
-            msg: 'Didnt added Empresa.'
+            msg: 'No se ha podido registrar la empresa.'
         })
     }
 }
