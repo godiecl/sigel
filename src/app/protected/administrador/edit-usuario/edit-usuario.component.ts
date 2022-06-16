@@ -65,6 +65,15 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
 
   // }
 
+  isRoute(route: string){
+    // console.log('route ',route);
+    // console.log('ruta del ruter', this.router.url)
+    if(this.router.url === route){
+      return true
+    }
+    return false;
+  }
+
   buscarUsuario(){
 
     this.adminService.obtenerUsuarioPorRut(this.buscarForm.value.rutBuscar).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{

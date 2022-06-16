@@ -57,9 +57,9 @@ export class AdministradorService {
 
   }
 
-  actualizarUsuario(user: User): Observable<User>{
+  actualizarUsuario(user: any): Observable<User>{
 
-    const url = `${this.baseUrl}users${user._id}`
+    const url = `${this.baseUrl}users${user.id}`
     return this.http.patch<User>(url, {user});
   }
 
@@ -80,7 +80,7 @@ export class AdministradorService {
   //   return this.http.delete(url);
   // } 
 
-  obtenerEstudiante(idUser: number): Observable<Estudiante>{
+  obtenerEstudiante(idUser: any): Observable<Estudiante>{
     console.log('peticion get enviada a estudiantes');
     const url = `${this.baseUrl}estudiantes${idUser}`;
     return this.http.get<Estudiante>(url);
@@ -170,7 +170,7 @@ export class AdministradorService {
     return this.http.post<any>(url, {profesorCC});
   }
 
-  obtenerProfesorCC(idUser: number): Observable<ProfesorCC>{
+  obtenerProfesorCC(idUser: any): Observable<ProfesorCC>{
     console.log('peticion get enviada a profesorCCs');
     const url = `${this.baseUrl}profesorCCs${idUser}`;
     return this.http.get<ProfesorCC>(url);
@@ -192,7 +192,7 @@ export class AdministradorService {
     return this.http.post<any>(url, {profesorGuiaCP});
   }
 
-  obtenerProfesorGuiaCP(idUser: number): Observable<ProfesorGuiaCP>{
+  obtenerProfesorGuiaCP(idUser: any): Observable<ProfesorGuiaCP>{
     console.log('peticion get enviada a profesorGuiaCPs');
     const url = `${this.baseUrl}profesorGuiaCPs${idUser}`;
     return this.http.get<ProfesorGuiaCP>(url);
