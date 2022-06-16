@@ -41,32 +41,50 @@ export class NewPasswordComponent implements OnInit {
   }
 
   cambiarPassword(){
-    // implementar alertas
-    // 
 
-    if(this.newPasswordForm.invalid){
-      this.newPasswordForm.markAllAsTouched();
-      return;
-    }
-
-    if(this.newPasswordForm.value.newPassword != this.newPasswordForm.value.confirmPassword){
-      this.mostrarAvisoSonDistintas = true;
-      return;
-    }else{
-      this.mostrarAvisoSonDistintas = false;
-    }
-
-    const routeParams = this.router.snapshot.paramMap;
-    this.token = routeParams.get('token');
-
-    this.authservice.cambiarPassword(this.newPasswordForm.value.newPassword, this.token ).subscribe((resp)=>{
-      console.log(resp);
-      Swal.fire('Se ha cambiado la contraseña exitosamente', '', 'success');
-      this.rr.navigateByUrl('/auth/login')
-
+    Swal.fire({
+      title: '¿Está seguro de querer cambiar su contraseña?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if(this.newPasswordForm.invalid){
+          this.newPasswordForm.markAllAsTouched();
+          return;
+        }
+    
+        if(this.newPasswordForm.value.newPassword != this.newPasswordForm.value.confirmPassword){
+          this.mostrarAvisoSonDistintas = true;
+          return;
+        }else{
+          this.mostrarAvisoSonDistintas = false;
+        }
+    
+        const routeParams = this.router.snapshot.paramMap;
+        this.token = routeParams.get('token');
+    
+        this.authservice.cambiarPassword(this.newPasswordForm.value.newPassword, this.token ).subscribe((resp)=>{
+          console.log(resp);
+          Swal.fire('Se ha cambiado la contraseña exitosamente', '', 'success');
+          this.rr.navigateByUrl('/auth/login')
+    
+        })
+        
+      } else if (result.isDenied) {
+        Swal.fire('No se ha realizado ningún cambio', '', 'info')
+      }
     })
 
-  
+    
+
   }
 
 }

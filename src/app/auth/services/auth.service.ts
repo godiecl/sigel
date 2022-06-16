@@ -26,7 +26,6 @@ export class AuthService {
     this._empresa.next(idEmpresa);
   }
 
-
   login(correo: string, password: string)
   {
     
@@ -48,6 +47,26 @@ export class AuthService {
         map(resp => resp.ok),
         catchError(err => of(err.error.msg) )
       )
+  }
+
+  comprobarCorreo(correo: string){
+    const url = `${this.baseUrl}auth`;
+    const body = { correo }
+    return this.http.post<AuthResponse>(url, body)
+      .pipe(
+        tap(resp => {
+          if(resp.ok){
+            localStorage.setItem('token', resp.token! )
+            this._usuario = {
+              nombre: resp.nombre!,
+              id: resp.id!,
+            }
+          }
+        }),
+        map(resp => resp.ok),
+        catchError(err => of(err.error.msg) )
+      )
+
   }
 
   logout(){
