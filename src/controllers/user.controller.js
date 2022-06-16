@@ -129,8 +129,10 @@ export const updateUser = async (req, res) => {
 
   try{
 
-    console.log('request body user update', request.body.user);
-    const { id, nombre, apellidop, apellidom, rut, password, correo, roles } = request.body.user;
+    console.log('request body user update', req.body.user);
+    const { id, nombre, apellidop, apellidom, rut, password, correo, roles, estado } = req.body.user;
+
+    console.log(id);
 
     const usuario = await Usuario.findByPk(id);
     usuario.nombre = nombre
@@ -188,7 +190,7 @@ export const deleteUser = async (req, res) => {
 export const getUsuarioPorId = async (req, res) => {
 
   try{  
-        console.log('res',res);
+        // console.log('res',res);
 
         const { id } = req.params;
         const user = await Usuario.findOne({
