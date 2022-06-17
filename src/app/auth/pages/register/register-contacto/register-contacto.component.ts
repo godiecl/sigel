@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/internal/Subject';
 import Swal from 'sweetalert2';
 import { EncargadoEmpresaModel } from '../../../models/encargadoEmpresa.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-contacto',
@@ -40,7 +41,8 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private adminService: AdministradorService
+              private adminService: AdministradorService,
+              private router: Router
               ) { 
                 this._unsubscribeAll = new Subject();
               }
@@ -85,7 +87,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
         this.adminService.crearUsuario(this.usuario)
           .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp: any)=>{
             if(resp){
-              this.encargadoEmpresa = new EncargadoEmpresaModel(
+              this.encargadoEmpresa = new EncargadoEmpresaModel(0,
                 this.contactoForm.value.cargo, this.contactoForm.value.telefono, resp.id, this.idEmpresaActual
               )
               this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
@@ -93,6 +95,8 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
                   // colocar alerta se ha registrado exitosamente
                   console.log(response);
               })
+
+              this.router.navigateByUrl('/auth/solicitar-estudiante');
           }else{
             // imprimir error
             Swal.fire('Ha ocurrido un error.', '', 'info')

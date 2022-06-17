@@ -7,7 +7,9 @@ export class EncargadoEmpresaModel implements EncargadoEmpresa {
     telefono: string;
     id_usuario: number;
     id_empresa: number;
-    constructor(cargo: string, telefono: string, id: number, id_empresa: number){
+    id_encargadoEmpresa: number;
+    constructor(id_encargado: number,cargo: string, telefono: string, id: number, id_empresa: number){
+     this.id_encargadoEmpresa = id_encargado;
      this.cargo = cargo;
      this.telefono = telefono;  
      this.id_usuario = id;

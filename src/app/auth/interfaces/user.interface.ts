@@ -1,6 +1,6 @@
 export interface User{
     
-    _id: number,
+    id: number,
     nombre: string,
     apellidop: string,
     apellidom: string,

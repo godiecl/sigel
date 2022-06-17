@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Estudiante } from '../../../auth/interfaces/estudiante.interface';
 import { ProfesorCC } from '../../../auth/interfaces/profesorCC.interface';
 import { ProfesorGuiaCP } from '../../../auth/interfaces/profesorGuiaCP.interface';
+import { EncargadoEmpresa } from '../../../auth/interfaces/encargadoEmpresa.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -74,15 +75,33 @@ export class AdministradorService {
     return this.http.post<Estudiante>(url, {estudiante});
   }
 
-  // eliminarEstudiante(id: number): any {
-  //   console.log('peticion delete enviada a estudiante');
-  //   const url = `${this.baseUrl}estudiantes/${id}`;
-  //   return this.http.delete(url);
-  // } 
+  actualizarEstudiantePorId(estudiante: Estudiante): Observable<any>{
+    console.log('peticion patch enviada a estudiantes');
+    const url = `${this.baseUrl}estudiantes`;
+    return this.http.patch<any>(url, {estudiante});
+  }
 
-  obtenerEstudiante(idUser: any): Observable<Estudiante>{
+  eliminarEstudiante(id: number): any {
+    console.log('peticion delete enviada a estudiante');
+    const url = `${this.baseUrl}estudiantes${id}`;
+    return this.http.delete<any>(url);
+  } 
+
+  eliminarEstudiantePorIdUsuario(id_usuario: number): any {
+    const url = `${this.baseUrl}estudiantes/${id_usuario}`;
+    console.log('peticion delete por id usuario enviada a estudiante', url);
+    return this.http.delete<any>(url);
+  } 
+
+  obtenerEstudiante(id: any): Observable<Estudiante>{
     console.log('peticion get enviada a estudiantes');
-    const url = `${this.baseUrl}estudiantes${idUser}`;
+    const url = `${this.baseUrl}estudiantes${id}`;
+    return this.http.get<Estudiante>(url);
+  }
+
+  obtenerEstudiantePorIdUsuario(id_usuario: any): Observable<Estudiante>{
+    console.log('peticion get enviada a estudiantes/');
+    const url = `${this.baseUrl}estudiantes/${id_usuario}`;
     return this.http.get<Estudiante>(url);
   }
 
@@ -92,27 +111,27 @@ export class AdministradorService {
    * 
    * @returns 
    */
-  crearAdmin(idUser: number): Observable<any>{
+  crearAdmin(id_usuario: number): Observable<any>{
     console.log('peticion enviada a admins');
     const url = `${this.baseUrl}admins`;
-    return this.http.post<any>(url, {idUser});
+    return this.http.post<any>(url, {id_usuario});
   }
 
-  // eliminarAdmin(idUser: number): any{
-  //   console.log('peticion delete enviada a admins');
-  //   const url = `${this.baseUrl}admins`;
-  //   return this.http.post(url, idUser)
-  // }
+  eliminarAdmin(id_usuario: number): any{
+    console.log('peticion delete enviada a admins');
+    const url = `${this.baseUrl}admins`;
+    return this.http.post(url, id_usuario)
+  }
 
   /** ENCARGADO PRACTICA
    * 
    * @param idUser 
    * @returns 
    */
-  crearEncargadoPracticaCP(idUser: number): Observable<any>{
+  crearEncargadoPracticaCP(id_usuario: number): Observable<any>{
     console.log('peticion enviada a encargadoPracticaCapstones');
     const url = `${this.baseUrl}encargadoPracticaCPs`;
-    return this.http.post<any>(url, {idUser})
+    return this.http.post<any>(url, {id_usuario})
   }
 
   // eliminarEncargadoPracticaCP(idUser: number): any{
@@ -126,10 +145,10 @@ export class AdministradorService {
    * @param idUser 
    * @returns 
    */
-  crearAsistenteAcademica(idUser: number): Observable<any>{
+  crearAsistenteAcademica(id_usuario: number): Observable<any>{
     console.log('peticion enviada a asistenteAcademicas');
     const url = `${this.baseUrl}asistenteAcademicas`;
-    return this.http.post<any>(url, {idUser});
+    return this.http.post<any>(url, {id_usuario});
   }
 
   // eliminarAsistenteAcademica(idUser: number): any{
@@ -145,11 +164,11 @@ export class AdministradorService {
    * @returns 
    */
 
-  crearComisionTitulacion(idUser: number, jefeCarrera: boolean): Observable<any>{
+  crearComisionTitulacion(id_usuario: number, jefeCarrera: boolean): Observable<any>{
 
     console.log('peticion enviada a comisionTitulacionPracticas');
     const url = `${this.baseUrl}comisionTitulacionPracticas`;
-    return this.http.post<any>(url, {idUser, jefeCarrera});
+    return this.http.post<any>(url, {id_usuario, jefeCarrera});
 
   }
 
@@ -170,9 +189,9 @@ export class AdministradorService {
     return this.http.post<any>(url, {profesorCC});
   }
 
-  obtenerProfesorCC(idUser: any): Observable<ProfesorCC>{
+  obtenerProfesorCCPorIdUsuario(id_usuario: any): Observable<ProfesorCC>{
     console.log('peticion get enviada a profesorCCs');
-    const url = `${this.baseUrl}profesorCCs${idUser}`;
+    const url = `${this.baseUrl}profesorCCs/${id_usuario}`;
     return this.http.get<ProfesorCC>(url);
   }
 
@@ -192,9 +211,9 @@ export class AdministradorService {
     return this.http.post<any>(url, {profesorGuiaCP});
   }
 
-  obtenerProfesorGuiaCP(idUser: any): Observable<ProfesorGuiaCP>{
+  obtenerProfesorGuiaCPPorIdUsuario(id_usuario: any): Observable<ProfesorGuiaCP>{
     console.log('peticion get enviada a profesorGuiaCPs');
-    const url = `${this.baseUrl}profesorGuiaCPs${idUser}`;
+    const url = `${this.baseUrl}profesorGuiaCPs/${id_usuario}`;
     return this.http.get<ProfesorGuiaCP>(url);
   }
 
@@ -203,5 +222,12 @@ export class AdministradorService {
   //   const url = `${this.baseUrl}profesorGuiaCPs`;
   //   return this.http.post(url, idUser)
   // }
+
+  obtenerEncargadoEmpresaPorIdUsuario(id_usuario: any): Observable<EncargadoEmpresa> {
+
+    console.log('peticion get enviada a encargadoEmpresas');
+    const url = `${this.baseUrl}encargadoEmpresas/${id_usuario}`;
+    return this.http.get<EncargadoEmpresa>(url);
+  } 
   
 }

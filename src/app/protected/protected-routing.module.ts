@@ -5,7 +5,7 @@ import { RegisterUsuarioComponent } from './administrador/register-usuario/regis
 import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
-import { EditComponent } from './administrador/edit-usuario/edit/edit.component';
+import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, ProfesorGuiaCPEditResolver } from './administrador/administrador.resolver';
 
 const routes: Routes = [
@@ -23,8 +23,8 @@ const routes: Routes = [
                                            {path:'',},
                                            {path:':id', component: EditComponent, 
                                            resolve: { user: UsuarioEditResolver, 
-                                                      // estudiante: EstudianteEditResolver,
-                                                      // profesorCC: ProfesorCCEditResolver, profesorGuia: ProfesorGuiaCPEditResolver 
+                                                       estudiante: EstudianteEditResolver,
+                                                       profesorCC: ProfesorCCEditResolver, profesorGuia: ProfesorGuiaCPEditResolver 
                                                     }},
                                             
                                         ]

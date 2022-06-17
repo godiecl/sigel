@@ -127,7 +127,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
         Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
         //se borra todo lo que contiene el formulario
-        this.usuarioForm.reset();
+        
       } else if (result.isDenied) {
         Swal.fire('Los cambios no se han guardado', '', 'info')
       }
@@ -201,6 +201,8 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
           if(respuesta.roles.includes('ProfesorGuiaCP')){
             this.nuevoProfesorGuiaCP(respuesta.id, this.usuarioForm.value.telefonoCC, false, this.usuarioForm.value.disc_empresa);
           }
+
+          this.usuarioForm.reset();
         }else {
           // error
           Swal.fire('Error', respuesta.error, 'error');
