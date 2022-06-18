@@ -7,16 +7,15 @@
     <div class="wrap-input100 m-b-23">
         <span class="label-input100">Nombre de proyecto</span>
         <input class="input100"
-                type="textarea"
                 formControlName="nombreProyecto"
                placeholder="Ingrese nombre del proyecto"
                >
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">Problematica que se quiere resolver:</span>
-        <textarea class="textarea100" placeholder="Ingrese problematica" 
+        <textarea class="textarea101 " placeholder="Ingrese problematica" 
         formControlName="problemaResolver">  </textarea>
         <!-- <input class="input100" 
                 formControlName="problematica"
@@ -25,7 +24,7 @@
         <span class="focus-input100"></span> -->
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">Área</span>
         <input class="input100"
                placeholder="Ingrese area"
@@ -33,7 +32,7 @@
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">Solución que usted prevee</span>
         <input class="input100"
                placeholder="Ingrese solucion"
@@ -41,7 +40,7 @@
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">¿Cuál es el entregable final?</span>
         <input class="input100"
                placeholder="Ingrese entregable final "
@@ -49,15 +48,14 @@
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">¿Cuál es la importancia de este proyecto?</span>
-        <input class="input100"
-               placeholder="Ingrese sobre la importancia"
-               formControlName="importancia">
+        <textarea class="textarea101" placeholder="Ingrese sobre la importancia"
+        formControlName="importancia"></textarea>
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">Plazos que usted define:</span>
         <input class="input100"
                placeholder="Ingrese plazos"
@@ -65,16 +63,16 @@
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100">
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">Informacion adicional que desee brindar (opcional) :</span>
-        <textarea class="textarea100"></textarea>
+        <textarea class="textarea101" formControlName="infoAdicional" placeholder="Ingrese informacion adicional" ></textarea>
         <span class="focus-input100"></span>
     </div>
 
     <div class="wrap-input100 m-b-23">
         <span class="label-input100">Modalidad</span>
-        <select class="input100 m-b-23" formControlName="modalidad">
-            <option class="input102" [ngValue]="null" disabled >Selecciona la modalidad </option>
+        <select class="input100 m-b-23" formControlName="modalidad"> 
+            <option class="input102"  [ngValue]="null" disabled > Seleccione Modalidad </option>
             <option class="input102" *ngFor="let modalidad of modalidades" [ngValue]="modalidad.id"> {{modalidad.name}} </option>
         </select>
     </div>
@@ -94,7 +92,7 @@
         <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
             <button class="login100-form-btn" type="submit">
-                Registrar e ir a solicitar estudiante
+                Registrar solicitud de estudiante
             </button>
         </div>
     </div>

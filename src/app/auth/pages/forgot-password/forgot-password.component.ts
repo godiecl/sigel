@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -37,10 +38,11 @@ export class ForgotPasswordComponent implements OnInit {
     // implementar alertas
     // implementar if si no existe correo
     // implementar pipe y unsuscribe;
-    console.log('form: ',this.forgotForm.value.correo);
+    // console.log('form: ',this.forgotForm.value.correo);
 
     this.authService.forgotPassword(this.forgotForm.value.correo).subscribe((resp) => {
-      console.log(resp);
+     
+
     })
 
 

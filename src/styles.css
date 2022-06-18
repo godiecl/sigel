@@ -78,8 +78,9 @@
       list-style-type: none;
   }
   .checkboxgroup{
-    width: 25em;
+    width: auto;
     overflow: auto;
+    display: block;
   }
   .checkboxgroup p{
     width: 7em;
@@ -310,6 +311,22 @@
     height: 55px;
     background: transparent;
     padding: 0 7px 0 43px;
+  }
+
+  .textarea101 {
+    
+    font-family: Poppins-Medium;
+    width: 100%;
+    height: 50px;
+    line-height: 1.2;
+    color: #333333;
+    padding: 12px 43px;
+    background: transparent;
+    box-sizing: border-box;
+    /* border: 2px solid #ccc; */
+    /* border-radius: 4px; */
+    /* background-color: #f8f8f8; */
+    font-size: 16px;
   }
   
   .label-input100 {

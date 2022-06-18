@@ -30,8 +30,14 @@ export class EditComponent implements OnInit {
   estudianteEditar!: Estudiante  ;
   profesorCC!: any;
   profesorGuiaCP!: any;
+  encargadoEmpresa!: any;
 
   updateForm!: FormGroup;
+
+  carreras = [
+    { id:0, name: 'Ingeniería en Computación e Informática'},
+    { id:1, name: 'Ingeniería Civil en Computación e Informática'},
+  ];
 
   
 
@@ -61,6 +67,7 @@ export class EditComponent implements OnInit {
       this.router.data.subscribe(({user}) =>{
         this.usuarioPorEditar = user;
         // console.log('user resolver',this.usuarioPorEditar);
+        console.log('roles: ', this.usuarioPorEditar.roles)
       })
       if(this.usuarioPorEditar.roles.includes('Estudiante')){ 
             // console.log('si')
@@ -71,7 +78,7 @@ export class EditComponent implements OnInit {
               this.estudianteEditar = estudiante;
               // this.estudianteEditar._id_user = estudiante.id_usuario;
               this.mostrarAtributosEstudiante = true;
-               console.log('estudiante resolver', this.estudianteEditar);
+              //  console.log('estudiante resolver', this.estudianteEditar);  
             })
             // // obtener estudiante por id usuario
             //   this.adminService.obtenerEstudiante(this.usuarioPorEditar.id)
@@ -99,8 +106,8 @@ export class EditComponent implements OnInit {
         
 
         this.estudianteEditar = new EstudianteModel(
-          0, this.usuarioPorEditar.id, '', 0, false, '', false, 0, 0  );
-          console.log('estudiante lol', this.estudianteEditar)
+          0, this.usuarioPorEditar.id, '', 2, false, '', false, 0, 0  );
+          // console.log('estudiante lol', this.estudianteEditar)
           // this._changeDetectorRef.markForCheck();
       }
       if(this.usuarioPorEditar.roles.includes('ProfesorCC')){ 
@@ -120,7 +127,7 @@ export class EditComponent implements OnInit {
           //   })
       }else{
           this.profesorCC = new ProfesorCCModel(
-            0, this.usuarioPorEditar.id, false, '' 
+            0, this.usuarioPorEditar.id, true, '' 
           );
           this.mostrarAtributosProfesorCC = false;
       }
@@ -148,7 +155,27 @@ export class EditComponent implements OnInit {
         // this.profesorGuiaCP.disc_empresa= '';
         this.mostrarAtributosProfesorGuiaCP = false;
       }
+      // if(this.usuarioPorEditar.roles.includes('Administrador')){
+
+      // }
       
+      // if(this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion')){
+        
+      // }
+      // if(this.usuarioPorEditar.roles.includes('JefeCarrera')){
+      //   console.log('lol');
+      // }
+      // if(this.usuarioPorEditar.roles.includes('AsistenteAcademica')){
+        
+      // }
+      
+      // if(this.usuarioPorEditar.roles.includes('EncargadoEmpresa')){
+        
+      // }
+      
+      // if(this.usuarioPorEditar.roles.includes('Administrador')){
+        
+      // }
       
   
   
@@ -167,6 +194,11 @@ export class EditComponent implements OnInit {
 
   ngOnInit():void {
 
+    let carreraSelect = this.estudianteEditar.carrera;
+    if(carreraSelect === 2){
+      // carreraSelect = '';
+    }
+
     this.updateForm = this.fb.group({
       nombre:           [this.usuarioPorEditar.nombre, [Validators.required,]],
       apellidop:        [this.usuarioPorEditar.apellidop, [Validators.required,]],
@@ -181,7 +213,7 @@ export class EditComponent implements OnInit {
       telefono:         [this.estudianteEditar.telefono, ],
       rolEncargadoPracticaTitulacion: [this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion'), [,]],
       rolAsistenteAcademica: [this.usuarioPorEditar.roles.includes('AsistenteAcademica'), [,]],
-      rolJefeCarrera:   [this.usuarioPorEditar.roles.includes('ComisionTitulacion'), []],
+      rolJefeCarrera:   [this.usuarioPorEditar.roles.includes('JefeCarrera'), []],
       rolProfesorCC:    [this.usuarioPorEditar.roles.includes('ProfesorCC'), [,]],
       telefonoCC:       [this.profesorCC.telefono],
       telefonoCP:       [this.profesorGuiaCP.telefono],
@@ -225,6 +257,10 @@ export class EditComponent implements OnInit {
     this.estudianteEditar.telefono = this.updateForm.value.telefono;
     this.estudianteEditar.correoPersonal = this.updateForm.value.correoPersonal;
     this.estudianteEditar.id_usuario= this.usuarioPorEditar.id;
+
+    this.profesorCC.telefono = this.updateForm.value.telefonoCC;
+    this.profesorGuiaCP.telefono = this.updateForm.value.telefonoCP;
+    this.profesorGuiaCP.disc_empresa = this.updateForm.value.disc_empresa;
     
 
     
@@ -240,64 +276,98 @@ export class EditComponent implements OnInit {
 
       // si en el form tiene true el rol
 
-      console.log('estudiante por editar',this.estudianteEditar)
+      console.log('estudiante por editar',this.estudianteEditar);
+      // console.log('PROFE CP por editar',this.profesorGuiaCP);
+      console.log('PROFE CC por editar',this.profesorCC);
+      console.log('update form', this.updateForm.value);
      if(this.updateForm.value.rolEstudiante){ 
       // revisa si lo tiene ya el usuario
       if(!this.usuarioPorEditar.roles.includes('Estudiante')){
-        // si no lo tiene lo agrega y lo crea.
+        
         this.usuarioPorEditar.roles=[... this.usuarioPorEditar.roles,'Estudiante'];
+        // si no lo tiene lo agrega y lo crea.
         this.adminService.crearEstudiante(this.estudianteEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (res: any) =>{
-            console.log('respuesta peticion crear estudiante', res);
+              console.log(res);
             }
         )}else{
           // Si lo incluye hay que actualizarlo.
           this.adminService.actualizarEstudiantePorId(this.estudianteEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (res: any)=>{
-              console.log('respuesta patch estudiante', res)
+              console.log(res)
             }
           )}
     }else{
-      // SI ESTA MARCADO COMO FALSE EL CHECKBOX, HAY QUE VERIFICAR SI NO LO TIENE, Y SI LO TIENE HAY QUE BORRARLO.
+      // SI ESTA MARCADO COMO FALSE EN EL FORM, HAY QUE VERIFICAR SI NO LO TIENE, Y SI LO TIENE HAY QUE BORRARLO.
       if(this.usuarioPorEditar.roles.includes('Estudiante')){
         const index = this.usuarioPorEditar.roles.indexOf('Estudiante');
         this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarEstudiantePorIdUsuario(this.estudianteEditar.id_usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{      
-            console.log('respuesta peticion delete estudiante',res);
+            console.log(res);
           })
       }
     }
 
 
-
+    // LISTO
     if(this.updateForm.value.rolAdministrador){
        if(!this.usuarioPorEditar.roles.includes('Administrador')){
       this.usuarioPorEditar.roles=[... this.usuarioPorEditar.roles,'Administrador'];
       this.adminService.crearAdmin(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear admin', res);
+        console.log(res);
         })
-      }else{
-        
+      }else{ // actualizar
       } 
+    }else{
+      if(this.usuarioPorEditar.roles.includes('Administrador')){
+        // eliminar
+        const index = this.usuarioPorEditar.roles.indexOf('Administrador');
+        this.usuarioPorEditar.roles.splice(index,1)
+        this.adminService.eliminarAdmin(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+          console.log(res);
+          })
+      }
     }
+
 
     if(this.updateForm.value.rolAsistenteAcademica){
       if(!this.usuarioPorEditar.roles.includes('AsistenteAcademica')){
+        // si no tiene rol secretaria. crearlo
         this.usuarioPorEditar.roles=[... this.usuarioPorEditar.roles,'AsistenteAcademica'];
         this.adminService.crearAsistenteAcademica(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear asistente academica', res);
+        console.log(res);
         })
+      }else {
+        // actualizar rol secretaria
       }
       if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){  
+        // crear rol ctp
           this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
           this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear comision practica y titulacion', res);
+        console.log(res);
         })
+      }else{
+        // actualizar ctp
+        this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+            console.log(res);
+          })
       }
+    }else{
+      // si form no tiene asistente hay que borrarle el rol
+        if(this.usuarioPorEditar.roles.includes('AsistenteAcademica')){
+          const index = this.usuarioPorEditar.roles.indexOf('AsistenteAcademica');
+          this.usuarioPorEditar.roles.splice(index,1)
+          this.adminService.eliminarAsistenteAcademica(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+            console.log(res);
+          })
+        }          
     }
 
     if(this.updateForm.value.rolEncargadoPracticaTitulacion){ 
@@ -305,7 +375,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'EncargadoPracticaTitulacion']
         this.adminService.crearEncargadoPracticaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear encargado practica cp', res);
+        console.log(res);
         })
       }
       if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
@@ -326,31 +396,67 @@ export class EditComponent implements OnInit {
           }
         ) 
       }
-      if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
-        this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
-      }
+      // if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
+      //   this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
+      // }
     }  
+
+    // PROFESOR CC
     if(this.updateForm.value.rolProfesorCC){ 
       if(!this.usuarioPorEditar.roles.includes('ProfesorCC')){
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ProfesorCC']
-      }
         this.adminService.crearProfesorCC(this.profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+          console.log(res);
+          })
+      }else{
+         // ACTUALIZAR
+         this.adminService.actualizarProfesorCC(this.profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+          console.log( res);
+          })
+      }
+    }else{
+       // REVISAR SI TIENE ROL Y SI LO TIENE BORRAR.
+       if(this.usuarioPorEditar.roles.includes('ProfesorCC')){
+
+        const index = this.usuarioPorEditar.roles.indexOf('ProfesorCC');
+        this.usuarioPorEditar.roles.splice(index,1)
+        this.adminService.eliminarProfesorCC(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear profesor cc', res);
-        }
-      )
-      
+        console.log(res);
+        })
+       }
     }
+
+    // PROFESOR GUIA CP LISTO
     if(this.updateForm.value.rolProfesorGuiaCP){ 
-      if(!this.usuarioPorEditar.roles.includes('ProfesorCC')){
+      if(!this.usuarioPorEditar.roles.includes('ProfesorGuiaCP')){
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ProfesorGuiaCP']
         this.adminService.crearProfesorGuiaCP(this.profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear profesor guia cp', res);
-          }
-        )
+        console.log(res);
+        })
+     }else{
+      // actualizar
+      this.adminService.actualizarProfesorGuiaCP(this.profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        (res: any) =>{
+        console.log(res);
+        })
      }
+   }else{
+    // revisar si tiene rol y si lo tiene borrar
+    if(this.usuarioPorEditar.roles.includes('ProfesorGuiaCP')){
+      const index = this.usuarioPorEditar.roles.indexOf('ProfesorGuiaCP');
+        this.usuarioPorEditar.roles.splice(index,1)
+      this.adminService.eliminarProfesorGuiaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        (res: any) =>{
+        console.log(res);
+        })
+    }
    }
+
+
 
 
        
@@ -368,10 +474,10 @@ export class EditComponent implements OnInit {
     this.adminService.actualizarUsuario(this.usuarioPorEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe((x)=>{
       if(!x){
         // alerta agregar
-        console.log('todo mal');
+        // console.log('todo mal');
       }
       // alerta agregar
-      console.log('todo bien');
+      // console.log('todo bien');
 
       
     })
