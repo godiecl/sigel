@@ -187,7 +187,7 @@ export class AdministradorService {
   eliminarComisionTitulacion(id_usuario: number): any{
     console.log('peticion delete enviada a comisionTitulacionPracticas');
     const url = `${this.baseUrl}comisionTitulacionPracticas${id_usuario}`;
-    return this.http.delete(url)
+    return this.http.delete<any>(url);
   }
 
   /** PROFESOR COMISION CORRECCION

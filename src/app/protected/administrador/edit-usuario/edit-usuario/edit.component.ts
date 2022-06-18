@@ -367,7 +367,16 @@ export class EditComponent implements OnInit {
           (res: any) =>{
             console.log(res);
           })
-        }          
+        }       
+        // if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
+        //   const index = this.usuarioPorEditar.roles.indexOf('ComisionTitulacionPractica');
+        //   this.usuarioPorEditar.roles.splice(index,1)
+        //   this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        //   (res: any) =>{
+        //     console.log(res);
+        //   })
+        // }    
+        
     }
 
     if(this.updateForm.value.rolEncargadoPracticaTitulacion){ 
@@ -382,9 +391,34 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
         this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log('respuesta peticion crear comision practica y titulacion', res);
+        console.log(res);
+        })
+      }else{
+        // actualizar comision tp
+        this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+            console.log(res);
+          })
+      }
+    }else{
+      // revisar si tiene rol encargado y si si, borrarlo
+      if(this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion')){
+        const index = this.usuarioPorEditar.roles.indexOf('EncargadoPracticaTitulacion');
+        this.usuarioPorEditar.roles.splice(index,1)
+        this.adminService.eliminarEncargadoPracticaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        (res: any) =>{
+          console.log(res);
         })
       }
+      // if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
+      //   const index = this.usuarioPorEditar.roles.indexOf('ComisionTitulacionPractica');
+      //   this.usuarioPorEditar.roles.splice(index,1)
+      //   this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      //   (res: any) =>{
+      //     console.log(res);
+      //   })
+      // }
+
     }
 
     if(this.updateForm.value.rolJefeCarrera){ 
@@ -392,16 +426,42 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'JefeCarrera']
         this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-          console.log('respuesta peticion crear jefe de carrera', res);
+          console.log(res);
           }
         ) 
+        if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
+          this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
+          this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+          console.log(res);
+          })
+        }
+      }else{
+        // actualizar jefe de carrera
+        this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+          console.log(res);
+          }
+        ) 
+
       }
       // if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
       //   this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
       // }
+    }else{
+      // eliminar si ya tiene el rol
+      if(!this.usuarioPorEditar.roles.includes('AsistenteAcademica' || 'Encargado'))
+      if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
+        const index = this.usuarioPorEditar.roles.indexOf('ComisionTitulacionPractica');
+        this.usuarioPorEditar.roles.splice(index,1)
+        this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        (res: any) =>{
+          console.log(res);
+        })
+      }
     }  
 
-    // PROFESOR CC
+    // PROFESOR CC LISTO
     if(this.updateForm.value.rolProfesorCC){ 
       if(!this.usuarioPorEditar.roles.includes('ProfesorCC')){
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ProfesorCC']
