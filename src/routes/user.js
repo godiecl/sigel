@@ -29,8 +29,8 @@ router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 router.post('/empresas', createEmpresa);
 
 // Encargado Empresa
-router.post('/encargado-empresas', createEncargadoEmpresa);
-router.delete('/encargado-empresas:id', deleteEncargadoEmpresaPorIdUsuario)
+// router.post('/encargado-empresas', createEncargadoEmpresa);
+// router.delete('/encargado-empresas:id', deleteEncargadoEmpresaPorIdUsuario)
 
 // Admin
 router.post('/admins', createAdmin);

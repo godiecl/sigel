@@ -102,7 +102,7 @@ export const deleteAdmin = async (req, res) =>{
       });
       
       await comisionpracticatitulacion.destroy();
-      return res.status(204).json({ok: true, message: 'comisionpracticatitulacion borrado'});
+      return res.status(200).json({ok: true, message: 'comisionpracticatitulacion borrado'});
       
     } catch (error) {
       return res.status(500).json({ok: false, message: error.message})
