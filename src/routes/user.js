@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
-import { createEstudiante, getEstudiantePorId } from '../controllers/estudiante.controller.js';
+import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
-import { createAdmin } from '../controllers/admin.controller.js';
-import { createProfesorGuiaCP, getProfesorGuiaCPPorId } from '../controllers/profesorGuiaCP.controller.js';
-import { createProfesorComisionCorreccion, getProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
-import { createEncargadoPractica } from '../controllers/encargadoPractica.controller.js';
-import { createEncargadoEmpresa } from '../controllers/encargadoEmpresa.controller.js';
-import { createComisionPracticaTitulacion } from '../controllers/comisionPracticaTitulacion.controller.js';
-import { createAsistenteAcademica } from '../controllers/asistenteAcademica.controller.js';
+import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.js';
+import { createProfesorGuiaCP, deleteProfesorGuiaCPPorIdUsuario, getProfesorGuiaCPPorIdUsuario, updateProfesorGuiaPorId } from '../controllers/profesorGuiaCP.controller.js';
+import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
+import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '../controllers/encargadoPractica.controller.js';
+import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresaPorIdUsuario } from '../controllers/encargadoEmpresa.controller.js';
+import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
+import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
 import { createEmpresa } from '../controllers/empresa.controller.js';
 
 const router = Router();
@@ -29,35 +29,51 @@ router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 router.post('/empresas', createEmpresa);
 
 // Encargado Empresa
-router.post('/encargado-empresas', createEncargadoEmpresa)
+router.post('/encargado-empresas', createEncargadoEmpresa);
+router.delete('/encargado-empresas:id', deleteEncargadoEmpresaPorIdUsuario)
 
 // Admin
 router.post('/admins', createAdmin);
+router.delete('/admins:id', deleteAdminPorId);
 
 // AsistenteAcademica
 router.post('/asistenteAcademicas', createAsistenteAcademica);
+router.delete('/asistenteAcademicas:id', deleteAsistenteAcademicaPorId);
 
 // ComisionPracticaTitulacion
 router.post('/comisionTitulacionPracticas', createComisionPracticaTitulacion);
+router.patch('/comisionTitulacionPracticas', updateComisionPracticaTitulacionPorId);
+router.delete('/comisionTitulacionPracticas:id', deleteComisionPracticaTitulacionPorIdUsuario);
+
 
 // EncargadoEmpresa
 router.post('/encargadoEmpresas', createEncargadoEmpresa);
+router.get('/encargadosEmpresas/:id', getEncargadoEmpresaPorIdUsuario);
+router.delete('/encargadosEmpresas:id', deleteEncargadoEmpresaPorIdUsuario);
 
 // EncargadoPractica
-router.post('/encargadoPracticaCPs', createEncargadoPractica)
+router.post('/encargadoPracticaCPs', createEncargadoPractica);
+router.delete('/encargadoPracticaCPs:id', deleteEncargadoPracticaPorIdUsuario);
 
 // Estudiantes
 router.post('/estudiantes', createEstudiante);
-router.get('/estudiantes:id', getEstudiantePorId);
+router.get('/estudiantes/:id', getEstudiantePorId);
+// router.delete('/estudiantes:id', deleteEstudiante);
+router.patch('/estudiantes', updateEstudiantePorId);
+router.delete('/estudiantes:id', deleteEstudiantePorIdUsuario);
 
 // ProfesorCC
 router.post('/profesorCCs', createProfesorComisionCorreccion)
-router.get('/profesorCCs:id', getProfesorCCPorId);
+router.get('/profesorCCs/:id', getProfesorCCPorIdUsuario);
+router.patch('/profesorCCs', updateProfesorCCPorId);
+router.delete('/profesorCCs:id', deleteProfesorCCPorIdUsuario);
 
 
 // ProfesorGuiaCP
 router.post('/profesorGuiaCPs', createProfesorGuiaCP)
-router.get('/profesorGuiaCPs:id', getProfesorGuiaCPPorId)
+router.get('/profesorGuiaCPs/:id', getProfesorGuiaCPPorIdUsuario)
+router.patch('/profesorGuiaCPs', updateProfesorGuiaPorId)
+router.delete('/profesorGuiaCPs:id', deleteProfesorGuiaCPPorIdUsuario)
 
 // Usuarios
 router.get('/users', getUsers);

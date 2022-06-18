@@ -81,7 +81,7 @@ export const createUser = async (request, response) => {
 
       const { nombre, apellidop, apellidom, rut, password, correo, roles, estado } = request.body.user;
 
-      console.log('request del body user', request.body.user)
+      // console.log('request del body user', request.body.user)
 
       // Hash contraseña
       const salt = bcrypt.genSaltSync(10)
@@ -129,7 +129,7 @@ export const updateUser = async (req, res) => {
 
   try{
 
-    console.log('request body user update', req.body.user);
+     console.log('request body user update', req.body.user);
     const { id, nombre, apellidop, apellidom, rut, password, correo, roles, estado } = req.body.user;
 
     console.log(id);
@@ -205,7 +205,7 @@ export const getUsuarioPorId = async (req, res) => {
 
 
       }catch(error){
-        return res.status(500).json({message: error.message})
+        return res.status(500).json({ok: false, message: error.message})
       }
   
  }
@@ -221,14 +221,14 @@ export const getUsuarioPorId = async (req, res) => {
             rut: rut
         },});
 
-        if(!user) return res.status(404).json({ message: 'El usuario no existe'})
+        if(!user) return res.status(404).json({ ok: false, message: 'El usuario no existe'})
 
       
         return res.json(user);
 
 
       }catch(error){
-        return res.status(500).json({message: error.message})
+        return res.status(500).json({ok: false, message: error.message})
       }
   
  }
@@ -250,11 +250,11 @@ export const revalidarToken = async (req, res = response) => {
 
 export const olvidePassword = async (req, res) =>{
 
-  console.log(req.body);
+  // console.log(req.body);
 
   const {correo} = req.body;
   if(!(correo)){
-    return res.status(400).json({message: 'Correo es requerido'})
+    return res.status(400).json({ok: false, message: 'Correo es requerido'})
   }
 
   const message = 'Revisa tu correo para ver el link para establecer la contraseña'
@@ -263,9 +263,10 @@ export const olvidePassword = async (req, res) =>{
   let user;
 
   try{
-      console.log(correo);
+      // console.log(correo);
       
-      console.log(process.env.SECRET_JWT_SEED);
+      // console.log(process.env.SECRET_JWT_SEED);
+
       // BUSCAR USUARIO EN BDD
       user = await Usuario.findOne({
         where: {
@@ -280,7 +281,7 @@ export const olvidePassword = async (req, res) =>{
       
   }catch (errors){
     console.log('error');
-    return res.json({message: errors});
+    return res.json({ok: false, message: errors});
   }
 
   // enviar email
@@ -288,13 +289,24 @@ export const olvidePassword = async (req, res) =>{
   try {
 
      await transporter.sendMail({
-      from: '"Sistema Capis 👻" <walter.sierra.vega@gmail.com>', // sender address
+      from: '"Sistema Capis - DEPARTAMENTO DE INGENIERÍA EN SISTEMAS Y COMPUTACIÓN - UNIVERSIDAD CATÓLICA DEL NORTE" <walter.sierra.vega@gmail.com>', // sender address
       to: user.correo, // list of receivers
-      subject: "Reestablecer contraseña ✔", // Subject line
+      subject: "Reestablecer contraseña para ingresar al sistema.", // Subject line
       text: "Ingrese al link para reestablecer contraseña", // plain text body
       html: `
-        <b>Por favor, haga click en el siguiente link, o péguelo en su navegador: </b>
+        <b> Se le adjunta el link para poder reestablecer contraseña. Por favor, haga click en el siguiente link, o péguelo en su navegador: </b>
         <a href="${verificationLink}">${verificationLink}</a>
+        <p>
+                    Departamento de Ingeniería de Sistemas y Computación
+                    <br>
+                    Universidad Católica del Norte
+                    <br>
+                    Fono: +56 55 2355136
+                    <br>
+                    Angamos 0610, Pabellón Y-1
+                    <br>
+                    Antofagasta, Chile.
+                </p>
       `, // html body
     });
     
@@ -307,10 +319,10 @@ export const olvidePassword = async (req, res) =>{
 
   }catch(error){
     correoStatus = error;
-    return res.status(400).json({message: 'Ha ocurrido un error'});
+    return res.status(400).json({ok: false, message: 'Ha ocurrido un error'});
   }
 
-  res.json({message, info: correoStatus})
+  res.json({message, ok: true})
 
 }
 
@@ -320,7 +332,7 @@ export const crearNuevoPassword = async (req, res) =>{
   console.log(req.body);
 
   if(!(resetTokenPassword && newPassword)){
-    res.status(400).json({message: 'Ha ocurrido un error, faltan campos'});
+    res.status(400).json({ok: false, message: 'Ha ocurrido un error, faltan campos'});
   }
 
   
@@ -338,7 +350,7 @@ export const crearNuevoPassword = async (req, res) =>{
     
   } catch (error) {
     console.log(error);
-    return res.status(401).json({message: 'Algo va mal.'})
+    return res.status(401).json({ok: false, message: 'Algo va mal.'})
   }
 
   
@@ -350,9 +362,9 @@ export const crearNuevoPassword = async (req, res) =>{
   try {
     // hacer hash a password 
     await usuario.save();
-    res.json({message: 'Contraseña cambiada exitosamente!'})
+    res.json({ok: true, message: 'Contraseña cambiada exitosamente!'})
   } catch (error) {
-    return res.status(401).json({message: 'Algo ha ido mal.'})
+    return res.status(401).json({ok: false, message: 'Algo ha ido mal.'})
   }
 
 }

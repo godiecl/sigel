@@ -73,7 +73,7 @@ export const getEmpresaPorRut = async (req, res) => {
   
     try{
   
-      console.log('request body profesor cc update', request.body.empresa);
+      console.log('request body empresa update', request.body.empresa);
       const { id, nombre, rut, giro} = request.body.empresa;
   
       const empresa = await Empresa.findByPk(id);
@@ -86,11 +86,11 @@ export const getEmpresaPorRut = async (req, res) => {
 
       await empresa.save();
       
-      return res.json();
+      return res.status(500).json({ok: true, message: 'Empresa actualizada'});
   
     } catch (error){
   
-      return res.status(500).json({message: error.message});
+      return res.status(500).json({ok: false, message: error.message});
   
     }
   
