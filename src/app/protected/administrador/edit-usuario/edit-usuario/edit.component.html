@@ -83,7 +83,12 @@
                                 <input  type="checkbox"
                                         id="profesorGuiaCP"
                                         formControlName="rolProfesorGuiaCP"> Profesor Guía de Capstone    
-                            </label>                  
+                            </label>   
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="encargadoEmpresa"
+                                        formControlName="rolEncargadoEmpresa"> Encargado de Empresa    
+                            </label>               
             
                         </fieldset>
                     <span class="focus-input100"></span>
@@ -145,6 +150,19 @@
                         <span class="label-input100">Empresa</span>
                         <input class="input100"
                         formControlName="disc_empresa">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
+                        <span class="label-input100">Telefono de contacto de empresa</span>
+                        <input class="input100"
+                        formControlName="telefonoEmpresa">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
+                        <span class="label-input100">Cargo del contacto de empresa</span>
+                        <input class="input100"
+                        formControlName="cargoEncargadoEmpresa">
                         <span class="focus-input100"></span>
                     </div>
                     

@@ -94,7 +94,7 @@ export class AuthService {
   }
 
   crearEncargadoEmpresa(encargadoEmpresa: EncargadoEmpresa){
-    const url = `${this.baseUrl}encargado-empresas`
+    const url = `${this.baseUrl}encargadoEmpresas`
     return this.http.post<EncargadoEmpresa>(url, {encargadoEmpresa}); 
   }
 

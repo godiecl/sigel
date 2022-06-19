@@ -9,6 +9,9 @@ import { EstudianteModel } from '../../../../auth/models/estudiante.model';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import { ProfesorCCModel } from '../../../../auth/models/profesorCC.model';
 import { ProfesorGuiaCPModel } from '../../../../auth/models/profesorGuiaCP.model';
+import { EncargadoEmpresaModel } from '../../../../auth/models/encargadoEmpresa.model';
+import { AuthService } from '../../../../auth/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit',
@@ -22,15 +25,16 @@ export class EditComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
 
   
-   mostrarAtributosEstudiante: boolean = false;
+  mostrarAtributosEstudiante: boolean = false;
   mostrarAtributosProfesorGuiaCP: boolean = false;
   mostrarAtributosProfesorCC: boolean = false;
+  mostrarAtributosEncargadoEmpresa: boolean = false;
 
   usuarioPorEditar!: User;
   estudianteEditar!: Estudiante  ;
   profesorCC!: any;
   profesorGuiaCP!: any;
-  encargadoEmpresa!: any;
+  encargadoEmpresaEditar!: any;
 
   updateForm!: FormGroup;
 
@@ -54,6 +58,7 @@ export class EditComponent implements OnInit {
   
   constructor( private fb: FormBuilder, 
                private adminService: AdministradorService,
+               private authService: AuthService,
                private _changeDetectorRef: ChangeDetectorRef,
                private router: ActivatedRoute 
                ) { 
@@ -155,30 +160,19 @@ export class EditComponent implements OnInit {
         // this.profesorGuiaCP.disc_empresa= '';
         this.mostrarAtributosProfesorGuiaCP = false;
       }
-      // if(this.usuarioPorEditar.roles.includes('Administrador')){
-
-      // }
-      
-      // if(this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion')){
-        
-      // }
-      // if(this.usuarioPorEditar.roles.includes('JefeCarrera')){
-      //   console.log('lol');
-      // }
-      // if(this.usuarioPorEditar.roles.includes('AsistenteAcademica')){
-        
-      // }
-      
-      // if(this.usuarioPorEditar.roles.includes('EncargadoEmpresa')){
-        
-      // }
-      
-      // if(this.usuarioPorEditar.roles.includes('Administrador')){
-        
-      // }
-      
-  
-  
+      if(this.usuarioPorEditar.roles.includes('EncargadoEmpresa')){
+        this.router.data.subscribe(({encargadoEmpresa}) => {
+          console.log('router: ',encargadoEmpresa)
+          this.encargadoEmpresaEditar = encargadoEmpresa;
+          this.mostrarAtributosEncargadoEmpresa = true;
+        })
+      }else{
+        this.encargadoEmpresaEditar = new EncargadoEmpresaModel(
+          0, '', '', this.usuarioPorEditar.id, 0
+        )
+      }
+      // console.log('encargado empresa',this.encargadoEmpresaEditar)
+    
   }
   // ngAfterContentInit(): void {
 
@@ -194,10 +188,12 @@ export class EditComponent implements OnInit {
 
   ngOnInit():void {
 
-    let carreraSelect = this.estudianteEditar.carrera;
-    if(carreraSelect === 2){
-      // carreraSelect = '';
-    }
+    // let carreraSelect = this.estudianteEditar.carrera;
+    // if(carreraSelect === 2){
+    //   // carreraSelect = '';
+    // }
+
+
 
     this.updateForm = this.fb.group({
       nombre:           [this.usuarioPorEditar.nombre, [Validators.required,]],
@@ -207,7 +203,7 @@ export class EditComponent implements OnInit {
       correo:           [this.usuarioPorEditar.correo, [Validators.required, Validators.pattern(this.emailPattern)]],
       rolAdministrador: [this.usuarioPorEditar.roles.includes('Administrador'), [,]],
       rolEstudiante:    [this.usuarioPorEditar.roles.includes('Estudiante'), [,]],
-      correoPersonal:        [this.estudianteEditar.correoPersonal, ],
+      correoPersonal:   [this.estudianteEditar.correoPersonal, ],
       carrera:          [this.estudianteEditar.carrera,],
       practicaAprobada: [this.estudianteEditar.practicaAprobada, ],
       telefono:         [this.estudianteEditar.telefono, ],
@@ -218,10 +214,13 @@ export class EditComponent implements OnInit {
       telefonoCC:       [this.profesorCC.telefono],
       telefonoCP:       [this.profesorGuiaCP.telefono],
       rolProfesorGuiaCP: [this.usuarioPorEditar.roles.includes('ProfesorGuiaCP'), [,]],
-      disc_empresa: [this.profesorGuiaCP.disc_empresa,]
+      disc_empresa: [this.profesorGuiaCP.disc_empresa,],
+      rolEncargadoEmpresa: [this.usuarioPorEditar.roles.includes('EncargadoEmpresa'), ],
+      telefonoEmpresa: [this.encargadoEmpresaEditar.telefono, ],
+      cargoEncargadoEmpresa: [this.encargadoEmpresaEditar.cargo,] 
     });
 
-    this.updateForm.valueChanges.pipe(takeUntil(this._unsubscribeAll)).subscribe( ({ rolEstudiante, rolProfesorCC, rolProfesorGuiaCP, ...rest}) => {
+    this.updateForm.valueChanges.pipe(takeUntil(this._unsubscribeAll)).subscribe( ({ rolEstudiante, rolProfesorCC, rolProfesorGuiaCP, rolEncargadoEmpresa, ...rest}) => {
       // Si el checkbox rol estudiante es true
       if(rolEstudiante){ this.mostrarAtributosEstudiante=true; }else{ this.mostrarAtributosEstudiante=false;}
 
@@ -230,6 +229,9 @@ export class EditComponent implements OnInit {
       
       // si es profesor de comision correccion
       if(rolProfesorCC){ this.mostrarAtributosProfesorCC=true; } else{ this.mostrarAtributosProfesorCC=false;}
+
+      // si es encargado de empresa
+      if(rolEncargadoEmpresa){ this.mostrarAtributosEncargadoEmpresa = true }else { this.mostrarAtributosEncargadoEmpresa=false; }
 
     } );
 
@@ -261,10 +263,9 @@ export class EditComponent implements OnInit {
     this.profesorCC.telefono = this.updateForm.value.telefonoCC;
     this.profesorGuiaCP.telefono = this.updateForm.value.telefonoCP;
     this.profesorGuiaCP.disc_empresa = this.updateForm.value.disc_empresa;
-    
 
-    
-
+    this.encargadoEmpresaEditar.telefono = this.updateForm.value.telefonoEmpresa;    
+    this.encargadoEmpresaEditar.cargo = this.updateForm.value.cargoEncargadoEmpresa;
 
     /**
      *  SI NO TIENE ROL LO CREA 
@@ -276,10 +277,11 @@ export class EditComponent implements OnInit {
 
       // si en el form tiene true el rol
 
-      console.log('estudiante por editar',this.estudianteEditar);
-      // console.log('PROFE CP por editar',this.profesorGuiaCP);
-      console.log('PROFE CC por editar',this.profesorCC);
-      console.log('update form', this.updateForm.value);
+      // console.log('estudiante por editar',this.estudianteEditar);
+      // // console.log('PROFE CP por editar',this.profesorGuiaCP);
+      // console.log('PROFE CC por editar',this.profesorCC);
+      // console.log('update form', this.updateForm.value);
+      console.log('encargado empresa',this.encargadoEmpresaEditar)
      if(this.updateForm.value.rolEstudiante){ 
       // revisa si lo tiene ya el usuario
       if(!this.usuarioPorEditar.roles.includes('Estudiante')){
@@ -332,7 +334,7 @@ export class EditComponent implements OnInit {
       }
     }
 
-
+    // ASISTENTE ACADEMICA LISTO
     if(this.updateForm.value.rolAsistenteAcademica){
       if(!this.usuarioPorEditar.roles.includes('AsistenteAcademica')){
         // si no tiene rol secretaria. crearlo
@@ -379,6 +381,8 @@ export class EditComponent implements OnInit {
         
     }
 
+
+    // ENCARGADO DE PRACTICA LISTO
     if(this.updateForm.value.rolEncargadoPracticaTitulacion){ 
       if(!this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion')){
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'EncargadoPracticaTitulacion']
@@ -395,10 +399,10 @@ export class EditComponent implements OnInit {
         })
       }else{
         // actualizar comision tp
-        this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-          (res: any) =>{
-            console.log(res);
-          })
+        // this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        //   (res: any) =>{
+        //     console.log(res);
+        //   })
       }
     }else{
       // revisar si tiene rol encargado y si si, borrarlo
@@ -421,6 +425,7 @@ export class EditComponent implements OnInit {
 
     }
 
+    // JEFE DE CARRERA LISTO
     if(this.updateForm.value.rolJefeCarrera){ 
       if(!this.usuarioPorEditar.roles.includes('JefeCarrera')){
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'JefeCarrera']
@@ -431,18 +436,18 @@ export class EditComponent implements OnInit {
         ) 
         if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
           this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
-          this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-          (res: any) =>{
-          console.log(res);
-          })
+          // this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          // (res: any) =>{
+          // console.log(res);
+          // })
         }
       }else{
         // actualizar jefe de carrera
-        this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-          (res: any) =>{
-          console.log(res);
-          }
-        ) 
+        // this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        //   (res: any) =>{
+        //   console.log(res);
+        //   }
+        // ) 
 
       }
       // if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
@@ -450,14 +455,22 @@ export class EditComponent implements OnInit {
       // }
     }else{
       // eliminar si ya tiene el rol
-      if(!this.usuarioPorEditar.roles.includes('AsistenteAcademica' || 'Encargado'))
-      if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
-        const index = this.usuarioPorEditar.roles.indexOf('ComisionTitulacionPractica');
+      if(this.usuarioPorEditar.roles.includes('JefeCarrera')){
+        const index = this.usuarioPorEditar.roles.indexOf('JefeCarrera');
         this.usuarioPorEditar.roles.splice(index,1)
-        this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-        (res: any) =>{
-          console.log(res);
-        })
+      }
+      if(!this.usuarioPorEditar.roles.includes('AsistenteAcademica')){
+        if(!this.usuarioPorEditar.roles.includes('EncargadoPracticaTitulacion')){
+          if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
+            const index = this.usuarioPorEditar.roles.indexOf('ComisionTitulacionPractica');
+            this.usuarioPorEditar.roles.splice(index,1)
+            console.log('hola');
+            this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+              (res: any) =>{
+              console.log(res);
+              })
+          }
+        }
       }
     }  
 
@@ -516,18 +529,37 @@ export class EditComponent implements OnInit {
     }
    }
 
+   if(this.updateForm.value.rolEncargadoEmpresa){
 
+    if(!this.usuarioPorEditar.roles.includes('EncargadoEmpresa')){
+      // CREAR
+      // this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'EncargadoEmpresa']
+      //   this.authService.crearEncargadoEmpresa(this.encargadoEmpresaEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+      //   (res: any) =>{ console.log(res); })
+      //  AQUI DEBO PONER ALERTA QUE SI QUIERE CREAR ENCARGADO DE EMPRESA VAYA A CREAR ENCARGADO DE EMPRESA.
+      Swal.fire('Para poder crear un contacto de empresa, diríjase al home, en registrar empresa.', '', 'warning');
 
-
-       
-
-    
-
+    }else{
+        // ACTUALIZAR
+        this.adminService.actualizarEncargadoEmpresaPorIdUsuario(this.encargadoEmpresaEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        (res: any) =>{
+        console.log(res);
+        })
+      }
+   }else{
+      // verificar si tiene el rol y si lo tiene eliminar.
+      if(this.usuarioPorEditar.roles.includes('EncargadoEmpresa')){
+        const index = this.usuarioPorEditar.roles.indexOf('EncargadoEmpresa');
+          this.usuarioPorEditar.roles.splice(index,1)
+        this.adminService.eliminarEncargadoEmpresaPorIdUsuario(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+          (res: any) =>{
+            console.log(res);
+          })
+      }
+   }
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     
-    
-
     // console.log('form value',this.updateForm.value)
 
     console.log('user por editar value',this.usuarioPorEditar)
@@ -538,8 +570,6 @@ export class EditComponent implements OnInit {
       }
       // alerta agregar
       // console.log('todo bien');
-
-      
     })
   }
 

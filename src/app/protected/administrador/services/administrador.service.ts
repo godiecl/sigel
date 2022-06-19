@@ -60,7 +60,7 @@ export class AdministradorService {
 
   actualizarUsuario(user: User): Observable<User>{
 
-    console.log(' user service',user);
+    // console.log(' user service',user);
 
     const url = `${this.baseUrl}users${user.id}`
     return this.http.patch<User>(url, {user});
