@@ -64,7 +64,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
 
     // colocar alerta, SI SI: SIGUE, SI NO: RETURN.
     Swal.fire({
-      title: '¿Esta seguro de querer registrar este contacto?',
+      title: '¿Está seguro de querer registrar este contacto?',
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',

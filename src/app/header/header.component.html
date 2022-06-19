@@ -1,0 +1,22 @@
+<div class="header">
+    <div class="logoheader" width="350px" >
+        <a routerLink="/home">
+            <img class="LogoDisc" src="./assets/images/LogosDisc/LogoDISC_BLANCO.png" width="350px">
+        </a>
+    </div>
+    <div class="center">
+        <h1>Sistema Práctica Capstone</h1>
+    </div>
+    <div id="login" class="log">
+        <img class="iconlog" src="./assets/images/icons/log.png" width="90px">
+        <a class="boton-logout m-1-23" routerLink="/dashboard/main-menu">
+            Usuario
+        </a>
+        <a class="boton-logout m-1-23" routerLink="/auth/login" *ngIf="isRoute('/home')">
+            Iniciar sesión
+        </a>
+        <button class="boton-logout m-1-23 left" (click)="logout()" *ngIf="!isRoute('/home') && !isRoute('/auth/login')">
+            Cerrar sesión
+        </button>
+    </div>
+</div>

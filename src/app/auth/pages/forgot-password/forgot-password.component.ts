@@ -31,8 +31,8 @@ export class ForgotPasswordComponent implements OnInit {
     
       Swal.fire({
       title: '¿Está seguro de seguir?',
-      showDenyButton: false,
-      showCancelButton: true,
+      showDenyButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Si',
       denyButtonText: 'No',
       customClass: {

@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   crearEmpresa(){
     
     Swal.fire({
-      title: '¿Esta seguro de querer registrarse?',
+      title: '¿Está seguro de querer registrarse?',
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
