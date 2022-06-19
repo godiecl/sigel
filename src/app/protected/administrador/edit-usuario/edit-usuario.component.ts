@@ -65,6 +65,15 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
 
   // }
 
+  isRoute(route: string){
+    // console.log('route ',route);
+    // console.log('ruta del ruter', this.router.url)
+    if(this.router.url === route){
+      return true
+    }
+    return false;
+  }
+
   buscarUsuario(){
 
     this.adminService.obtenerUsuarioPorRut(this.buscarForm.value.rutBuscar).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
@@ -77,8 +86,10 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
       console.log('usuario por editar',this.usuarioPorEditar);
 
       console.log(this.usuarioPorEditar.id);
+      const url = `/dashboard/edit-usuario/${this.usuarioPorEditar.id}`
+      console.log('url', url);
 
-      this.router.navigateByUrl(`/dashboard/editar-usuario/edit/${this.usuarioPorEditar.id}`)
+      this.router.navigateByUrl(url);
 
       // if(this.usuarioPorEditar.roles.includes('Estudiante')){ 
         
@@ -118,10 +129,6 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
       //       }
       //     })
       // }
-
-      if(this.usuarioPorEditar){
-        
-      }
       
     })
     // this.mostrarFormEditar = true;

@@ -1,12 +1,12 @@
 export interface Estudiante{
     
-    _id_estudiante: number,
-    _id_user: number,
+    id_estudiante: number,
+    id_usuario: number,
     correoPersonal: string,
     carrera: number,
     practicaAprobada: boolean,
     telefono: string,
     estadoAsignacionCP: boolean,    
-    _id_CCpractica: number,
-    _id_preinscripcionCP: number,
+    id_CCpractica: number,
+    id_preinscripcionCP: number,
 }

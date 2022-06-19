@@ -9,6 +9,7 @@ import { RegisterComponent } from './pages/register/registerEmpresa/register.com
 import { RegisterContactoComponent } from './pages/register/register-contacto/register-contacto.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './pages/new-password/new-password.component';
+import { SolicitarEstudianteComponent } from './pages/solicitar-estudiante/solicitar-estudiante.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { NewPasswordComponent } from './pages/new-password/new-password.componen
     RegisterContactoComponent,
     ForgotPasswordComponent,
     NewPasswordComponent,
+    SolicitarEstudianteComponent,
   ],
   imports: [
     CommonModule,

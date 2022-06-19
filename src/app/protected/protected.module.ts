@@ -9,7 +9,7 @@ import { RegisterUsuarioComponent } from './administrador/register-usuario/regis
 import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
 import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { EditComponent } from './administrador/edit-usuario/edit/edit.component';
+import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 
 @NgModule({
   declarations: [

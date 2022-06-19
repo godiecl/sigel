@@ -3,24 +3,27 @@
     <span class="login100-form-title p-b-49">
         Editar usuario
     </span>
-    
-    <div class="wrap-input100">
-        <span class="label-input100">Ingrese Rut que quiera buscar</span>
-        <input class="input100"
-            formControlName="rutBuscar">
-        <span class="focus-input100"></span>
-    </div>
 
-    <div class="container-login100-form-btn">
-        <div class="wrap-login100-form-btn">
-            <div class="login100-form-bgbtn"></div>
-            <button type="submit" class="login100-form-btn"
-                    
-                    [disabled]="buscarForm.invalid">
-                Buscar
-            </button>
+    <div *ngIf="isRoute('/dashboard/edit-usuario')">
+        <div class="wrap-input100 m-b-23">
+            <span class="label-input100">Ingrese Rut que quiera buscar</span>
+            <input class="input100"
+                formControlName="rutBuscar">
+            <span class="focus-input100"></span>
+        </div>
+    
+        <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <button type="submit" class="login100-form-btn"
+                        
+                        [disabled]="buscarForm.invalid">
+                    Buscar
+                </button>
+            </div>
         </div>
     </div>
+    
 
 </form> 
 

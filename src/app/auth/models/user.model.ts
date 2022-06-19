@@ -1,7 +1,7 @@
 import { User } from "../interfaces/user.interface";
 
 export class UserModel implements User {
-    _id: number;
+    id: number;
     nombre: string;
     apellidop: string;
     apellidom: string;
@@ -11,7 +11,7 @@ export class UserModel implements User {
 
     constructor(data: User){
 
-            this._id = data._id;
+            this.id = data.id;
             this.nombre = data.nombre;
             this.apellidop = data.apellidop;
             this.apellidom = data.apellidom;
