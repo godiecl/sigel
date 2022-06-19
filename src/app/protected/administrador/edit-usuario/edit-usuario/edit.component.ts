@@ -291,12 +291,22 @@ export class EditComponent implements OnInit {
         this.adminService.crearEstudiante(this.estudianteEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (res: any) =>{
               console.log(res);
+              if(res.ok){
+                // ALERTA DE SE HA CREADO ESTUDIANTE.
+              }else{
+                // ALERTA DE ERROR AL CREAR ESTUDIANTE
+              }
             }
         )}else{
           // Si lo incluye hay que actualizarlo.
           this.adminService.actualizarEstudiantePorId(this.estudianteEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (res: any)=>{
               console.log(res)
+              if(res.ok){
+                // ALERTA DE SE HA ACTUALIZADO ESTUDIANTE
+              }else{
+                // ALERTA DE ERROR AL ACTUALIZAR ESTUDIANTE
+              }
             }
           )}
     }else{
@@ -307,6 +317,11 @@ export class EditComponent implements OnInit {
         this.adminService.eliminarEstudiantePorIdUsuario(this.estudianteEditar.id_usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{      
             console.log(res);
+            if(res.ok){
+              // ALERTA DE SE HA ELIMINADO EL ROL ESTUDIANTE AL USUARIO.
+            }else{
+              // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR ESTUDIANTE. ESTAS 6 ALERTAS DEBEN IR POR TODOS LOS ROLES CORRESPONDIENTES.
+            }
           })
       }
     }
