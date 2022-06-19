@@ -8,7 +8,7 @@ import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.j
 import { createProfesorGuiaCP, deleteProfesorGuiaCPPorIdUsuario, getProfesorGuiaCPPorIdUsuario, updateProfesorGuiaPorId } from '../controllers/profesorGuiaCP.controller.js';
 import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
 import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '../controllers/encargadoPractica.controller.js';
-import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresaPorIdUsuario } from '../controllers/encargadoEmpresa.controller.js';
+import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
 import { createEmpresa } from '../controllers/empresa.controller.js';
@@ -28,6 +28,12 @@ router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 // Empresa
 router.post('/empresas', createEmpresa);
 
+// EncargadoEmpresa
+router.post('/encargadoEmpresas', createEncargadoEmpresa);
+router.get('/encargadoEmpresas/:id', getEncargadoEmpresaPorIdUsuario);
+router.patch('/encargadoEmpresas', updateEncargadoEmpresaPorId);
+router.delete('/encargadoEmpresas:id', deleteEncargadoEmpresaPorIdUsuario);
+
 // Encargado Empresa
 // router.post('/encargado-empresas', createEncargadoEmpresa);
 // router.delete('/encargado-empresas:id', deleteEncargadoEmpresaPorIdUsuario)
@@ -46,10 +52,7 @@ router.patch('/comisionTitulacionPracticas', updateComisionPracticaTitulacionPor
 router.delete('/comisionTitulacionPracticas:id', deleteComisionPracticaTitulacionPorIdUsuario);
 
 
-// EncargadoEmpresa
-router.post('/encargadoEmpresas', createEncargadoEmpresa);
-router.get('/encargadosEmpresas/:id', getEncargadoEmpresaPorIdUsuario);
-router.delete('/encargadosEmpresas:id', deleteEncargadoEmpresaPorIdUsuario);
+
 
 // EncargadoPractica
 router.post('/encargadoPracticaCPs', createEncargadoPractica);

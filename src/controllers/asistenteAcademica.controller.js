@@ -46,7 +46,7 @@ export const createAsistenteAcademica = async (request, response) =>{
 export const deleteAsistenteAcademicaPorId = async (req, res) =>{
 
     try {
-      console.log('request params asistente academica delete', req.params);
+      // console.log('request params asistente academica delete', req.params);
       const id = req.params.id;
       const asistente = await AsistenteAcademica.findOne({
         where: {

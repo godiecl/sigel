@@ -43,7 +43,7 @@ export const createAdmin = async (request, response) =>{
 export const deleteAdminPorId = async (req, res) =>{
 
     try {
-      console.log('request params admin delete', req.params);
+      // console.log('request params admin delete', req.params);
       const id = req.params.id;
       const admin = await Admin.findOne({
         where: {

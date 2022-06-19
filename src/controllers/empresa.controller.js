@@ -12,10 +12,10 @@ export const createEmpresa = async (request, response) =>{
         const rutEmpresa = request.body.empresa.rutEmpresa;
         const giroEmpresa = request.body.empresa.giroEmpresa;
 
-        console.log(rutEmpresa);
-
-        console.log(nombreEmpresa);
-        console.log(giroEmpresa);
+        // console.log(rutEmpresa);
+// 
+        // console.log(nombreEmpresa);
+        // console.log(giroEmpresa);
         const empresaRepetida = await Empresa.findOne({
           where: {
             rutEmpresa: rutEmpresa
@@ -49,7 +49,7 @@ export const createEmpresa = async (request, response) =>{
 export const getEmpresaPorRut = async (req, res) => {
 
     try{  
-          console.log('res',res);
+          // console.log('res',res);
   
           const { rut } = req.params;
           const empresa = await Empresa.findOne({
@@ -73,7 +73,7 @@ export const getEmpresaPorRut = async (req, res) => {
   
     try{
   
-      console.log('request body empresa update', request.body.empresa);
+      // console.log('request body empresa update', request.body.empresa);
       const { id, nombre, rut, giro} = request.body.empresa;
   
       const empresa = await Empresa.findByPk(id);
