@@ -5,13 +5,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { ContenidoPracticacapstoneComponent } from './contenido-practicacapstone/contenido-practicacapstone.component';
-import { DocumentPracticacapstoneComponent } from './document-practicacapstone/document-practicacapstone.component';
-import { DownloadDocumentComponent } from './download-document/download-document.component';
-import { ContenidoPracticaComponent } from './contenido-practica/contenido-practica.component';
-import { ContenidoCapstoneComponent } from './contenido-capstone/contenido-capstone.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { HeaderComponent } from './shared/header/header.component';
 
 
 @NgModule({
@@ -20,11 +15,6 @@ import { ContenidoCapstoneComponent } from './contenido-capstone/contenido-capst
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    ContenidoPracticacapstoneComponent,
-    DocumentPracticacapstoneComponent,
-    DownloadDocumentComponent,
-    ContenidoPracticaComponent,
-    ContenidoCapstoneComponent
   ],
   imports: [
     BrowserModule,
