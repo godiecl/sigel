@@ -64,6 +64,14 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
+        <span class="label-input100">¿Dispone de recursos económicos? Indique cifra aproximada:</span>
+        <input class="input100"
+               placeholder="Ingrese monto"
+               formControlName="disposicionMonetaria">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
         <span class="label-input100">Informacion adicional que desee brindar (opcional) :</span>
         <textarea class="textarea101" formControlName="infoAdicional" placeholder="Ingrese informacion adicional" ></textarea>
         <span class="focus-input100"></span>
@@ -91,7 +99,7 @@
     <div class="container-login100-form-btn">
         <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn" type="submit">
+            <button class="login100-form-btn" type="submit" [disabled]="solicitarEstudianteForm.invalid" >
                 Registrar solicitud de estudiante
             </button>
         </div>
