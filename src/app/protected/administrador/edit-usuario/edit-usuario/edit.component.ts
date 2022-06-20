@@ -242,6 +242,29 @@ export class EditComponent implements OnInit {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+  confirmar(){
+    Swal.fire({
+      title: '¿Está seguro de querer editar este usuario?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.actualizarUsuario();
+        
+      } else if (result.isDenied) {
+        Swal.fire('Los cambios no se han guardado', '', 'info')
+      }
+    })
+
+  }
 
   actualizarUsuario(){
  
@@ -293,8 +316,10 @@ export class EditComponent implements OnInit {
               console.log(res);
               if(res.ok){
                 // ALERTA DE SE HA CREADO ESTUDIANTE.
+                Swal.fire('Se ha creado con éxito!!', '', 'success')
               }else{
                 // ALERTA DE ERROR AL CREAR ESTUDIANTE
+                Swal.fire('Ha ocurrido un error', '', 'error' );
               }
             }
         )}else{
@@ -304,8 +329,10 @@ export class EditComponent implements OnInit {
               console.log(res)
               if(res.ok){
                 // ALERTA DE SE HA ACTUALIZADO ESTUDIANTE
+                Swal.fire('Se ha actualizado con éxito!!', '', 'success')
               }else{
                 // ALERTA DE ERROR AL ACTUALIZAR ESTUDIANTE
+                Swal.fire('Ha ocurrido un error', '', 'error' );
               }
             }
           )}
@@ -319,23 +346,33 @@ export class EditComponent implements OnInit {
             console.log(res);
             if(res.ok){
               // ALERTA DE SE HA ELIMINADO EL ROL ESTUDIANTE AL USUARIO.
+              Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
             }else{
               // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR ESTUDIANTE. ESTAS 6 ALERTAS DEBEN IR POR TODOS LOS ROLES CORRESPONDIENTES.
+              Swal.fire('Ha ocurrido un error', '', 'error' );
             }
           })
       }
     }
 
 
-    // LISTO
+    // LISTO?
     if(this.updateForm.value.rolAdministrador){
        if(!this.usuarioPorEditar.roles.includes('Administrador')){
       this.usuarioPorEditar.roles=[... this.usuarioPorEditar.roles,'Administrador'];
       this.adminService.crearAdmin(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA CREADO .
+          Swal.fire('Se ha creado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL CREAR
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
       }else{ // actualizar
+        //falta codigo??
       } 
     }else{
       if(this.usuarioPorEditar.roles.includes('Administrador')){
@@ -345,6 +382,14 @@ export class EditComponent implements OnInit {
         this.adminService.eliminarAdmin(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
           console.log(res);
+          if(res.ok){
+            // ALERTA DE SE HA ELIMINADO EL ROL
+            Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
+          }else{
+            // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+            Swal.fire('Ha ocurrido un error', '', 'error' );
+          }
+
           })
       }
     }
@@ -359,7 +404,7 @@ export class EditComponent implements OnInit {
         console.log(res);
         })
       }else {
-        // actualizar rol secretaria
+        // actualizar rol secretaria LISTO???
       }
       if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){  
         // crear rol ctp
@@ -367,12 +412,26 @@ export class EditComponent implements OnInit {
           this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA CREADO.
+          Swal.fire('Se ha creado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL CREAR.
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
       }else{
         // actualizar ctp
         this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
             console.log(res);
+            if(res.ok){
+              // ALERTA DE SE HA ACTUALIZADO
+              Swal.fire('Se ha actualizado con éxito!!', '', 'success')
+            }else{
+              // ALERTA DE ERROR AL ACTUALIZAR ESTUDIANTE
+              Swal.fire('Ha ocurrido un error', '', 'error' );
+            }
           })
       }
     }else{
@@ -383,6 +442,13 @@ export class EditComponent implements OnInit {
           this.adminService.eliminarAsistenteAcademica(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
             console.log(res);
+            if(res.ok){
+              // ALERTA DE SE HA ELIMINADO EL ROL.
+              Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
+            }else{
+              // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+              Swal.fire('Ha ocurrido un error', '', 'error' );
+            }
           })
         }       
         // if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
@@ -404,6 +470,13 @@ export class EditComponent implements OnInit {
         this.adminService.crearEncargadoPracticaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA CREADO.
+          Swal.fire('Se ha creado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL CREAR.
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
       }
       if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
@@ -411,6 +484,13 @@ export class EditComponent implements OnInit {
         this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA CREADO.
+          Swal.fire('Se ha creado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL CREAR.
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
       }else{
         // actualizar comision tp
@@ -427,6 +507,13 @@ export class EditComponent implements OnInit {
         this.adminService.eliminarEncargadoPracticaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
           console.log(res);
+          if(res.ok){
+            // ALERTA DE SE HA ELIMINADO EL ROL.
+            Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
+          }else{
+            // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+            Swal.fire('Ha ocurrido un error', '', 'error' );
+          }
         })
       }
       // if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
@@ -447,6 +534,13 @@ export class EditComponent implements OnInit {
         this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
           console.log(res);
+          if(res.ok){
+            // ALERTA DE SE HA CREADO.
+            Swal.fire('Se ha creado con éxito!!', '', 'success')
+          }else{
+            // ALERTA DE ERROR AL CREAR.
+            Swal.fire('Ha ocurrido un error', '', 'error' );
+          }
           }
         ) 
         if(!this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
@@ -483,6 +577,13 @@ export class EditComponent implements OnInit {
             this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
               (res: any) =>{
               console.log(res);
+              if(res.ok){
+                // ALERTA DE SE HA ELIMINADO EL ROL.
+                Swal.fire('Se ha eliminado con éxito del usuario!!', '', 'success')
+              }else{
+                // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+                Swal.fire('Ha ocurrido un error', '', 'error' );
+              }
               })
           }
         }
@@ -496,12 +597,26 @@ export class EditComponent implements OnInit {
         this.adminService.crearProfesorCC(this.profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
           console.log(res);
+          if(res.ok){
+            // ALERTA DE SE HA CREADO.
+            Swal.fire('Se ha creado con éxito!!', '', 'success')
+          }else{
+            // ALERTA DE ERROR AL CREAR.
+            Swal.fire('Ha ocurrido un error', '', 'error' );
+          }
           })
       }else{
          // ACTUALIZAR
          this.adminService.actualizarProfesorCC(this.profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
           console.log( res);
+          if(res.ok){
+            // ALERTA DE SE HA ACTUALIZADO
+            Swal.fire('Se ha actualizado con éxito!!', '', 'success')
+          }else{
+            // ALERTA DE ERROR AL ACTUALIZAR ESTUDIANTE
+            Swal.fire('Ha ocurrido un error', '', 'error' );
+          }
           })
       }
     }else{
@@ -513,6 +628,13 @@ export class EditComponent implements OnInit {
         this.adminService.eliminarProfesorCC(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA ELIMINADO EL ROL.
+          Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
+        }else{
+          // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
        }
     }
@@ -524,12 +646,26 @@ export class EditComponent implements OnInit {
         this.adminService.crearProfesorGuiaCP(this.profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA CREADO.
+          Swal.fire('Se ha creado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL CREAR.
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
      }else{
       // actualizar
       this.adminService.actualizarProfesorGuiaCP(this.profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA ACTUALIZADO
+          Swal.fire('Se ha actualizado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL ACTUALIZAR ESTUDIANTE
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
      }
    }else{
@@ -540,6 +676,13 @@ export class EditComponent implements OnInit {
       this.adminService.eliminarProfesorGuiaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA ELIMINADO EL ROL.
+          Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
+        }else{
+          // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
     }
    }
@@ -559,6 +702,13 @@ export class EditComponent implements OnInit {
         this.adminService.actualizarEncargadoEmpresaPorIdUsuario(this.encargadoEmpresaEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
         console.log(res);
+        if(res.ok){
+          // ALERTA DE SE HA ACTUALIZADO
+          Swal.fire('Se ha actualizado con éxito!!', '', 'success')
+        }else{
+          // ALERTA DE ERROR AL ACTUALIZAR ESTUDIANTE
+          Swal.fire('Ha ocurrido un error', '', 'error' );
+        }
         })
       }
    }else{
@@ -569,6 +719,13 @@ export class EditComponent implements OnInit {
         this.adminService.eliminarEncargadoEmpresaPorIdUsuario(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
             console.log(res);
+            if(res.ok){
+              // ALERTA DE SE HA ELIMINADO EL ROL.
+              Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
+            }else{
+              // ALERTA DE HA OCURRIDO UN ERROR AL ELIMINAR.
+              Swal.fire('Ha ocurrido un error', '', 'error' );
+            }
           })
       }
    }
@@ -581,6 +738,7 @@ export class EditComponent implements OnInit {
     this.adminService.actualizarUsuario(this.usuarioPorEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe((x)=>{
       if(!x){
         // alerta agregar
+        //¿Que alerta agregar? actualizar?
         // console.log('todo mal');
       }
       // alerta agregar
@@ -591,6 +749,7 @@ export class EditComponent implements OnInit {
   eliminarEstudiante(idUser: any){
     this.adminService.eliminarEstudiantePorIdUsuario(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe((x: any)=>{
       console.log('respuesta de eliminar estudiante',x);
+      //agregar alerta eliminar?
     })
   }
 

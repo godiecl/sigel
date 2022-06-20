@@ -108,7 +108,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
   alertaUsuario():void{
     Swal.fire({
-      title: '¿Esta seguro de querer agregar este usuario?',
+      title: '¿Está seguro de querer agregar este usuario?',
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',
