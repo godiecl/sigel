@@ -6,6 +6,7 @@ import { AuthResponse } from '../interfaces/authResponse.interface';
 import { UsuarioLog } from '../interfaces/usuarioLog.interface';
 import { Empresa } from '../interfaces/empresa.interface';
 import { EncargadoEmpresa } from '../interfaces/encargadoEmpresa.interface';
+import { SolicitudEstudiante } from '../interfaces/solicitudEstudiante.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,10 @@ export class AuthService {
   private baseUrl: string = environment.baseUrl;
   private _usuario!: UsuarioLog;
   private _empresa = new BehaviorSubject<number>(0);
+  private _encargadoEmpresa = new BehaviorSubject<string>('');
   empresaActual = this._empresa.asObservable();
+  encargadoActual = this._encargadoEmpresa.asObservable();
+
   get usuario(){
     return {... this._usuario};
   }
@@ -25,6 +29,11 @@ export class AuthService {
   actualizarEmpresaActual(idEmpresa: number){
     this._empresa.next(idEmpresa);
   }
+
+  actualizarEncargadoEmpresaActual(id_encargado: string){
+    this._encargadoEmpresa.next(id_encargado);
+  }
+
 
   login(correo: string, password: string)
   {
@@ -132,6 +141,14 @@ export class AuthService {
     const url = `${this.baseUrl}auth/new-password/${token}`
     const body = {newPassword, token}
     return this.http.put<any>(url, body);
+  }
+
+  crearSolicitudEstudiante(solicitud: SolicitudEstudiante): Observable<any>{
+    console.log('crear solicitud estudiante');
+    const url = `${this.baseUrl}solicitud-estudiantes`
+    const body = {solicitud}
+
+    return this.http.post<any>(url, body);
   }
 
 }
