@@ -84,23 +84,36 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
         this.usuario.roles = [...this.usuario.roles, 'EncargadoEmpresa'];
         this.usuario.estado = false;
 
-        this.adminService.crearUsuario(this.usuario)
-          .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp: any)=>{
-            if(resp){
-              this.encargadoEmpresa = new EncargadoEmpresaModel(0,
-                this.contactoForm.value.cargo, this.contactoForm.value.telefono, resp.id, this.idEmpresaActual
-              )
-              this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
-                .pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any)=>{
-                  // colocar alerta se ha registrado exitosamente
+        this.adminService.crearUsuario(this.usuario).subscribe((resp: any)=>{
+            if(resp.ok){
+                // se inicializa el encargado
+
+                this.encargadoEmpresa = new EncargadoEmpresaModel(0,
+                this.contactoForm.value.cargo, this.contactoForm.value.telefono, resp.id, this.idEmpresaActual)
+
+                // se manda a la bdd
+                this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
+                 .subscribe((response: any)=>{
                   console.log(response);
+                  if(response.ok){
+
+                  Swal.fire('Se ha registrado su contacto en el sistema.', '', 'success');
+                  this.authService.actualizarEncargadoEmpresaActual(response.id)
+                  this.router.navigateByUrl('/auth/solicitar-estudiante');
+
+                  }
+                  else if(!response.ok){
+                    Swal.fire('Ha ocurrido un error al registrarlo. Intente nuevamente.','','error');
+                  }
+                  
+                 
               })
 
-              this.router.navigateByUrl('/auth/solicitar-estudiante');
+              
           }else{
             // imprimir error
             Swal.fire('Ha ocurrido un error.', '', 'info')
-            console.log('aqui fallo')
+            // console.log('aqui fallo')
           }
         })
         Swal.fire('Se ha registrado con exito!!', '', 'success')
