@@ -10,6 +10,7 @@ import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.
 import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-usuario.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
+import { ComisionTitulacionPracticaComponent } from './comision-titulacion-practica/comision-titulacion-practica.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.co
     EditUsuarioComponent,
     DeleteUsuarioComponent,
     MainMenuComponent,
-    EditComponent
+    EditComponent,
+    ComisionTitulacionPracticaComponent,
   ],
   imports: [
     CommonModule,
