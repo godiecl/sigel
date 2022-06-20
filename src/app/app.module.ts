@@ -14,8 +14,7 @@ import { HeaderComponent } from './shared/header/header.component';
     AppComponent,
     HomeComponent,
     FooterComponent,
-    HeaderComponent
-
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
