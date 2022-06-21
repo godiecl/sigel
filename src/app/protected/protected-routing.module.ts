@@ -7,8 +7,9 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, ProfesorGuiaCPEditResolver, EncargadoEmpresaEditResolver } from './administrador/administrador.resolver';
-
+import { UploadContenidoComponent } from './comision-titulacion-practica/pages/upload-contenido/upload-contenido.component';
 const routes: Routes = [
+ 
 
 
   {
@@ -30,10 +31,13 @@ const routes: Routes = [
                                         ]
 
       },
+      { path: 'upload-contenido', component: UploadContenidoComponent },
       { path:'main-menu', component: MainMenuComponent},
       { path:'**', redirectTo: ''},
     ]
+    
   },
+  
 
   // {
   //   path:'',

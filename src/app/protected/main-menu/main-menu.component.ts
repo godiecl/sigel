@@ -25,4 +25,8 @@ export class MainMenuComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/edit-usuario')
   }
 
+  uploadContenido(){
+    this.router.navigateByUrl('/dashboard/upload-contenido')
+  }
+
 }

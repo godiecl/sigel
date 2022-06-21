@@ -1,15 +1,6 @@
 <div class="limiter ">
     <div class="container-login200" style="background-image: url('../../../../assets/images/bg-01.jpg');">
-        <!--<div class="boton-logout">
-            <div class="logoDisc ">
-            </div>
-            <div class="align-items: center p-t-30">
-                <h1> Usuario </h1>
-                <button class="boton-logout p-l-30" (click)="logout()">
-                    Cerrar sesión
-                </button>
-            </div>
-        </div>-->
+
         <button class="boton-logout p-l-30" *ngIf="!isRoute('/dashboard/main-menu')" (click)="volverMenu()">
             Volver
         </button>

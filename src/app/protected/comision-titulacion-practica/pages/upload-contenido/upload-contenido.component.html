@@ -1,0 +1,18 @@
+<form class="login100-form">
+    <span class="login100-form-title p-b-49">
+        Subir contenido Práctica Capstone
+    </span>
+    
+    
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Subir contenido Práctica<br></span>
+        <input (change)="capturarFilePractica($event)" type="file">
+    </div>
+    <div *ngIf="previsualizacion">
+        <img [src]="previsualizacion" alt="">
+    </div>
+    <button class="boton-dashboard m-b-23">
+        Deshabilitar Usuario
+    </button> 
+</form>
+
