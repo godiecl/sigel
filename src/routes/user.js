@@ -12,6 +12,8 @@ import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargad
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
 import { createEmpresa } from '../controllers/empresa.controller.js';
+import { createSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
+import { createPublicacion } from '../controllers/documentos/publicacion.controller.js';
 
 const router = Router();
 
@@ -91,5 +93,13 @@ router.post('/', [
     check('password', 'La contraseña es obligatoria').isLength({min: 4}),
     validarCampos
 ], loginUser);
+
+
+// DOCUMENTOS
+// solicitud estudiante
+router.post('/solicitud-estudiantes', createSolicitudEstudiante)
+
+// publicacion 
+router.post('/publicaciones', createPublicacion)
 
 export default router;

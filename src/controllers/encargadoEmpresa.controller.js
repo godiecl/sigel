@@ -37,7 +37,8 @@ export const createEncargadoEmpresa = async (request, response) =>{
         // console.log('3lmao');
         return response.status(200).json({
             ok: true,
-            msg: 'Encargado Empresa added.'
+            msg: 'Encargado Empresa added.',
+            id: newEncargadoEmpresa.id_encargadoEmpresa
         })
     }catch(error){
         console.log(error);
