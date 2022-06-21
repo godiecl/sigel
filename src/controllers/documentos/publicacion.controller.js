@@ -1,4 +1,4 @@
-import { Publicacion } from "../../models/documentos/Publicacion";
+import { Publicacion } from "../../models/documentos/Publicacion.js";
 
 
 export const createPublicacion = async (req, res) =>{
@@ -7,7 +7,7 @@ export const createPublicacion = async (req, res) =>{
         
         console.log(' body crear publicacion ',req.body);
 
-        const { remitente, asunto, mensaje, id_comisionPracticaTitulacion } = req.body.solicitud;
+        const { remitente, asunto, mensaje, id_comisionPracticaTitulacion, fecha } = req.body.solicitud;
 
         const publicacion = await Publicacion.findOne({
             where: {
@@ -23,7 +23,7 @@ export const createPublicacion = async (req, res) =>{
         }
 
         const newPublicacion = await Publicacion.create({
-            remitente, asunto, mensaje, id_comisionPracticaTitulacion
+            remitente, asunto, mensaje, id_comisionPracticaTitulacion, fecha
         })
 
         return res.status(200).json({

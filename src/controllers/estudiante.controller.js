@@ -91,11 +91,11 @@ export const getEstudiantePorId = async (req, res) => {
     estudiante.id_usuario = id_usuario;
     await estudiante.save();
     
-    return res.json();
+    return res.json({ok: true, msg: 'Estudiante actualizado'});
 
   } catch (error){
 
-    return res.status(500).json({message: error.message});
+    return res.status(500).json({ok:false, msg: error.message});
 
   }
 

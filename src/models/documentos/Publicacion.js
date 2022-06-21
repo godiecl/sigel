@@ -1,6 +1,6 @@
-import { DataTypes } from "sequelize/types";
+import { DataTypes } from "sequelize";
 import { sequelize } from "../../database/database.js";
-import { ComisionPracticaTitulacion } from "../ComisionPracticaTitulacion";
+import { ComisionPracticaTitulacion } from "../ComisionPracticaTitulacion.js";
 
 
 export const Publicacion = sequelize.define('publicacion',{
@@ -18,6 +18,9 @@ export const Publicacion = sequelize.define('publicacion',{
     },
     mensaje: {
         type: DataTypes.TEXT
+    },
+    fecha: {
+        type: DataTypes.DATE
     }
 
 })

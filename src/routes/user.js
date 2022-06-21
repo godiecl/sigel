@@ -12,7 +12,7 @@ import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargad
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
 import { createEmpresa } from '../controllers/empresa.controller.js';
-import { createSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
+import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion } from '../controllers/documentos/publicacion.controller.js';
 
 const router = Router();
@@ -98,6 +98,9 @@ router.post('/', [
 // DOCUMENTOS
 // solicitud estudiante
 router.post('/solicitud-estudiantes', createSolicitudEstudiante)
+router.patch('/solicitud-estudiantes:id', updateSolicitudEstudiante)
+router.get('/solicitud-estudiantes', getSolicitudesEstudiante)
+router.get('/solicitud-estudiantes:id', getSolicitudEstudiante)
 
 // publicacion 
 router.post('/publicaciones', createPublicacion)

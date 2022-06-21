@@ -54,3 +54,39 @@ export const createSolicitudEstudiante = async (req, res) =>{
     }
 
 }
+
+export const updateSolicitudEstudiante = async (req, res) => {
+
+    try{
+  
+      console.log('request body solicitud estudiante update', req.body.solicitudEstudiante);
+      const id = req.params;
+      const { estadoAutorizacion, comentarioAutorizacion, descripcionRequerimientoPractica} = req.body.solicitudEstudiante;
+  
+      const solicitud = await SolicitudEstudiante.findByPk(id);
+  
+      solicitud.estadoAutorizacion = estadoAutorizacion;
+      solicitud.comentarioAutorizacion = comentarioAutorizacion;
+      solicitud.descripcionRequerimientoPractica = descripcionRequerimientoPractica;
+      await solicitud.save();
+      
+      return res.json({ok:true, msg: 'Solicitud actualizada'});
+  
+    } catch (error){
+  
+      return res.status(500).json({ok: false, msg: error.message});
+  
+    }
+  
+  }
+
+  export const getSolicitudesEstudiante = async (req, res) => {
+        const solicitudes = await SolicitudEstudiante.findAll();
+        res.json(solicitudes)
+  }
+
+  export const getSolicitudEstudiante = async (req, res) => {
+    const id = req.params
+    const solicitud = await SolicitudEstudiante.findByPk(id);
+    res.json({ok: true, solicitud: solicitud})
+  }
