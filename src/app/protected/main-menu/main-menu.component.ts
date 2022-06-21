@@ -25,4 +25,8 @@ export class MainMenuComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/edit-usuario')
   }
 
+  verSolicitudesEstudiante(){
+    this.router.navigateByUrl('/dashboard/encargado-practica/ver-solicitudes-estudiante')
+  }
+
 }

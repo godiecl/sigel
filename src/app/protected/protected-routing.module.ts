@@ -7,6 +7,7 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.component';
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, ProfesorGuiaCPEditResolver, EncargadoEmpresaEditResolver } from './administrador/administrador.resolver';
+import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
 
 const routes: Routes = [
 
@@ -31,6 +32,12 @@ const routes: Routes = [
 
       },
       { path:'main-menu', component: MainMenuComponent},
+      { path:'encargado-practica',
+        // component: DashboardComponent,
+        children: [
+          {path: 'ver-solicitudes-estudiante', component: VerSolicitudesEstudianteComponent }
+        ]
+      },
       { path:'**', redirectTo: ''},
     ]
   },
