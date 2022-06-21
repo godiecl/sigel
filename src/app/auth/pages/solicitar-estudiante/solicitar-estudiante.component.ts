@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { SolicitudEstudiante } from '../../interfaces/solicitudEstudiante.interface';
+import { SolicitudEstudiante } from '../../interfaces/documentos/solicitudEstudiante.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 

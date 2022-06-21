@@ -6,7 +6,7 @@ import { AuthResponse } from '../interfaces/authResponse.interface';
 import { UsuarioLog } from '../interfaces/usuarioLog.interface';
 import { Empresa } from '../interfaces/empresa.interface';
 import { EncargadoEmpresa } from '../interfaces/encargadoEmpresa.interface';
-import { SolicitudEstudiante } from '../interfaces/solicitudEstudiante.interface';
+import { SolicitudEstudiante } from '../interfaces/documentos/solicitudEstudiante.interface';
 
 @Injectable({
   providedIn: 'root'

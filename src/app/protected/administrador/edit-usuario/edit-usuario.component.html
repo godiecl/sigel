@@ -1,30 +1,37 @@
-<form class="login100-form" autocomplete="off" [formGroup]="buscarForm" (ngSubmit)="buscarUsuario()" >
 
-    <span class="login100-form-title p-b-49">
-        Editar usuario
-    </span>
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form" autocomplete="off" [formGroup]="buscarForm" (ngSubmit)="buscarUsuario()" >
 
-    <div *ngIf="isRoute('/dashboard/edit-usuario')">
-        <div class="wrap-input100 m-b-23">
-            <span class="label-input100">Ingrese Rut que quiera buscar</span>
-            <input class="input100"
-                formControlName="rutBuscar">
-            <span class="focus-input100"></span>
-        </div>
-    
-        <div class="container-login100-form-btn">
-            <div class="wrap-login100-form-btn">
-                <div class="login100-form-bgbtn"></div>
-                <button type="submit" class="login100-form-btn"
-                        
-                        [disabled]="buscarForm.invalid">
-                    Buscar
-                </button>
-            </div>
-        </div>
+                <span class="login100-form-title p-b-49">
+                    Editar usuario
+                </span>
+            
+                <div *ngIf="isRoute('/dashboard/edit-usuario')">
+                    <div class="wrap-input100 m-b-23">
+                        <span class="label-input100">Ingrese Rut que quiera buscar</span>
+                        <input class="input100"
+                            formControlName="rutBuscar">
+                        <span class="focus-input100"></span>
+                    </div>
+                
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button type="submit" class="login100-form-btn"
+                                    
+                                    [disabled]="buscarForm.invalid">
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </form> 
+            
+            <router-outlet></router-outlet>
+        </div>  
     </div>
-    
-
-</form> 
-
-<router-outlet></router-outlet>
+</div>

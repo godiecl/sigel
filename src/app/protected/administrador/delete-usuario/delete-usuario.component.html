@@ -1,25 +1,38 @@
-<form class="login100-form" 
-    autocomplete="off"
-    [formGroup]="deleteForm">
-    <span class="login100-form-title p-b-49">
-        Deshabilitar usuario
-    </span>
-    
-    
-    <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Rut</span>
-        <input class="input100"
-            placeholder="Ingrese el rut que desea deshabilitar"
-            formControlName="rut"
-            >
-        <span class="focus-input100"></span>
+
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form" 
+            autocomplete="off"
+            [formGroup]="deleteForm">
+            <span class="login100-form-title p-b-49">
+                Deshabilitar usuario
+            </span>
+            
+            
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Rut</span>
+                <input class="input100"
+                    placeholder="Ingrese el rut que desea deshabilitar"
+                    formControlName="rut"
+                    >
+                <span class="focus-input100"></span>
+            </div>
+            
+            <div>
+            </div>
+            <button (click)="deleteUsuario()" class="boton-dashboard m-b-23">
+                Deshabilitar Usuario
+            </button> 
+        </form>
+        </div>
     </div>
+</div>
     
-    <div>
-    </div>
-    <button (click)="deleteUsuario()" class="boton-dashboard m-b-23">
-        Deshabilitar Usuario
-    </button> 
-</form>
+      
+
+
+  
+
 
 

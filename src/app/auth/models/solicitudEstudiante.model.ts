@@ -1,4 +1,4 @@
-import { SolicitudEstudiante } from '../interfaces/solicitudEstudiante.interface';
+import { SolicitudEstudiante } from '../interfaces/documentos/solicitudEstudiante.interface';
 
 
 export class SolicitudEstudianteModel implements SolicitudEstudiante {
