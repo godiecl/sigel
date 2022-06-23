@@ -1,0 +1,117 @@
+<form class="login100-form" autocomplete="off" (ngSubmit)="solicitarEstudiante()" [formGroup]="solicitarEstudianteForm">
+                
+    <span class="login100-form-title p-b-49">
+        Solicitar estudiante 
+    </span>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Nombre de proyecto</span>
+        <input class="input100"
+                formControlName="nombreProyecto"
+               placeholder="Ingrese nombre del proyecto"
+               >
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Problematica que se quiere resolver:</span>
+        <textarea class="textarea101 " placeholder="Ingrese problematica" 
+        formControlName="problemaResolver">  </textarea>
+        <!-- <input class="input100" 
+                formControlName="problematica"
+               placeholder="Ingrese su apellido paterno"
+               >
+        <span class="focus-input100"></span> -->
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Área</span>
+        <input class="input100"
+               placeholder="Ingrese area"
+               formControlName="area">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Solución que usted prevee</span>
+        <input class="input100"
+               placeholder="Ingrese solucion"
+               formControlName="solucion">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">¿Cuál es el entregable final?</span>
+        <input class="input100"
+               placeholder="Ingrese entregable final "
+               formControlName="entregableFinal">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">¿Cuál es la importancia de este proyecto?</span>
+        <textarea class="textarea101" placeholder="Ingrese sobre la importancia"
+        formControlName="importancia"></textarea>
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Plazos que usted define:</span>
+        <input class="input100"
+               placeholder="Ingrese plazos"
+               formControlName="plazo">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">¿Dispone de recursos económicos? Indique cifra aproximada:</span>
+        <input class="input100"
+               placeholder="Ingrese monto"
+               formControlName="disposicionMonetaria">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Informacion adicional que desee brindar (opcional) :</span>
+        <textarea class="textarea101" formControlName="infoAdicional" placeholder="Ingrese informacion adicional" ></textarea>
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100">Modalidad</span>
+        <select class="input100 m-b-23" formControlName="modalidad"> 
+            <option class="input102"  [ngValue]="null" disabled > Seleccione Modalidad </option>
+            <option class="input102" *ngFor="let modalidad of modalidades" [ngValue]="modalidad.id"> {{modalidad.name}} </option>
+        </select>
+    </div>
+
+    <!-- <div class="wrap-input100">
+        <span class="label-input100">Fecha Envio</span>
+        <input class="input100"
+               type="password"
+               placeholder="Confirme su contraseña"
+               formControlName="confirmPassword">
+        <span class="focus-input100"></span>
+    </div> -->
+    
+    <div class="text-right p-t-8 p-b-31"></div>
+    
+    <div class="container-login100-form-btn">
+        <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button class="login100-form-btn" type="submit" [disabled]="solicitarEstudianteForm.invalid" >
+                Registrar solicitud de estudiante
+            </button>
+        </div>
+    </div>
+
+     <div class="flex-col-c p-t-60">
+        <span class="txt1 p-b-17 ">
+            ¿Ya tienes tu cuenta registrada?
+        </span>
+
+        <a routerLink='/auth/login' class="txt2">
+            Ingresa aquí
+        </a>
+    </div> 
+</form>

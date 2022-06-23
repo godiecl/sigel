@@ -45,7 +45,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     rolEstudiante: [false, [,]],
     correoPersonal: [''],
     carrera: [],
-    practicaAprobada: [],
+    practicaAprobada: [false],
     telefono: [''],
     rolEncargadoPracticaTitulacion: [false, [,]],
     rolAsistenteAcademica: [false, [,]],
@@ -55,6 +55,11 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     rolProfesorGuiaCP: [false, [,]],
     disc_empresa: ['',]
   });
+
+  carreras = [
+    { id:0, name: 'Ingeniería en Computación e Informática'},
+    { id:1, name: 'Ingeniería Civil en Computación e Informática'}
+  ];
 
 
 
@@ -72,7 +77,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   constructor(
               private fb: FormBuilder, 
               private adminService: AdministradorService, 
-              private authService: AuthService) 
+              ) 
   { 
     
     this._unsubscribeAll = new Subject();
@@ -101,8 +106,37 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
         this._unsubscribeAll.complete();
   }
 
+  alertaUsuario():void{
+    Swal.fire({
+      title: '¿Está seguro de querer agregar este usuario?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Si',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        //
+        this.crearUsuario();
+
+        Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
+        //se borra todo lo que contiene el formulario
+        
+      } else if (result.isDenied) {
+        Swal.fire('Los cambios no se han guardado', '', 'info')
+      }
+    })
+  }
+
   crearUsuario(): void{
 
+    
 
     this.usuario = new UserModel(this.usuarioForm.value);
     
@@ -134,6 +168,9 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     
     console.log('this usuario', this.usuario);
 
+    
+
+    console.log('this usuario', this.usuario);
     this.adminService.crearUsuario(this.usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (respuesta: any) => {
 
@@ -164,11 +201,12 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
           if(respuesta.roles.includes('ProfesorGuiaCP')){
             this.nuevoProfesorGuiaCP(respuesta.id, this.usuarioForm.value.telefonoCC, false, this.usuarioForm.value.disc_empresa);
           }
+
+          this.usuarioForm.reset();
         }else {
           // error
           Swal.fire('Error', respuesta.error, 'error');
         }
-        
       }
     );
 
@@ -248,7 +286,5 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
         console.log('respuesta de la peticion crear profesorGuiaCPs', res);
       });
   }
-
-
 
 }

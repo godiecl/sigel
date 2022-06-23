@@ -1,0 +1,183 @@
+<form class="login100-form" 
+        autocomplete="off"
+        [formGroup]="updateForm"
+        (ngSubmit)="confirmar()">
+
+            <!-- // ingrese rut para editar usuario -->
+
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100">Nombre</span>
+                    <input class="input100"
+                            formControlName="nombre">
+                    <span class="focus-input100"></span>
+                </div>
+        
+                <div class="wrap-input100">
+                    <span class="label-input100">Apellido paterno</span>
+                    <input class="input100"
+                            formControlName="apellidop">
+                    <span class="focus-input100"></span>
+                </div>
+        
+                <div class="wrap-input100">
+                    <span class="label-input100">Apellido materno</span>
+                    <input class="input100"
+                        formControlName="apellidom">
+                    <span class="focus-input100"></span>
+                </div>
+        
+                <div class="wrap-input100">
+                    <span class="label-input100">Rut</span>
+                    <input class="input100"
+                        formControlName="rut"
+                        >
+                    <span class="focus-input100"></span>
+                </div>
+        
+                <div class="wrap-input100">
+                    <span class="label-input100">Correo</span>
+                    <input class="input100"
+                        formControlName="correo"
+                        >
+                    <span class="focus-input100"></span>
+                </div>
+                
+                
+                <!-- CHECKBOX ROLES-->
+                <div class="text-center m-b-23">
+                    <div class="col">
+                        
+                    <span class="label-input100">Roles: (máximo 4)</span>
+                    
+                        <fieldset class="checkboxgroup text-left">
+                            <label>    <input  type="checkbox"
+                                        id="administrador"
+                                        formControlName="rolAdministrador"> Administrador    
+                            </label>
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="estudiante"
+                                        formControlName="rolEstudiante"> Estudiante    
+                            </label>
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="encargadoPracticaTitulacion"
+                                        formControlName="rolEncargadoPracticaTitulacion"> Encargado de Práctica y Titulación    
+                            </label>
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="asistenteAcademica"
+                                        formControlName="rolAsistenteAcademica"> Asistente Académica    
+                            </label>
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="jefeCarrera"
+                                        formControlName="rolJefeCarrera"> Jefe de Carrera    
+                            </label>
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="profesorComisionCorreccion"
+                                        formControlName="rolProfesorCC"> Profesor de Comisión de Corrección 
+                            </label>
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="profesorGuiaCP"
+                                        formControlName="rolProfesorGuiaCP"> Profesor Guía de Capstone    
+                            </label>   
+                            <label>                                   
+                                <input  type="checkbox"
+                                        id="encargadoEmpresa"
+                                        formControlName="rolEncargadoEmpresa"> Encargado de Empresa    
+                            </label>               
+            
+                        </fieldset>
+                    <span class="focus-input100"></span>
+                    </div>
+                    
+                </div>
+        
+                <div>
+        
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+                        <span class="label-input100">Correo personal</span>
+                        <input class="input100"
+                        formControlName="correoPersonal">
+                        <span class="focus-input100"></span>
+                    </div>
+
+
+                    
+        
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+                        <span class="label-input100">Carrera</span>
+
+                        <select class="input100 m-b-23" formControlName="carrera">
+                            <option class="input102" value="2" selected hidden disabled >Selecciona Carrera </option>
+                            <option class="input102" *ngFor="let carrera of carreras" [ngValue]="carrera.id"> {{carrera.name}} </option>
+                        </select>
+                    </div>
+
+                   
+                    
+        
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
+                        <span class="label-input100">Telefono Estudiante</span>
+                        <input class="input100"
+                        formControlName="telefono">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 m-b-40" *ngIf="mostrarAtributosEstudiante">
+                        <span class="label-input100">¿La práctica ha sido aprobada?</span>
+                        <div class="text-center m-b-23">
+                            <input formControlName="practicaAprobada" type="checkbox"> Si
+                        </div>
+                    </div>
+
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC">
+                        <span class="label-input100">Telefono Profesor Comisión Corrección</span>
+                        <input class="input100"
+                        formControlName="telefonoCC">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
+                        <span class="label-input100">Telefono Profesor Guía Capstone</span>
+                        <input class="input100"
+                        formControlName="telefonoCP">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
+                        <span class="label-input100">Empresa</span>
+                        <input class="input100"
+                        formControlName="disc_empresa">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
+                        <span class="label-input100">Telefono de contacto de empresa</span>
+                        <input class="input100"
+                        formControlName="telefonoEmpresa">
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
+                        <span class="label-input100">Cargo del contacto de empresa</span>
+                        <input class="input100"
+                        formControlName="cargoEncargadoEmpresa">
+                        <span class="focus-input100"></span>
+                    </div>
+                    
+                    
+                </div>
+                
+                <div class="text-right p-t-8 p-b-31"></div>
+                
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn" 
+                                >
+                            Actualizar
+                        </button>
+                    </div>
+                </div>
+    </form>
