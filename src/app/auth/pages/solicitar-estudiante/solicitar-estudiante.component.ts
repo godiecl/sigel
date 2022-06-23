@@ -45,7 +45,7 @@ export class SolicitarEstudianteComponent implements OnInit {
   ngOnInit(): void {
     this.authService.encargadoActual.subscribe( id_encargado => {
       this.idEncargadoActual = id_encargado;
-      console.log('encargado id ',id_encargado);
+      // console.log('encargado id ',id_encargado);
     } )
   }
 

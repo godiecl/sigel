@@ -28,7 +28,9 @@
                 <!-- Position Column -->
                 <ng-container matColumnDef="estado">
                     <th mat-header-cell *matHeaderCellDef> Estado  </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.estado }} </td>
+                    <td mat-cell *matCellDef="let element" > {{element.estado}} </td>
+                    <!-- <td mat-cell *matCellDef="let element" ngIf="!element.estado" > Reprobado </td> -->
+                    <!-- <td mat-cell *matCellDef="let element" ngIf="element.estado == null" > Pendiente </td> -->
                     </ng-container>
             
                 <!-- Symbol Column -->

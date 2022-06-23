@@ -51,7 +51,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
 
     this.authService.empresaActual.subscribe( idEmpresa => {
       this.idEmpresaActual = idEmpresa;
-      console.log('empresa id: register contactos',idEmpresa);
+      // console.log('empresa id: register contactos',idEmpresa);
     } )
   }
   ngOnDestroy(): void {
@@ -94,7 +94,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
                 // se manda a la bdd
                 this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
                  .subscribe((response: any)=>{
-                  console.log(response);
+                  // console.log(response);
                   if(response.ok){
 
                   Swal.fire('Se ha registrado su contacto en el sistema.', '', 'success');

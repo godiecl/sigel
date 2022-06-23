@@ -108,7 +108,7 @@ export class AuthService {
     EMPRESA
    */
 
-  crearEmpresa(empresa: Empresa) {
+  crearEmpresa(empresa: Empresa): Observable<any> {
     const url = `${this.baseUrl}empresas`
     // ESTE CODIGO RETORNA BIEN LA EMPRESA
     return this.http.post<any>(url, {empresa});

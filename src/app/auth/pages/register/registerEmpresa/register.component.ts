@@ -58,8 +58,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        console.log('valor formulario de crear empresa:',this.empresaForm.value);
-        console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
+        // console.log('valor formulario de crear empresa:',this.empresaForm.value);
+        // console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
 
         this.empresa = new EmpresaModel(0,
           this.empresaForm.value.nombreEmpresa,this.empresaForm.value.rutEmpresa, this.empresaForm.value.giroEmpresa
@@ -68,8 +68,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         this.authService.crearEmpresa(this.empresa).
           // pipe(takeUntil(this._unsubscribeAll)).
             subscribe( resp => {
-            console.log('respuesta', resp);
-            if(resp.ok === true){
+            // console.log('respuesta', resp);
+            if(resp.ok){
               // console.log('empresa id', empresa.id_empresa);
               this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
               // let idEmpresaxd;
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
               this.router.navigateByUrl('/auth/register-contacto');
             }else{
-              Swal.fire(resp.msg, resp.ok, 'error');
+              Swal.fire(resp.msg, '', 'error');
             }
           }
           )
