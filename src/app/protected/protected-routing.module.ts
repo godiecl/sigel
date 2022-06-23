@@ -8,6 +8,9 @@ import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, ProfesorGuiaCPEditResolver, EncargadoEmpresaEditResolver } from './administrador/administrador.resolver';
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
+import { SolicitudEstudianteResolver } from './encargado-practica-titulacion/encargado.resolver';
+import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/ver-solicitud.component';
+
 
 const routes: Routes = [
 
@@ -35,7 +38,16 @@ const routes: Routes = [
       { path:'encargado-practica',
         // component: DashboardComponent,
         children: [
-          {path: 'ver-solicitudes-estudiante', component: VerSolicitudesEstudianteComponent }
+          {path:'',},
+          {path: 'ver-solicitudes-estudiante', component: VerSolicitudesEstudianteComponent,
+              children: [
+                {path:'',},
+                {
+                  path: ':id', component: VerSolicitudComponent, resolve: { solicitud: SolicitudEstudianteResolver }
+                }
+              ]  
+          },
+          
         ]
       },
       { path:'**', redirectTo: ''},

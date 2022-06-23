@@ -1,38 +1,51 @@
 <div class="row">
     <div class="col flex-col-c">
         <!-- <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"> -->
-            <table mat-table [dataSource]="solicitudesEstudiante" class="mat-elevation-z8 ">
+            <table *ngIf="isRoute('/dashboard/encargado-practica/ver-solicitudes-estudiante')" mat-table [dataSource]="solicitudesEstudiante" class="mat-elevation-z8 ">
         
                 <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
             
-                <!-- Position Column -->
-                <ng-container matColumnDef="id_solicitudEstudiante">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.id_solicitudEstudiante}} </td>
-                </ng-container>
+                
             
                 <!-- Name Column -->
                 <ng-container matColumnDef="nombreProyecto">
                 <th mat-header-cell *matHeaderCellDef> Nombre de Proyecto </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombreProyecto}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.nombreProyecto}}
+                      
+                </td>
+                
+                </ng-container>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef> Estado  </th>
+                <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
                 </ng-container>
             
-                <!-- Weight Column -->
-                <!-- <ng-container matColumnDef="problemaResolver">
-                <th mat-header-cell *matHeaderCellDef> Problema </th>
-                <td mat-cell *matCellDef="let element"> {{element.problemaResolver}} </td>
-                </ng-container> -->
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="nombreEmpresa">
+                <th mat-header-cell *matHeaderCellDef> Nombre Empresa </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa}} </td>
+                </ng-container>
             
                 <!-- Symbol Column -->
                 <!-- <ng-container matColumnDef="symbol">
                 <th mat-header-cell *matHeaderCellDef> Symbol </th>
                 <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
                 </ng-container> -->
+
+                <ng-container matColumnDef="boton" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                    <button mat-cell *matCellDef="let element" mat-icon-button (click)="verSolicitud(element.id_solicitudEstudiante)">
+                        <mat-icon>search</mat-icon>
+                      </button> 
+                </ng-container>
             
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            <router-outlet></router-outlet>
         </div>
     <!-- </div> -->
 </div>

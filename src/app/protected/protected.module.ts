@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Material
 import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCommonModule} from '@angular/material/core';
 
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -15,6 +21,10 @@ import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.co
 import { ComisionTitulacionPracticaComponent } from './comision-titulacion-practica/comision-titulacion-practica.component';
 import { PublicacionesComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
+import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/ver-solicitud.component';
+import { EvaluarDialog } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/dialog/evaluar-dialog.component';
+
+
 
 @NgModule({
   declarations: [
@@ -28,12 +38,20 @@ import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulaci
     ComisionTitulacionPracticaComponent,
     PublicacionesComponent,
     VerSolicitudesEstudianteComponent,
+    VerSolicitudComponent,
+    EvaluarDialog
   ],
   imports: [
     CommonModule,
     ProtectedRoutingModule,
     ReactiveFormsModule,
-    MatTableModule
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class ProtectedModule { }
