@@ -35,10 +35,10 @@ export class EncargadoTitulacionPracticaService {
 
   actualizarSolicitudEstudiante(solicitud: SolicitudEstudiante): Observable<any>{
 
-    const url = `${this.baseUrl}solicitud-estudiantes${solicitud.id}` ;
+    const url = `${this.baseUrl}solicitud-estudiantes${solicitud.id_solicitudEstudiante}` ;
     const body = solicitud;
-    console.log('console', url)
-    console.log('body', body);
+    // console.log('console', url)
+    // console.log('body', body);
     return this.http.patch<any>(url, body);
   }
   

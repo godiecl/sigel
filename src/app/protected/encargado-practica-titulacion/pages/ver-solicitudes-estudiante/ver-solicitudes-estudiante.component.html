@@ -17,17 +17,19 @@
                 
                 </ng-container>
 
-                <!-- Position Column -->
-                <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef> Estado  </th>
-                <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
-                </ng-container>
+                
             
                 <!-- Weight Column  -->
                 <ng-container matColumnDef="nombreEmpresa">
                 <th mat-header-cell *matHeaderCellDef> Nombre Empresa </th>
                 <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa}} </td>
                 </ng-container>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef> Estado  </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.estado }} </td>
+                    </ng-container>
             
                 <!-- Symbol Column -->
                 <!-- <ng-container matColumnDef="symbol">

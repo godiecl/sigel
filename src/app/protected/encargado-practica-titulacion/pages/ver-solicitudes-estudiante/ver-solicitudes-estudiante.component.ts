@@ -50,7 +50,7 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
     // console.log(this.ELEMENT_DATA)
 
     this.encargadoTP.getSolicitudesEstudianteTabla().subscribe((solicitudes) => {
-      console.log(solicitudes)
+      // console.log(solicitudes)
 
       this.solicitudesEstudiante = solicitudes
       this.displayedColumns = ['nombreProyecto', 'estado', 'nombreEmpresa', 'boton']

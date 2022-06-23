@@ -29,7 +29,7 @@ export class VerSolicitudComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.data.subscribe(({solicitud}) => {
-      console.log(solicitud)
+      // console.log(solicitud)
       this.solicitudEstudiante= solicitud.solicitud;
     })
 
@@ -50,13 +50,13 @@ export class VerSolicitudComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // console.log('The dialog was closed');
-      console.log(result);
+      // console.log(result);
 
       if(result){ 
         console.log('he entrado')
         this.solicitudEstudiante.descripcionRequerimientoPractica=result.descripcionRequerimiento;
         this.solicitudEstudiante.estadoAutorizacion=result.estado;
-        console.log(this.solicitudEstudiante);
+        // console.log(this.solicitudEstudiante);
         this.encargadoService.actualizarSolicitudEstudiante(this.solicitudEstudiante)
           .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp) => {
             if(resp.ok){
