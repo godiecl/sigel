@@ -8,11 +8,11 @@ import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.j
 import { createProfesorGuiaCP, deleteProfesorGuiaCPPorIdUsuario, getProfesorGuiaCPPorIdUsuario, updateProfesorGuiaPorId } from '../controllers/profesorGuiaCP.controller.js';
 import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
 import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '../controllers/encargadoPractica.controller.js';
-import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
+import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresa, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
-import { createEmpresa } from '../controllers/empresa.controller.js';
-import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
+import { createEmpresa, getEmpresa } from '../controllers/empresa.controller.js';
+import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion } from '../controllers/documentos/publicacion.controller.js';
 
 const router = Router();
@@ -29,10 +29,13 @@ router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 
 // Empresa
 router.post('/empresas', createEmpresa);
+router.get('/empresas:id', getEmpresa);
+
 
 // EncargadoEmpresa
 router.post('/encargadoEmpresas', createEncargadoEmpresa);
 router.get('/encargadoEmpresas/:id', getEncargadoEmpresaPorIdUsuario);
+router.get('/encargadoEmpresas:id', getEncargadoEmpresa );
 router.patch('/encargadoEmpresas', updateEncargadoEmpresaPorId);
 router.delete('/encargadoEmpresas:id', deleteEncargadoEmpresaPorIdUsuario);
 
@@ -100,6 +103,7 @@ router.post('/', [
 router.post('/solicitud-estudiantes', createSolicitudEstudiante)
 router.patch('/solicitud-estudiantes:id', updateSolicitudEstudiante)
 router.get('/solicitud-estudiantes', getSolicitudesEstudiante)
+router.get('/solicitud-estudiantes/tabla', getSolicitudesEstudianteTabla )
 router.get('/solicitud-estudiantes:id', getSolicitudEstudiante)
 
 // publicacion 

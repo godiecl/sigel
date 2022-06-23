@@ -49,7 +49,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
     }
 }
 
-export const getEncargadoEmpresaPorIdUsuario = async (req, res) => {
+  export const getEncargadoEmpresaPorIdUsuario = async (req, res) => {
 
     try{  
   
@@ -72,7 +72,32 @@ export const getEncargadoEmpresaPorIdUsuario = async (req, res) => {
           return res.status(400).json({message: error.message})
         }
     
-   }
+  }
+
+  export const getEncargadoEmpresa = async (req, res) => {
+
+    try{  
+  
+  
+          const { id } = req.params;
+          
+          // console.log(id);
+          const encargado = await EncargadoEmpresa.findOne({
+            where: {
+              id_encargadoEmpresa: id
+          },});
+  
+          if(!encargado) return res.status(400).json({ ok: false, message: 'El encargado no existe'})
+  
+        
+          return res.json(encargado);
+  
+  
+        }catch(error){
+          return res.status(400).json({message: error.message})
+        }
+    
+  }
 
 
    export const updateEncargadoEmpresaPorId = async (req, res) => {

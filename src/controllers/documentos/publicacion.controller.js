@@ -7,7 +7,7 @@ export const createPublicacion = async (req, res) =>{
         
         console.log(' body crear publicacion ',req.body);
 
-        const { remitente, asunto, mensaje, id_comisionPracticaTitulacion, fecha } = req.body.solicitud;
+        const { remitente, asunto, mensaje, id_comisionPracticaTitulacion } = req.body.solicitud;
 
         const publicacion = await Publicacion.findOne({
             where: {

@@ -1,4 +1,6 @@
 import { SolicitudEstudiante } from '../../models/documentos/SolicitudEstudiante.js'
+import { Empresa } from '../../models/Empresa.js';
+import { EncargadoEmpresa } from '../../models/EncargadoEmpresa.js';
 
 export const createSolicitudEstudiante = async (req, res) =>{
 
@@ -59,9 +61,10 @@ export const updateSolicitudEstudiante = async (req, res) => {
 
     try{
   
-      console.log('request body solicitud estudiante update', req.body.solicitudEstudiante);
-      const id = req.params;
-      const { estadoAutorizacion, comentarioAutorizacion, descripcionRequerimientoPractica} = req.body.solicitudEstudiante;
+      console.log('request body solicitud estudiante update', req.body);
+      console.log('param', req.params.id);
+      const id = req.params.id;
+      const { estadoAutorizacion, comentarioAutorizacion, descripcionRequerimientoPractica} = req.body;
   
       const solicitud = await SolicitudEstudiante.findByPk(id);
   
@@ -86,7 +89,37 @@ export const updateSolicitudEstudiante = async (req, res) => {
   }
 
   export const getSolicitudEstudiante = async (req, res) => {
-    const id = req.params
+    try {
+    console.log(req.params)
+    const id = req.params.id
     const solicitud = await SolicitudEstudiante.findByPk(id);
     res.json({ok: true, solicitud: solicitud})
+        
+    } catch (error) {
+        res.json({ok: false, msg: error.message})
+    }
   }
+
+  export const getSolicitudesEstudianteTabla = async (req, res) => {
+    const solicitudes = await SolicitudEstudiante.findAll();
+
+    let data = [];
+
+    for(let i=0; i<solicitudes.length ;i++){
+        const encargado = await EncargadoEmpresa.findByPk(solicitudes[i].id_encargadoEmpresa);
+        // console.log(encargado);
+        const empresa = await Empresa.findByPk(encargado.id_empresa);
+        
+         data.push({
+            id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
+            nombreProyecto: solicitudes[i].nombreProyecto,
+            estado: solicitudes[i].estadoAutorizacion,
+            nombreEmpresa: empresa.nombreEmpresa, 
+        })
+    }
+
+     console.log(data)
+
+    res.json(data)
+}
+
