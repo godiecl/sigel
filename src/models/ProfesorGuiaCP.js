@@ -9,7 +9,7 @@ export const ProfesorGuiaCP = sequelize.define('profesores_guia_cp',{
         primaryKey: true,
         autoIncrement: true
     },
-    disc_Empresa: {
+    disc_empresa: {
         type: DataTypes.STRING,
     },
     interesOtroCP: {

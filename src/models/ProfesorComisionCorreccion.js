@@ -4,7 +4,7 @@ import { Usuario } from "./Usuario.js";
 
 export const ProfesorComisionCorrecion = sequelize.define('profesores_comision_correccion',{
 
-    id_profesorComisionCorreccion: {
+    id_profesorCC: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
