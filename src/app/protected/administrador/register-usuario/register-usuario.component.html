@@ -37,9 +37,12 @@
                 <div class="wrap-input100">
                     <span class="label-input100">Rut</span>
                     <input class="input100"
+                    (input)="inputEvent($event)" 
                         placeholder="Ingrese su rut"
+                        maxlength="12"
                         formControlName="rut"
                         >
+                    <span *ngIf= "usuarioForm.get('rut')?.errors?.['rutnovalido']">El rut no es valido</span><br>
                     <span class="focus-input100"></span>
                 </div>
         

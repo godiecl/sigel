@@ -10,8 +10,8 @@
             
                 <!-- Name Column -->
                 <ng-container matColumnDef="nombreProyecto">
-                <th mat-header-cell *matHeaderCellDef> Nombre de Proyecto </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombreProyecto}}
+                <th mat-header-cell *matHeaderCellDef> NOMBRE PROYECTO </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreProyecto  | uppercase }}
                       
                 </td>
                 
@@ -21,14 +21,44 @@
             
                 <!-- Weight Column  -->
                 <ng-container matColumnDef="nombreEmpresa">
-                <th mat-header-cell *matHeaderCellDef> Nombre Empresa </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa}} </td>
+                <th mat-header-cell *matHeaderCellDef> NOMBRE EMPRESA </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa | uppercase }} </td>
                 </ng-container>
 
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="nombreEncargado">
+                <th mat-header-cell *matHeaderCellDef> NOMBRE CONTACTO </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombreEncargado | uppercase }} </td>
+                </ng-container>
+
+                 <!-- Weight Column  -->
+                 <ng-container matColumnDef="apellidoEncargado">
+                <th mat-header-cell *matHeaderCellDef> APELLIDO CONTACTO </th>
+                <td mat-cell *matCellDef="let element"> {{element.apellidoEncargado | uppercase }} </td>
+                </ng-container>
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="telefono">
+                <th mat-header-cell *matHeaderCellDef> TELEFONO CONTACTO </th>
+                <td mat-cell *matCellDef="let element"> {{element.telefono | uppercase}} </td>
+                </ng-container>
                 <!-- Position Column -->
-                <ng-container matColumnDef="estado">
-                    <th mat-header-cell *matHeaderCellDef> Estado  </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.estado }} </td>
+               
+                <ng-container matColumnDef="estado" >
+                    <th mat-header-cell *matHeaderCellDef> ESTADO SOLICITUD  </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.estado === true">
+                            Aprobado
+                        </div>
+                        <div *ngIf="element.estado === false ">
+                            Reprobado
+                        </div>
+                        <div *ngIf="element.estado === null">
+                            Pendiente
+                        </div>
+                    </td>
+                    <!-- <td mat-cell *matCellDef="let element" ngIf="!element.estado" > Reprobado </td> -->
+                    <!-- <td mat-cell *matCellDef="let element" ngIf="element.estado == null" > Pendiente </td> -->
                     </ng-container>
             
                 <!-- Symbol Column -->
@@ -39,9 +69,9 @@
 
                 <ng-container matColumnDef="boton" >
                 <th mat-header-cell *matHeaderCellDef></th>
-                    <button mat-cell *matCellDef="let element" mat-icon-button (click)="verSolicitud(element.id_solicitudEstudiante)">
+                    <td button style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button (click)="verSolicitud(element.id_solicitudEstudiante)">
                         <mat-icon>search</mat-icon>
-                      </button> 
+                    </td> 
                 </ng-container>
             
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

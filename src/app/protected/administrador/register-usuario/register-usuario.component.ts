@@ -12,6 +12,7 @@ import { AuthService } from '../../../auth/services/auth.service';
 import { ProfesorCC } from '../../../auth/interfaces/profesorCC.interface';
 import { ProfesorCCModel } from '../../../auth/models/profesorCC.model';
 import { ProfesorGuiaCPModel } from '../../../auth/models/profesorGuiaCP.model';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-register-usuario',
@@ -37,7 +38,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     nombre: ['', [Validators.required,]],
     apellidop: ['', [Validators.required,]],
     apellidom: ['', [Validators.required,]],
-    rut: ['', [Validators.required,]],
+    rut: ['', [Validators.required, this.rutService.validaRutForm]],
     correo: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(4)]],
     confirmPassword: ['', [Validators.required,]],
@@ -77,6 +78,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   constructor(
               private fb: FormBuilder, 
               private adminService: AdministradorService, 
+              private rutService: RutService
               ) 
   { 
     
@@ -104,6 +106,16 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
+  }
+
+  get f(){
+    return this.usuarioForm.controls;
+  }
+
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.usuarioForm.controls['rut'].patchValue(rut, {emitEvent :false});
   }
 
   alertaUsuario():void{

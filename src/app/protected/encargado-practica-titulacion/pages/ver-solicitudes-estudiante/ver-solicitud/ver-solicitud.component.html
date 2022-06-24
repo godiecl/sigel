@@ -5,61 +5,91 @@
                 Nombre del proyecto:
             </span>
             
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100 m-r-60">Nombre de proyecto:</span>
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100 ">Nombre de proyecto: </span>
                 
             {{ solicitudEstudiante.nombreProyecto | uppercase}} 
             </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Problematica que se quiere resolver:</span>
-                    {{ solicitudEstudiante.problemaResolver }}
-            </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Área</span>
+
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Área: </span>
                 {{ solicitudEstudiante.area }}
             </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Solución que usted prevee</span>
-                {{ solicitudEstudiante.solucion }}
-            </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">¿Cuál es el entregable final?</span>
-                {{ solicitudEstudiante.entregableFinal }}
-                <span class="focus-input100"></span>
-            </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">¿Cuál es la importancia de este proyecto?</span>
-                {{ solicitudEstudiante.importancia }}
-                <span class="focus-input100"></span>
-            </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Plazos que usted define:</span>
+
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Plazos que define:</span>
                 {{ solicitudEstudiante.plazo }}
                 <span class="focus-input100"></span>
             </div>
-        
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">¿Dispone de recursos económicos? Indique cifra aproximada:</span>
+
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Recursos económicos, monto aproximado: </span>
                 {{ solicitudEstudiante.disposicionMonetaria }}
                 <span class="focus-input100"></span>
             </div>
+
+            <div *ngIf="solicitudEstudiante.modalidad == '0'" class="wrap-input100 m-b-23">
+                <span class="label-input100" >Modalidad: </span>
+                PRÁCTICA PREPROFESIONAL
+            </div>
+
+            <div *ngIf="solicitudEstudiante.modalidad == '1'" class="wrap-input100 m-b-23">
+                <span class="label-input100" >Modalidad: </span>
+                CAPSTONE PROJECT
+            </div>
+
+            <div *ngIf="solicitudEstudiante.modalidad == '2'" class="wrap-input100 m-b-23">
+                <span class="label-input100" >Modalidad: </span>
+                POR DEFINIR
+            </div>
         
-            <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Informacion adicional que desee brindar (opcional) :</span>
-                {{ solicitudEstudiante.infoAdicional }}
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Problematica que se quiere resolver:</span>
+                <p>{{ solicitudEstudiante.problemaResolver }}
+                </p>
+            </div>
+        
+            
+        
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Solución que se prevee: </span>
+                <p>
+
+                    {{ solicitudEstudiante.solucion }}
+                </p>
+            </div>
+        
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Entregable final: </span>
+                <p>
+
+                    {{ solicitudEstudiante.entregableFinal }}
+                </p>
                 <span class="focus-input100"></span>
             </div>
         
-            <div *ngIf="solicitudEstudiante.infoAdicional" class="wrap-input100 m-b-23">
-                <span class="label-input100">Modalidad</span>
-                 {{ solicitudEstudiante.infoAdicional }}
+            <div class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Importancia del proyecto: </span>
+                <p>
+
+                    {{ solicitudEstudiante.importancia }}
+                </p>
+                <span class="focus-input100"></span>
             </div>
+        
+        
+            <div *ngIf="solicitudEstudiante.infoAdicional" class="wrap-input100 m-b-23" contenteditable="true">
+                <span class="label-input100">Informacion adicional: </span>
+                <p>
+                    
+                {{ solicitudEstudiante.infoAdicional }}
+                </p>
+                <span class="focus-input100"></span>
+            </div>
+        
+            
+
+            
 
             <button mat-button (click)="openDialog()" > <mat-icon>reply_all</mat-icon>
                 Evaluar

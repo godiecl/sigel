@@ -8,6 +8,11 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RutModule } from 'rut-chileno';
+
+
+
+
 
 
 @NgModule({
@@ -16,12 +21,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
+    
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
