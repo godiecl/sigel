@@ -31,8 +31,12 @@
     <div class="wrap-input100">
         <span class="label-input100">Rut</span>
         <input class="input100"
+                (input)="inputEvent($event)" 
+                maxlength="12"
                placeholder="Ingrese su rut"
                formControlName="rut">
+               <span *ngIf= "contactoForm.get('rut')?.errors?.['rutnovalido']">El rut no es valido</span><br>
+        <!-- <rut-chile [msjError]="El rut ingresado no es válido." [mode]="0" (rut_emiter)="getRut($event)"></rut-chile> -->
         <span class="focus-input100"></span>
     </div>
 
@@ -55,6 +59,7 @@
     <div class="wrap-input100">
         <span class="label-input100">Telefono</span>
         <input class="input100"
+        type="number"
                placeholder="Ingrese su telefono"
                formControlName="telefono">
         <span class="focus-input100"></span>
@@ -83,7 +88,7 @@
     <div class="container-login100-form-btn">
         <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn" type="submit">
+            <button class="login100-form-btn" [disabled]="contactoForm.invalid" type="submit">
                 Registrar e ir a solicitar estudiante
             </button>
         </div>

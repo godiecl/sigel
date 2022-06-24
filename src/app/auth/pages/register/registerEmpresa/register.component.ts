@@ -7,6 +7,7 @@ import { EmpresaModel } from '../../../models/empresa.model';
 import Swal from 'sweetalert2';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/operators';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-register',
@@ -18,16 +19,27 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   empresa!: Empresa;
   private _unsubscribeAll: Subject<any>;
+  emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 
   empresaForm: FormGroup = this.fb.group({
-      rutEmpresa: ['', [Validators.required]],
+      rutEmpresa: ['', [Validators.required, this.rutService.validaRutForm]],
       nombreEmpresa: ['',[Validators.required]],
-      giroEmpresa: ['', [Validators.required]]
+      giroEmpresa: ['', [Validators.required]],
+      nombre: ['',[Validators.required]],
+      rut: ['', [Validators.required, this.rutService.validaRutForm]],
+      apellidop: ['', [Validators.required]],
+      apellidom: ['', [Validators.required]],
+      correo: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
+      cargo: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
   })
 
   constructor(private fb:FormBuilder,
               private router: Router,
-              private authService: AuthService
+              private authService: AuthService,
+              private rutService: RutService
               ) { 
                 this._unsubscribeAll = new Subject();
               }
@@ -39,6 +51,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
         // Unsubscribe from all subscriptions
         // this._unsubscribeAll.next(null);
         // this._unsubscribeAll.complete();
+  }
+
+  get f(){
+    return this.empresaForm.controls;
+  }
+
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.empresaForm.controls['rutEmpresa'].patchValue(rut, {emitEvent :false});
+  }
+
+  inputEvent2(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.empresaForm.controls['rut'].patchValue(rut, {emitEvent :false});
   }
 
   crearEmpresa(){
@@ -69,17 +97,29 @@ export class RegisterComponent implements OnInit, OnDestroy {
           // pipe(takeUntil(this._unsubscribeAll)).
             subscribe( resp => {
             // console.log('respuesta', resp);
+            try {
+               // console.log('empresa id', empresa.id_empresa);
+               this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
+               // let idEmpresaxd;
+               // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
+               //  console.log('subject',idEmpresaxd )
+               Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
+               // this.router.navigateByUrl('/auth/solicitar-estudiante');
+              
+            } catch (error) {
+              Swal.fire('No se ha registrado', '', 'info')
+            }
             if(resp.ok){
-              // console.log('empresa id', empresa.id_empresa);
-              this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
+              // this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
+              // Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
+
               // let idEmpresaxd;
               // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
               //  console.log('subject',idEmpresaxd )
-              Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
-              this.router.navigateByUrl('/auth/register-contacto');
-            }else{
-              Swal.fire(resp.msg, '', 'error');
+              // this.router.navigateByUrl('/auth/solicitar-estudiante');
             }
+            
+            
           }
           )
 

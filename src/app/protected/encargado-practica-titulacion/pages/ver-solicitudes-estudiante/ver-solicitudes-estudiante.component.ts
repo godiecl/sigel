@@ -53,7 +53,7 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
       // console.log(solicitudes)
 
       this.solicitudesEstudiante = solicitudes
-      this.displayedColumns = ['nombreProyecto', 'estado', 'nombreEmpresa', 'boton']
+      this.displayedColumns = ['nombreProyecto', 'nombreEmpresa', 'nombreEncargado', 'apellidoEncargado', 'telefono', 'estado', 'boton']
       
     })
     

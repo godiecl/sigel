@@ -3,7 +3,7 @@
   
   <mat-form-field  >
     <mat-label  >Descripción del requerimiento</mat-label>
-    <input  matInput [formControlName]="'descripcionRequerimientoPractica'">
+    <input required matInput [formControlName]="'descripcionRequerimientoPractica'">
   </mat-form-field>
   <!-- <mat-form-field>   -->
     
@@ -13,7 +13,7 @@
 </div>
 <div mat-dialog-actions>
   
-  <button mat-button (click)="onNoClick()">Dejar Pendiente</button>
-  <button mat-button (click)="aprobar()" cdkFocusInitial>Aprobar</button>
+  <button mat-button (click)="pendiente()">Dejar Pendiente</button>
+  <button mat-button [disabled]="evaluarForm.invalid" (click)="aprobar()" cdkFocusInitial>Aprobar</button>
   <button mat-button (click)="reprobar()" cdkFocusInitial>Reprobar</button>
 </div>

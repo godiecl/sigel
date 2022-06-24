@@ -53,11 +53,18 @@ export interface DialogData {
 
     reprobar(): any{
       this.evaluarForm.value.estado = false;
+      this.evaluarForm.value.descripcionRequerimientoPractica = null;
+      this.dialogRef.close(this.evaluarForm.value );
+    }
+
+    pendiente(): any{
+      this.evaluarForm.value.estado = null;
+      this.evaluarForm.value.descripcionRequerimientoPractica = null;
       this.dialogRef.close(this.evaluarForm.value );
     }
 
     onNoClick(): void {
-     
+      
       this.dialogRef.close();
     }
   }

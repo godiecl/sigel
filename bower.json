@@ -1,0 +1,21 @@
+{
+  "name": "bower",
+  "description": "bowerd",
+  "main": "main",
+  "authors": [
+    "Walter Sierra <walter@alphatest.cl>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/WalterSierraUCN/sistemaPracticaCapstone",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-rut-validator": "^0.0.2"
+  }
+}
