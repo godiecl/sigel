@@ -9,6 +9,7 @@ import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, ProfesorGuiaCPEditResolver, EncargadoEmpresaEditResolver } from './administrador/administrador.resolver';
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
+import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 
 const routes: Routes = [
 
@@ -34,6 +35,7 @@ const routes: Routes = [
       },
       { path:'main-menu', component: MainMenuComponent},
       { path: 'upload-contenido', component:UploadContenidoComponent},
+      { path: 'download-document',component:DownloadDocumentComponent},
       { path:'encargado-practica',
         // component: DashboardComponent,
         children: [

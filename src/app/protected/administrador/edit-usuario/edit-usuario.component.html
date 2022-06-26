@@ -1,17 +1,27 @@
-
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link">Home</a></li>
+            <li style="color:white;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
+            <li style="color:white;">>  Editar usuario</li>
+            
+        </ul>
+    </nav>
+</div>
 <div class="row">
     <div class="col flex-col-c">
         <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
             <form class="login100-form" autocomplete="off" [formGroup]="buscarForm" (ngSubmit)="buscarUsuario()" >
 
-                <span class="login100-form-title p-b-49">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Editar usuario
                 </span>
             
                 <div *ngIf="isRoute('/dashboard/edit-usuario')">
                     <div class="wrap-input100 m-b-23">
-                        <span class="label-input100">Ingrese Rut que quiera buscar</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Ingrese Rut que quiera buscar</span>
+                        <input class="input100" style="font-size: 20px;"
                             formControlName="rutBuscar">
                         <span class="focus-input100"></span>
                     </div>
@@ -19,8 +29,7 @@
                     <div class="container-login100-form-btn">
                         <div class="wrap-login100-form-btn">
                             <div class="login100-form-bgbtn"></div>
-                            <button type="submit" class="login100-form-btn"
-                                    
+                            <button type="submit" class="login100-form-btn" style="font-size: 25px;"
                                     [disabled]="buscarForm.invalid">
                                 Buscar
                             </button>

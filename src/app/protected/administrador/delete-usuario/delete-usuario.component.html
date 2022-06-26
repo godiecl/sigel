@@ -1,18 +1,28 @@
-
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link">Home</a></li>
+            <li style="color:white;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
+            <li style="color:white;">>  Deshabilitar usuario</li>
+            
+        </ul>
+    </nav>
+</div>
 <div class="row">
     <div class="col flex-col-c">
         <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
             <form class="login100-form" 
             autocomplete="off"
             [formGroup]="deleteForm">
-            <span class="login100-form-title p-b-49">
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                 Deshabilitar usuario
             </span>
             
             
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Rut</span>
-                <input class="input100"
+                <span class="label-input100" style="font-size: 25px;">Rut</span>
+                <input class="input100"style="font-size: 20px;"
                     placeholder="Ingrese el rut que desea deshabilitar"
                     formControlName="rut"
                     >
@@ -21,7 +31,7 @@
             
             <div>
             </div>
-            <button (click)="deleteUsuario()" class="boton-dashboard m-b-23">
+            <button (click)="deleteUsuario()" style="font-size: 25px;" class="boton-dashboard m-b-23">
                 Deshabilitar Usuario
             </button> 
         </form>

@@ -16,8 +16,7 @@ import { ProfesorGuiaCPModel } from '../../../auth/models/profesorGuiaCP.model';
 @Component({
   selector: 'app-register-usuario',
   templateUrl: './register-usuario.component.html',
-  styles: [
-  ]
+  styleUrls: ['./register-usuario.component.css']
 })
 export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 

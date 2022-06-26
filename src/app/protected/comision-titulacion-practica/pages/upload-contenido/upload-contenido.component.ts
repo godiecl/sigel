@@ -1,5 +1,7 @@
+import { ComisionTitulacionPracticaService } from './../../comision-titulacion-practica.service';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-upload-contenido',
@@ -7,41 +9,32 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./upload-contenido.component.css']
 })
 export class UploadContenidoComponent implements OnInit {
-  public previsualizacion!: string;
-  public archivos:any=[]
+  private fileTmp:any;
 
-  constructor(private sanitizer:DomSanitizer) { }
+  constructor(private comisionTitulacionPracticaService:ComisionTitulacionPracticaService) { 
+
+  }
 
   ngOnInit(): void {
   }
-  capturarFilePractica(event:any) {
-    const archivoCapturado=event.target.files[0]
-    this.extraerBase64(archivoCapturado).then((imagen:any)=>{
-      this.previsualizacion= imagen.base;
-    })
-    this.archivos.push(archivoCapturado)
-  }
-
-  //previsualizar archivo
-  extraerBase64 = async ($event:any)=> new Promise ((resolve, reject) =>{
-    try{
-      const unsafeImg = window.URL.createObjectURL($event);
-      const image = this.sanitizer.bypassSecurityTrustResourceUrl(unsafeImg);
-      const reader = new FileReader();
-      reader.readAsDataURL($event);
-      reader.onload=()=>{
-        resolve({
-          base:reader.result
-        });
-      };
-      reader.onerror = error =>{
-        resolve({
-          base:null
-        });
-      };
-    }catch(e){
-      return $event;
+  
+  getFile($event:any):void{
+    const [file] = $event.target.files;
+    this.fileTmp = {
+      fileRaw:file,
+      fileName:file.name
     }
-  })
+  }
+//
+  sendFile():void{
 
+    //0pcion video pdf
+    const body=new FormData();
+    body.append('myFile',this.fileTmp.fileRaw,this.fileTmp.fileName);
+    console.log("blabla body",body);
+    //conexion con backend
+    this.comisionTitulacionPracticaService.sendPostContenidoPractica(body)
+    .subscribe(res=>console.log(res));
+  }
+ 
 }

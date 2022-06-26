@@ -15,6 +15,7 @@ import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.co
 import { ComisionTitulacionPracticaComponent } from './comision-titulacion-practica/comision-titulacion-practica.component';
 import { PublicacionesComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
+import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulaci
     ComisionTitulacionPracticaComponent,
     PublicacionesComponent,
     VerSolicitudesEstudianteComponent,
+    DownloadDocumentComponent,
   ],
   imports: [
     CommonModule,

@@ -1,18 +1,42 @@
-<form class="login100-form">
-    <span class="login100-form-title p-b-49">
-        Subir contenido Práctica Capstone
-    </span>
-    
-    
-    <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Subir contenido Práctica<br></span>
-        <input (change)="capturarFilePractica($event)" type="file">
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;"
+                >
+                    Subir contenido Práctica Capstone
+                </span>
+                <p>
+                    Aquí podrá adjuntar información complementaria sobre los procesos de Práctica preprofesional y Capstone project, que será visible para todo publico en la página de inicio.
+
+                </p>
+            </form>
+        </div>
+        <div id="formPractica" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100 m-b-23" style="font-size: 25px;">Subir contenido Práctica Preprofesional<br></span>
+                    <!--input (change)="capturarFilePractica($event)" type="file">-->
+                    <input type="file" (change)="getFile($event)">
+                </div>
+                <button (click)="sendFile()" class="boton-dashboard m-b-23 m-t-23">
+                    Subir contenido práctica
+                </button> 
+            </form>
+        </div>
+
+        <div id="formCapstone" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <div class="wrap-input100 m-b-23 m-t-23">
+                    <span class="label-input100" style="font-size: 25px;">Subir contenido Captone Project<br></span>
+                    <!--input (change)="capturarFileCapstone($event)" type="file"-->
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    Subir contenido Capstone
+                </button> 
+            </form>
+        </div>
     </div>
-    <div *ngIf="previsualizacion">
-        <img [src]="previsualizacion" alt="">
-    </div>
-    <button class="boton-dashboard m-b-23">
-        Deshabilitar Usuario
-    </button> 
-</form>
+</div>
+
 

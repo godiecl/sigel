@@ -31,4 +31,8 @@ export class MainMenuComponent implements OnInit {
   uploadContenido(){
     this.router.navigateByUrl('/dashboard/upload-contenido')
   }
+  downloadDocument(){
+    this.router.navigateByUrl('/dashboard/download-document')
+  }
 }
+ 
