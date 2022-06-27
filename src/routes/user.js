@@ -13,7 +13,7 @@ import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorId
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
 import { createEmpresa, getEmpresa } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
-import { createPublicacion } from '../controllers/documentos/publicacion.controller.js';
+import { createPublicacion, getPublicacion, getPublicaciones } from '../controllers/documentos/publicacion.controller.js';
 
 const router = Router();
 
@@ -108,5 +108,7 @@ router.get('/solicitud-estudiantes:id', getSolicitudEstudiante)
 
 // publicacion 
 router.post('/publicaciones', createPublicacion)
+router.get('/publicaciones', getPublicaciones)
+router.get('/publicaciones:id', getPublicacion)
 
 export default router;

@@ -1,6 +1,7 @@
 import { SolicitudEstudiante } from '../../models/documentos/SolicitudEstudiante.js'
 import { Empresa } from '../../models/Empresa.js';
 import { EncargadoEmpresa } from '../../models/EncargadoEmpresa.js';
+import { Usuario } from '../../models/Usuario.js';
 
 export const createSolicitudEstudiante = async (req, res) =>{
 
@@ -81,7 +82,7 @@ export const updateSolicitudEstudiante = async (req, res) => {
   
     }
   
-  }
+}
 
   export const getSolicitudesEstudiante = async (req, res) => {
         const solicitudes = await SolicitudEstudiante.findAll();
@@ -107,6 +108,12 @@ export const updateSolicitudEstudiante = async (req, res) => {
 
     for(let i=0; i<solicitudes.length ;i++){
         const encargado = await EncargadoEmpresa.findByPk(solicitudes[i].id_encargadoEmpresa);
+
+        const usuario = await Usuario.findOne({
+            where: {
+                id: encargado.id_usuario
+            }
+        })
         // console.log(encargado);
         const empresa = await Empresa.findByPk(encargado.id_empresa);
         
@@ -114,7 +121,11 @@ export const updateSolicitudEstudiante = async (req, res) => {
             id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
             nombreProyecto: solicitudes[i].nombreProyecto,
             estado: solicitudes[i].estadoAutorizacion,
+            telefono: encargado.telefono,
+            nombreEncargado: usuario.nombre,
+            apellidoEncargado: usuario.apellidop,
             nombreEmpresa: empresa.nombreEmpresa, 
+
         })
     }
 

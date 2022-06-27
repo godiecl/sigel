@@ -7,7 +7,7 @@ export const createPublicacion = async (req, res) =>{
         
         console.log(' body crear publicacion ',req.body);
 
-        const { remitente, asunto, mensaje, id_comisionPracticaTitulacion } = req.body.solicitud;
+        const { remitente, asunto, mensaje, id_comisionPracticaTitulacion } = req.body.publicacion;
 
         const publicacion = await Publicacion.findOne({
             where: {
@@ -35,8 +35,25 @@ export const createPublicacion = async (req, res) =>{
         console.log(error)
         return res.status(400).json({
             ok: false,
-            msg: error
+            msg: error.message
         })
     }
 
 }
+
+export const getPublicaciones = async (req, res) => {
+    const publicaciones = await Publicacion.findAll();
+    res.json(publicaciones)
+}
+
+export const getPublicacion = async (req, res) => {
+    try {
+    console.log(req.params)
+    const id = req.params.id
+    const publicacion = await Publicacion.findByPk(id);
+    res.json({ok: true, solicitud: publicacion})
+        
+    } catch (error) {
+        res.json({ok: false, msg: error.message})
+    }
+  }

@@ -47,7 +47,8 @@ export const SolicitudEstudiante = sequelize.define('solicitud_estudiante',{
         type: DataTypes.BOOLEAN
     },
     estadoAutorizacion: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        
     },
     comentarioAutorizacion: {
         type: DataTypes.TEXT
