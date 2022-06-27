@@ -6,37 +6,37 @@
             <!-- // ingrese rut para editar usuario -->
 
                 <div class="wrap-input100 m-b-23">
-                    <span class="label-input100">Nombre</span>
-                    <input class="input100"
+                    <span class="label-input100" style="font-size: 25px;">Nombre</span>
+                    <input class="input100" style="font-size: 20px;"
                             formControlName="nombre">
                     <span class="focus-input100"></span>
                 </div>
         
                 <div class="wrap-input100">
-                    <span class="label-input100">Apellido paterno</span>
-                    <input class="input100"
+                    <span class="label-input100" style="font-size: 25px;">Apellido paterno</span>
+                    <input class="input100" style="font-size: 20px;"
                             formControlName="apellidop">
                     <span class="focus-input100"></span>
                 </div>
         
                 <div class="wrap-input100">
-                    <span class="label-input100">Apellido materno</span>
-                    <input class="input100"
+                    <span class="label-input100" style="font-size: 25px;">Apellido materno</span>
+                    <input class="input100" style="font-size: 20px;"
                         formControlName="apellidom">
-                    <span class="focus-input100"></span>
+                    <span class="focus-input100" style="font-size: 25px;"></span>
                 </div>
         
                 <div class="wrap-input100">
-                    <span class="label-input100">Rut</span>
-                    <input class="input100"
+                    <span class="label-input100" style="font-size: 25px;">Rut</span>
+                    <input class="input100" style="font-size: 20px;"
                         formControlName="rut"
                         >
                     <span class="focus-input100"></span>
                 </div>
         
                 <div class="wrap-input100">
-                    <span class="label-input100">Correo</span>
-                    <input class="input100"
+                    <span class="label-input100" style="font-size: 25px;">Correo</span>
+                    <input class="input100" style="font-size: 20px;"
                         formControlName="correo"
                         >
                     <span class="focus-input100"></span>
@@ -47,7 +47,7 @@
                 <div class="text-center m-b-23">
                     <div class="col">
                         
-                    <span class="label-input100">Roles: (máximo 4)</span>
+                    <span class="label-input100" style="font-size: 25px;">Roles: (máximo 4)</span>
                     
                         <fieldset class="checkboxgroup text-left">
                             <label>    <input  type="checkbox"
@@ -99,8 +99,8 @@
                 <div>
         
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100">Correo personal</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Correo personal</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="correoPersonal">
                         <span class="focus-input100"></span>
                     </div>
@@ -109,11 +109,11 @@
                     
         
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100">Carrera</span>
+                        <span class="label-input100" style="font-size: 25px;">Carrera</span>
 
-                        <select class="input100 m-b-23" formControlName="carrera">
-                            <option class="input102" value="2" selected hidden disabled >Selecciona Carrera </option>
-                            <option class="input102" *ngFor="let carrera of carreras" [ngValue]="carrera.id"> {{carrera.name}} </option>
+                        <select class="input100 m-b-23" style="font-size: 20px;" formControlName="carrera">
+                            <option class="input102" style="font-size: 20px;" value="2" selected hidden disabled >Selecciona Carrera </option>
+                            <option class="input102" style="font-size: 20px;" *ngFor="let carrera of carreras" [ngValue]="carrera.id"> {{carrera.name}} </option>
                         </select>
                     </div>
 
@@ -121,47 +121,47 @@
                     
         
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100">Telefono Estudiante</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Telefono Estudiante</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="telefono">
                         <span class="focus-input100"></span>
                     </div>
 
                     <div class="wrap-input100 m-b-40" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100">¿La práctica ha sido aprobada?</span>
-                        <div class="text-center m-b-23">
-                            <input formControlName="practicaAprobada" type="checkbox"> Si
+                        <span class="label-input100" style="font-size: 25px;">¿La práctica ha sido aprobada?</span>
+                        <div class="text-center m-b-23" style="font-size: 20px;">
+                            <input formControlName="practicaAprobada" type="checkbox" style="font-size: 20px;"> Si
                         </div>
                     </div>
 
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC">
-                        <span class="label-input100">Telefono Profesor Comisión Corrección</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Telefono Profesor Comisión Corrección</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="telefonoCC">
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
-                        <span class="label-input100">Telefono Profesor Guía Capstone</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Telefono Profesor Guía Capstone</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="telefonoCP">
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
-                        <span class="label-input100">Empresa</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Empresa</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="disc_empresa">
                         <span class="focus-input100"></span>
                     </div>
 
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
-                        <span class="label-input100">Telefono de contacto de empresa</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Telefono de contacto de empresa</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="telefonoEmpresa">
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
-                        <span class="label-input100">Cargo del contacto de empresa</span>
-                        <input class="input100"
+                        <span class="label-input100" style="font-size: 25px;">Cargo del contacto de empresa</span>
+                        <input class="input100" style="font-size: 20px;"
                         formControlName="cargoEncargadoEmpresa">
                         <span class="focus-input100"></span>
                     </div>
@@ -174,8 +174,7 @@
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
-                        <button class="login100-form-btn" 
-                                >
+                        <button class="login100-form-btn" style="font-size: 25px;">
                             Actualizar
                         </button>
                     </div>

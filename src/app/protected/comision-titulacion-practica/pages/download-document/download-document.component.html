@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Descargar documentos
+                </span>
+            </form>
+        </div>
+        <div id="formPracticaEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Documentos Práctica estudiantes
+                </span>
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100 m-b-23">Subir contenido Práctica Preprofesional para los estudiantes<br></span>
+                    <input (change)="capturarFilePracticaEstudiante($event)" type="file">
+                </div>
+                <div>
+                    <img [src]="previsualizacionPracticaEstudiante" alt="" width="400px">
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    Subir contenido práctica estudiante
+                </button> 
+            </form>
+        </div>
+
+        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Documentos Capstone estudiantes
+                </span>
+                <div class="wrap-input100 m-b-23 m-t-23">
+                    <span class="label-input100">Subir contenido Captone Project para los estudiantes<br></span>
+                    <input (change)="capturarFileCapstoneEstudiante($event)" type="file">
+                </div>
+                <div>
+                    <img [src]="previsualizacionCasptoneEstudiante" alt="" width="400px">
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    Subir contenido Capstone estudiante
+                </button> 
+            </form>
+        </div>
+        <div id="formPracticaProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Documentos Práctica profesor
+                </span>
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100 m-b-23">Subir contenido Práctica Preprofesional para los Profesores<br></span>
+                    <input (change)="capturarFilePracticaProfesor($event)" type="file">
+                </div>
+                <div>
+                    <img [src]="previsualizacionPracticaProfesor" alt="" width="400px">
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    Subir contenido práctica profesor
+                </button>
+            </form>
+        </div>
+
+        <div id="formCapstoneProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Documentos Capstone profesor
+                </span>
+                <div class="wrap-input100 m-b-23 m-t-23">
+                    <span class="label-input100">Subir contenido Captone Project para los Profesores<br></span>
+                    <input (change)="capturarFileCapstoneProfesor($event)" type="file">
+                </div>
+                <div>
+                    <img [src]="previsualizacionCasptoneProfesor" alt="" width="400px">
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    Subir contenido Capstone profesor
+                </button> 
+            </form>
+        </div>
+    </div>
+</div>
+

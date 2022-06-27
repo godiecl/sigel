@@ -1,11 +1,11 @@
 <form class="login100-form" autocomplete="off" (ngSubmit)="solicitarEstudiante()" [formGroup]="solicitarEstudianteForm">
                 
-    <span class="login100-form-title p-b-49">
+    <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
         Solicitar estudiante 
     </span>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Nombre de proyecto</span>
+        <span class="label-input100" style="font-size: 25px;">Nombre de proyecto</span>
         <input class="input100"
                 formControlName="nombreProyecto"
                placeholder="Ingrese nombre del proyecto"
@@ -14,7 +14,7 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Problematica que se quiere resolver:</span>
+        <span class="label-input100" style="font-size: 25px;">Problematica que se quiere resolver:</span>
         <textarea class="textarea101 " placeholder="Ingrese problematica" 
         formControlName="problemaResolver">  </textarea>
         <!-- <input class="input100" 
@@ -25,7 +25,7 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Área</span>
+        <span class="label-input100" style="font-size: 25px;">Área</span>
         <input class="input100"
                placeholder="Ingrese area"
                formControlName="area">
@@ -33,7 +33,7 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Solución que usted prevee</span>
+        <span class="label-input100" style="font-size: 25px;">Solución que usted prevee</span>
         <input class="input100"
                placeholder="Ingrese solucion"
                formControlName="solucion">
@@ -41,7 +41,7 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">¿Cuál es el entregable final?</span>
+        <span class="label-input100" style="font-size: 25px;">¿Cuál es el entregable final?</span>
         <input class="input100"
                placeholder="Ingrese entregable final "
                formControlName="entregableFinal">
@@ -49,14 +49,14 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">¿Cuál es la importancia de este proyecto?</span>
+        <span class="label-input100" style="font-size: 25px;">¿Cuál es la importancia de este proyecto?</span>
         <textarea class="textarea101" placeholder="Ingrese sobre la importancia"
         formControlName="importancia"></textarea>
         <span class="focus-input100"></span>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Plazos que usted define:</span>
+        <span class="label-input100" style="font-size: 25px;">Plazos que usted define:</span>
         <input class="input100"
                 type="number"
                placeholder="Ingrese plazos"
@@ -65,21 +65,21 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">¿Dispone de recursos económicos? Indique cifra aproximada:</span>
+        <span class="label-input100" style="font-size: 25px;">¿Dispone de recursos económicos? Indique cifra aproximada:</span>
         <input class="input100"
                placeholder="Ingrese monto"
                formControlName="disposicionMonetaria">
         <span class="focus-input100"></span>
     </div>
 
-    <div class="wrap-input100 m-b-23">
+    <div class="wrap-input100 m-b-23" style="font-size: 25px;">
         <span class="label-input100">Informacion adicional que desee brindar (opcional) :</span>
         <textarea class="textarea101" formControlName="infoAdicional" placeholder="Ingrese informacion adicional" ></textarea>
         <span class="focus-input100"></span>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Modalidad</span>
+        <span class="label-input100" style="font-size: 25px;">Modalidad</span>
         <select class="input100 m-b-23" formControlName="modalidad"> 
             <option class="input102"  [ngValue]="null" disabled > Seleccione Modalidad </option>
             <option class="input102" *ngFor="let modalidad of modalidades" [ngValue]="modalidad.id"> {{modalidad.name}} </option>
@@ -100,7 +100,7 @@
     <div class="container-login100-form-btn">
         <div class="wrap-login100-form-btn">
             <div class="login100-form-bgbtn"></div>
-            <button class="login100-form-btn" type="submit" [disabled]="solicitarEstudianteForm.invalid" >
+            <button class="login100-form-btn" style="font-size: 25px;" type="submit" [disabled]="solicitarEstudianteForm.invalid" >
                 Registrar solicitud de estudiante
             </button>
         </div>

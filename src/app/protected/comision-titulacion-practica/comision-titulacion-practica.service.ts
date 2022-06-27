@@ -25,5 +25,12 @@ export class ComisionTitulacionPracticaService {
     const url = `${this.baseUrl}publicaciones`;
     return this.http.get<any>(url)
   }
+
+  sendPostContenidoPractica(body:FormData): Observable <any>{
+    const url= `${this.baseUrl}upload-contenido`;
+    //console.log('estoy en body',body);
+    return this.http.post(url,body);
+
+  }
 }
 

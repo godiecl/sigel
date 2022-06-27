@@ -26,6 +26,7 @@ import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver
 import { EvaluarDialog } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/dialog/evaluar-dialog.component';
 import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
 import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
+import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 
 
 
@@ -45,6 +46,7 @@ import { PublicacionesComponent } from './estudiante/pages/publicaciones/publica
     VerSolicitudComponent,
     EvaluarDialog,
     CrearPublicacionComponent
+    DownloadDocumentComponent,
   ],
   imports: [
     CommonModule,

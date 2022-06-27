@@ -1,3 +1,4 @@
+import { UploadContenidoComponent } from './comision-titulacion-practica/pages/upload-contenido/upload-contenido.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -13,6 +14,7 @@ import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver
 import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
 import { PublicacionesCTComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
 import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
+import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 
 
 const routes: Routes = [
@@ -38,6 +40,8 @@ const routes: Routes = [
 
       },
       { path:'main-menu', component: MainMenuComponent},
+      { path: 'upload-contenido', component:UploadContenidoComponent},
+      { path: 'download-document',component:DownloadDocumentComponent},
       { path:'encargado-practica',
         // component: DashboardComponent,
         children: [

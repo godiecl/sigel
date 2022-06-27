@@ -35,4 +35,11 @@ export class MainMenuComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')
   }
 
+  uploadContenido(){
+    this.router.navigateByUrl('/dashboard/upload-contenido')
+  }
+  downloadDocument(){
+    this.router.navigateByUrl('/dashboard/download-document')
+  }
 }
+ 

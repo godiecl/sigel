@@ -8,7 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-delete-usuario',
-  templateUrl: './delete-usuario.component.html'
+  templateUrl: './delete-usuario.component.html',
+  styleUrls:['./delete-usuario.component.css']
 })
 export class DeleteUsuarioComponent implements OnInit, OnDestroy {
 

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit-usuario',
   templateUrl: './edit-usuario.component.html',
+  styleUrls: ['./edit-usuario.component.css']
 })
 export class EditUsuarioComponent implements OnInit, OnDestroy {
 
