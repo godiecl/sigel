@@ -10,6 +10,9 @@ import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, Pr
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
 import { SolicitudEstudianteResolver } from './encargado-practica-titulacion/encargado.resolver';
 import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/ver-solicitud.component';
+import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
+import { PublicacionesCTComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
+import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
 
 
 const routes: Routes = [
@@ -50,6 +53,26 @@ const routes: Routes = [
           
         ]
       },
+      { path:'estudiante',
+      // component: DashboardComponent,
+      children: [
+        {path:'',},
+        {path: 'ver-publicaciones', component: PublicacionesComponent, 
+        },
+        
+        
+      ]
+    },
+    { path:'comision-titulacion-practica',
+      // component: DashboardComponent,
+      children: [
+        {path:'',},
+        {path: 'administrar-publicaciones', component: PublicacionesCTComponent, 
+        },
+        {path: 'crear-publicacion', component: CrearPublicacionComponent, 
+        },
+      ]
+    },
       { path:'**', redirectTo: ''},
     ]
   },

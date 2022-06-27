@@ -20,5 +20,10 @@ export class ComisionTitulacionPracticaService {
   return this.http.post<any>(url, {publicacion});
   
   }
+
+  getPublicaciones() :Observable<Publicacion[]> {
+    const url = `${this.baseUrl}publicaciones`;
+    return this.http.get<any>(url)
+  }
 }
 

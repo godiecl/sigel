@@ -10,6 +10,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCommonModule} from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
 
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,10 +20,12 @@ import { DeleteUsuarioComponent } from './administrador/delete-usuario/delete-us
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { ComisionTitulacionPracticaComponent } from './comision-titulacion-practica/comision-titulacion-practica.component';
-import { PublicacionesComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
+import { PublicacionesCTComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
 import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/ver-solicitud.component';
 import { EvaluarDialog } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/dialog/evaluar-dialog.component';
+import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
+import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
 
 
 
@@ -37,15 +40,18 @@ import { EvaluarDialog } from './encargado-practica-titulacion/pages/ver-solicit
     EditComponent,
     ComisionTitulacionPracticaComponent,
     PublicacionesComponent,
+    PublicacionesCTComponent,
     VerSolicitudesEstudianteComponent,
     VerSolicitudComponent,
-    EvaluarDialog
+    EvaluarDialog,
+    CrearPublicacionComponent
   ],
   imports: [
     CommonModule,
     ProtectedRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

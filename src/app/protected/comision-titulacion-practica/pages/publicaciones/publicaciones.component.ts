@@ -1,15 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs/internal/Subject';
+import { ComisionTitulacionPracticaService } from '../../comision-titulacion-practica.service';
+import { takeUntil } from 'rxjs';
+import { Publicacion } from '../../../../auth/interfaces/documentos/publicacion.interface';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-publicaciones',
   templateUrl: './publicaciones.component.html',
   styleUrls: ['./publicaciones.component.css']
 })
-export class PublicacionesComponent implements OnInit {
+export class PublicacionesCTComponent implements OnInit {
 
-  constructor() { }
+  private _unsubscribeAll: Subject<any>;
+  publicaciones!: Publicacion[];
+  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
+  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
+  originally bred for hunting.`;
+
+  constructor(
+    private comisionService: ComisionTitulacionPracticaService,
+    private router: Router,
+
+  ) { 
+    this._unsubscribeAll = new Subject();
+  }
 
   ngOnInit(): void {
+    this.comisionService.getPublicaciones().pipe(takeUntil(this._unsubscribeAll)).subscribe((publicacions)=>{
+      this.publicaciones = publicacions;
+    })
+  }
+
+  ngOnDestroy(): void {
+
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+  }
+
+  irCrearPublicacion(): void{
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/crear-publicacion')
   }
 
 }
