@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
+import multer from 'multer';
+
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
 import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
@@ -85,6 +87,45 @@ router.delete('/users:id', deleteUser);
 router.patch('/users:id', updateUser);
 router.get('/users:id', getUsuarioPorId);
 router.get('/users/rut:rut', getUsuarioPorRut);
+
+//Archivos 
+//Contenido practica
+const storagePractica = multer.diskStorage({
+    filename: function(res, file, cb){
+        const ext = file.originalname.split('.').pop(); //extencion final
+        //const fileName = Date.now();
+        const fileName="ContenidoPractica"; //que tenga un nombre determinado
+        cb(null, `${fileName}.${ext}`); 
+        //cb(null,file.originalname);
+    },
+    destination:function(res,file, cb){
+        cb(null,'./public/contenido/practica')
+    }
+});
+const uploadPractica = multer({storage:storagePractica})
+router.post('/upload-contenido/practica',uploadPractica.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+//
+//Contenido Capstone
+const storageCapstone = multer.diskStorage({
+    filename: function(res, file, cb){
+        const ext = file.originalname.split('.').pop();
+        //const fileName = Date.now();
+        const fileName="ContenidoCapstone"; //que tenga un nombre determinado
+        //cb(null,file.originalname);       //nombre original
+        cb(null, `${fileName}.${ext}`); 
+    },
+    destination:function(res,file, cb){
+        cb(null,'./public/contenido/capstone')
+    }
+});
+const upload = multer({storage:storageCapstone})
+router.post('/upload-contenido/capstone',upload.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+//
+
 
 router.post('/', [
     check('correo', 'El correo es obligatorio').isEmail(),
