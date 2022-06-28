@@ -45,7 +45,7 @@ import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/
     VerSolicitudesEstudianteComponent,
     VerSolicitudComponent,
     EvaluarDialog,
-    CrearPublicacionComponent
+    CrearPublicacionComponent,
     DownloadDocumentComponent,
   ],
   imports: [

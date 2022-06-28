@@ -1,11 +1,11 @@
 <div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
     <nav>
         <ul class="nav_links">
-            <li><a routerLink="/home" class="nav-link">Home</a></li>
-            <li style="color:white;">></li>
-            <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
-            <li style="color:white;">> Crear usuario</li>
-            
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Crear usuario</li>
         </ul>
     </nav>
 </div>
@@ -46,8 +46,8 @@
                 </div>
         
                 <div class="wrap-input100">
-                    <span class="label-input100">Rut</span>
-                    <input class="input100"
+                    <span class="label-input100" style="font-size: 25px;">Rut</span>
+                    <input class="input100" style="font-size: 20px;"
                     (input)="inputEvent($event)" 
                         placeholder="Ingrese su rut"
                         maxlength="12"

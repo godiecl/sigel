@@ -1,7 +1,9 @@
 <div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
     <nav>
         <ul class="nav_links">
-            <li><a href="" class="nav-link">Home ></a></li>
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Menú</li>
         </ul>
     </nav>
 </div>
@@ -26,7 +28,6 @@
             </button> 
             <button class="boton-dashboard m-b-23" (click)="administrarPublicaciones()" >
                 Administrar Publicaciones
-            </button> 
             </button>
             <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="uploadContenido()" >
                 Subir contenido Práctica o Capstone

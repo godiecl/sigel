@@ -1,7 +1,7 @@
 import { ComisionTitulacionPracticaService } from './../../comision-titulacion-practica.service';
 import { Component,ViewChild, ElementRef, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -17,13 +17,18 @@ export class UploadContenidoComponent implements OnInit {
   @ViewChild('fileCapstone') fileCapstone!:ElementRef;
   @ViewChild('filePractica') filePractica!:ElementRef;
 
-  constructor(private comisionTitulacionPracticaService:ComisionTitulacionPracticaService) { 
+  constructor(private router: Router, private comisionTitulacionPracticaService:ComisionTitulacionPracticaService) { 
 
   }
 
   ngOnInit(): void {
   }
-  
+  home(){
+    this.router.navigateByUrl('/home')
+  }
+  mainmenu(){
+    this.router.navigateByUrl('/dashboard/main-menu')
+  }
   getFilePractica($event:any):void{
     const [file] = $event.target.files;
     this.fileTmpPractica = {

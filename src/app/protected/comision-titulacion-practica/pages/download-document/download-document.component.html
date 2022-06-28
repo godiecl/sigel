@@ -1,20 +1,19 @@
 <div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
     <nav>
         <ul class="nav_links">
-            <li><a routerLink="/home" class="nav-link">Home</a></li>
-            <li style="color:white;">></li>
-            <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
-            <li style="color:white;">>  Descargar documentos</li>
-            
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Descargar Documentos</li>
         </ul>
     </nav>
 </div>
-
 <div class="row">
     <div class="col flex-col-c">
-        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-30 p-b-25">
             <form class="login100-form">
-                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                <span class="login100-form-title p-b-23" style="text-transform:uppercase;">
                     Descargar documentos
                 </span>
             </form>
@@ -25,7 +24,7 @@
                     Documentos Práctica estudiantes
                 </span>
                 <div class="wrap-input100 m-b-23">
-                    <span class="label-input100 m-b-23">Subir contenido Práctica Preprofesional para los estudiantes<br></span>
+                    <span class="label-input100 m-b-23" style="font-size: 25px;">Subir contenido Práctica Preprofesional para los estudiantes<br></span><br>
                     <input (change)="capturarFilePracticaEstudiante($event)" type="file">
                 </div>
                 <div>
@@ -43,7 +42,7 @@
                     Documentos Capstone estudiantes
                 </span>
                 <div class="wrap-input100 m-b-23 m-t-23">
-                    <span class="label-input100">Subir contenido Captone Project para los estudiantes<br></span>
+                    <span class="label-input100" style="font-size: 25px;">Subir contenido Captone Project para los estudiantes<br></span><br>
                     <input (change)="capturarFileCapstoneEstudiante($event)" type="file">
                 </div>
                 <div>
