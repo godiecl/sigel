@@ -46,7 +46,7 @@ export const createEmpresa = async (request, response) =>{
         })
     }
 }
-export const getEmpresaPorRut = async (req, res) => {
+  export const getEmpresaPorRut = async (req, res) => {
 
     try{  
           // console.log('res',res);
@@ -65,6 +65,29 @@ export const getEmpresaPorRut = async (req, res) => {
   
         }catch(error){
           return res.status(500).json({message: error.message})
+        }
+    
+   }
+
+   export const getEmpresa = async (req, res) => {
+
+    try{  
+          // console.log('res',res);
+  
+          const { id } = req.params;
+          const empresa = await Empresa.findOne({
+            where: {
+              id_empresa: id
+          },});
+  
+          if(!empresa) return res.status(404).json({ ok: false, msg: 'La empresa no existe'})
+  
+        
+          return res.json({ok: true, empresa: empresa});
+  
+  
+        }catch(error){
+          return res.status(500).json({ok: false, msg: error.message})
         }
     
    }

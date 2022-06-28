@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
-import { sequelize } from "../database/database.js";
+import { sequelize } from "../../database/database.js";
+import { EncargadoEmpresa } from "../EncargadoEmpresa.js";
 // import { Usuario } from "./Usuario.js";
 
 export const SolicitudEstudiante = sequelize.define('solicitud_estudiante',{
@@ -8,6 +9,9 @@ export const SolicitudEstudiante = sequelize.define('solicitud_estudiante',{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
+    },
+    nombreProyecto: {
+        type: DataTypes.STRING
     },
     problemaResolver: {
         type: DataTypes.TEXT,
@@ -43,7 +47,8 @@ export const SolicitudEstudiante = sequelize.define('solicitud_estudiante',{
         type: DataTypes.BOOLEAN
     },
     estadoAutorizacion: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        
     },
     comentarioAutorizacion: {
         type: DataTypes.TEXT
@@ -54,6 +59,16 @@ export const SolicitudEstudiante = sequelize.define('solicitud_estudiante',{
 })
 
 
+
+EncargadoEmpresa.hasMany(SolicitudEstudiante, {
+    foreignKey: 'id_encargadoEmpresa',
+    sourceKey: 'id_encargadoEmpresa'
+})
+
+SolicitudEstudiante.belongsTo(EncargadoEmpresa, {
+    foreignKey: 'id_encargadoEmpresa',
+    targetKey: 'id_encargadoEmpresa'
+})
 
 // Usuario.hasOne(Admin, {
 //     foreignKey: 'id_usuario',

@@ -57,6 +57,8 @@ export const loginUser = async (req, res) => {
         msg: 'Login exitoso.',
         id: usuarioDB.id,
         nombre: usuarioDB.nombre,
+        apellidop: usuarioDB.apellidop,
+        apellidom: usuarioDB.apellidom,
         roles: usuarioDB.roles,
         token
     })
@@ -115,12 +117,12 @@ export const createUser = async (request, response) => {
 
       const token = await generarJWT(newUsuario.id, nombre);
 
-      const res = { roles: newUsuario.roles, id: newUsuario.id, token }
+      const res = { ok: true, roles: newUsuario.roles, id: newUsuario.id, token }
 
       return response.json(res);
 
     }catch(error){
-      return response.status(500).json({ message: error.message})
+      return response.status(500).json({ ok: false, message: error.message})
       
     }
 }

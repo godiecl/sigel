@@ -34,10 +34,10 @@ export const createEstudiante = async (request, response) => {
     //imprimir por consola
     // console.log('nuevo estudiante', newEstudiante);
 
-    return response.status(200).json({msg: 'Estudiante added'})
+    return response.status(200).json({ok: true, msg: 'Estudiante added'})
 
   }catch(error){
-    return response.status(500).json({message: error.message})
+    return response.status(500).json({ok: false, msg: error.message})
   }
 
   //   await sequelize.query('INSERT INTO estudiantes ("correoPersonal", carrera, "practicaAprobada", telefono, "estadoAsignacionCP") VALUES ($1, $2, $3, $4, $5)', [correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP], (error, results) => {
@@ -91,11 +91,11 @@ export const getEstudiantePorId = async (req, res) => {
     estudiante.id_usuario = id_usuario;
     await estudiante.save();
     
-    return res.json();
+    return res.json({ok: true, msg: 'Estudiante actualizado'});
 
   } catch (error){
 
-    return res.status(500).json({message: error.message});
+    return res.status(500).json({ok:false, msg: error.message});
 
   }
 
@@ -125,7 +125,7 @@ export const updateEstudiantePorId = async (req, res) => {
 
   } catch (error){
 
-    return res.status(500).json({ok:false, message: error.message});
+    return res.status(500).json({ok: false, message: error.message});
 
   }
 
