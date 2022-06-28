@@ -1,10 +1,23 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><button mat-icon-button color="primary">
+                
+              </button></li>
+            <li><a routerLink="/home" class="nav-link">Home</a></li>
+            <li style="color:white;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
+            <li style="color:white; margin-right: 2rem;">> Subir contenido de practica y capstone </li>
+        </ul>
+    </nav>
+</div>
 <div class="row">
     <div class="col flex-col-c">
         <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
+            <form  class="login100-form">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;"
                 >
-                    Subir contenido Práctica Capstone
+                    Subir contenido Práctica y Capstone
                 </span>
                 <p>
                     Aquí podrá adjuntar información complementaria sobre los procesos de Práctica preprofesional y Capstone project, que será visible para todo publico en la página de inicio.
@@ -13,28 +26,24 @@
             </form>
         </div>
         <div id="formPractica" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
                 <div class="wrap-input100 m-b-23">
-                    <span class="label-input100 m-b-23" style="font-size: 25px;">Subir contenido Práctica Preprofesional<br></span>
-                    <!--input (change)="capturarFilePractica($event)" type="file">-->
-                    <input type="file" (change)="getFile($event)">
+                    <span class="label-input100 m-b-23" style="font-size: 25px;">Subir contenido Práctica Preprofesional<br></span><br>
+                    <input style="font-size: 20px;" type="file" #filePractica (change)="getFilePractica($event)">
                 </div>
-                <button (click)="sendFile()" class="boton-dashboard m-b-23 m-t-23">
-                    Subir contenido práctica
+                <button (click)="alertaPractica()" [disabled]="loading" class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    {{(loading)?'Cargando....':'Subir contenido práctica'}}
                 </button> 
-            </form>
         </div>
 
         <div id="formCapstone" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
                 <div class="wrap-input100 m-b-23 m-t-23">
-                    <span class="label-input100" style="font-size: 25px;">Subir contenido Captone Project<br></span>
-                    <!--input (change)="capturarFileCapstone($event)" type="file"-->
+                    <span class="label-input100" style="font-size: 25px; margin-bottom: 10px;">Subir contenido Captone Project<br></span>
+                    <br>
+                    <input type="file" style="font-size: 20px;" #fileCapstone (change)="getFileCapstone($event)">
                 </div>
-                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
-                    Subir contenido Capstone
-                </button> 
-            </form>
+                <button (click)="alertaCapstone()" [disabled]="loading" class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                    {{(loading)?'Cargando....':'Subir contenido Capstone'}}
+                </button>
         </div>
     </div>
 </div>

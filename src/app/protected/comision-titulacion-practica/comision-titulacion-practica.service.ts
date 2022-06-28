@@ -22,10 +22,13 @@ export class ComisionTitulacionPracticaService {
   }
 
   sendPostContenidoPractica(body:FormData): Observable <any>{
-    const url= `${this.baseUrl}upload-contenido`;
-    //console.log('estoy en body',body);
+    const url= `${this.baseUrl}upload-contenido/practica`;
     return this.http.post(url,body);
 
+  }
+  sendPostContenidoCapstone(body:FormData): Observable <any>{
+    const url= `${this.baseUrl}upload-contenido/capstone`;
+    return this.http.post(url,body);
   }
 }
 
