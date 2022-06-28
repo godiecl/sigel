@@ -342,9 +342,9 @@ export class EditComponent implements OnInit {
         const index = this.usuarioPorEditar.roles.indexOf('Estudiante');
         this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarEstudiantePorIdUsuario(this.estudianteEditar.id_usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-          (res: any) =>{      
-            console.log(res);
-            if(res.ok){
+          (resp: any) =>{      
+            console.log(resp);
+            if(resp.ok){
               // ALERTA DE SE HA ELIMINADO EL ROL ESTUDIANTE AL USUARIO.
               Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
             }else{

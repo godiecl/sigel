@@ -9,7 +9,13 @@ import { EditUsuarioComponent } from './administrador/edit-usuario/edit-usuario.
 import { EditComponent } from './administrador/edit-usuario/edit-usuario/edit.component';
 import { UsuarioEditResolver, EstudianteEditResolver, ProfesorCCEditResolver, ProfesorGuiaCPEditResolver, EncargadoEmpresaEditResolver } from './administrador/administrador.resolver';
 import { VerSolicitudesEstudianteComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitudes-estudiante.component';
+import { SolicitudEstudianteResolver } from './encargado-practica-titulacion/encargado.resolver';
+import { VerSolicitudComponent } from './encargado-practica-titulacion/pages/ver-solicitudes-estudiante/ver-solicitud/ver-solicitud.component';
+import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
+import { PublicacionesCTComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
+import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
 import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
+
 
 const routes: Routes = [
 
@@ -39,9 +45,38 @@ const routes: Routes = [
       { path:'encargado-practica',
         // component: DashboardComponent,
         children: [
-          {path: 'ver-solicitudes-estudiante', component: VerSolicitudesEstudianteComponent }
+          {path:'',},
+          {path: 'ver-solicitudes-estudiante', component: VerSolicitudesEstudianteComponent,
+              children: [
+                {path:'',},
+                {
+                  path: ':id', component: VerSolicitudComponent, resolve: { solicitud: SolicitudEstudianteResolver }
+                }
+              ]  
+          },
+          
         ]
       },
+      { path:'estudiante',
+      // component: DashboardComponent,
+      children: [
+        {path:'',},
+        {path: 'ver-publicaciones', component: PublicacionesComponent, 
+        },
+        
+        
+      ]
+    },
+    { path:'comision-titulacion-practica',
+      // component: DashboardComponent,
+      children: [
+        {path:'',},
+        {path: 'administrar-publicaciones', component: PublicacionesCTComponent, 
+        },
+        {path: 'crear-publicacion', component: CrearPublicacionComponent, 
+        },
+      ]
+    },
       { path:'**', redirectTo: ''},
     ]
   },

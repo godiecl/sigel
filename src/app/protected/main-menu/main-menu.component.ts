@@ -28,6 +28,13 @@ export class MainMenuComponent implements OnInit {
   verSolicitudesEstudiante(){
     this.router.navigateByUrl('/dashboard/encargado-practica/ver-solicitudes-estudiante')
   }
+  verPublicaciones(){
+    this.router.navigateByUrl('/dashboard/estudiante/ver-publicaciones')
+  }
+  administrarPublicaciones(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')
+  }
+
   uploadContenido(){
     this.router.navigateByUrl('/dashboard/upload-contenido')
   }

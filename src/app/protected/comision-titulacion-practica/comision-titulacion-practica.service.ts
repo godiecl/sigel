@@ -21,6 +21,11 @@ export class ComisionTitulacionPracticaService {
   
   }
 
+  getPublicaciones() :Observable<Publicacion[]> {
+    const url = `${this.baseUrl}publicaciones`;
+    return this.http.get<any>(url)
+  }
+
   sendPostContenidoPractica(body:FormData): Observable <any>{
     const url= `${this.baseUrl}upload-contenido/practica`;
     return this.http.post(url,body);

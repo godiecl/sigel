@@ -10,6 +10,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import Swal from 'sweetalert2';
 import { EncargadoEmpresaModel } from '../../../models/encargadoEmpresa.model';
 import { Router } from '@angular/router';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-register-contacto',
@@ -18,6 +19,8 @@ import { Router } from '@angular/router';
   ]
 })
 export class RegisterContactoComponent implements OnInit, OnDestroy {
+
+ 
 
   encargadoEmpresa!: EncargadoEmpresa;
   usuario!: User
@@ -28,7 +31,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
   contactoForm: FormGroup = this.fb.group({
 
     nombre: ['',[Validators.required]],
-    rut: ['', [Validators.required]],
+    rut: ['', [Validators.required, this.rutService.validaRutForm]],
     apellidop: ['', [Validators.required]],
     apellidom: ['', [Validators.required]],
     correo: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
@@ -42,7 +45,8 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private adminService: AdministradorService,
-              private router: Router
+              private router: Router,
+              private rutService: RutService, 
               ) { 
                 this._unsubscribeAll = new Subject();
               }
@@ -51,7 +55,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
 
     this.authService.empresaActual.subscribe( idEmpresa => {
       this.idEmpresaActual = idEmpresa;
-      console.log('empresa id: register contactos',idEmpresa);
+      // console.log('empresa id: register contactos',idEmpresa);
     } )
   }
   ngOnDestroy(): void {
@@ -61,6 +65,15 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
         this._unsubscribeAll.complete();
   }
 
+  get f(){
+    return this.contactoForm.controls;
+  }
+
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.contactoForm.controls['rut'].patchValue(rut, {emitEvent :false});
+  }
   
   registrarContacto(){
 
@@ -94,7 +107,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
                 // se manda a la bdd
                 this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
                  .subscribe((response: any)=>{
-                  console.log(response);
+                  // console.log(response);
                   if(response.ok){
 
                   Swal.fire('Se ha registrado su contacto en el sistema.', '', 'success');

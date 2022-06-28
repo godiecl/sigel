@@ -45,7 +45,7 @@ export class SolicitarEstudianteComponent implements OnInit {
   ngOnInit(): void {
     this.authService.encargadoActual.subscribe( id_encargado => {
       this.idEncargadoActual = id_encargado;
-      console.log('encargado id ',id_encargado);
+      // console.log('encargado id ',id_encargado);
     } )
   }
 
@@ -69,17 +69,23 @@ export class SolicitarEstudianteComponent implements OnInit {
         this.newSolicitud = this.solicitarEstudianteForm.getRawValue();
         this.newSolicitud.id_encargadoEmpresa = this.idEncargadoActual
 
-        console.log(this.newSolicitud);
+        if(this.idEncargadoActual){
+          // console.log(this.newSolicitud);
 
-        this.authService.crearSolicitudEstudiante(this.newSolicitud).subscribe((resp)=>{
-        if(resp.ok){
-        Swal.fire('Se ha registrado su solicitud, pronto será evaluada por el DISC.', '', 'success');
-        this.router.navigateByUrl('/auth/login')
+          this.authService.crearSolicitudEstudiante(this.newSolicitud).subscribe((resp)=>{
+          if(resp.ok){
+          Swal.fire('Se ha registrado su solicitud, pronto será evaluada por el DISC.', '', 'success');
+          this.router.navigateByUrl('/auth/login')
+          }else{
+          Swal.fire(resp.msg, '', 'error')
+  
+          }
+          })
         }else{
-        Swal.fire(resp.msg, '', 'error')
-
+          Swal.fire('Debe registrarse para poder enviar una solicitud.', '', 'error')
         }
-        })
+
+       
     
 
       }else if(result.isDenied){

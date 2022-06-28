@@ -16,12 +16,17 @@ export class AuthService {
   private baseUrl: string = environment.baseUrl;
   private _usuario!: UsuarioLog;
   private _empresa = new BehaviorSubject<number>(0);
+  private _usuarioLogeado!: UsuarioLog;
   private _encargadoEmpresa = new BehaviorSubject<string>('');
   empresaActual = this._empresa.asObservable();
   encargadoActual = this._encargadoEmpresa.asObservable();
 
   get usuario(){
     return {... this._usuario};
+  }
+
+  get usuarioLogeado(){
+    return {... this._usuarioLogeado}
   }
 
   constructor(private http: HttpClient) { }
@@ -36,7 +41,7 @@ export class AuthService {
 
 
   login(correo: string, password: string)
-  {
+  { 
     
     const url = `${this.baseUrl}auth`;
     const body = { correo, password}
@@ -45,10 +50,20 @@ export class AuthService {
       .pipe(
         tap(resp => {
           if(resp.ok){
-
+            console.log('usuario del login  ',resp)
             localStorage.setItem('token', resp.token! )
             this._usuario = {
               nombre: resp.nombre!,
+              roles: resp.roles!,
+              apellidop: resp.apellidop!,
+              apellidom: resp.apellidom!,
+              id: resp.id!,
+            }
+            this._usuarioLogeado = {
+              nombre: resp.nombre!,
+              roles: resp.roles!,
+              apellidop: resp.apellidop!,
+              apellidom: resp.apellidom!,
               id: resp.id!,
             }
           }
@@ -90,7 +105,8 @@ export class AuthService {
     return this.http.get<AuthResponse>(url,{ headers })
       .pipe(
         map( resp => {
-
+          
+          // console.log('usuario del validar token  ',resp)
           localStorage.setItem('token', resp.token! );
           this._usuario = {
             nombre: resp.nombre!,
@@ -108,7 +124,7 @@ export class AuthService {
     EMPRESA
    */
 
-  crearEmpresa(empresa: Empresa) {
+  crearEmpresa(empresa: Empresa): Observable<any> {
     const url = `${this.baseUrl}empresas`
     // ESTE CODIGO RETORNA BIEN LA EMPRESA
     return this.http.post<any>(url, {empresa});

@@ -1,5 +1,5 @@
 export interface SolicitudEstudiante {
-    id: string,
+    id_solicitudEstudiante: string,
     nombreProyecto: string,
     problemaResolver: string,
     area: string,

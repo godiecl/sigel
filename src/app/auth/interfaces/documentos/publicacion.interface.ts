@@ -3,5 +3,6 @@ export interface Publicacion{
     remitente: string,
     asunto: string,
     mensaje: string,
-    fecha: Date
+    fecha: Date,
+    id_comisionPracticaTitulacion: string
 }
