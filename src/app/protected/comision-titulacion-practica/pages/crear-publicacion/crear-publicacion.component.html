@@ -1,23 +1,29 @@
 <div class="row">
     <div class="col flex-col-c">
         <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-              <p>
-                <mat-form-field style="display: block;" class="m-b-20" appearance="fill">
-                  <mat-label>Asunto</mat-label>
-                  <input matInput placeholder="Asunto">
+          <mat-card-actions class="m-b-50" >
+            <a mat-raised-button color="link" href="/dashboard/comision-titulacion-practica/administrar-publicaciones" >Volver </a>
+          </mat-card-actions>
+          <form mat-form [formGroup]="publicacionForm" (ngSubmit)="crearPublicacion()">
+            <p>
+              <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
+                <mat-label>Asunto</mat-label>
+                <input matInput formControlName="asunto" placeholder="Asunto">
+                <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+                <mat-hint>El asunto de la publicación.</mat-hint>
+              </mat-form-field>
+              <mat-form-field style="display: block;" class="m-b-20" appearance="fill">
+                  <mat-label>Mensaje</mat-label>
+                  <textarea matInput formControlName="mensaje"  placeholder="Mensaje"></textarea>
                   <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                  <mat-hint>El asunto de la publicación.</mat-hint>
+                  <mat-hint>El cuerpo de la publicación.</mat-hint>
                 </mat-form-field>
-                <mat-form-field style="display: block;" class="m-b-20" appearance="fill">
-                    <mat-label>Mensaje</mat-label>
-                    <textarea matInput placeholder="Mensaje"></textarea>
-                    <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
-                    <mat-hint>El cuerpo de la publicación.</mat-hint>
-                  </mat-form-field>
-              </p>
-              <mat-card-actions >
-                <button mat-raised-button color="warn" [disabled]="" (click)="crearPublicacion()" >Crear publicacion</button>
-              </mat-card-actions>
+            </p>
+            <mat-card-actions align="end" >
+              <button mat-raised-button color="warn" [disabled]="publicacionForm.invalid" type="submit" >Crear publicacion</button>
+            </mat-card-actions>
+          </form>
+              
         </div>
     </div>
 </div>

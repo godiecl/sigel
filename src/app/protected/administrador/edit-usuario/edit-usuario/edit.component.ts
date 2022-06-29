@@ -12,6 +12,7 @@ import { ProfesorGuiaCPModel } from '../../../../auth/models/profesorGuiaCP.mode
 import { EncargadoEmpresaModel } from '../../../../auth/models/encargadoEmpresa.model';
 import { AuthService } from '../../../../auth/services/auth.service';
 import Swal from 'sweetalert2';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-edit',
@@ -52,7 +53,7 @@ export class EditComponent implements OnInit {
   
 
   emailPattern: string = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
-
+  
   
 
   
@@ -60,7 +61,8 @@ export class EditComponent implements OnInit {
                private adminService: AdministradorService,
                private authService: AuthService,
                private _changeDetectorRef: ChangeDetectorRef,
-               private router: ActivatedRoute 
+               private router: ActivatedRoute,
+               private rutService: RutService
                ) { 
     this._unsubscribeAll = new Subject();
     // mostrarAtributosEstudiante = false;
@@ -199,7 +201,7 @@ export class EditComponent implements OnInit {
       nombre:           [this.usuarioPorEditar.nombre, [Validators.required,]],
       apellidop:        [this.usuarioPorEditar.apellidop, [Validators.required,]],
       apellidom:        [this.usuarioPorEditar.apellidom, [Validators.required,]],
-      rut:              [this.usuarioPorEditar.rut, [Validators.required,]],
+      rut:              [this.usuarioPorEditar.rut, [Validators.required, this.rutService.validaRutForm]],
       correo:           [this.usuarioPorEditar.correo, [Validators.required, Validators.pattern(this.emailPattern)]],
       rolAdministrador: [this.usuarioPorEditar.roles.includes('Administrador'), [,]],
       rolEstudiante:    [this.usuarioPorEditar.roles.includes('Estudiante'), [,]],
@@ -242,6 +244,17 @@ export class EditComponent implements OnInit {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.updateForm.controls['rut'].patchValue(rut, {emitEvent :false});
+  }
+  
+  get f(){
+    return this.updateForm.controls;
+  }
+
   confirmar(){
     Swal.fire({
       title: '¿Está seguro de querer editar este usuario?',

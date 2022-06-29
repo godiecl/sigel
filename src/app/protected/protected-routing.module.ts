@@ -15,6 +15,7 @@ import { PublicacionesComponent } from './estudiante/pages/publicaciones/publica
 import { PublicacionesCTComponent } from './comision-titulacion-practica/pages/publicaciones/publicaciones.component';
 import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
 import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
+import { SolicitarEstudianteMenuComponent } from './encargado-empresa/pages/solicitar-estudiante/solicitar-estudiante.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,16 @@ const routes: Routes = [
         
       ]
     },
+    { path:'encargado-empresa',
+    // component: DashboardComponent,
+    children: [
+      {path:'',},
+      {path: 'solicitar-estudiante', component: SolicitarEstudianteMenuComponent, 
+      },
+      
+      
+    ]
+  },
     { path:'comision-titulacion-practica',
       // component: DashboardComponent,
       children: [

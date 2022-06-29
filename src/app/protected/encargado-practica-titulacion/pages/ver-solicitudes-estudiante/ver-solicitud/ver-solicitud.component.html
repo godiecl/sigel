@@ -1,96 +1,77 @@
 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
     <div class="row">
         <div class="col flex-col-c">
-            <span class="titulo p-b-20">
-                Nombre del proyecto:
-            </span>
+            <div class="topform">
+                <a mat-raised-button color="link" href="/dashboard/encargado-practica/ver-solicitudes-estudiante" >Volver </a>      
+                <div class="flex-col-c">
+                    <h1 class="titulo p-b-20" style="font-size: 25px; text-transform: uppercase;">Solicitud de estudiante</h1> 
+                </div>
+            </div>
             
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100 ">Nombre de proyecto: </span>
-                
-            {{ solicitudEstudiante.nombreProyecto | uppercase}} 
+              <!-- <mat-card-actions align="start" class="m-r-80" > -->
+                      <!-- </mat-card-actions>`` -->
+            
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100 ">Nombre de proyecto: <br> {{ solicitudEstudiante.nombreProyecto | uppercase}}</span>
             </div>
 
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Área: </span>
-                {{ solicitudEstudiante.area }}
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Área: {{ solicitudEstudiante.area }}</span>
             </div>
 
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Plazos que define:</span>
-                {{ solicitudEstudiante.plazo }}
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Plazos que define:  {{ solicitudEstudiante.plazo }} Meses.</span>
                 <span class="focus-input100"></span>
             </div>
 
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Recursos económicos, monto aproximado: </span>
-                {{ solicitudEstudiante.disposicionMonetaria }}
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Recursos económicos, monto aproximado: $ {{ solicitudEstudiante.disposicionMonetaria }}</span>
                 <span class="focus-input100"></span>
             </div>
 
             <div *ngIf="solicitudEstudiante.modalidad == '0'" class="wrap-input100 m-b-23">
-                <span class="label-input100" >Modalidad: </span>
-                PRÁCTICA PREPROFESIONAL
+                <span class="label-input100" >Modalidad: PRÁCTICA PREPROFESIONAL </span>
+                
             </div>
 
             <div *ngIf="solicitudEstudiante.modalidad == '1'" class="wrap-input100 m-b-23">
-                <span class="label-input100" >Modalidad: </span>
-                CAPSTONE PROJECT
+                <span class="label-input100" >Modalidad: CAPSTONE PROJECT </span>
+                
             </div>
 
             <div *ngIf="solicitudEstudiante.modalidad == '2'" class="wrap-input100 m-b-23">
-                <span class="label-input100" >Modalidad: </span>
-                POR DEFINIR
+                <span class="label-input100" >Modalidad: POR DEFINIR </span>
+                
             </div>
         
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Problematica que se quiere resolver:</span>
-                <p>{{ solicitudEstudiante.problemaResolver }}
-                </p>
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Problemática que se quiere resolver: <br> {{ solicitudEstudiante.problemaResolver }}</span>
             </div>
         
             
         
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Solución que se prevee: </span>
-                <p>
-
-                    {{ solicitudEstudiante.solucion }}
-                </p>
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Solución que se prevee: <br> {{ solicitudEstudiante.solucion }}
+                </span>
+                
             </div>
         
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Entregable final: </span>
-                <p>
-
-                    {{ solicitudEstudiante.entregableFinal }}
-                </p>
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Entregable final: <br> {{ solicitudEstudiante.entregableFinal }}</span>
                 <span class="focus-input100"></span>
             </div>
         
-            <div class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Importancia del proyecto: </span>
-                <p>
-
-                    {{ solicitudEstudiante.importancia }}
-                </p>
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100">Importancia del proyecto: <br> {{ solicitudEstudiante.importancia }}</span>
                 <span class="focus-input100"></span>
             </div>
         
         
-            <div *ngIf="solicitudEstudiante.infoAdicional" class="wrap-input100 m-b-23" contenteditable="true">
-                <span class="label-input100">Informacion adicional: </span>
-                <p>
-                    
-                {{ solicitudEstudiante.infoAdicional }}
-                </p>
+            <div *ngIf="solicitudEstudiante.infoAdicional" class="wrap-input100 m-b-23">
+                <span class="label-input100">Informacion adicional: <br> {{ solicitudEstudiante.infoAdicional }}</span>
                 <span class="focus-input100"></span>
             </div>
         
-            
-
-            
-
             <button mat-button (click)="openDialog()" > <mat-icon>reply_all</mat-icon>
                 Evaluar
             </button>

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { EncargadoEmpresaModel } from '../../../models/encargadoEmpresa.model';
 import { Router } from '@angular/router';
 import { RutService } from 'rut-chileno';
+import Validation from 'src/app/shared/Validation-ConfirmPassword/validation.component';
 
 @Component({
   selector: 'app-register-contacto',
@@ -40,6 +41,8 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
     password: ['', [Validators.required]],
     confirmPassword: ['', [Validators.required]],
     
+  },{
+    validators: [Validation.match('password', 'confirmPassword')]
   });
 
   constructor(private fb: FormBuilder,
@@ -55,7 +58,7 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
 
     this.authService.empresaActual.subscribe( idEmpresa => {
       this.idEmpresaActual = idEmpresa;
-      // console.log('empresa id: register contactos',idEmpresa);
+      console.log('empresa id: register contactos',idEmpresa);
     } )
   }
   ngOnDestroy(): void {

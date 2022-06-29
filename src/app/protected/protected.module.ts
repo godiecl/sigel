@@ -11,6 +11,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatCommonModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
+import {MatSelectModule} from '@angular/material/select';
 
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -27,6 +28,7 @@ import { EvaluarDialog } from './encargado-practica-titulacion/pages/ver-solicit
 import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
 import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
 import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
+import { SolicitarEstudianteMenuComponent } from './encargado-empresa/pages/solicitar-estudiante/solicitar-estudiante.component';
 
 
 
@@ -47,6 +49,7 @@ import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/
     EvaluarDialog,
     CrearPublicacionComponent,
     DownloadDocumentComponent,
+    SolicitarEstudianteMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +60,7 @@ import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSelectModule,
     MatTableModule,
     MatButtonModule,
     MatDialogModule

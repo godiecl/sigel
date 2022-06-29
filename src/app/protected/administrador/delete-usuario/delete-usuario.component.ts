@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-delete-usuario',
@@ -17,12 +18,13 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any>;
 
   deleteForm: FormGroup = this.fb.group({
-    rut: ['', Validators.required]
+    rut: ['', [Validators.required, this.rutService.validaRutForm]]
   })
 
   constructor(
     private adminService: AdministradorService,
     private fb: FormBuilder,
+    private rutService: RutService
   ) {
     this._unsubscribeAll = new Subject();
    }
@@ -35,6 +37,16 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
+  }
+
+  get f(){
+    return this.deleteForm.controls;
+  }
+
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.deleteForm.controls['rut'].patchValue(rut, {emitEvent :false});
   }
 
   deleteUsuario()

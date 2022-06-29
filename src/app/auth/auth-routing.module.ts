@@ -7,6 +7,7 @@ import { RegisterContactoComponent } from './pages/register/register-contacto/re
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './pages/new-password/new-password.component';
 import { SolicitarEstudianteComponent } from './pages/solicitar-estudiante/solicitar-estudiante.component';
+import { BuscarEmpresaComponent } from './pages/register/register-contacto/buscar-empresa/buscar-empresa.component';
 
 const routes: Routes = [
 
@@ -16,6 +17,7 @@ const routes: Routes = [
     children: [
       { path:'login', component: LoginComponent},
       { path:'register-empresa', component: RegisterComponent},
+      { path:'buscar-empresa', component: BuscarEmpresaComponent},
       { path:'register-contacto', component: RegisterContactoComponent},
       { path:'forgot-password', component: ForgotPasswordComponent },
       { path:'new-password/:token', component: NewPasswordComponent },

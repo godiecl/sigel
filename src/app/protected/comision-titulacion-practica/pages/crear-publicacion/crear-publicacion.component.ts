@@ -7,6 +7,8 @@ import { Publicacion } from '../../../../auth/interfaces/documentos/publicacion.
 import { ComisionTitulacionPracticaService } from '../../comision-titulacion-practica.service';
 import { takeUntil } from 'rxjs';
 import { AdministradorService } from '../../../administrador/services/administrador.service';
+import { PublicacionModel } from '../../../../auth/models/documentos/publicacion.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-publicacion',
@@ -18,6 +20,11 @@ export class CrearPublicacionComponent implements OnInit {
   private _unsubscribeAll: Subject<any>;
   usuariolog!: UsuarioLog;
   publicacionNueva!: Publicacion;
+  id_comisionPracticaTitulacion!: any;
+  // remitente!: string;
+  // apellidos!: string;
+  nombre!: string;
+  // espacio: string = " ";
 
   publicacionForm: FormGroup = this.fb.group({
     asunto: ['', [Validators.required]],
@@ -31,13 +38,32 @@ export class CrearPublicacionComponent implements OnInit {
     private admin: AdministradorService,
   ) {
     this._unsubscribeAll = new Subject();
-    this.usuariolog = this.authService.usuarioLogeado;
+    this.usuariolog = this.authService.usuario;
+    this.nombre = this.usuariolog.nombre;
+    this.nombre = this.nombre.concat(" ");
+    this.nombre = this.nombre.concat(this.usuariolog.apellidop!);
+    this.nombre = this.nombre.concat(" ");
+    this.nombre = this.nombre.concat(this.usuariolog.apellidom!);
+    // this.apellidos = this.usuariolog.apellidop!;
+    // this.apellidos = this.apellidos.concat(this.nombre);
+    // this.apellidos = this.apellidos.concat(" ");
+    // this.apellidos = this.apellidos.concat(this.usuariolog.apellidom!);
+    console.log(this.nombre)
+    // this.remitente = this.remitente.concat(this.apellidos);
+    this.admin.obtenerComisionTitulacion(this.usuariolog.id).subscribe((resp)=>{
+      // console.log('resp obtener', resp)
+      this.id_comisionPracticaTitulacion  = resp.comision.id_comisionPracticaTitulacion;
+    })
+    
    }
 
   ngOnInit(): void {
     console.log(' usuario logeado ',this.usuariolog)
     // OBTENER ID DE COMISION DE TITULACION Y PRÁCTICA PARA ENVIARSELA A LA PUBLICACION
+    
   }
+
+  
 
   ngOnDestroy(): void {
 
@@ -47,11 +73,26 @@ export class CrearPublicacionComponent implements OnInit {
   }
 
   crearPublicacion(): void{
-    this.publicacionNueva = this.publicacionForm.getRawValue();
-    this.publicacionNueva.remitente = this.usuariolog.nombre;
+
+    // console.log(this.publicacionForm.value)
+    
+    this.publicacionNueva = new PublicacionModel(
+      0, this.nombre, this.publicacionForm.value.asunto, this.publicacionForm.value.mensaje,
+      this.id_comisionPracticaTitulacion
+    )
+
+    // this.publicacionNueva.asunto = this.publicacionForm.value.asunto;
+    // this.publicacionNueva.mensaje = this.publicacionForm.value.mensaje;
+    // this.publicacionNueva.remitente = this.usuariolog.nombre;
+
+    console.log('publicacion nueva',this.publicacionNueva);
 
     this.ctp.crearPublicacion(this.publicacionNueva).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
-      console.log('resp de crear pub',resp);
+      // console.log('resp de crear pub',resp);
+
+      if(resp.ok){
+        Swal.fire('Se ha realizado la publicación.', '', 'success');
+      }
     })
   }
 
