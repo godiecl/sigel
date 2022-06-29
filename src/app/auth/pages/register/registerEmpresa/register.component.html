@@ -12,7 +12,7 @@
     </span>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100" style="font-size: 25px; font-weight: bold;">bNombre de la empresa</span>
+        <span class="label-input100" style="font-size: 25px; font-weight: bold;">Nombre de la empresa</span>
         <input class="input100"
                placeholder="Ingrese nombre de la empresa"
                formControlName="nombreEmpresa">
@@ -29,7 +29,7 @@
                placeholder="Ingrese rut de la empresa"
                maxlength="12"
                formControlName="rutEmpresa">
-               <span *ngIf= "empresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es valido</span>
+               <span *ngIf= "empresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es válido</span>
         <span class="focus-input100"></span>
         <div class="text-danger" *ngIf="empresaForm.get('rutEmpresa')?.errors?.['required'] && empresaForm.get('rutEmpresa')?.touched">
             Este campo es obligatorio.
@@ -95,7 +95,7 @@
                 maxlength="12"
                placeholder="Ingrese su rut"
                formControlName="rut">
-               <span *ngIf= "empresaForm.get('rut')?.errors?.['rutnovalido']">El rut no es valido</span>
+               <span *ngIf= "empresaForm.get('rut')?.errors?.['rutnovalido']">El rut no es válido</span>
         <!-- <rut-chile [msjError]="El rut ingresado no es válido." [mode]="0" (rut_emiter)="getRut($event)"></rut-chile> -->
         <span class="focus-input100"></span>
         <div class="text-danger" *ngIf="empresaForm.get('rut')?.errors?.['required'] && empresaForm.get('rut')?.touched">
@@ -126,10 +126,10 @@
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100" style="font-size: 25px;">Telefono del contacto</span>
+        <span class="label-input100" style="font-size: 25px;">Teléfono del contacto</span>
         <input class="input100"
         type="number"
-               placeholder="Ingrese su telefono"
+               placeholder="Ingrese su teléfono"
                formControlName="telefono">
         <span class="focus-input100"></span>
         <div class="text-danger" *ngIf="empresaForm.get('telefono')?.errors?.['required'] && empresaForm.get('telefono')?.touched">

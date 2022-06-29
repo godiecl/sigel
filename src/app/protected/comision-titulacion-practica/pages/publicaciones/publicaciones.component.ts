@@ -39,8 +39,24 @@ export class PublicacionesCTComponent implements OnInit {
     this._unsubscribeAll.complete();
   }
 
+  isRoute(route: string){
+    // console.log('route ',route);
+    // console.log('ruta del ruter', this.router.url)
+    if(this.router.url === route){
+      return true
+    }
+    return false;
+  }
+
   irCrearPublicacion(): void{
     this.router.navigateByUrl('/dashboard/comision-titulacion-practica/crear-publicacion')
+  }
+
+  verPublicacion(id_publicacion: number): void{
+    
+    const url = `/dashboard/comision-titulacion-practica/administrar-publicaciones/${id_publicacion}`
+    console.log(url)
+    this.router.navigateByUrl(url)
   }
 
 }

@@ -13,7 +13,7 @@
   
   <div class="col flex-col-c">
     
-    <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+    <div *ngIf="isRoute('/dashboard/comision-titulacion-practica/administrar-publicaciones')"  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
       
       <mat-card-actions align="end" >
         <button mat-raised-button color="warn" style="font-size: 25px;" (click)="irCrearPublicacion()" >Crear publicacion</button>
@@ -26,11 +26,12 @@
         <p>{{ item.mensaje }}</p>
         </mat-card-content>
         <mat-card-actions align="end" >
-         <button mat-button>Ver</button>
+         <button mat-button (click)="verPublicacion(item.id_publicacion)"><mat-icon>search</mat-icon></button>
         </mat-card-actions>
       </mat-card>
 
     </div>
+    <router-outlet></router-outlet>
   </div> 
 </div>
 

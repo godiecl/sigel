@@ -22,7 +22,7 @@
                     (input)="inputEvent($event)" maxlength="12"
                     formControlName="rutEmpresa"
                     >
-                    <span class="text-danger" *ngIf= "buscarEmpresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es valido</span><br>
+                    <span class="text-danger" *ngIf= "buscarEmpresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es válido</span><br>
                     <span class="focus-input100"></span>
                     <div class="text-danger" *ngIf="buscarEmpresaForm.get('rutEmpresa')?.errors?.['required'] && buscarEmpresaForm.get('rutEmpresa')?.touched">
                         Este campo es obligatorio.

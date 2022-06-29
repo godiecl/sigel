@@ -29,6 +29,7 @@ import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/
 import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
 import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 import { SolicitarEstudianteMenuComponent } from './encargado-empresa/pages/solicitar-estudiante/solicitar-estudiante.component';
+import { VerPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
 
 
 
@@ -50,6 +51,7 @@ import { SolicitarEstudianteMenuComponent } from './encargado-empresa/pages/soli
     CrearPublicacionComponent,
     DownloadDocumentComponent,
     SolicitarEstudianteMenuComponent,
+    VerPublicacionComponent,
   ],
   imports: [
     CommonModule,

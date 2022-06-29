@@ -28,7 +28,7 @@
                     (input)="inputEvent($event)" maxlength="12"
                     formControlName="rut"
                     >
-                    <span class="text-danger" *ngIf= "deleteForm.get('rut')?.errors?.['rutnovalido']">El rut no es valido</span><br>
+                    <span class="text-danger" *ngIf= "deleteForm.get('rut')?.errors?.['rutnovalido']">El rut no es válido</span><br>
                     <span class="focus-input100"></span>
                     <div class="text-danger" *ngIf="deleteForm.get('rut')?.errors?.['required'] && deleteForm.get('rut')?.touched">
                         Este campo es obligatorio.

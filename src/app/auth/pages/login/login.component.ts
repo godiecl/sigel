@@ -33,6 +33,29 @@ export class LoginComponent implements OnInit {
 
   }
 
+  registrarEmpresa(){
+
+    Swal.fire({ title: '¿Es primera vez que registra su empresa?, <br> Recuerda que si ya tienes una cuenta, debes iniciar sesión para solicitar un estudiante',
+    showDenyButton: true, 
+    icon: 'warning',
+    showCancelButton: true, 
+    confirmButtonText: 'Si, es primera vez que registro mi empresa', 
+    denyButtonText:'No, tengo mi empresa registrada pero soy un contacto nuevo',
+    cancelButtonText: 'Cancelar'
+    }).then((result)=>{
+      if(result.isConfirmed){
+        this.router.navigateByUrl("/auth/register-empresa");
+      }
+      else if(result.isDenied){
+        this.router.navigateByUrl("/auth/buscar-empresa");
+      }else if(result.isDismissed){
+
+      }
+    })
+
+    
+  }
+
   login(){
 
     if(this.loginForm.invalid)

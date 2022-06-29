@@ -16,6 +16,8 @@ import { PublicacionesCTComponent } from './comision-titulacion-practica/pages/p
 import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/crear-publicacion/crear-publicacion.component';
 import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 import { SolicitarEstudianteMenuComponent } from './encargado-empresa/pages/solicitar-estudiante/solicitar-estudiante.component';
+import { VerPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
+import { PublicacionResolver } from './comision-titulacion-practica/comision-titulacion-practica.resolver';
 
 
 const routes: Routes = [
@@ -83,9 +85,14 @@ const routes: Routes = [
       children: [
         {path:'',},
         {path: 'administrar-publicaciones', component: PublicacionesCTComponent, 
+          children: [
+            {path:'',},
+            {
+            path: ':id', component: VerPublicacionComponent, resolve: { publicacion: PublicacionResolver }
+            }
+          ]  
         },
-        {path: 'crear-publicacion', component: CrearPublicacionComponent, 
-        },
+        {path: 'crear-publicacion', component: CrearPublicacionComponent,},
       ]
     },
       { path:'**', redirectTo: ''},

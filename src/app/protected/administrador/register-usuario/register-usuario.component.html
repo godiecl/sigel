@@ -62,7 +62,7 @@
                         maxlength="12"
                         formControlName="rut"
                         >
-                    <span class="text-danger" *ngIf= "usuarioForm.get('rut')?.errors?.['rutnovalido']">El rut no es valido</span><br>
+                    <span class="text-danger" *ngIf= "usuarioForm.get('rut')?.errors?.['rutnovalido']">El rut no es válido</span><br>
                     <span class="focus-input100"></span>
                     <div class="text-danger" *ngIf="usuarioForm.get('rut')?.errors?.['required'] && usuarioForm.get('rut')?.touched">
                         Este campo es obligatorio.
@@ -193,16 +193,16 @@
                     
         
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100" style="font-size: 25px;">Telefono</span>
+                        <span class="label-input100" style="font-size: 25px;">Teléfono</span>
                         <input class="input100" style="font-size: 20px;"
-                        placeholder="Ingrese telefono"
+                        placeholder="Ingrese teléfono"
                         formControlName="telefono">
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC || mostrarAtributosProfesorGuiaCP">
-                        <span class="label-input100" style="font-size: 25px;">Telefono</span>
+                        <span class="label-input100" style="font-size: 25px;">Teléfono</span>
                         <input class="input100" style="font-size: 20px;"
-                        placeholder="Ingrese telefono"
+                        placeholder="Ingrese teléfono"
                         formControlName="telefonoCC">
                         <span class="focus-input100"></span>
                     </div>
