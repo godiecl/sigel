@@ -1,3 +1,14 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link">Home</a></li>
+            <li style="color:white;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
+            <li style="color:white;">> Solicitar Estudiante </li>
+            
+        </ul>
+    </nav>
+</div>
 <div class="row">
     <div class="col flex-col-c">
         <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
@@ -18,7 +29,7 @@
             
                 <div class="wrap-input100 m-b-23">
                     <span class="label-input100" style="font-size: 25px;">Problemática que se quiere resolver:</span>
-                    <textarea class="textarea101 " placeholder="Ingrese problematica" 
+                    <textarea class="textarea101 " style="font-size: 20px;" placeholder="Ingrese problematica" 
                     formControlName="problemaResolver">  </textarea>
                     <!-- <input class="input100" 
                             formControlName="problematica"
@@ -53,7 +64,9 @@
             
                 <div class="wrap-input100 m-b-23">
                     <span class="label-input100" style="font-size: 25px;">¿Cuál es la importancia de este proyecto?</span>
-                    <textarea class="textarea101" placeholder="Ingrese sobre la importancia"
+                    <textarea class="textarea101"  
+                    style="font-size: 20px;"
+                    placeholder="Ingrese sobre la importancia"
                     formControlName="importancia"></textarea>
                     <span class="focus-input100"></span>
                 </div>
@@ -78,15 +91,15 @@
             
                 <div class="wrap-input100 m-b-23" style="font-size: 25px;">
                     <span class="label-input100">Información adicional que desee brindar (opcional) :</span>
-                    <textarea class="textarea101" formControlName="infoAdicional" placeholder="Ingrese informacion adicional" ></textarea>
+                    <textarea style="font-size: 20px;" class="textarea101" formControlName="infoAdicional" placeholder="Ingrese informacion adicional" ></textarea>
                     <span class="focus-input100"></span>
                 </div>
             
                 <div class="wrap-input100 m-b-23">
                     <span class="label-input100" style="font-size: 25px;">Modalidad</span>
-                    <select class="input100 m-b-23" formControlName="modalidad"> 
+                    <select class="input100 m-b-23" style="font-size: 13.5px;" formControlName="modalidad"> 
                         <option class="input102"  [ngValue]="null" disabled > Seleccione Modalidad </option>
-                        <option class="input102" *ngFor="let modalidad of modalidades" [ngValue]="modalidad.id"> {{modalidad.name}} </option>
+                        <option class="input102" style="font-size: 15px;" *ngFor="let modalidad of modalidades" [ngValue]="modalidad.id"> {{modalidad.name}} </option>
                     </select>
                 </div>
             
