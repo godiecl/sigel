@@ -167,6 +167,13 @@ export class AdministradorService {
    * @returns 
    */
 
+  obtenerComisionTitulacion(id_usuario: any): Observable<any>{
+    
+    console.log('peticion enviada a comisionTitulacionPracticas');
+    const url = `${this.baseUrl}comisionTitulacionPracticas${id_usuario}`;
+    return this.http.get<any>(url);
+  }
+
   crearComisionTitulacion(id_usuario: number, jefeCarrera: boolean): Observable<any>{
 
     console.log('peticion enviada a comisionTitulacionPracticas');
@@ -182,7 +189,6 @@ export class AdministradorService {
     return this.http.patch<any>(url, {id_usuario, jefeCarrera});
 
   }
-  
 
   eliminarComisionTitulacion(id_usuario: number): any{
     console.log('peticion delete enviada a comisionTitulacionPracticas');

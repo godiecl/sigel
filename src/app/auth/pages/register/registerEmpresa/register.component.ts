@@ -13,6 +13,7 @@ import { EncargadoEmpresaModel } from '../../../models/encargadoEmpresa.model';
 import { User } from 'src/app/auth/interfaces/user.interface';
 import { UserModel } from 'src/app/auth/models/user.model';
 import { AdministradorService } from '../../../../protected/administrador/services/administrador.service';
+import Validation from 'src/app/shared/Validation-ConfirmPassword/validation.component';
 
 @Component({
   selector: 'app-register',
@@ -42,6 +43,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       telefono: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
+  },{
+    validators: [Validation.match('password', 'confirmPassword')]
   })
 
   constructor(private fb:FormBuilder,
@@ -155,8 +158,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
                       if(response.ok){
 
                       Swal.fire('Se ha registrado su contacto en el sistema.', '', 'success');
-                      // this.authService.actualizarEncargadoEmpresaActual(response.id)
-                      // this.router.navigateByUrl('/auth/solicitar-estudiante');
+                      this.authService.actualizarEncargadoEmpresaActual(response.id)
+                      this.router.navigateByUrl('/auth/solicitar-estudiante');
 
                       }
                       else if(!response.ok){

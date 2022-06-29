@@ -15,5 +15,5 @@ export interface SolicitudEstudiante {
     estadoAutorizacion?: boolean,
     comentarioAutorizacion?: string,
     descripcionRequerimientoPractica?: string,
-    id_encargadoEmpresa: string
+    id_encargadoEmpresa: number
 }

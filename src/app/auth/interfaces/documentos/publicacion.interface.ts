@@ -1,8 +1,7 @@
 export interface Publicacion{
-    id_publicacion: string,
+    id_publicacion: number,
     remitente: string,
     asunto: string,
     mensaje: string,
-    fecha: Date,
-    id_comisionPracticaTitulacion: string
+    id_comisionPracticaTitulacion: number
 }

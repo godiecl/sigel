@@ -8,30 +8,35 @@
 <div class="row">
     <div class="col flex-col-c">
         <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="registrarUsuario()">
+            <div class="m-b-23">
+
+            </div>
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="registrarUsuario()">
                 Registrar Usuario
             </button>
             
-            <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="editarUsuario()">
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="editarUsuario()">
                 Editar Usuario
             </button>
-            <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="eliminarUsuario()" >
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="eliminarUsuario()" >
                 Deshabilitar Usuario
             </button> 
-            <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="verSolicitudesEstudiante()" >
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verSolicitudesEstudiante()" >
                 Ver Solicitudes de Estudiante
             </button> 
-            <button class="boton-dashboard m-b-23" (click)="verPublicaciones()" >
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="irSolicitarEstudiante()" >
+                Solicitar Estudiante
+            </button>
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verPublicaciones()" >
                 Ver Publicaciones
             </button> 
-            <button class="boton-dashboard m-b-23" (click)="administrarPublicaciones()" >
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="administrarPublicaciones()" >
                 Administrar Publicaciones
             </button> 
-            </button>
-            <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="uploadContenido()" >
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="uploadContenido()" >
                 Subir contenido Práctica o Capstone
             </button>
-            <button class="boton-dashboard m-b-23" style="font-size: 25px;" (click)="downloadDocument()" >
+            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="downloadDocument()" >
                 Descargar documentos
             </button>
         </div>  

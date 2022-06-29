@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <form class="login100-form" 
+            autocomplete="off"
+            [formGroup]="buscarEmpresaForm"
+            (ngSubmit)="buscarEmpresa()"
+            >
+            <div class="topformvolver">
+                <!-- <mat-card-actions> -->
+                <a mat-raised-button color="link" href="/home" >Volver </a> 
+                <!-- </mat-card-actions> -->
+            </div>
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                Buscar empresa
+            </span>
+            
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100" style="font-size: 25px;">Rut de empresa</span>
+                <input matInput class="input100"style="font-size: 20px;"
+                    placeholder="Ingrese el rut de la empresa"
+                    (input)="inputEvent($event)" maxlength="12"
+                    formControlName="rutEmpresa"
+                    >
+                    <span class="text-danger" *ngIf= "buscarEmpresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es valido</span><br>
+                    <span class="focus-input100"></span>
+                    <div class="text-danger" *ngIf="buscarEmpresaForm.get('rutEmpresa')?.errors?.['required'] && buscarEmpresaForm.get('rutEmpresa')?.touched">
+                        Este campo es obligatorio.
+                    </div>
+            </div>
+            
+            <button type="submit" [disabled]="buscarEmpresaForm.invalid" style="font-size: 25px;" class="boton-dashboard m-b-23">
+                Buscar empresa
+            </button> 
+        </form>
+        </div>
+    </div>
+</div>
