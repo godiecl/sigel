@@ -29,7 +29,10 @@ import { CrearPublicacionComponent } from './comision-titulacion-practica/pages/
 import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
 import { DownloadDocumentComponent } from './comision-titulacion-practica/pages/download-document/download-document.component';
 import { SolicitarEstudianteMenuComponent } from './encargado-empresa/pages/solicitar-estudiante/solicitar-estudiante.component';
-import { VerPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
+import { EditarPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/editar-publicacion/editar-publicacion.component';
+import { EliminarPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/eliminar-publicacion/eliminar-publicacion.component';
+import { VerPublicacionCTComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
+import { VerPublicacionComponent } from './estudiante/pages/publicaciones/ver-publicacion/ver-publicacion.component';
 
 
 
@@ -51,7 +54,10 @@ import { VerPublicacionComponent } from './comision-titulacion-practica/pages/pu
     CrearPublicacionComponent,
     DownloadDocumentComponent,
     SolicitarEstudianteMenuComponent,
+    VerPublicacionCTComponent,
     VerPublicacionComponent,
+    EditarPublicacionComponent,
+    EliminarPublicacionComponent,
   ],
   imports: [
     CommonModule,

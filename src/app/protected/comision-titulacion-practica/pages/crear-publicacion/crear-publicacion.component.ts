@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs';
 import { AdministradorService } from '../../../administrador/services/administrador.service';
 import { PublicacionModel } from '../../../../auth/models/documentos/publicacion.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-publicacion',
@@ -36,6 +37,7 @@ export class CrearPublicacionComponent implements OnInit {
     private fb: FormBuilder,
     private ctp: ComisionTitulacionPracticaService,
     private admin: AdministradorService,
+    private router: Router,
   ) {
     this._unsubscribeAll = new Subject();
     this.usuariolog = this.authService.usuario;
@@ -92,6 +94,7 @@ export class CrearPublicacionComponent implements OnInit {
 
       if(resp.ok){
         Swal.fire('Se ha realizado la publicación.', '', 'success');
+        this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')
       }
     })
   }

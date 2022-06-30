@@ -1,10 +1,11 @@
 <div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
   <nav>
       <ul class="nav_links">
-          <li><a routerLink="/home" class="nav-link">Home</a></li>
-          <li style="color:white;">></li>
-          <li><a routerLink="/dashboard/main-menu" class="nav-link">Menú</a></li>
-          <li style="color:white;">>  Administrar Publicaciones</li>
+          <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+          <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+          <li style="color:white; font-size: 18px;">></li>
+          <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Administrar publicaciones</li>
           
       </ul>
   </nav>
@@ -15,13 +16,17 @@
     
     <div *ngIf="isRoute('/dashboard/comision-titulacion-practica/administrar-publicaciones')"  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
       
+      <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+        Administrar publicaciones 
+      </span>
+
       <mat-card-actions align="end" >
         <button mat-raised-button color="warn" style="font-size: 25px;" (click)="irCrearPublicacion()" >Crear publicacion</button>
       </mat-card-actions>
               
       <mat-card *ngFor="let item of publicaciones" class=" m-b-28">
         <mat-card-title > {{ item.asunto }} </mat-card-title>
-        <mat-card-subtitle> {{item.remitente}} </mat-card-subtitle>
+        <mat-card-subtitle> {{item.remitente | titlecase }} - Fecha: {{ item.createdAt | date }} </mat-card-subtitle>
         <mat-card-content>
         <p>{{ item.mensaje }}</p>
         </mat-card-content>

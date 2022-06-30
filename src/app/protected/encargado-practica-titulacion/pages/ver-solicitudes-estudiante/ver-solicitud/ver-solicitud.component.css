@@ -20,7 +20,7 @@ div.editable {
 }
 
 .topform{
-  display: flex;
+  /* display: flex; */
   justify-content: flex-start;
   align-items: baseline;
   width: 100%;

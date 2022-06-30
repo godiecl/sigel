@@ -12,63 +12,71 @@
                       <!-- </mat-card-actions>`` -->
             
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100 ">Nombre de proyecto: <br> {{ solicitudEstudiante.nombreProyecto | uppercase}}</span>
+                <span class="label-input100 ">Nombre de proyecto: <br> </span>
+                <div class="input100" >{{ solicitudEstudiante.nombreProyecto | uppercase}}</div>
             </div>
 
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Área: {{ solicitudEstudiante.area }}</span>
+                <span class="label-input100">Área:</span>
+                <div class="input100" > {{ solicitudEstudiante.area }}</div>
             </div>
 
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Plazos que define:  {{ solicitudEstudiante.plazo }} Meses.</span>
+                <span class="label-input100">Plazos que define:  </span>
+                <div class="input100" > {{ solicitudEstudiante.plazo }} Meses. </div>
                 <span class="focus-input100"></span>
             </div>
 
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Recursos económicos, monto aproximado: $ {{ solicitudEstudiante.disposicionMonetaria }}</span>
+                <span class="label-input100">Recursos económicos, monto aproximado: </span>
+                <div class="input100" > ${{ solicitudEstudiante.disposicionMonetaria }} </div>
                 <span class="focus-input100"></span>
             </div>
 
             <div *ngIf="solicitudEstudiante.modalidad == '0'" class="wrap-input100 m-b-23">
-                <span class="label-input100" >Modalidad: PRÁCTICA PREPROFESIONAL </span>
-                
+                <span class="label-input100" >Modalidad: </span>
+                <div class="input100" > PRÁCTICA PREPROFESIONAL</div>
             </div>
 
             <div *ngIf="solicitudEstudiante.modalidad == '1'" class="wrap-input100 m-b-23">
-                <span class="label-input100" >Modalidad: CAPSTONE PROJECT </span>
-                
+                <span class="label-input100" >Modalidad:  </span>
+                <div class="input100" >CAPSTONE PROJECT</div>
             </div>
 
             <div *ngIf="solicitudEstudiante.modalidad == '2'" class="wrap-input100 m-b-23">
-                <span class="label-input100" >Modalidad: POR DEFINIR </span>
-                
+                <span class="label-input100" >Modalidad: </span>
+                <div class="input100" > POR DEFINIR</div>
             </div>
         
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Problemática que se quiere resolver: <br> {{ solicitudEstudiante.problemaResolver }}</span>
+                <span class="label-input100">Problemática que se quiere resolver: <br> </span>
+                <div class="input100" > {{ solicitudEstudiante.problemaResolver }} </div>
             </div>
         
             
         
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Solución que se prevee: <br> {{ solicitudEstudiante.solucion }}
+                <span class="label-input100">Solución que se prevee: <br> 
                 </span>
-                
+                <div class="input100" >{{ solicitudEstudiante.solucion }}</div>
             </div>
         
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Entregable final: <br> {{ solicitudEstudiante.entregableFinal }}</span>
+                <span class="label-input100">Entregable final: <br> </span>
+                <div class="input100" >{{ solicitudEstudiante.entregableFinal }}</div>
                 <span class="focus-input100"></span>
             </div>
         
             <div class="wrap-input100 m-b-23">
-                <span class="label-input100">Importancia del proyecto: <br> {{ solicitudEstudiante.importancia }}</span>
+                <span class="label-input100">Importancia del proyecto: <br> </span>
+                <div class="input100" >{{ solicitudEstudiante.importancia }}</div>
                 <span class="focus-input100"></span>
             </div>
         
         
             <div *ngIf="solicitudEstudiante.infoAdicional" class="wrap-input100 m-b-23">
-                <span class="label-input100">Información adicional: <br> {{ solicitudEstudiante.infoAdicional }}</span>
+                <span class="label-input100">Información adicional: <br> </span>
+                <div class="input100" >{{ solicitudEstudiante.infoAdicional }}</div>
                 <span class="focus-input100"></span>
             </div>
         
