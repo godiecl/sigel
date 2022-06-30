@@ -9,11 +9,11 @@ import { createProfesorGuiaCP, deleteProfesorGuiaCPPorIdUsuario, getProfesorGuia
 import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
 import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '../controllers/encargadoPractica.controller.js';
 import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresa, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
-import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
+import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, getComisionPorId, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
-import { createEmpresa, getEmpresa } from '../controllers/empresa.controller.js';
+import { createEmpresa, getEmpresa, getEmpresaPorRut } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
-import { createPublicacion, getPublicacion, getPublicaciones } from '../controllers/documentos/publicacion.controller.js';
+import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
 
 const router = Router();
 
@@ -30,6 +30,7 @@ router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 // Empresa
 router.post('/empresas', createEmpresa);
 router.get('/empresas:id', getEmpresa);
+router.get('/empresas/:rut', getEmpresaPorRut);
 
 
 // EncargadoEmpresa
@@ -55,9 +56,7 @@ router.delete('/asistenteAcademicas:id', deleteAsistenteAcademicaPorId);
 router.post('/comisionTitulacionPracticas', createComisionPracticaTitulacion);
 router.patch('/comisionTitulacionPracticas', updateComisionPracticaTitulacionPorId);
 router.delete('/comisionTitulacionPracticas:id', deleteComisionPracticaTitulacionPorIdUsuario);
-
-
-
+router.get('/comisionTitulacionPracticas:id', getComisionPorId);
 
 // EncargadoPractica
 router.post('/encargadoPracticaCPs', createEncargadoPractica);
@@ -110,5 +109,7 @@ router.get('/solicitud-estudiantes:id', getSolicitudEstudiante)
 router.post('/publicaciones', createPublicacion)
 router.get('/publicaciones', getPublicaciones)
 router.get('/publicaciones:id', getPublicacion)
+router.delete('/publicaciones:id', deletePublicacion)
+router.patch('/publicaciones:id', updatePublicacion)
 
 export default router;

@@ -43,6 +43,15 @@ export const createSolicitudEstudiante = async (req, res) =>{
             id_encargadoEmpresa
         })
 
+        const encargadoEmpresa = await EncargadoEmpresa.findByPk(id_encargadoEmpresa)
+        const iduser = encargadoEmpresa.id_usuario;
+        const usuario = await Usuario.findOne({where:{
+            id : iduser
+        }})
+        usuario.estado = true;
+        await usuario.save(); 
+
+
         return res.status(200).json({
             ok: true,
             msg: 'Solicitud registrada'
