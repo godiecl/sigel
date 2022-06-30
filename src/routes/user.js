@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 import multer from 'multer';
+import path from 'path';
+
 
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
 import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
@@ -125,11 +127,38 @@ const storageCapstone = multer.diskStorage({
         cb(null,'./public/contenido/capstone')
     }
 });
-const upload = multer({storage:storageCapstone})
-router.post('/upload-contenido/capstone',upload.single('myFile'),(req,res)=>{
+const uploadCapstone = multer({storage:storageCapstone})
+router.post('/upload-contenido/capstone',uploadCapstone.single('myFile'),(req,res)=>{
     res.send({data:'OK'})
 });
 //
+//subir documento practica estudiante 
+const storageDocPracticaEstudiante = multer.diskStorage({
+    filename: function(res, file, cb){
+        const ext = file.originalname.split('.').pop();//
+        //const fileName = Date.now();
+        //const fileName="ContenidoCapstone"; //que tenga un nombre determinado
+        cb(null,file.originalname);       //nombre original
+        //cb(null, `${fileName}.${ext}`); 
+    },
+    destination:function(res,file, cb){
+        cb(null,'./documentos/practica-estudiante')
+    }
+});
+const uploadDocPracticaEstudiante = multer({storage:storageDocPracticaEstudiante})
+router.post('/upload-doc/practica-estudiante',uploadDocPracticaEstudiante.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+router.get('/download-doc/practica-estudiante',function(req,res,next){
+    res.download('./documentos/practica-estudiante'+'/'+ req.body.filename);
+});
+//descargar documentos
+/*
+router.get('/download-doc/practica-estudiante',function(req,res,next){
+    filepath = path.join(__dirname,'./documentos/practica-estudiante') +'/'+ req.body.filename;
+    res.sendFile(filepath);
+});
+*/
 
 
 router.post('/', [

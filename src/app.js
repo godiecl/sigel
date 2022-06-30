@@ -26,6 +26,9 @@ app.use( express.static('./public/contenido/practica'));
 //contenido capstone
 app.use( express.static('./public/contenido/capstone'));
 
+//documentos practica-estudiante
+app.use( express.static('./documentos/practica-estudiante'));
+
 // middlewares
 // lectura y parseo del body  
 app.use(express.json());
