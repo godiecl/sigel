@@ -19,25 +19,31 @@
             </form>
         </div>
         <div id="formPracticaEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Documentos Práctica estudiantes
                 </span>
                 <div class="wrap-input100 m-b-23">
                     <span class="label-input100 m-b-23" style="font-size: 25px;">Subir contenido Práctica Preprofesional para los estudiantes<br></span><br>
-                    <input (change)="capturarFilePracticaEstudiante($event)" type="file">
+                    <div id="fileSelector">
+                        <input style="font-size: 20px;" type="file" #fileDocPracticaEstudiante (change)="getFileDocPracticaEstudiante($event)">
+                    </div>
                 </div>
-                <div>
-                    <img [src]="previsualizacionPracticaEstudiante" alt="" width="400px">
-                </div>
-                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
+                <div></div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaDocPracticaEstudiant()">
                     Subir contenido práctica estudiante
                 </button> 
-            </form>
+                <div class="row card">
+                    <h4>Download Section</h4>
+    
+                    <div class="row" *ngFor="let item of attachmentList; let i = index"
+                    style="margin:10px;padding:5px;background-color:rgb(231, 229, 229); border-radius:5px; line-height:40px;">
+                        <div class="col-sm-7">{{item}}</div>
+                        <div class="col-sm-5" style="text-align:center;"><button type="button" class="btn btn-primary" (click)="download(i)">Download</button></div>
+                    </div>
+                </div>
         </div>
 
-        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
+        <!--div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Documentos Capstone estudiantes
                 </span>
@@ -51,10 +57,8 @@
                 <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
                     Subir contenido Capstone estudiante
                 </button> 
-            </form>
         </div>
         <div id="formPracticaProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Documentos Práctica profesor
                 </span>
@@ -68,11 +72,9 @@
                 <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
                     Subir contenido práctica profesor
                 </button>
-            </form>
         </div>
 
         <div id="formCapstoneProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
-            <form class="login100-form">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Documentos Capstone profesor
                 </span>
@@ -86,8 +88,7 @@
                 <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;">
                     Subir contenido Capstone profesor
                 </button> 
-            </form>
-        </div>
+        </div-->
     </div>
 </div>
 

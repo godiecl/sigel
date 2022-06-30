@@ -1,3 +1,4 @@
+import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
@@ -28,7 +29,9 @@ import { RutModule } from 'rut-chileno';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    RutModule
+    RutModule,
+    FileUploadModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
