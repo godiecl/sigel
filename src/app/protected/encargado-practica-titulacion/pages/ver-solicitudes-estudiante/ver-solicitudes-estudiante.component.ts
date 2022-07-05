@@ -70,7 +70,7 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
 
   verSolicitud(id: string){
     const url =`/dashboard/encargado-practica/ver-solicitudes-estudiante/${id}`
-    console.log('si', url)
+    // console.log('si', url)
     this.router.navigateByUrl(url)
   }
   

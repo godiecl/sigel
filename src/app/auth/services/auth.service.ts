@@ -16,8 +16,8 @@ export class AuthService {
   private baseUrl: string = environment.baseUrl;
   private _usuario!: UsuarioLog;
   private _empresa = new BehaviorSubject<number>(0);
-  private _usuarioLogeado!: UsuarioLog;
-  private _encargadoEmpresa = new BehaviorSubject<string>('');
+  // private _usuarioLogeado!: UsuarioLog;
+  private _encargadoEmpresa = new BehaviorSubject<number>(0);
   empresaActual = this._empresa.asObservable();
   encargadoActual = this._encargadoEmpresa.asObservable();
 
@@ -25,9 +25,9 @@ export class AuthService {
     return {... this._usuario};
   }
 
-  get usuarioLogeado(){
-    return {... this._usuarioLogeado}
-  }
+  // get usuarioLogeado(){
+  //   return {... this._usuarioLogeado}
+  // }
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +35,7 @@ export class AuthService {
     this._empresa.next(idEmpresa);
   }
 
-  actualizarEncargadoEmpresaActual(id_encargado: string){
+  actualizarEncargadoEmpresaActual(id_encargado: number){
     this._encargadoEmpresa.next(id_encargado);
   }
 
@@ -59,13 +59,13 @@ export class AuthService {
               apellidom: resp.apellidom!,
               id: resp.id!,
             }
-            this._usuarioLogeado = {
-              nombre: resp.nombre!,
-              roles: resp.roles!,
-              apellidop: resp.apellidop!,
-              apellidom: resp.apellidom!,
-              id: resp.id!,
-            }
+            // this._usuarioLogeado = {
+            //   nombre: resp.nombre!,
+            //   roles: resp.roles!,
+            //   apellidop: resp.apellidop!,
+            //   apellidom: resp.apellidom!,
+            //   id: resp.id!,
+            // }
           }
         }),
         map(resp => resp.ok),
@@ -111,6 +111,9 @@ export class AuthService {
           this._usuario = {
             nombre: resp.nombre!,
             id: resp.id!,
+            roles: resp.roles!,
+            apellidop: resp.apellidop!,
+            apellidom: resp.apellidom!,
            }
 
           return resp.ok;

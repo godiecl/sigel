@@ -13,6 +13,7 @@ import { ProfesorCC } from '../../../auth/interfaces/profesorCC.interface';
 import { ProfesorCCModel } from '../../../auth/models/profesorCC.model';
 import { ProfesorGuiaCPModel } from '../../../auth/models/profesorGuiaCP.model';
 import { RutService } from 'rut-chileno';
+import Validation from 'src/app/shared/Validation-ConfirmPassword/validation.component';
 
 @Component({
   selector: 'app-register-usuario',
@@ -54,7 +55,10 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     telefonoCC: [''],
     rolProfesorGuiaCP: [false, [,]],
     disc_empresa: ['',]
-  });
+  },{
+    validators: [Validation.match('password', 'confirmPassword')]
+  }
+  );
 
   carreras = [
     { id:0, name: 'Ingeniería en Computación e Informática'},

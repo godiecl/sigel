@@ -10,6 +10,9 @@
                     <input class="input100" style="font-size: 20px;"
                             formControlName="nombre">
                     <span class="focus-input100"></span>
+                    <div class="text-danger" *ngIf="updateForm.get('nombre')?.errors?.['required'] && updateForm.get('nombre')?.touched">
+                        Este campo es obligatorio.
+                    </div>
                 </div>
         
                 <div class="wrap-input100">
@@ -17,6 +20,9 @@
                     <input class="input100" style="font-size: 20px;"
                             formControlName="apellidop">
                     <span class="focus-input100"></span>
+                    <div class="text-danger" *ngIf="updateForm.get('apellidop')?.errors?.['required'] && updateForm.get('apellidop')?.touched">
+                        Este campo es obligatorio.
+                    </div>
                 </div>
         
                 <div class="wrap-input100">
@@ -24,14 +30,23 @@
                     <input class="input100" style="font-size: 20px;"
                         formControlName="apellidom">
                     <span class="focus-input100" style="font-size: 25px;"></span>
+                    <div class="text-danger" *ngIf="updateForm.get('apellidom')?.errors?.['required'] && updateForm.get('apellidom')?.touched">
+                        Este campo es obligatorio.
+                    </div>
                 </div>
         
                 <div class="wrap-input100">
                     <span class="label-input100" style="font-size: 25px;">Rut</span>
-                    <input class="input100" style="font-size: 20px;"
+                    <input class="input100" 
+                        (input)="inputEvent($event)" maxlength="12"
+                        style="font-size: 20px;"
                         formControlName="rut"
                         >
+                    <span class="text-danger" *ngIf= "updateForm.get('rut')?.errors?.['rutnovalido']">El rut no es válido</span><br>
                     <span class="focus-input100"></span>
+                    <div class="text-danger" *ngIf="updateForm.get('rut')?.errors?.['required'] && updateForm.get('rut')?.touched">
+                        Este campo es obligatorio.
+                    </div>
                 </div>
         
                 <div class="wrap-input100">
@@ -40,6 +55,9 @@
                         formControlName="correo"
                         >
                     <span class="focus-input100"></span>
+                    <div class="text-danger" *ngIf="updateForm.get('correo')?.errors?.['required'] && updateForm.get('correo')?.touched">
+                        Este campo es obligatorio.
+                    </div>
                 </div>
                 
                 
@@ -121,7 +139,7 @@
                     
         
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100" style="font-size: 25px;">Telefono Estudiante</span>
+                        <span class="label-input100" style="font-size: 25px;">Teléfono Estudiante</span>
                         <input class="input100" style="font-size: 20px;"
                         formControlName="telefono">
                         <span class="focus-input100"></span>
@@ -135,13 +153,13 @@
                     </div>
 
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC">
-                        <span class="label-input100" style="font-size: 25px;">Telefono Profesor Comisión Corrección</span>
+                        <span class="label-input100" style="font-size: 25px;">Télefono Profesor Comisión Corrección</span>
                         <input class="input100" style="font-size: 20px;"
                         formControlName="telefonoCC">
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
-                        <span class="label-input100" style="font-size: 25px;">Telefono Profesor Guía Capstone</span>
+                        <span class="label-input100" style="font-size: 25px;">Teléfono Profesor Guía Capstone</span>
                         <input class="input100" style="font-size: 20px;"
                         formControlName="telefonoCP">
                         <span class="focus-input100"></span>
@@ -154,7 +172,7 @@
                     </div>
 
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEncargadoEmpresa">
-                        <span class="label-input100" style="font-size: 25px;">Telefono de contacto de empresa</span>
+                        <span class="label-input100" style="font-size: 25px;">Teléfono de contacto de empresa</span>
                         <input class="input100" style="font-size: 20px;"
                         formControlName="telefonoEmpresa">
                         <span class="focus-input100"></span>

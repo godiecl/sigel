@@ -11,6 +11,8 @@ import { EstudianteModel } from '../../../auth/models/estudiante.model';
 import { pipe } from 'rxjs';
 import { UserModel } from '../../../auth/models/user.model';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { RutService } from 'rut-chileno';
 
 @Component({
   selector: 'app-edit-usuario',
@@ -32,14 +34,15 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
 
 
   buscarForm: FormGroup = this.fb.group({
-    rutBuscar: [, Validators.required]
+    rutBuscar: [, [Validators.required, this.rutService.validaRutForm]]
   })
 
   
 
   constructor( private adminService: AdministradorService,
                private fb: FormBuilder,
-               private router: Router
+               private router: Router,
+               private rutService: RutService
     ) { 
       this._unsubscribeAll = new Subject();
     }
@@ -52,6 +55,11 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next(null);
     this._unsubscribeAll.complete();
   }
+
+  get f(){
+    return this.buscarForm.controls;
+  }
+
 
   // actualizarUsuario(){
 
@@ -75,20 +83,27 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  inputEvent(event : Event) {
+    let rut = this.rutService.getRutChileForm(1, (event.target as HTMLInputElement).value)
+    if (rut)
+      this.buscarForm.controls['rutBuscar'].patchValue(rut, {emitEvent :false});
+  }
+
   buscarUsuario(){
 
     this.adminService.obtenerUsuarioPorRut(this.buscarForm.value.rutBuscar).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
 
       // todo: if existe
-      if(!resp){
+      if(resp.ok === false){
+        Swal.fire('El rut ingresado no existe.', '', 'error')
         return;
       }
       this.usuarioPorEditar = resp;
-      console.log('usuario por editar',this.usuarioPorEditar);
+      // console.log('usuario por editar',this.usuarioPorEditar);
 
       console.log(this.usuarioPorEditar.id);
       const url = `/dashboard/edit-usuario/${this.usuarioPorEditar.id}`
-      console.log('url', url);
+      // console.log('url', url);
 
       this.router.navigateByUrl(url);
 

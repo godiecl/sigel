@@ -1,112 +1,156 @@
 <form class="login100-form" autocomplete="off" (ngSubmit)="crearEmpresa()" [formGroup]="empresaForm">
+
+    <div class="topformvolver m-b-23">
+        <a mat-raised-button color="link" href="/home" >Volver </a> 
+        <!-- <div class="flex-col-c">
+            <h1 class="login100-form-title p-b-20" style="font-size: 25px; text-transform: uppercase;">Registrar empresa y contacto</h1> 
+        </div> -->
+    </div>
                 
     <span class="login100-form-title p-b-49">
         REGISTRAR EMPRESA Y CONTACTO
     </span>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Nombre</span>
+        <span class="label-input100" style="font-size: 25px;">Nombre de la empresa</span>
         <input class="input100"
                placeholder="Ingrese nombre de la empresa"
                formControlName="nombreEmpresa">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('nombreEmpresa')?.errors?.['required'] && empresaForm.get('nombreEmpresa')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Rut</span>
+        <span class="label-input100" style="font-size: 25px;">Rut de la empresa</span>
         <input class="input100"
         (input)="inputEvent($event)" 
                placeholder="Ingrese rut de la empresa"
                maxlength="12"
                formControlName="rutEmpresa">
-               <span *ngIf= "empresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es valido</span>
+               <span *ngIf= "empresaForm.get('rutEmpresa')?.errors?.['rutnovalido']">El rut no es válido</span>
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('rutEmpresa')?.errors?.['required'] && empresaForm.get('rutEmpresa')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
-    <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Giro</span>
+    <div class="wrap-input100 m-b-40">
+        <span class="label-input100" style="font-size: 25px;">Giro de la empresa</span>
         <input class="input100"
                placeholder="Ingrese giro de la empresa"
                formControlName="giroEmpresa">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('giroEmpresa')?.errors?.['required'] && empresaForm.get('giroEmpresa')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
     
     <!-- <div class="text-right p-t-8 p-b-31"></div> -->
+    <div class="wrap-input100 m-b-23">
+        <span class="label-input100" style="font-size: 25px; font-weight: bold;">DATOS DEL CONTACTO</span>
+        <span class="focus-input100"></span>
+    </div>
     
-    
+    <!-- DATOS DEL CONTACTO -->
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Nombre</span>
+        <span class="label-input100" style="font-size: 25px;">Nombre del contacto</span>
         <input class="input100"
                 formControlName="nombre"
                placeholder="Ingrese su nombre">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('nombre')?.errors?.['required'] && empresaForm.get('nombre')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Apellido paterno</span>
+        <span class="label-input100" style="font-size: 25px;">Apellido paterno del contacto</span>
         <input class="input100"
                 formControlName="apellidop"
                placeholder="Ingrese su apellido paterno">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('apellidop')?.errors?.['required'] && empresaForm.get('apellidop')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Apellido materno</span>
+        <span class="label-input100" style="font-size: 25px;">Apellido materno del contacto</span>
         <input class="input100"
                placeholder="Ingrese su apellido materno"
                formControlName="apellidom">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('apellidom')?.errors?.['required'] && empresaForm.get('apellidom')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Rut</span>
+        <span class="label-input100" style="font-size: 25px;">Rut del contacto</span>
         <input class="input100"
                 (input)="inputEvent2($event)" 
                 maxlength="12"
                placeholder="Ingrese su rut"
                formControlName="rut">
-               <span *ngIf= "empresaForm.get('rut')?.errors?.['rutnovalido']">El rut no es valido</span>
+               <span *ngIf= "empresaForm.get('rut')?.errors?.['rutnovalido']">El rut no es válido</span>
         <!-- <rut-chile [msjError]="El rut ingresado no es válido." [mode]="0" (rut_emiter)="getRut($event)"></rut-chile> -->
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('rut')?.errors?.['required'] && empresaForm.get('rut')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Correo</span>
+        <span class="label-input100" style="font-size: 25px;">Correo del contacto</span>
         <input class="input100"
                placeholder="Ingrese su correo"
                formControlName="correo">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('correo')?.errors?.['required'] && empresaForm.get('correo')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Cargo</span>
+        <span class="label-input100" style="font-size: 25px;">Cargo del contacto</span>
         <input class="input100"
                placeholder="Ingrese su cargo"
                formControlName="cargo">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('cargo')?.errors?.['required'] && empresaForm.get('cargo')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Telefono</span>
+        <span class="label-input100" style="font-size: 25px;">Teléfono del contacto</span>
         <input class="input100"
         type="number"
-               placeholder="Ingrese su telefono"
+               placeholder="Ingrese su teléfono"
                formControlName="telefono">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('telefono')?.errors?.['required'] && empresaForm.get('telefono')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Contraseña</span>
+        <span class="label-input100" style="font-size: 25px;">Contraseña del contacto</span>
         <input class="input100"
                 type="password"
                placeholder="Ingrese su contraseña"
                formControlName="password">
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('password')?.errors?.['required'] && empresaForm.get('password')?.touched">
+            Este campo es obligatorio.
+        </div>
     </div>
 
     <div class="wrap-input100 m-b-23">
-        <span class="label-input100">Confirmar contraseña</span>
+        <span class="label-input100" style="font-size: 25px;">Confirmar contraseña</span>
         <input class="input100"
                type="password"
                placeholder="Confirme su contraseña"
@@ -117,6 +161,12 @@
                 <div *ngIf="f.['confirmpassword'].errors.confirmedValidator">Password and Confirm Password must be match.</div> -->
             <!-- </div> -->
         <span class="focus-input100"></span>
+        <div class="text-danger" *ngIf="empresaForm.get('confirmPassword')?.errors?.['required']  && empresaForm.get('confirmPassword')?.touched">
+            Este campo es obligatorio.
+        </div>
+        <div class="text-danger" *ngIf="empresaForm.get('confirmPassword')?.errors?.['matching']">
+            Las contraseñas son distintas.
+        </div>
     </div>
 
     <div class="container-login100-form-btn">

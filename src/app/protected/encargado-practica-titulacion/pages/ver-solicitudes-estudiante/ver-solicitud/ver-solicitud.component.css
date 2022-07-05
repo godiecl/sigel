@@ -12,9 +12,20 @@
   }
 
 
-  div.editable {
+div.editable {
     width: 300px;
     height: 200px;
     border: 1px solid #ccc;
     padding: 5px;
+}
+
+.topform{
+  /* display: flex; */
+  justify-content: flex-start;
+  align-items: baseline;
+  width: 100%;
+}
+
+.topform div{
+  width: 100%;
 }

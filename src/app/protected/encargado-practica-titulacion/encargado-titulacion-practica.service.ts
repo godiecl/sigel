@@ -56,5 +56,12 @@ export class EncargadoTitulacionPracticaService {
     return this.http.get<Empresa>(url);
   }
 
+  obtenerEmpresaPorRut(rut: any): Observable<Empresa> {
+
+    console.log('peticion get por rut enviada a empresas');
+    const url = `${this.baseUrl}empresas/${rut}`;
+    return this.http.get<Empresa>(url);
+  }
+
   
 }

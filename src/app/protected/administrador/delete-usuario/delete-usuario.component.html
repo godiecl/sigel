@@ -25,14 +25,17 @@
                 <span class="label-input100" style="font-size: 25px;">Rut</span>
                 <input class="input100"style="font-size: 20px;"
                     placeholder="Ingrese el rut que desea deshabilitar"
+                    (input)="inputEvent($event)" maxlength="12"
                     formControlName="rut"
                     >
-                <span class="focus-input100"></span>
+                    <span class="text-danger" *ngIf= "deleteForm.get('rut')?.errors?.['rutnovalido']">El rut no es válido</span><br>
+                    <span class="focus-input100"></span>
+                    <div class="text-danger" *ngIf="deleteForm.get('rut')?.errors?.['required'] && deleteForm.get('rut')?.touched">
+                        Este campo es obligatorio.
+                    </div>
             </div>
             
-            <div>
-            </div>
-            <button (click)="deleteUsuario()" style="font-size: 25px;" class="boton-dashboard m-b-23">
+            <button [disabled]="deleteForm.invalid" (click)="deleteUsuario()" style="font-size: 25px;" class="boton-dashboard m-b-23">
                 Deshabilitar Usuario
             </button> 
         </form>
