@@ -118,8 +118,6 @@ export class UploadContenidoComponent implements OnInit {
         this.fileCapstone.nativeElement.value = null;
 
         Swal.fire('Se ha agregado el archivo con exito!!', '', 'success')
-        //se borra todo lo que contiene el formulario
-
         
       } else if (result.isDenied) {
         Swal.fire('No se ha guardado el contenido', '', 'info')
