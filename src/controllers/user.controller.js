@@ -241,10 +241,15 @@ export const revalidarToken = async (req, res = response) => {
 
   const token = await generarJWT(id, nombre);
 
+  const usuarioDB = await Usuario.findByPk(id);
+
   return res.json({
     ok: true,
-    id: id,
-    nombre: nombre,
+    id: usuarioDB.id,
+    nombre: usuarioDB.nombre,
+    apellidop: usuarioDB.apellidop,
+    apellidom: usuarioDB.apellidom,
+    roles: usuarioDB.roles,
     token
   })
 

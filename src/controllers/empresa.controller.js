@@ -57,14 +57,12 @@ export const createEmpresa = async (request, response) =>{
               rutEmpresa: rut
           },});
   
-          if(!empresa) return res.status(404).json({ message: 'La empresa no existe'})
+          if(!empresa) return res.status(404).json({ ok:false, message: 'La empresa no existe'})
   
-        
-          return res.json(empresa);
-  
+          return res.json({ok: true, empresa: empresa});
   
         }catch(error){
-          return res.status(500).json({message: error.message})
+          return res.status(400).json({ok: false, message: error.message})
         }
     
    }
