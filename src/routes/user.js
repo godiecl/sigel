@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 import multer from 'multer';
-import path from 'path';
-
+import util from 'util';
+import fs from 'fs';
 
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
 import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
@@ -18,6 +18,7 @@ import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../cont
 import { createEmpresa, getEmpresa } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, getPublicacion, getPublicaciones } from '../controllers/documentos/publicacion.controller.js';
+import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP } from '../controllers/documentos/documentos.controllers.js';
 
 const router = Router();
 
@@ -96,70 +97,64 @@ router.get('/users:id', getUsuarioPorId);
 router.get('/users/rut:rut', getUsuarioPorRut);
 
 //Archivos 
-//Contenido practica
-const storagePractica = multer.diskStorage({
-    filename: function(res, file, cb){
-        const ext = file.originalname.split('.').pop(); //extencion final
-        //const fileName = Date.now();
-        const fileName="ContenidoPractica"; //que tenga un nombre determinado
-        cb(null, `${fileName}.${ext}`); 
-        //cb(null,file.originalname);
-    },
-    destination:function(res,file, cb){
-        cb(null,'./public/contenido/practica')
-    }
-});
+//contenido práctica
 const uploadPractica = multer({storage:storagePractica})
 router.post('/upload-contenido/practica',uploadPractica.single('myFile'),(req,res)=>{
-    res.send({data:'OK'})
+     res.send({data:'OK'})
 });
-//
-//Contenido Capstone
-const storageCapstone = multer.diskStorage({
-    filename: function(res, file, cb){
-        const ext = file.originalname.split('.').pop();
-        //const fileName = Date.now();
-        const fileName="ContenidoCapstone"; //que tenga un nombre determinado
-        //cb(null,file.originalname);       //nombre original
-        cb(null, `${fileName}.${ext}`); 
-    },
-    destination:function(res,file, cb){
-        cb(null,'./public/contenido/capstone')
-    }
-});
+//contenido capstone
 const uploadCapstone = multer({storage:storageCapstone})
 router.post('/upload-contenido/capstone',uploadCapstone.single('myFile'),(req,res)=>{
     res.send({data:'OK'})
 });
-//
-//subir documento practica estudiante 
-const storageDocPracticaEstudiante = multer.diskStorage({
-    filename: function(res, file, cb){
-        const ext = file.originalname.split('.').pop();//
-        //const fileName = Date.now();
-        //const fileName="ContenidoCapstone"; //que tenga un nombre determinado
-        cb(null,file.originalname);       //nombre original
-        //cb(null, `${fileName}.${ext}`); 
-    },
-    destination:function(res,file, cb){
-        cb(null,'./documentos/practica-estudiante')
-    }
-});
+//----------------------------------------------------subir Doc practica Estudiante
 const uploadDocPracticaEstudiante = multer({storage:storageDocPracticaEstudiante})
 router.post('/upload-doc/practica-estudiante',uploadDocPracticaEstudiante.single('myFile'),(req,res)=>{
     res.send({data:'OK'})
 });
-router.get('/download-doc/practica-estudiante',function(req,res,next){
-    res.download('./documentos/practica-estudiante'+'/'+ req.body.filename);
-});
-//descargar documentos
-/*
-router.get('/download-doc/practica-estudiante',function(req,res,next){
-    filepath = path.join(__dirname,'./documentos/practica-estudiante') +'/'+ req.body.filename;
-    res.sendFile(filepath);
-});
-*/
+//ver archivos practica Estudiante
+router.get('/doc/practica-estudiante', getListFilesDocPE);
+//descargar doc practica Estudiante
+router.post('/download-doc/practica-estudiante',downloadDocPE);
+//Eliminar documento practica estudiante
+router.post('/delete-doc/practica-estudiante',deleteFileDocPE);
 
+//------------------------------------------------------Subir Doc capstone estudiante
+const uploadDocCapstoneEstudiante = multer({storage:storageDocCapstoneEstudiante})
+router.post('/upload-doc/capstone-estudiante',uploadDocCapstoneEstudiante.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+//ver archivos practica Estudiante
+router.get('/doc/capstone-estudiante', getListFilesDocCE);
+//descargar doc practica Estudiante
+router.post('/download-doc/capstone-estudiante',downloadDocCE);
+//Eliminar documento practica estudiante
+router.post('/delete-doc/capstone-estudiante',deleteFileDocCE);
+
+//------------------------------------------------------Subir Doc practica profesor
+const uploadDocPracticaProfesor = multer({storage:storageDocPracticaProfesor})
+router.post('/upload-doc/practica-profesor',uploadDocPracticaProfesor.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+//ver archivos practica Estudiante
+router.get('/doc/practica-profesor', getListFilesDocPP);
+//descargar doc practica Estudiante
+router.post('/download-doc/practica-profesor',downloadDocPP);
+//Eliminar documento practica estudiante
+router.post('/delete-doc/practica-profesor',deleteFileDocPP);
+
+//------------------------------------------------------Subir Doc capstone profesor
+const uploadDocCapstoneProfesor = multer({storage:storageDocCapstoneProfesor})
+router.post('/upload-doc/capstone-profesor',uploadDocCapstoneProfesor.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+//ver archivos practica profesor
+router.get('/doc/capstone-profesor', getListFilesDocCP);
+//descargar doc practica profesor
+router.post('/download-doc/capstone-profesor',downloadDocCP);
+//Eliminar documento practica profesor
+router.post('/delete-doc/capstone-profesor',deleteFileDocCP);
+//------
 
 router.post('/', [
     check('correo', 'El correo es obligatorio').isEmail(),
