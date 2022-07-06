@@ -1,4 +1,7 @@
-import { Empresa } from '../models/Empresa.js'
+import { Empresa } from '../models/Empresa.js';
+import { SolicitudEstudiante } from '../models/documentos/SolicitudEstudiante.js';
+import { EncargadoEmpresa } from '../models/EncargadoEmpresa.js';
+import { Usuario } from '../models/Usuario.js';
 
 export const createEmpresa = async (request, response) =>{
 
@@ -116,3 +119,40 @@ export const createEmpresa = async (request, response) =>{
     }
   
   }
+
+  export const getEmpresasSolicitadoEstudiante = async (req, res) => {
+
+    const solicitudes = await SolicitudEstudiante.findAll({
+        where: {
+            estadoAutorizacion: true
+        }
+    });
+
+    let data = [];
+
+    for(let i=0; i<solicitudes.length ;i++){
+        const encargado = await EncargadoEmpresa.findByPk(solicitudes[i].id_encargadoEmpresa);
+
+        const usuario = await Usuario.findOne({
+            where: {
+                id: encargado.id_usuario
+            }
+        })
+        // console.log(encargado);
+        const empresa = await Empresa.findByPk(encargado.id_empresa);
+        
+         data.push({
+            id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
+            nombreProyecto: solicitudes[i].nombreProyecto,
+            descripcionRequerimientoPractica: solicitudes[i].descripcionRequerimientoPractica,
+            nombreEmpresa: empresa.nombreEmpresa, 
+            id_empresa: empresa.id_empresa,
+            // nombreEncargado: usuario.nombre,
+            // apellidoEncargado: usuario.apellidop,
+        })
+    }
+
+     console.log(data)
+
+    res.json(data)
+}

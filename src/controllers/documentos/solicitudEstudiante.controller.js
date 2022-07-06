@@ -138,8 +138,55 @@ export const updateSolicitudEstudiante = async (req, res) => {
         })
     }
 
+    //  console.log(data)
+
+    res.json(data)
+}
+
+export const getListaVacantes = async (req, res) => {
+
+    const solicitudes = await SolicitudEstudiante.findAll({
+        where: {
+            estadoAutorizacion: true
+        }
+    });
+
+    let data = [];
+
+    for(let i=0; i<solicitudes.length ;i++){
+        const encargado = await EncargadoEmpresa.findByPk(solicitudes[i].id_encargadoEmpresa);
+
+        const usuario = await Usuario.findOne({
+            where: {
+                id: encargado.id_usuario
+            }
+        })
+        // console.log(encargado);
+        const empresa = await Empresa.findByPk(encargado.id_empresa);
+        
+        // if(data.findIndex(id_empresa !== empresa.id_empresa )){
+        //     continue;
+        // }
+
+         data.push({
+            id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
+            nombreProyecto: solicitudes[i].nombreProyecto,
+            descripcionRequerimientoPractica: solicitudes[i].descripcionRequerimientoPractica,
+            id_encargadoEmpresa: encargado.id_encargadoEmpresa,
+            telefono: encargado.telefono,
+            nombreEmpresa: empresa.nombreEmpresa,
+            id_empresa: empresa.id_empresa, 
+            correo: usuario.correo, 
+            nombreEncargado: usuario.nombre,
+            apellidoEncargado: usuario.apellidop,
+
+        })
+    }
+
      console.log(data)
 
     res.json(data)
 }
+
+
 

@@ -40,9 +40,9 @@ export const SolicitudEstudiante = sequelize.define('solicitud_estudiante',{
     modalidad: {
         type: DataTypes.STRING
     },
-    fechaEnvio: {
-        type: DataTypes.DATE
-    },
+    // fechaEnvio: {
+    //     type: DataTypes.DATE
+    // },
     estadoAsignacionCP: {
         type: DataTypes.BOOLEAN
     },

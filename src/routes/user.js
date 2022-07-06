@@ -11,9 +11,10 @@ import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '..
 import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresa, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, getComisionPorId, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
-import { createEmpresa, getEmpresa, getEmpresaPorRut } from '../controllers/empresa.controller.js';
-import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
+import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
+import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
+import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
 
 const router = Router();
 
@@ -31,6 +32,7 @@ router.put('/auth/new-password/:resetToken', crearNuevoPassword);
 router.post('/empresas', createEmpresa);
 router.get('/empresas:id', getEmpresa);
 router.get('/empresas/:rut', getEmpresaPorRut);
+router.get('/emp-solicitado-estudiante', getEmpresasSolicitadoEstudiante)
 
 
 // EncargadoEmpresa
@@ -104,6 +106,7 @@ router.patch('/solicitud-estudiantes:id', updateSolicitudEstudiante)
 router.get('/solicitud-estudiantes', getSolicitudesEstudiante)
 router.get('/solicitud-estudiantes/tabla', getSolicitudesEstudianteTabla )
 router.get('/solicitud-estudiantes:id', getSolicitudEstudiante)
+router.get('/lista-vacantes', getListaVacantes)
 
 // publicacion 
 router.post('/publicaciones', createPublicacion)
@@ -111,5 +114,16 @@ router.get('/publicaciones', getPublicaciones)
 router.get('/publicaciones:id', getPublicacion)
 router.delete('/publicaciones:id', deletePublicacion)
 router.patch('/publicaciones:id', updatePublicacion)
+
+// solicitud carta vacante
+router.post('/solicitud-carta-vacantes', createSolicitudCartaVacante)
+router.get('/solicitud-carta-vacantes', getSolicitudesCartaVacante)
+router.get('/solicitud-carta-vacantes:id', getSolicitudCartaVacante)
+router.get('/lista-carta-vacante', getListaCartaVacantes)
+router.post('/correo-carta-vacante', enviarCorreoCartaVacantePendiente )
+router.patch('/aprobar-solicitud-carta-vacante:id', autorizarSolicitudCartaVacante)
+router.patch('/reprobar-solicitud-carta-vacante:id', reprobarSolicitudCartaVacante)
+router.patch('/pendiente-solicitud-carta-vacante:id', dejarPendienteSolicitudCartaVacante)
+
 
 export default router;

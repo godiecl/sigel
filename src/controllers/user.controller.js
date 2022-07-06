@@ -317,7 +317,8 @@ export const olvidePassword = async (req, res) =>{
       `, // html body
     });
     
-  } catch (errorcito) {
+  } catch (error2) {
+
     
   }
 
