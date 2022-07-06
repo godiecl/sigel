@@ -44,5 +44,11 @@ export class MainMenuComponent implements OnInit {
   downloadDocument(){
     this.router.navigateByUrl('/dashboard/download-document')
   }
+  uploadInforme(){
+    this.router.navigateByUrl('/dashboard/upload-informe')
+  }
+  downloadInforme(){
+    this.router.navigateByUrl('/dashboard/download-informe')
+  }
 }
  

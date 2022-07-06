@@ -1,0 +1,36 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Descargar Informes de Práctica</li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col flex-col-c">
+        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                Descargar informes de práctica
+            </span>
+            
+            <div class="card-header" style="font-size: 25px;">Lista de Informes</div>
+            <div class="scrollbar" style="overflow-y: auto; height: 400px;">
+                <ul
+                    class="list-group list-group-flush"
+                    *ngFor="let file of fileInfosInformePractica | async">
+                    <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
+                        <button style="font-size: 17px;" (click)="downloadInformePractica(file.name)">{{ file.name }}</button>
+                        <div>
+                            <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadInformePractica(file.name)">Descargar</button>
+                            <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarInformePractica(file.name)">Eliminar</button>
+                        </div>
+                    
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

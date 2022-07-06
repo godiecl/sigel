@@ -181,5 +181,33 @@ export class ComisionTitulacionPracticaService {
       })
     );
   }
+  //informe estudiante
+  sendPostInformeEstudiante(body:FormData): Observable <any>{
+    const url= `${this.baseUrl}upload-informe/informe-estudiante`;
+    return this.http.post(url,body)
+    .pipe(
+      tap(()=>{
+        this._refresh$.next();
+      })
+    );
+  }
+  downloadInformeEstudiante(file:String){
+    var body = {filename:file};
+    const url=`${this.baseUrl}download-informe/informe-estudiante`;
+    return this.http.post(url,body,{responseType:'blob'});
+  }
+  getFilesInformeEstudiante(): Observable<any> {
+    const url=`${this.baseUrl}get-informe/informe-estudiante`;
+    return this.http.get(url);
+  }
+  deleteFileInformeEstudiante(file:String){
+    var body = {filename:file};
+    const url=`${this.baseUrl}delete-informe/informe-estudiante`;
+    return this.http.post(url,body)
+    .pipe(tap(()=>{
+        this._refresh$.next();
+      })
+    );
+  }
 }
 

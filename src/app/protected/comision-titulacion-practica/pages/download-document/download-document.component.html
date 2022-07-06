@@ -18,7 +18,7 @@
                 </span>
             </form>
         </div>
-        <div id="formPracticaEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <div id="formPracticaEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Documentos Práctica estudiantes
                 </span>
@@ -34,7 +34,7 @@
                 
                 <div class="card mt-3">
                     <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
-                    <div class="scrollbar" style="overflow-y: scroll; height: 400px;">
+                    <div class="scrollbar" style="overflow-y: auto; height: 400px;">
                         <ul
                       class="list-group list-group-flush"
                       *ngFor="let file of fileInfosDocPracticaEstudiante | async">
@@ -54,7 +54,7 @@
                   </div> 
         </div>
 
-        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
                 <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                     Documentos Capstone estudiantes
                 </span>
@@ -70,22 +70,23 @@
                 
                 <div class="card mt-3">
                     <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
-                    <ul
-                      class="list-group list-group-flush"
-                      *ngFor="let file of fileInfosDocCapstoneEstudiante | async"
-                    >
-                      <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
-                        <button style="font-size: 17px;" (click)="downloadDocCapstoneEstudiante(file.name)">{{ file.name }}</button>
-                        <div>
-                            <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadDocCapstoneEstudiante(file.name)">Descargar</button>
-                            <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarDocCapstoneEstudiante(file.name)">Eliminar</button>
-                        </div>
-                    
-                      </li>
-                    </ul>
+                        <div class="scrollbar" style="overflow-y: auto; height: 400px;">
+                        <ul
+                        class="list-group list-group-flush"
+                        *ngFor="let file of fileInfosDocCapstoneEstudiante | async">
+                        <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
+                            <button style="font-size: 17px;" (click)="downloadDocCapstoneEstudiante(file.name)">{{ file.name }}</button>
+                            <div>
+                                <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadDocCapstoneEstudiante(file.name)">Descargar</button>
+                                <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarDocCapstoneEstudiante(file.name)">Eliminar</button>
+                            </div>
+                        
+                        </li>
+                        </ul>
+                    </div>
                   </div> 
         </div>
-        <div id="formPracticaProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <div id="formPracticaProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
             <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                 Documentos Práctica Profesores
             </span>
@@ -101,10 +102,10 @@
             
             <div class="card mt-3">
                 <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
+                <div class="scrollbar" style="overflow-y: auto; height: 400px;">
                 <ul
                   class="list-group list-group-flush"
-                  *ngFor="let file of fileInfosDocPracticaProfesor | async"
-                >
+                  *ngFor="let file of fileInfosDocPracticaProfesor | async">
                   <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
                     <button style="font-size: 17px;" (click)="downloadDocPracticaProfesor(file.name)">{{ file.name }}</button>
                     <div>
@@ -114,10 +115,11 @@
                 
                   </li>
                 </ul>
-              </div> 
+              </div>
+            </div> 
     </div>
 
-    <div id="formCapstoneProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+    <div id="formCapstoneProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
             <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                 Documentos Capstone Profesores
             </span>
@@ -133,10 +135,10 @@
             
             <div class="card mt-3">
                 <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
+                <div class="scrollbar" style="overflow-y: auto; height: 400px;">
                 <ul
                   class="list-group list-group-flush"
-                  *ngFor="let file of fileInfosDocCapstoneProfesor | async"
-                >
+                  *ngFor="let file of fileInfosDocCapstoneProfesor | async">
                   <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
                     <button style="font-size: 17px;" (click)="downloadDocCapstoneProfesor(file.name)">{{ file.name }}</button>
                     <div>
@@ -146,7 +148,8 @@
                 
                   </li>
                 </ul>
-              </div> 
+              </div>
+            </div> 
     </div>
     </div>
 </div>

@@ -1,3 +1,4 @@
+import { UploadInformeComponent } from './estudiante/pages/upload-informe/upload-informe.component';
 import { UploadContenidoComponent } from './comision-titulacion-practica/pages/upload-contenido/upload-contenido.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -19,6 +20,7 @@ import { VerPublicacionCTComponent } from './comision-titulacion-practica/pages/
 import { PublicacionResolver } from './comision-titulacion-practica/comision-titulacion-practica.resolver';
 import { PublicacionesComponent } from './estudiante/pages/publicaciones/publicaciones.component';
 import { VerPublicacionComponent } from './estudiante/pages/publicaciones/ver-publicacion/ver-publicacion.component';
+import { DownloadInformeComponent } from './comision-correccion-practica/pages/download-informe/download-informe.component';
 
 
 const routes: Routes = [
@@ -61,6 +63,8 @@ const routes: Routes = [
           
         ]
       },
+      { path:'upload-informe',component:UploadInformeComponent},
+      { path:'download-informe',component:DownloadInformeComponent},
       { path:'estudiante',
       // component: DashboardComponent,
       children: [
@@ -102,6 +106,7 @@ const routes: Routes = [
         {path: 'crear-publicacion', component: CrearPublicacionComponent,},
       ]
     },
+    
       { path:'**', redirectTo: ''},
     ]
   },

@@ -216,7 +216,7 @@ export class DownloadDocumentComponent implements OnInit,OnDestroy {
     //this.loading=true;
     const nombre=this.fileTmpDocPracticaEstudiante.fileName;
     const body=new FormData();
-    body.append('myFile',this.fileTmpDocPracticaEstudiante.fileRaw,this.fileTmpDocPracticaEstudiante.fileName.replace(" ","_"));
+    body.append('myFile',this.fileTmpDocPracticaEstudiante.fileRaw,this.fileTmpDocPracticaEstudiante.fileName.replaceAll(" ","_"));
     //conexion con backend
     this.comisionTitulacionPracticaService.sendPostDocPracticaEstudiante(body)
     .subscribe((res)=>{
@@ -229,7 +229,7 @@ export class DownloadDocumentComponent implements OnInit,OnDestroy {
     //this.loading=true;
     const nombre=this.fileTmpDocCapstoneEstudiante.fileName;
     const body=new FormData();
-    body.append('myFile',this.fileTmpDocCapstoneEstudiante.fileRaw,this.fileTmpDocCapstoneEstudiante.fileName.replace(" ","_"));
+    body.append('myFile',this.fileTmpDocCapstoneEstudiante.fileRaw,this.fileTmpDocCapstoneEstudiante.fileName.replaceAll(" ","_"));
     //conexion con backend
     this.comisionTitulacionPracticaService.sendPostDocCapstoneEstudiante(body)
     .subscribe((res)=>{
@@ -387,7 +387,7 @@ sendFileDocPracticaProfesor():void{
   //this.loading=true;
   const nombre=this.fileTmpDocPracticaProfesor.fileName;
   const body=new FormData();
-  body.append('myFile',this.fileTmpDocPracticaProfesor.fileRaw,this.fileTmpDocPracticaProfesor.fileName.replace(" ","_"));
+  body.append('myFile',this.fileTmpDocPracticaProfesor.fileRaw,this.fileTmpDocPracticaProfesor.fileName.replaceAll(" ","_"));
   //conexion con backend
   this.comisionTitulacionPracticaService.sendPostDocPracticaProfesor(body)
   .subscribe((res)=>{
@@ -400,7 +400,7 @@ sendFileDocCapstoneProfesor():void{
   //this.loading=true;
   const nombre=this.fileTmpDocCapstoneProfesor.fileName;
   const body=new FormData();
-  body.append('myFile',this.fileTmpDocCapstoneProfesor.fileRaw,this.fileTmpDocCapstoneProfesor.fileName.replace(" ","_"));
+  body.append('myFile',this.fileTmpDocCapstoneProfesor.fileRaw,this.fileTmpDocCapstoneProfesor.fileName.replaceAll(" ","_"));
   //conexion con backend
   this.comisionTitulacionPracticaService.sendPostDocCapstoneProfesor(body)
   .subscribe((res)=>{
