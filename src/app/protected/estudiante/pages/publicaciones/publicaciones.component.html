@@ -21,7 +21,7 @@
         </span>
         <mat-card *ngFor="let item of publicaciones" class=" m-b-28">
           <mat-card-title > {{ item.asunto }} </mat-card-title>
-          <mat-card-subtitle> {{item.remitente | titlecase }} - Fecha: {{ item.createdAt | date }} </mat-card-subtitle>
+          <mat-card-subtitle style="margin-top: 10px;"> {{item.remitente | titlecase }} - Fecha: {{ item.createdAt | date }} </mat-card-subtitle>
           <mat-card-content>
           <p>{{ item.mensaje }}</p>
           </mat-card-content>

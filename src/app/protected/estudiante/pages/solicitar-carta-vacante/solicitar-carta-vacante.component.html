@@ -1,0 +1,76 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+          <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+          <li style="color:white; font-size: 18px;">></li>
+          <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Solicitar carta vacante</li>
+          
+        </ul>
+    </nav>
+</div>
+
+
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                Solicitar Carta Vacante
+            </span>
+            <form mat-form [formGroup]="solicitarCartaForm" (ngSubmit)="enviar()" >
+                
+                    
+                        <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
+                            <mat-label>Seleccione empresa</mat-label>
+                            <mat-select formControlName="empresa"  >
+                                <mat-option *ngFor="let item of filtrados" [value]="item.id_empresa" >{{item.nombreEmpresa }}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="solicitarCartaForm.get('nombreEmpresa')?.errors">
+                                <strong>Seleccione una empresa por favor</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field  style="display: block;"class="m-b-20 m-t-20" appearance="fill">
+                            <mat-label>Seleccione proyecto</mat-label>
+                            <mat-select formControlName="nombreProyecto" >
+                                <mat-option *ngFor="let proyecto of porEmpresa" [value]="proyecto.id_solicitudEstudiante">{{proyecto.nombreProyecto}} </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="solicitarCartaForm.get('nombreProyecto')?.errors">
+                                <strong>Debe seleccionar una empresa primero</strong>
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="alinear" >
+                            <mat-form-field style="display: inline-block; flex-direction: end;"class="m-b-20 m-t-20" appearance="fill">
+                                <mat-label>Seleccione periodo</mat-label>
+                                <mat-select formControlName="periodoRealizar" >
+                                    <mat-option *ngFor="let periodo of periodos"  [value] ="periodo.id">{{periodo.periodo}} </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="solicitarCartaForm.get('periodoRealizar')?.errors">
+                                    <strong>El periodo es obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field style="display: inline-block; flex-direction: end;" class="m-b-20 m-t-20" appearance="fill">
+                                <mat-label>Seleccione Año</mat-label>
+                                <input matInput  type="text" pattern="\d*" maxlength="4" minlength="4" formControlName="anioRealizar">
+                                <mat-error *ngIf="solicitarCartaForm.get('anioRealizar')?.errors">
+                                    <strong>Ingrese un año válido </strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        
+                        <mat-form-field  style="display: block;"class="m-b-20 m-t-20" appearance="fill">
+                            <mat-label>Seleccione ciudad donde realizará su práctica</mat-label>
+                            <input type="text" matInput formControlName="ciudadRealizar">
+                            <mat-error *ngIf="solicitarCartaForm.get('ciudadRealizar')?.errors">
+                                <strong>La ciudad es obligatoria</strong>
+                            </mat-error>
+                        </mat-form-field>
+                       
+                <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
+                    <button mat-raised-button color="warn" type="submit" [disabled]="solicitarCartaForm.invalid" cdkFocusInitial>Enviar solicitud</button>
+                </mat-card-actions>
+            </form>
+            
+        </div>
+    </div>
+</div>

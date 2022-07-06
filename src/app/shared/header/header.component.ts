@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
+import { UsuarioLog } from '../../auth/interfaces/usuarioLog.interface';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +12,19 @@ export class HeaderComponent implements OnInit {
 
   public image!:string;
   routerUrl !: string;
-  get usuario(){
-    return this.authService.usuario;
+  usuarioLogeado!: UsuarioLog;
+  // get usuario(){
+  //   return this.authService.usuario;
+  // }
+
+  constructor(private router: Router, private authService: AuthService) { 
+    // console.log('hola');
+   
   }
 
-  constructor(private router: Router, private authService: AuthService) { }
-
   ngOnInit(): void {
+    this.usuarioLogeado = this.authService.usuario
+    console.log('usuario log', this.usuarioLogeado)
   }
   isRoute(route: string){
     // console.log('route ',route);

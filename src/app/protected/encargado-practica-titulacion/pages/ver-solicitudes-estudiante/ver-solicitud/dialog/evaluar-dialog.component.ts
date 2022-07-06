@@ -48,6 +48,7 @@ export interface DialogData {
 
     aprobar(): any{
       this.evaluarForm.value.estado = true;
+    
       this.dialogRef.close(this.evaluarForm.value );
     }
 

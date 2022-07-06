@@ -50,11 +50,12 @@ export class VerSolicitudComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // console.log('The dialog was closed');
-      // console.log(result);
+      console.log(result);
+
 
       if(result){ 
         console.log('he entrado')
-        this.solicitudEstudiante.descripcionRequerimientoPractica=result.descripcionRequerimiento;
+        this.solicitudEstudiante.descripcionRequerimientoPractica=result.descripcionRequerimientoPractica;
         this.solicitudEstudiante.estadoAutorizacion=result.estado;
         // console.log(this.solicitudEstudiante);
         this.encargadoService.actualizarSolicitudEstudiante(this.solicitudEstudiante)
