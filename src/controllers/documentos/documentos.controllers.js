@@ -253,3 +253,59 @@ export const deleteFileDocCP=(req,res)=>{
       });
     });
 } 
+//Informe estudiante práctica
+//subir documentos práctica estudiante funciona
+export const storageInformePractica = multer.diskStorage({
+  filename: function(res, file, cb){
+      const ext = file.originalname.split('.').pop();//
+      const fileName = Date.now();
+      //const fileName="ContenidoCapstone"; //que tenga un nombre determinado
+      //cb(null,file.originalname);       //nombre original
+      cb(null, `${fileName}.${ext}`); 
+  },
+  destination:function(res,file, cb){
+      cb(null,'./documentos/informe-practica')
+  }
+});
+
+//ver archivos de carpeta Capstone estudiante
+export const getListFilesInformeEstudiante = (req, res) => {
+  const directoryPath = "./documentos/informe-practica";
+  fs.readdir(directoryPath, function (err, files) {
+    if (err) {
+      res.status(500).send({
+        message: "Unable to scan files!",
+      });
+    }
+    let fileInfos = [];
+    files.forEach((file) => {
+      fileInfos.push({
+        name: file
+      });
+    });
+    res.status(200).send(fileInfos);
+  });
+};
+
+//descargar documentos Capstone estudiantes
+export const downloadInformeEstudiante=(req,res,next)=>{
+  console.log('recibiendo: ',req);
+  res.download('./documentos/informe-practica'+'/'+ req.body.filename);
+}
+
+//eliminar documentos Capstone estudiantes
+export const deleteFileInformeEstudiante=(req,res)=>{
+  const directoryPath = "./documentos/informe-practica";
+  fs.readdir(directoryPath, function (err, files) {
+    if (err) {
+      res.status(500).send({
+        message: "Unable to scan files!",
+      });
+    }
+    fs.unlink('./documentos/informe-practica/'+req.body.filename,(err)=>{
+      if(err){
+          console.log(err);
+      }
+    });
+  });
+} 

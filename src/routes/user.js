@@ -18,7 +18,7 @@ import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../cont
 import { createEmpresa, getEmpresa, getEmpresaPorRut } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 
-import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP } from '../controllers/documentos/documentos.controllers.js';
+import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP,storageInformePractica,getListFilesInformeEstudiante,deleteFileInformeEstudiante,downloadInformeEstudiante } from '../controllers/documentos/documentos.controllers.js';
 
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
 
@@ -178,5 +178,18 @@ router.get('/publicaciones', getPublicaciones)
 router.get('/publicaciones:id', getPublicacion)
 router.delete('/publicaciones:id', deletePublicacion)
 router.patch('/publicaciones:id', updatePublicacion)
+
+//INFORME
+//subir informe de práctica estudiante
+const uploadInformeEstudiante = multer({storage:storageInformePractica})
+router.post('/upload-informe/informe-estudiante',uploadInformeEstudiante.single('myFile'),(req,res)=>{
+    res.send({data:'OK'})
+});
+//ver informes de práctica estudiante
+router.get('/get-informe/informe-estudiante', getListFilesInformeEstudiante);
+//descargar informe de práctica estudiante
+router.post('/download-informe/informe-estudiante',downloadInformeEstudiante);
+//Eliminar informe de práctica estudiante
+router.post('/delete-informe/informe-estudiante',deleteFileInformeEstudiante);
 
 export default router;
