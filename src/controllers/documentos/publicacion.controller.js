@@ -18,7 +18,7 @@ export const createPublicacion = async (req, res) =>{
         if(publicacion){
             return res.status(400).json({
                 ok: false,
-                msg: 'No se pudo registrar esta publicacion, debido a que ese nombre de proyecto ya existe.'
+                msg: 'No se pudo registrar esta publicacion, debido a que ese asunto ya existe.'
             })
         }
 
