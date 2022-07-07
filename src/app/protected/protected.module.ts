@@ -33,10 +33,14 @@ import { EditarPublicacionComponent } from './comision-titulacion-practica/pages
 import { EliminarPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/eliminar-publicacion/eliminar-publicacion.component';
 import { VerPublicacionCTComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
 import { VerPublicacionComponent } from './estudiante/pages/publicaciones/ver-publicacion/ver-publicacion.component';
+
 import { UploadInformeComponent } from './estudiante/pages/upload-informe/upload-informe.component';
 import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
 import { DownloadInformeComponent } from './comision-correccion-practica/pages/download-informe/download-informe.component';
 
+import { SolicitarCartaVacanteComponent } from './estudiante/pages/solicitar-carta-vacante/solicitar-carta-vacante.component';
+import { AutorizarCartaVacanteComponent } from './secretaria/pages/autorizar-carta-vacante/autorizar-carta-vacante.component';
+import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes/ver-lista-vacantes.component';
 
 
 
@@ -65,6 +69,9 @@ import { DownloadInformeComponent } from './comision-correccion-practica/pages/d
     UploadInformeComponent,
     CreateComisionCorreccionComponent,
     DownloadInformeComponent,
+    SolicitarCartaVacanteComponent,
+    AutorizarCartaVacanteComponent,
+    VerListaVacantesComponent,
   ],
   imports: [
     CommonModule,

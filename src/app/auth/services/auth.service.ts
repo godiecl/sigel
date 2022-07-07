@@ -25,6 +25,10 @@ export class AuthService {
     return {... this._usuario};
   }
 
+  // set usuario(usuarioAct: UsuarioLog){
+  //   this._usuario = usuarioAct;
+  // }
+
   // get usuarioLogeado(){
   //   return {... this._usuarioLogeado}
   // }
@@ -50,7 +54,7 @@ export class AuthService {
       .pipe(
         tap(resp => {
           if(resp.ok){
-            console.log('usuario del login  ',resp)
+            // console.log('usuario del login  ',resp)
             localStorage.setItem('token', resp.token! )
             this._usuario = {
               nombre: resp.nombre!,

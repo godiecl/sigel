@@ -5,7 +5,7 @@
             <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
             <li style="color:white; font-size: 18px;">></li>
             <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
-            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Solicitar Estudiante</li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">>  Solicitar Estudiante</li>
             
         </ul>
     </nav>
@@ -32,6 +32,7 @@
                     <span class="label-input100" style="font-size: 25px;">Problemática que se quiere resolver:</span>
                     <textarea class="textarea101 " style="font-size: 20px;" placeholder="Ingrese problematica" 
                     formControlName="problemaResolver">  </textarea>
+                    <span class="focus-input100"></span>
                     <!-- <input class="input100" 
                             formControlName="problematica"
                            placeholder="Ingrese su apellido paterno"
@@ -49,17 +50,19 @@
             
                 <div class="wrap-input100 m-b-23">
                     <span class="label-input100" style="font-size: 25px;">Solución que usted prevee</span>
-                    <input class="input100"
-                           placeholder="Ingrese solucion"
-                           formControlName="solucion">
+                    <textarea class="textarea101 " 
+                    style="font-size: 20px;" 
+                    placeholder="Ingrese solución" 
+                    formControlName="solucion"> </textarea>
                     <span class="focus-input100"></span>
                 </div>
             
                 <div class="wrap-input100 m-b-23">
                     <span class="label-input100" style="font-size: 25px;">¿Cuál es el entregable final?</span>
-                    <input class="input100"
-                           placeholder="Ingrese entregable final "
-                           formControlName="entregableFinal">
+                    <textarea class="textarea101 " 
+                    style="font-size: 20px;" 
+                    placeholder="Ingrese entregable final" 
+                    formControlName="entregableFinal"> </textarea>
                     <span class="focus-input100"></span>
                 </div>
             

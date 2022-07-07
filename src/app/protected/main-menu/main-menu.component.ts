@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class MainMenuComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authS: AuthService) {
+    
+   }
 
   ngOnInit(): void {
+
   }
 
   eliminarUsuario(){
@@ -43,6 +47,15 @@ export class MainMenuComponent implements OnInit {
   }
   downloadDocument(){
     this.router.navigateByUrl('/dashboard/download-document')
+  }
+  verListaVacantes(){
+    this.router.navigateByUrl('/dashboard/estudiante/ver-lista-vacantes')
+  }
+  solicitarCartaVacante(){
+    this.router.navigateByUrl('/dashboard/estudiante/solicitar-carta-vacante')
+  }
+  autorizarCartaVacante(){
+    this.router.navigateByUrl('/dashboard/secretaria/autorizar-carta-vacante')
   }
   uploadInforme(){
     this.router.navigateByUrl('/dashboard/upload-informe')
