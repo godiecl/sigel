@@ -1,0 +1,120 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <!-- <div mat-card-avatar class="example-header-image"></div> -->
+      <!-- <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <!-- <div class="tablita" >
+        <table mat-table [dataSource]="cartaVacante" class="mat-elevation-z2">
+
+            Position Column
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            </ng-container>
+          
+            Name Column
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+          
+            
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div> -->
+    
+    <div class="tablita p-b-54" >
+        <div class="tabla" >
+            
+            <div class="izq" >
+                <h2>Estudiante</h2>
+            </div>
+
+            <div class="der" >            
+                <p>
+                    {{ datos.usuario.nombre }} {{datos.usuario.apellidop }} {{ datos.usuario.apellidom }}
+                </p>
+            </div>
+            <div class="izq" >
+                <h2>Periodo</h2>
+            </div>
+
+            <div class="der" >            
+                
+                    <div *ngIf="datos.solicitud.periodoRealizar === '1' " >
+                        <p>
+                            Primer semestre {{datos.anioRealizar | uppercase}} 
+
+                        </p>
+                    </div> 
+                    <div *ngIf="datos.solicitud.periodoRealizar === '2' " >
+                        <p>
+                        Segundo semestre {{datos.anioRealizar | uppercase}} 
+                        </p>
+                    </div> 
+                    <div *ngIf="datos.solicitud.periodoRealizar === '3' " >
+                        <p>
+                            Verano {{datos.anioRealizar | uppercase}} 
+                        </p>
+                    </div> 
+                
+            </div>
+            <div class="izq" >
+                <h2>Nombre del proyecto</h2>
+            </div>
+
+            <div class="der" >            
+                <p>
+                    {{ datos.solicitudE.nombreProyecto }}
+                </p>
+            </div>
+
+            <div class="izq" >
+                <h2>Empresa</h2>
+            </div>
+
+            <div class="der" >            
+                <p>
+                    {{ datos.nombreEmpresa }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <mat-card-content>
+        <div class="row">
+            <div class="col flex-col-c ">
+                <form [formGroup]="respuestaForm" (ngSubmit)="enviarRespuesta()" >
+                    <div class="col flex-col-c ">
+                        <mat-form-field>
+                            <mat-label>Fecha inicial</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="fechaInicio">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Fecha Final</mat-label>
+                            <input matInput [matDatepicker]="picker2" formControlName="fechaFinal">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    
+                </form>
+            </div>
+            
+        </div>
+      <p>
+        Confirma usted, como encargado de su empresa, el inicio de la práctica pre-profesional del alumno del Departamento de 
+        Ingeniería en Sistemas y Computación de la Universidad Católica del Norte, que rendirá en su organización.
+      </p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="warn" >Enviar respuesta</button>
+      <!-- <button mat-button>SHARE</button> -->
+    </mat-card-actions>
+  </mat-card>

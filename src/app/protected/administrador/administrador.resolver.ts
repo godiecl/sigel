@@ -40,7 +40,7 @@ export class UsuarioEditResolver implements Resolve<User>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User>
     {
-        // console.log(' HOLA',route.paramMap.get('id'));
+        // // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
         return this._adminService.obtenerUsuarioPorID(id)
                    .pipe(
@@ -91,7 +91,7 @@ export class EstudianteEditResolver implements Resolve<Estudiante>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Estudiante>
     {
-        // console.log(' HOLA',route.paramMap.get('id'));
+        // // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
         const userVacio = new EstudianteModel(0,0,'',0,false, '',false,0,0)
         const user = this._adminService.obtenerEstudiantePorIdUsuario(id)
@@ -147,7 +147,7 @@ export class ProfesorCCEditResolver implements Resolve<ProfesorCC>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ProfesorCC>
     {
-        // console.log(' HOLA',route.paramMap.get('id'));
+        // // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
         const userVacio = new ProfesorCCModel(0,0,false,'');
         const user = this._adminService.obtenerProfesorCCPorIdUsuario(id)
@@ -202,7 +202,7 @@ export class ProfesorGuiaCPEditResolver implements Resolve<ProfesorGuiaCP>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ProfesorGuiaCP>
     {
-        // console.log(' HOLA',route.paramMap.get('id'));
+        // // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
         const userVacio = new ProfesorGuiaCPModel(
             0, 0, '', false, ''
@@ -262,7 +262,7 @@ export class ProfesorGuiaCPEditResolver implements Resolve<ProfesorGuiaCP>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<EncargadoEmpresa>
     {
-        // console.log(' HOLA',route.paramMap.get('id'));
+        // // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
         const userVacio = new EncargadoEmpresaModel(0,
             '','',0,0

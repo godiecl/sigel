@@ -28,7 +28,7 @@ export class EncargadoTitulacionPracticaService {
   }
 
   getSolicitudEstudiante(id_solicitudEstudiante: any): Observable<any>{
-    console.log('envie peticion get solicitud')
+    // console.log('envie peticion get solicitud')
     const url = `${this.baseUrl}solicitud-estudiantes${id_solicitudEstudiante}`;
     return this.http.get<any>(url);
   }
@@ -37,28 +37,28 @@ export class EncargadoTitulacionPracticaService {
 
     const url = `${this.baseUrl}solicitud-estudiantes${solicitud.id_solicitudEstudiante}` ;
     const body = solicitud;
-    // console.log('console', url)
-    // console.log('body', body);
+    // // console.log('console', url)
+    // // console.log('body', body);
     return this.http.patch<any>(url, body);
   }
   
   obtenerEncargadoEmpresa(id_encargadoEmpresa: any): Observable<EncargadoEmpresa> {
 
-    console.log('peticion get enviada a encargadoEmpresas');
+    // console.log('peticion get enviada a encargadoEmpresas');
     const url = `${this.baseUrl}encargadoEmpresas/${id_encargadoEmpresa}`;
     return this.http.get<EncargadoEmpresa>(url);
   }
 
   obtenerEmpresa(id_empresa: any): Observable<Empresa> {
 
-    console.log('peticion get enviada a empresas');
+    // console.log('peticion get enviada a empresas');
     const url = `${this.baseUrl}empresas${id_empresa}`;
     return this.http.get<Empresa>(url);
   }
 
   obtenerEmpresaPorRut(rut: any): Observable<Empresa> {
 
-    console.log('peticion get por rut enviada a empresas');
+    // console.log('peticion get por rut enviada a empresas');
     const url = `${this.baseUrl}empresas/${rut}`;
     return this.http.get<Empresa>(url);
   }

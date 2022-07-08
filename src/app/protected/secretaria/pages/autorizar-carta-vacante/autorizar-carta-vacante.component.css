@@ -88,6 +88,11 @@ nav a:hover{
     text-align: center;
 }
 
+.mat-column-actualizar{
+    width: 32px;
+    padding-right: 24px;
+    text-align: center;
+}
 .mat-column-enviarCorreo{
     width: 32px;
     padding-right: 24px;

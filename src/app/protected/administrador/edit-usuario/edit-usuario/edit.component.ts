@@ -48,7 +48,7 @@ export class EditComponent implements OnInit {
 
   // idUser = this.router.snapshot.paramMap.get('id');
   //   this.usuarioPorEditar = this.adminService.obtenerUsuarioPorID(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe((x)=>{
-  //     console.log('listo');
+  //     // console.log('listo');
   //   })
   
 
@@ -73,29 +73,29 @@ export class EditComponent implements OnInit {
     
       this.router.data.subscribe(({user}) =>{
         this.usuarioPorEditar = user;
-        // console.log('user resolver',this.usuarioPorEditar);
-        console.log('roles: ', this.usuarioPorEditar.roles)
+        // // console.log('user resolver',this.usuarioPorEditar);
+        // console.log('roles: ', this.usuarioPorEditar.roles)
       })
       if(this.usuarioPorEditar.roles.includes('Estudiante')){ 
-            // console.log('si')
+            // // console.log('si')
 
             this.router.data.subscribe(({estudiante}) =>{
 
-              // console.log('data eset', estudiante);
+              // // console.log('data eset', estudiante);
               this.estudianteEditar = estudiante;
               // this.estudianteEditar._id_user = estudiante.id_usuario;
               this.mostrarAtributosEstudiante = true;
-              //  console.log('estudiante resolver', this.estudianteEditar);  
+              //  // console.log('estudiante resolver', this.estudianteEditar);  
             })
             // // obtener estudiante por id usuario
             //   this.adminService.obtenerEstudiante(this.usuarioPorEditar.id)
             //     .pipe(takeUntil(this._unsubscribeAll)).subscribe((estudiante: Estudiante)=>{
-            //       console.log('estudiante edit',estudiante)
+            //       // console.log('estudiante edit',estudiante)
             //         if(!estudiante){
 
             //           this.estudianteEditar = new EstudianteModel(
             //             0, this.usuarioPorEditar.id, '', 0, false, '', false, 0, 0  );
-            //             console.log('estudiante lol', this.estudianteEditar.correoPersonal)
+            //             // console.log('estudiante lol', this.estudianteEditar.correoPersonal)
                       
             //         }
             //         this.estudianteEditar = estudiante;
@@ -104,7 +104,7 @@ export class EditComponent implements OnInit {
                     //   estudiante.practicaAprobada, estudiante.telefono, estudiante.estadoAsignacionCP, estudiante._id_CCpractica, estudiante._id_preinscripcionCP
                     // );
                      
-                    // console.log('estudiante lol', this.estudianteEditar.correoPersonal)
+                    // // console.log('estudiante lol', this.estudianteEditar.correoPersonal)
                     // this._changeDetectorRef.markForCheck();
                     
                   // })
@@ -114,7 +114,7 @@ export class EditComponent implements OnInit {
 
         this.estudianteEditar = new EstudianteModel(
           0, this.usuarioPorEditar.id, '', 2, false, '', false, 0, 0  );
-          // console.log('estudiante lol', this.estudianteEditar)
+          // // console.log('estudiante lol', this.estudianteEditar)
           // this._changeDetectorRef.markForCheck();
       }
       if(this.usuarioPorEditar.roles.includes('ProfesorCC')){ 
@@ -164,7 +164,7 @@ export class EditComponent implements OnInit {
       }
       if(this.usuarioPorEditar.roles.includes('EncargadoEmpresa')){
         this.router.data.subscribe(({encargadoEmpresa}) => {
-          console.log('router: ',encargadoEmpresa)
+          // console.log('router: ',encargadoEmpresa)
           this.encargadoEmpresaEditar = encargadoEmpresa;
           this.mostrarAtributosEncargadoEmpresa = true;
         })
@@ -173,12 +173,12 @@ export class EditComponent implements OnInit {
           0, '', '', this.usuarioPorEditar.id, 0
         )
       }
-      // console.log('encargado empresa',this.encargadoEmpresaEditar)
+      // // console.log('encargado empresa',this.encargadoEmpresaEditar)
     
   }
   // ngAfterContentInit(): void {
 
-  //   // console.log('que onda ',this.estudianteEditar)
+  //   // // console.log('que onda ',this.estudianteEditar)
 
   //   // if(!this.estudianteEditar){
   //   //   return;
@@ -288,7 +288,7 @@ export class EditComponent implements OnInit {
     this.usuarioPorEditar.correo = this.updateForm.value.correo;
     
     this.usuarioPorEditar.estado = true;
-    // console.log(this.usuarioPorEditar.roles);
+    // // console.log(this.usuarioPorEditar.roles);
 
     this.estudianteEditar.carrera = this.updateForm.value.carrera;
     this.estudianteEditar.practicaAprobada = this.updateForm.value.practicaAprobada;
@@ -313,11 +313,11 @@ export class EditComponent implements OnInit {
 
       // si en el form tiene true el rol
 
-      // console.log('estudiante por editar',this.estudianteEditar);
-      // // console.log('PROFE CP por editar',this.profesorGuiaCP);
-      // console.log('PROFE CC por editar',this.profesorCC);
-      // console.log('update form', this.updateForm.value);
-      console.log('encargado empresa',this.encargadoEmpresaEditar)
+      // // console.log('estudiante por editar',this.estudianteEditar);
+      // // // console.log('PROFE CP por editar',this.profesorGuiaCP);
+      // // console.log('PROFE CC por editar',this.profesorCC);
+      // // console.log('update form', this.updateForm.value);
+      // console.log('encargado empresa',this.encargadoEmpresaEditar)
      if(this.updateForm.value.rolEstudiante){ 
       // revisa si lo tiene ya el usuario
       if(!this.usuarioPorEditar.roles.includes('Estudiante')){
@@ -326,7 +326,7 @@ export class EditComponent implements OnInit {
         // si no lo tiene lo agrega y lo crea.
         this.adminService.crearEstudiante(this.estudianteEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (res: any) =>{
-              console.log(res);
+              // console.log(res);
               if(res.ok){
                 // ALERTA DE SE HA CREADO ESTUDIANTE.
                 Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -339,7 +339,7 @@ export class EditComponent implements OnInit {
           // Si lo incluye hay que actualizarlo.
           this.adminService.actualizarEstudiantePorId(this.estudianteEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (res: any)=>{
-              console.log(res)
+              // console.log(res)
               if(res.ok){
                 // ALERTA DE SE HA ACTUALIZADO ESTUDIANTE
                 Swal.fire('Se ha actualizado con éxito!!', '', 'success')
@@ -356,7 +356,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarEstudiantePorIdUsuario(this.estudianteEditar.id_usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (resp: any) =>{      
-            console.log(resp);
+            // console.log(resp);
             if(resp.ok){
               // ALERTA DE SE HA ELIMINADO EL ROL ESTUDIANTE AL USUARIO.
               Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -375,7 +375,7 @@ export class EditComponent implements OnInit {
       this.usuarioPorEditar.roles=[... this.usuarioPorEditar.roles,'Administrador'];
       this.adminService.crearAdmin(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA CREADO .
           Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -394,7 +394,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarAdmin(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-          console.log(res);
+          // console.log(res);
           if(res.ok){
             // ALERTA DE SE HA ELIMINADO EL ROL
             Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -414,7 +414,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles=[... this.usuarioPorEditar.roles,'AsistenteAcademica'];
         this.adminService.crearAsistenteAcademica(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         })
       }else {
         // actualizar rol secretaria LISTO???
@@ -424,7 +424,7 @@ export class EditComponent implements OnInit {
           this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
           this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA CREADO.
           Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -437,7 +437,7 @@ export class EditComponent implements OnInit {
         // actualizar ctp
         this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-            console.log(res);
+            // console.log(res);
             if(res.ok){
               // ALERTA DE SE HA ACTUALIZADO
               Swal.fire('Se ha actualizado con éxito!!', '', 'success')
@@ -454,7 +454,7 @@ export class EditComponent implements OnInit {
           this.usuarioPorEditar.roles.splice(index,1)
           this.adminService.eliminarAsistenteAcademica(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-            console.log(res);
+            // console.log(res);
             if(res.ok){
               // ALERTA DE SE HA ELIMINADO EL ROL.
               Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -469,7 +469,7 @@ export class EditComponent implements OnInit {
         //   this.usuarioPorEditar.roles.splice(index,1)
         //   this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         //   (res: any) =>{
-        //     console.log(res);
+        //     // console.log(res);
         //   })
         // }    
         
@@ -482,7 +482,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'EncargadoPracticaTitulacion']
         this.adminService.crearEncargadoPracticaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA CREADO.
           Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -496,7 +496,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
         this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA CREADO.
           Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -509,7 +509,7 @@ export class EditComponent implements OnInit {
         // actualizar comision tp
         // this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         //   (res: any) =>{
-        //     console.log(res);
+        //     // console.log(res);
         //   })
       }
     }else{
@@ -519,7 +519,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarEncargadoPracticaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-          console.log(res);
+          // console.log(res);
           if(res.ok){
             // ALERTA DE SE HA ELIMINADO EL ROL.
             Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -534,7 +534,7 @@ export class EditComponent implements OnInit {
       //   this.usuarioPorEditar.roles.splice(index,1)
       //   this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       //   (res: any) =>{
-      //     console.log(res);
+      //     // console.log(res);
       //   })
       // }
 
@@ -546,7 +546,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'JefeCarrera']
         this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-          console.log(res);
+          // console.log(res);
           if(res.ok){
             // ALERTA DE SE HA CREADO.
             Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -560,14 +560,14 @@ export class EditComponent implements OnInit {
           this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ComisionTitulacionPractica'];
           // this.adminService.crearComisionTitulacion(this.usuarioPorEditar.id, false).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           // (res: any) =>{
-          // console.log(res);
+          // // console.log(res);
           // })
         }
       }else{
         // actualizar jefe de carrera
         // this.adminService.actualizarComisionTitulacion(this.usuarioPorEditar.id, true).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         //   (res: any) =>{
-        //   console.log(res);
+        //   // console.log(res);
         //   }
         // ) 
 
@@ -586,10 +586,10 @@ export class EditComponent implements OnInit {
           if(this.usuarioPorEditar.roles.includes('ComisionTitulacionPractica')){
             const index = this.usuarioPorEditar.roles.indexOf('ComisionTitulacionPractica');
             this.usuarioPorEditar.roles.splice(index,1)
-            console.log('hola');
+            // console.log('hola');
             this.adminService.eliminarComisionTitulacion(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
               (res: any) =>{
-              console.log(res);
+              // console.log(res);
               if(res.ok){
                 // ALERTA DE SE HA ELIMINADO EL ROL.
                 Swal.fire('Se ha eliminado con éxito del usuario!!', '', 'success')
@@ -609,7 +609,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ProfesorCC']
         this.adminService.crearProfesorCC(this.profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-          console.log(res);
+          // console.log(res);
           if(res.ok){
             // ALERTA DE SE HA CREADO.
             Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -622,7 +622,7 @@ export class EditComponent implements OnInit {
          // ACTUALIZAR
          this.adminService.actualizarProfesorCC(this.profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-          console.log( res);
+          // console.log( res);
           if(res.ok){
             // ALERTA DE SE HA ACTUALIZADO
             Swal.fire('Se ha actualizado con éxito!!', '', 'success')
@@ -640,7 +640,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarProfesorCC(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA ELIMINADO EL ROL.
           Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -658,7 +658,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'ProfesorGuiaCP']
         this.adminService.crearProfesorGuiaCP(this.profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA CREADO.
           Swal.fire('Se ha creado con éxito!!', '', 'success')
@@ -671,7 +671,7 @@ export class EditComponent implements OnInit {
       // actualizar
       this.adminService.actualizarProfesorGuiaCP(this.profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA ACTUALIZADO
           Swal.fire('Se ha actualizado con éxito!!', '', 'success')
@@ -688,7 +688,7 @@ export class EditComponent implements OnInit {
         this.usuarioPorEditar.roles.splice(index,1)
       this.adminService.eliminarProfesorGuiaCP(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA ELIMINADO EL ROL.
           Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -706,7 +706,7 @@ export class EditComponent implements OnInit {
       // CREAR
       // this.usuarioPorEditar.roles= [... this.usuarioPorEditar.roles, 'EncargadoEmpresa']
       //   this.authService.crearEncargadoEmpresa(this.encargadoEmpresaEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
-      //   (res: any) =>{ console.log(res); })
+      //   (res: any) =>{ // console.log(res); })
       //  AQUI DEBO PONER ALERTA QUE SI QUIERE CREAR ENCARGADO DE EMPRESA VAYA A CREAR ENCARGADO DE EMPRESA.
       Swal.fire('Para poder crear un contacto de empresa, diríjase al home, en registrar empresa.', '', 'warning');
 
@@ -714,7 +714,7 @@ export class EditComponent implements OnInit {
         // ACTUALIZAR
         this.adminService.actualizarEncargadoEmpresaPorIdUsuario(this.encargadoEmpresaEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe(
         (res: any) =>{
-        console.log(res);
+        // console.log(res);
         if(res.ok){
           // ALERTA DE SE HA ACTUALIZADO
           Swal.fire('Se ha actualizado con éxito!!', '', 'success')
@@ -731,7 +731,7 @@ export class EditComponent implements OnInit {
           this.usuarioPorEditar.roles.splice(index,1)
         this.adminService.eliminarEncargadoEmpresaPorIdUsuario(this.usuarioPorEditar.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
           (res: any) =>{
-            console.log(res);
+            // console.log(res);
             if(res.ok){
               // ALERTA DE SE HA ELIMINADO EL ROL.
               Swal.fire('El rol se ha eliminado con éxito del usuario!!', '', 'success')
@@ -745,23 +745,23 @@ export class EditComponent implements OnInit {
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     
-    // console.log('form value',this.updateForm.value)
+    // // console.log('form value',this.updateForm.value)
 
-    console.log('user por editar value',this.usuarioPorEditar)
+    // console.log('user por editar value',this.usuarioPorEditar)
     this.adminService.actualizarUsuario(this.usuarioPorEditar).pipe(takeUntil(this._unsubscribeAll)).subscribe((x)=>{
       if(!x){
         // alerta agregar
         //¿Que alerta agregar? actualizar?
-        // console.log('todo mal');
+        // // console.log('todo mal');
       }
       // alerta agregar
-      // console.log('todo bien');
+      // // console.log('todo bien');
     })
   }
 
   eliminarEstudiante(idUser: any){
     this.adminService.eliminarEstudiantePorIdUsuario(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe((x: any)=>{
-      console.log('respuesta de eliminar estudiante',x);
+      // console.log('respuesta de eliminar estudiante',x);
       //agregar alerta eliminar?
     })
   }

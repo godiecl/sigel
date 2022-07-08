@@ -30,7 +30,7 @@ export class VerPublicacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(({publicacion}) => {
-      console.log('si',publicacion)
+      // console.log('si',publicacion)
 
       this.publicacionActual= publicacion.publicacion;
     })

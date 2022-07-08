@@ -69,7 +69,7 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        console.log("delete form: ",this.deleteForm.value.rut)
+        // console.log("delete form: ",this.deleteForm.value.rut)
 
         this.adminService.obtenerUsuarioPorRut(this.deleteForm.value.rut)
           .pipe(takeUntil(this._unsubscribeAll)).subscribe(
@@ -77,13 +77,13 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
 
               // TODO: falta hacer validacion si no existe el rut
 
-                console.log('respuesta obtener',resp);
+                // console.log('respuesta obtener',resp);
                 if(!resp.error){
                   // si existe
                   this.adminService.eliminarUsuario(resp.id)
                     .pipe(takeUntil(this._unsubscribeAll)).subscribe(
                         (respuesta: any) => {
-                          console.log('respuesta eliminar',respuesta);
+                          // console.log('respuesta eliminar',respuesta);
 
                         if(!respuesta){
                           Swal.fire('Usuario se ha deshabilitado con exito!', '', 'success')
@@ -114,7 +114,7 @@ export class DeleteUsuarioComponent implements OnInit, OnDestroy {
 
     // this.adminService.eliminarUsuario(rut).pipe(takeUntil(this._unsubscribeAll)).subscribe(
     //   (resp: any) =>{
-    //       console.log(resp);
+    //       // console.log(resp);
     //   }
     // )
 

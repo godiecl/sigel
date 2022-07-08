@@ -9,7 +9,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCommonModule} from '@angular/material/core';
+import {MatCommonModule, MatNativeDateModule} from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -36,6 +38,8 @@ import { VerPublicacionComponent } from './estudiante/pages/publicaciones/ver-pu
 import { SolicitarCartaVacanteComponent } from './estudiante/pages/solicitar-carta-vacante/solicitar-carta-vacante.component';
 import { AutorizarCartaVacanteComponent } from './secretaria/pages/autorizar-carta-vacante/autorizar-carta-vacante.component';
 import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes/ver-lista-vacantes.component';
+import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/responder-carta-solicitud.component';
+import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
 
 
 
@@ -65,6 +69,8 @@ import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes
     SolicitarCartaVacanteComponent,
     AutorizarCartaVacanteComponent,
     VerListaVacantesComponent,
+    ResponderCartaSolicitudComponent,
+    VerCartaSolicitudComponent,
   ],
   imports: [
     CommonModule,
@@ -72,13 +78,21 @@ import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatSelectModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class ProtectedModule { }

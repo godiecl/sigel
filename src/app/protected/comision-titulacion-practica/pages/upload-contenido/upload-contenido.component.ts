@@ -53,7 +53,7 @@ export class UploadContenidoComponent implements OnInit {
     this.comisionTitulacionPracticaService.sendPostContenidoPractica(body)
     .subscribe((res)=>{
       this.loading=false;
-      console.log(res)
+      // console.log(res)
     });
   }
   sendFileCapstone():void{
@@ -65,7 +65,7 @@ export class UploadContenidoComponent implements OnInit {
     this.comisionTitulacionPracticaService.sendPostContenidoCapstone(body)
     .subscribe((res)=>{
       this.loading=false;
-      console.log(res)
+      // console.log(res)
     });
   }
 

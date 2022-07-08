@@ -27,14 +27,14 @@ export class PublicacionesCTComponent implements OnInit, OnDestroy, AfterContent
   }
   ngAfterContentChecked(): void {
     // if()
-    // console.log('si');
+    // // console.log('si');
     //  this.cd.detectChanges()
-    //  console.log('tambien');
+    //  // console.log('tambien');
     // this.cd.detach()
-    // console.log('igual');
+    // // console.log('igual');
   }
   ngAfterContentInit(): void {
-    console.log('Method not implemented.');
+    // console.log('Method not implemented.');
   }
   
   
@@ -42,7 +42,7 @@ export class PublicacionesCTComponent implements OnInit, OnDestroy, AfterContent
 
   ngOnInit(): void {
 
-    console.log('lol')
+    // console.log('lol')
     this.comisionService.getPublicaciones().pipe(takeUntil(this._unsubscribeAll)).subscribe((publicacions)=>{
       this.publicaciones = publicacions;
     })
@@ -57,8 +57,8 @@ export class PublicacionesCTComponent implements OnInit, OnDestroy, AfterContent
   }
 
   isRoute(route: string){
-    // console.log('route ',route);
-    // console.log('ruta del ruter', this.router.url)
+    // // console.log('route ',route);
+    // // console.log('ruta del ruter', this.router.url)
     if(this.router.url === route){
       return true
     }
@@ -72,7 +72,7 @@ export class PublicacionesCTComponent implements OnInit, OnDestroy, AfterContent
   verPublicacion(id_publicacion: number): void{
     
     const url = `/dashboard/comision-titulacion-practica/administrar-publicaciones/${id_publicacion}`
-    console.log(url)
+    // console.log(url)
     this.router.navigateByUrl(url)
   }
 

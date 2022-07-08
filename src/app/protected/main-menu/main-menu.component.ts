@@ -64,5 +64,9 @@ export class MainMenuComponent implements OnInit {
   autorizarCartaVacante(){
     this.router.navigateByUrl('/dashboard/secretaria/autorizar-carta-vacante')
   }
+  responderCartaVacante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
+  }
+
 }
  

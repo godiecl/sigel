@@ -66,7 +66,7 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
   //   this.adminService.actualizarUsuario(this.usuarioPorEditar)
   //     .pipe(takeUntil(this._unsubscribeAll)).subscribe((respuesta: any)=>{
   //       if(respuesta){
-  //         console.log(respuesta);
+  //         // console.log(respuesta);
   //       }
   //     })
 
@@ -75,8 +75,8 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
   // }
 
   isRoute(route: string){
-    // console.log('route ',route);
-    // console.log('ruta del ruter', this.router.url)
+    // // console.log('route ',route);
+    // // console.log('ruta del ruter', this.router.url)
     if(this.router.url === route){
       return true
     }
@@ -99,11 +99,11 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
         return;
       }
       this.usuarioPorEditar = resp;
-      // console.log('usuario por editar',this.usuarioPorEditar);
+      // // console.log('usuario por editar',this.usuarioPorEditar);
 
-      console.log(this.usuarioPorEditar.id);
+      // console.log(this.usuarioPorEditar.id);
       const url = `/dashboard/edit-usuario/${this.usuarioPorEditar.id}`
-      // console.log('url', url);
+      // // console.log('url', url);
 
       this.router.navigateByUrl(url);
 
@@ -112,7 +112,7 @@ export class EditUsuarioComponent implements OnInit, OnDestroy {
       //   // obtener estudiante por id usuario
       //   this.adminService.obtenerEstudiante(this.usuarioPorEditar.id)
       //     .pipe(takeUntil(this._unsubscribeAll)).subscribe((estudiante)=>{
-      //       console.log(estudiante)
+      //       // console.log(estudiante)
       //       if(estudiante){
       //         this.estudianteEditar = estudiante;
       //         this.mostrarAtributosEstudiante = true; 

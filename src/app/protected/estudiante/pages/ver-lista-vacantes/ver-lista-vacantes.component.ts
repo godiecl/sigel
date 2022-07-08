@@ -37,10 +37,10 @@ export class VerListaVacantesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // console.log(this.ELEMENT_DATA)
+    // // console.log(this.ELEMENT_DATA)
 
     this.estudianteS.getListaVacantes().subscribe((vacantes) => {
-      console.log(vacantes)
+      // console.log(vacantes)
 
       this.vacantes = vacantes
       this.displayedColumns = ['nombreEmpresa', 'descripcionRequerimientoPractica', 'nombreEncargado', 'apellidoEncargado', 'telefono', 'correo']
@@ -50,8 +50,8 @@ export class VerListaVacantesComponent implements OnInit {
   }
 
   // isRoute(route: string){
-  //   // console.log('route ',route);
-  //   // console.log('ruta del ruter', this.router.url)
+  //   // // console.log('route ',route);
+  //   // // console.log('ruta del ruter', this.router.url)
   //   if(this.router.url === route){
   //     return true
   //   }
@@ -61,7 +61,7 @@ export class VerListaVacantesComponent implements OnInit {
   // verSolicitud(id: string){
 
   //   const url =`/dashboard/encargado-practica/ver-solicitudes-estudiante/${id}`
-  //   // console.log('si', url)
+  //   // // console.log('si', url)
   //   this.router.navigateByUrl(url)
   // }
   

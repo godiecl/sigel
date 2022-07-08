@@ -16,8 +16,8 @@ export class FooterComponent implements OnInit {
     
   }
   isRoute(route: string){
-    // console.log('route ',route);
-    // console.log('ruta del ruter', this.router.url)
+    // // console.log('route ',route);
+    // // console.log('ruta del ruter', this.router.url)
     if(this.router.url === route){
       return true
     }

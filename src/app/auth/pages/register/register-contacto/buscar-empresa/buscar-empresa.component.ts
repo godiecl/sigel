@@ -62,7 +62,7 @@ export class BuscarEmpresaComponent implements OnInit {
         // buscar el rut de la empresa, y llevar los datos para registrar un contacto nuevo en ella.
         this.encargadopracticaS.obtenerEmpresaPorRut(this.buscarEmpresaForm.value.rutEmpresa)
           .pipe(takeUntil(this._unsubscribeAll)).subscribe((empresa: any)=>{
-            console.log(empresa)
+            // console.log(empresa)
             if(empresa.ok){
               Swal.fire({ title: `¿Estos son los datos de su empresa?<br> Rut: ${empresa.empresa.rutEmpresa}<br> Nombre: ${empresa.empresa.nombreEmpresa} <br> Giro: ${empresa.empresa.giroEmpresa} `,
               showDenyButton: true, 
