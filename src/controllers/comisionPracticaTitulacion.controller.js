@@ -21,7 +21,7 @@ export const createComisionPracticaTitulacion = async (request, response) =>{
         })
         }
 
-        // console.log('request body comision practica', request.body);
+        // // console.log('request body comision practica', request.body);
 
         // Crear en la bdd
         const newComisionPracticaTitulacion = await ComisionPracticaTitulacion.create({
@@ -44,7 +44,7 @@ export const createComisionPracticaTitulacion = async (request, response) =>{
 export const deleteComisionTitulacion = async (req, res) =>{
 
     try {
-      // console.log('request params admin delete', req.params);
+      // // console.log('request params admin delete', req.params);
       const id = req.params;
       const comision = await ComisionPracticaTitulacion.findOne({
         where: {
@@ -66,7 +66,7 @@ export const updateComisionPracticaTitulacionPorId = async (req, res) => {
 
     try{
   
-      // console.log('request body comision practica titulacion por id update', req.body.estudiante);
+      // // console.log('request body comision practica titulacion por id update', req.body.estudiante);
       
       const  jefeCarrera = request.body.jefeCarrera;
       const  id_usuario  = request.body.id_usuario;
@@ -93,7 +93,7 @@ export const updateComisionPracticaTitulacionPorId = async (req, res) => {
 export const deleteComisionPracticaTitulacionPorIdUsuario = async (req, res) =>{
 
     try {
-      // console.log('request params comision practica titulacion delete por id', req.params.id);
+      // // console.log('request params comision practica titulacion delete por id', req.params.id);
       const id = req.params.id;
       let comisionpracticatitulacion = await ComisionPracticaTitulacion.findOne({
         where: {
@@ -117,7 +117,7 @@ export const getComisionPorId = async (req, res) => {
 
         const { id } = req.params;
         
-        console.log(id);
+        // console.log(id);
         const comision = await ComisionPracticaTitulacion.findOne({
           where: {
             id_usuario: id

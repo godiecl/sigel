@@ -24,6 +24,15 @@ export const SolicitudCartaVacante = sequelize.define('solicitud_carta_vacante',
     },
     estado: {
         type: DataTypes.STRING
+    },
+    estadoRespuesta: {
+        type: DataTypes.STRING
+    },
+    fechaInicio: {
+        type: DataTypes.DATE
+    },
+    fechaFinal: {
+        type: DataTypes.DATE
     }
 })
 

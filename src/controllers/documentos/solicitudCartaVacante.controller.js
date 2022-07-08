@@ -10,7 +10,7 @@ export const createSolicitudCartaVacante = async (req, res) =>{
 
     try {
         
-        console.log(' body crear solicitud carta vacante ',req.body);
+        // console.log(' body crear solicitud carta vacante ',req.body);
 
         const { periodoRealizar, anioRealizar, ciudadRealizar,
             //  id_empresa,
@@ -41,7 +41,7 @@ export const createSolicitudCartaVacante = async (req, res) =>{
         })
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(400).json({
             ok: false,
             msg: error.message
@@ -57,7 +57,7 @@ export const getSolicitudesCartaVacante = async (req, res) => {
 
 export const getListaCartaVacantes = async (req, res) => {
 
-    // console.log('HOLA BRO')
+    // // console.log('HOLA BRO')
 
     const solicitudes = await SolicitudCartaVacante.findAll();
 
@@ -73,12 +73,12 @@ export const getListaCartaVacantes = async (req, res) => {
                 id: encargado.id_usuario
             }
         })
-        // console.log(encargado);
+        // // console.log(encargado);
         const empresa = await Empresa.findByPk(encargado.id_empresa);
 
         const estudiante = await Estudiante.findByPk(solicitudes[i].id_estudiante);
 
-        // console.log('HOLA ')
+        // // console.log('HOLA ')
 
         const usuarioEstudiante = await Usuario.findOne({
             where: {
@@ -88,6 +88,7 @@ export const getListaCartaVacantes = async (req, res) => {
         
          datos.push({
             id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
+            id_solicitudCartaVacante: solicitudes[i].id_solicitudCartaVacante,
             estado: solicitudes[i].estado,
             nombreEmpresa: empresa.nombreEmpresa, 
             rutEmpresa: empresa.rutEmpresa,
@@ -104,17 +105,23 @@ export const getListaCartaVacantes = async (req, res) => {
         })
     }
 
-    //  console.log(datos)
+    //  // console.log(datos)
 
     res.json(datos)
 }
 
 export const getSolicitudCartaVacante = async (req, res) => {
     try {
-    console.log(req.params)
+    // // console.log(req.params)
     const id = req.params.id
     const solicitud = await SolicitudCartaVacante.findByPk(id);
-    res.json({ok: true, solicitud: solicitud})
+    const estudiante = await Estudiante.findByPk(solicitud.id_estudiante);
+    const usuario = await Usuario.findByPk(estudiante.id_usuario);
+    const solicitudE = await SolicitudEstudiante.findByPk(solicitud.id_solicitudEstudiante);
+    const encargado = await EncargadoEmpresa.findByPk(solicitudE.id_encargadoEmpresa)
+    const empresa = await Empresa.findByPk(encargado.id_empresa);
+    const nombreEmpresa = empresa.nombreEmpresa
+    res.json({ok: true, solicitud: solicitud, solicitudE: solicitudE, usuario: usuario, nombreEmpresa: nombreEmpresa})
         
     } catch (error) {
         res.json({ok: false, msg: error.message})
@@ -155,7 +162,9 @@ export const enviarCorreoCartaVacantePendiente = async (req, res) =>{
 }
 
 export const autorizarSolicitudCartaVacante = async (req, res) =>{
-    const id_solicitudCartaVacante = req.params;
+    try {
+        // console.log(req.params);
+    const id_solicitudCartaVacante = req.params.id;
 
     const solicitud = await SolicitudCartaVacante.findByPk(id_solicitudCartaVacante);
 
@@ -163,11 +172,16 @@ export const autorizarSolicitudCartaVacante = async (req, res) =>{
     solicitud.save();
 
     return res.json({ok: true, message: 'Se ha autorizado la solicitud.'})
+    } catch (error) {
+        return res.json({ok: false, message: error.message })
+    }
 
 }
 
 export const reprobarSolicitudCartaVacante = async (req, res) =>{
-    const id_solicitudCartaVacante = req.params;
+    try {
+        
+    const id_solicitudCartaVacante = req.params.id;
 
     const solicitud = await SolicitudCartaVacante.findByPk(id_solicitudCartaVacante);
 
@@ -175,11 +189,16 @@ export const reprobarSolicitudCartaVacante = async (req, res) =>{
     solicitud.save();
 
     return res.json({ok: true, message: 'Se ha reprobado la solicitud.'})
+    } catch (error) {
+        
+        return res.json({ok: false, message: error.message })
+    }
 
 }
 
 export const dejarPendienteSolicitudCartaVacante = async (req, res) =>{
-    const id_solicitudCartaVacante = req.params;
+    try {
+    const id_solicitudCartaVacante = req.params.id;
 
     const solicitud = await SolicitudCartaVacante.findByPk(id_solicitudCartaVacante);
 
@@ -187,7 +206,71 @@ export const dejarPendienteSolicitudCartaVacante = async (req, res) =>{
     solicitud.save();
 
     return res.json({ok: true, message: 'Se ha dejado pendiente la solicitud.'})
+        
+    } catch (error) {
+        return res.json({ok: false, message: error.message })
+    }
+    
 
 }
 
 
+export const getListaResponderCartaVacante = async (req, res)=>{
+
+    // NOMBRE ESTUDIANTE, NOMBRE PROYECTO, PERIODO, ESTADO
+
+    // // console.log(req.params);
+
+    const id_encargadoEmp = req.params.id;
+
+    // // console.log(id_encargadoEmp)
+    
+    const solicitudes = await SolicitudEstudiante.findAll({
+        where: {
+            id_encargadoEmpresa: id_encargadoEmp
+        }
+    })
+
+    // // console.log('------------------------------------------')
+    // // console.log(solicitudes)
+
+    let datos = [];
+
+    for(let i=0; i<solicitudes.length ;i++){
+
+        const solicitud = await SolicitudCartaVacante.findAll({
+            where: {
+                estado: 'aprobado',
+                id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante
+            }
+        })
+        // console.log('solicitudes carta vacante: ', solicitud);
+
+        const estudiante = await Estudiante.findByPk(solicitud[0].id_estudiante);
+        
+
+        // // // console.log('HOLA ')
+
+        const usuarioEstudiante = await Usuario.findOne({
+            where: {
+                id: estudiante.id_usuario
+            }
+        })
+        
+         datos.push({
+            id_solicitudCartaVacante: solicitud[0].id_solicitudCartaVacante,
+            nombreProyecto: solicitudes[i].nombreProyecto,
+            periodoRealizar: solicitud[0].periodoRealizar,
+            anioRealizar: solicitud[0].anioRealizar,
+            estadoRespuesta: solicitud[0].estadoRespuesta,
+            nombreEstudiante: usuarioEstudiante.nombre,
+            apellidopEstudiante: usuarioEstudiante.apellidop,
+            apellidomEstudiante: usuarioEstudiante.apellidom,
+        })
+    }
+
+    console.log(datos)
+
+    res.json(datos)
+    
+}

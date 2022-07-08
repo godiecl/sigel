@@ -3,11 +3,11 @@ import { ProfesorGuiaCP } from '../models/ProfesorGuiaCP.js'
 export const createProfesorGuiaCP = async (request, response) =>{
 
     try{
-        // console.log('request', request);
+        // // console.log('request', request);
         // Tomo parametros de la request.
         const { disc_empresa, interesOtroCP, telefono, id_usuario} = request.body.profesorGuiaCP;
 
-        // console.log('request body', request.body);
+        // // console.log('request body', request.body);
 
         const userRepetido = await ProfesorGuiaCP.findOne({
           where:{
@@ -45,7 +45,7 @@ export const createProfesorGuiaCP = async (request, response) =>{
 export const getProfesorGuiaCPPorIdUsuario = async (req, res) => {
 
     try{  
-          // console.log('res',res);
+          // // console.log('res',res);
   
           const { id } = req.params;
           
@@ -70,7 +70,7 @@ export const getProfesorGuiaCPPorIdUsuario = async (req, res) => {
   
     try{
   
-      console.log('request body profesor cc update', request.body.profesorGuiaCP);
+      // console.log('request body profesor cc update', request.body.profesorGuiaCP);
       const { disc_empresa, interesOtroCP, telefono, id_usuario} = request.body.profesorGuiaCP;
   
       const profesorguiacp = await ProfesorGuiaCP.findByPk(id);
@@ -96,7 +96,7 @@ export const updateProfesorGuiaPorId = async (req, res) => {
 
   try{
 
-    console.log('request body profesor guia por id update', req.body.profesorGuiaCP);
+    // console.log('request body profesor guia por id update', req.body.profesorGuiaCP);
     const {id_profesor, disc_empresa, interesOtroCP, telefono, id_usuario } = req.body.profesorGuiaCP;
 
     const profesor = await ProfesorGuiaCP.findOne({
@@ -120,7 +120,7 @@ export const updateProfesorGuiaPorId = async (req, res) => {
 export const deleteProfesorGuiaCPPorIdUsuario = async (req, res) =>{
 
   try {
-    console.log('request params profesor guia cp delete por id', req.params.id);
+    // console.log('request params profesor guia cp delete por id', req.params.id);
     const id = req.params.id;
     const profesor = await ProfesorGuiaCP.findOne({
       where: {

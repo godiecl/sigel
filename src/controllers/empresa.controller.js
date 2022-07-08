@@ -8,17 +8,17 @@ export const createEmpresa = async (request, response) =>{
     // funcionando.
 
     try{
-        // console.log('request', request);
+        // // console.log('request', request);
 
         // Tomo parametros de la request.
         const nombreEmpresa = request.body.empresa.nombreEmpresa;
         const rutEmpresa = request.body.empresa.rutEmpresa;
         const giroEmpresa = request.body.empresa.giroEmpresa;
 
-        // console.log(rutEmpresa);
+        // // console.log(rutEmpresa);
 // 
-        // console.log(nombreEmpresa);
-        // console.log(giroEmpresa);
+        // // console.log(nombreEmpresa);
+        // // console.log(giroEmpresa);
         const empresaRepetida = await Empresa.findOne({
           where: {
             rutEmpresa: rutEmpresa
@@ -52,7 +52,7 @@ export const createEmpresa = async (request, response) =>{
   export const getEmpresaPorRut = async (req, res) => {
 
     try{  
-          // console.log('res',res);
+          // // console.log('res',res);
   
           const { rut } = req.params;
           const empresa = await Empresa.findOne({
@@ -73,7 +73,7 @@ export const createEmpresa = async (request, response) =>{
    export const getEmpresa = async (req, res) => {
 
     try{  
-          // console.log('res',res);
+          // // console.log('res',res);
   
           const { id } = req.params;
           const empresa = await Empresa.findOne({
@@ -97,7 +97,7 @@ export const createEmpresa = async (request, response) =>{
   
     try{
   
-      // console.log('request body empresa update', request.body.empresa);
+      // // console.log('request body empresa update', request.body.empresa);
       const { id, nombre, rut, giro} = request.body.empresa;
   
       const empresa = await Empresa.findByPk(id);
@@ -138,7 +138,7 @@ export const createEmpresa = async (request, response) =>{
                 id: encargado.id_usuario
             }
         })
-        // console.log(encargado);
+        // // console.log(encargado);
         const empresa = await Empresa.findByPk(encargado.id_empresa);
         
          data.push({
@@ -152,7 +152,7 @@ export const createEmpresa = async (request, response) =>{
         })
     }
 
-     console.log(data)
+    //  // console.log(data)
 
     res.json(data)
 }

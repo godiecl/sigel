@@ -83,7 +83,7 @@ export const createUser = async (request, response) => {
 
       const { nombre, apellidop, apellidom, rut, password, correo, roles, estado } = request.body.user;
 
-      // console.log('request del body user', request.body.user)
+      // // console.log('request del body user', request.body.user)
 
       // Hash contraseña
       const salt = bcrypt.genSaltSync(10)
@@ -131,10 +131,10 @@ export const updateUser = async (req, res) => {
 
   try{
 
-     console.log('request body user update', req.body.user);
+     // console.log('request body user update', req.body.user);
     const { id, nombre, apellidop, apellidom, rut, password, correo, roles, estado } = req.body.user;
 
-    console.log(id);
+    // console.log(id);
 
     const usuario = await Usuario.findByPk(id);
     usuario.nombre = nombre
@@ -163,10 +163,10 @@ export const deleteUser = async (req, res) => {
 
   try{
 
-    // console.log('req params delete user', req.params)
+    // // console.log('req params delete user', req.params)
     const id = req.params.id;
 
-    // console.log(id);
+    // // console.log(id);
   
     const user = await Usuario.findOne({
       where: {
@@ -192,7 +192,7 @@ export const deleteUser = async (req, res) => {
 export const getUsuarioPorId = async (req, res) => {
 
   try{  
-        // console.log('res',res);
+        // // console.log('res',res);
 
         const { id } = req.params;
         const user = await Usuario.findOne({
@@ -215,7 +215,7 @@ export const getUsuarioPorId = async (req, res) => {
  export const getUsuarioPorRut = async (req, res) => {
 
   try{  
-        console.log('req params get usuario por rut',req.params);
+        // console.log('req params get usuario por rut',req.params);
 
         const rut = req.params.rut;
         const user = await Usuario.findOne({
@@ -257,7 +257,7 @@ export const revalidarToken = async (req, res = response) => {
 
 export const olvidePassword = async (req, res) =>{
 
-  // console.log(req.body);
+  // // console.log(req.body);
 
   const {correo} = req.body;
   if(!(correo)){
@@ -270,9 +270,9 @@ export const olvidePassword = async (req, res) =>{
   let user;
 
   try{
-      // console.log(correo);
+      // // console.log(correo);
       
-      // console.log(process.env.SECRET_JWT_SEED);
+      // // console.log(process.env.SECRET_JWT_SEED);
 
       // BUSCAR USUARIO EN BDD
       user = await Usuario.findOne({
@@ -287,7 +287,7 @@ export const olvidePassword = async (req, res) =>{
       user.resetToken = token;
       
   }catch (errors){
-    console.log('error');
+    // console.log('error');
     return res.json({ok: false, message: errors});
   }
 
@@ -337,7 +337,7 @@ export const olvidePassword = async (req, res) =>{
 export const crearNuevoPassword = async (req, res) =>{
   const {newPassword} = req.body;
   const resetTokenPassword = req.params.resetToken;
-  console.log(req.body);
+  // console.log(req.body);
 
   if(!(resetTokenPassword && newPassword)){
     res.status(400).json({ok: false, message: 'Ha ocurrido un error, faltan campos'});
@@ -348,7 +348,7 @@ export const crearNuevoPassword = async (req, res) =>{
   let usuario;
 
   try {
-    console.log(resetTokenPassword)
+    // console.log(resetTokenPassword)
     // jwtPayload = jwt.verify(resetTokenPassword, process.env.SECRET_JWT_SEED_RESET);
     usuario = await Usuario.findOne({
       where: {
@@ -357,7 +357,7 @@ export const crearNuevoPassword = async (req, res) =>{
     }) 
     
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(401).json({ok: false, message: 'Algo va mal.'})
   }
 

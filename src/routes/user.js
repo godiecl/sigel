@@ -17,14 +17,11 @@ import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorId
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
 import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
-import { createEmpresa, getEmpresa, getEmpresaPorRut } from '../controllers/empresa.controller.js';
-import { createSolicitudEstudiante, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
-
 import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP,storageInformePractica,getListFilesInformeEstudiante,deleteFileInformeEstudiante,downloadInformeEstudiante } from '../controllers/documentos/documentos.controllers.js';
 import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
-import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
+import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
 
 const router = Router();
 
@@ -194,6 +191,7 @@ router.post('/correo-carta-vacante', enviarCorreoCartaVacantePendiente )
 router.patch('/aprobar-solicitud-carta-vacante:id', autorizarSolicitudCartaVacante)
 router.patch('/reprobar-solicitud-carta-vacante:id', reprobarSolicitudCartaVacante)
 router.patch('/pendiente-solicitud-carta-vacante:id', dejarPendienteSolicitudCartaVacante)
+router.get('/lista-responder-carta-vacante:id', getListaResponderCartaVacante)
 
 
 //INFORME

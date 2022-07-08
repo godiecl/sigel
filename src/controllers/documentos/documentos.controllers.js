@@ -42,6 +42,7 @@ export const storageDocPracticaEstudiante = multer.diskStorage({
     destination:function(res,file, cb){
         cb(null,'./documentos/practica-estudiante')
     }
+    
 });
 
 //ver archivos de carpeta practica estudiante
@@ -65,7 +66,7 @@ export const getListFilesDocPE = (req, res) => {
 
 //descargar documentos practica estudiantes
 export const downloadDocPE=(req,res,next)=>{
-    console.log('recibiendo: ',req);
+    // console.log('recibiendo: ',req);
     res.download('./documentos/practica-estudiante'+'/'+ req.body.filename);
 }
 
@@ -80,7 +81,7 @@ export const deleteFileDocPE=(req,res)=>{
       }
       fs.unlink('./documentos/practica-estudiante/'+req.body.filename,(err)=>{
         if(err){
-            console.log(err);
+            // console.log(err);
         }
       });
     });
@@ -121,7 +122,7 @@ export const getListFilesDocCE = (req, res) => {
 
 //descargar documentos Capstone estudiantes
 export const downloadDocCE=(req,res,next)=>{
-    console.log('recibiendo: ',req);
+    // console.log('recibiendo: ',req);
     res.download('./documentos/capstone-estudiante'+'/'+ req.body.filename);
 }
 
@@ -136,7 +137,7 @@ export const deleteFileDocCE=(req,res)=>{
       }
       fs.unlink('./documentos/capstone-estudiante/'+req.body.filename,(err)=>{
         if(err){
-            console.log(err);
+            // console.log(err);
         }
       });
     });
@@ -177,7 +178,7 @@ export const getListFilesDocPP = (req, res) => {
 
 //descargar documentos practica profesor
 export const downloadDocPP=(req,res,next)=>{
-    console.log('recibiendo: ',req);
+    // console.log('recibiendo: ',req);
     res.download('./documentos/practica-profesor'+'/'+ req.body.filename);
 }
 
@@ -192,7 +193,7 @@ export const deleteFileDocPP=(req,res)=>{
       }
       fs.unlink('./documentos/practica-profesor/'+req.body.filename,(err)=>{
         if(err){
-            console.log(err);
+            // console.log(err);
         }
       });
     });
@@ -233,7 +234,7 @@ export const getListFilesDocCP = (req, res) => {
 
 //descargar documentos Capstone estudiantes
 export const downloadDocCP=(req,res,next)=>{
-    console.log('recibiendo: ',req);
+    // console.log('recibiendo: ',req);
     res.download('./documentos/capstone-profesor'+'/'+ req.body.filename);
 }
 
@@ -248,7 +249,7 @@ export const deleteFileDocCP=(req,res)=>{
       }
       fs.unlink('./documentos/capstone-profesor/'+req.body.filename,(err)=>{
         if(err){
-            console.log(err);
+            // console.log(err);
         }
       });
     });
@@ -289,7 +290,7 @@ export const getListFilesInformeEstudiante = (req, res) => {
 
 //descargar documentos Capstone estudiantes
 export const downloadInformeEstudiante=(req,res,next)=>{
-  console.log('recibiendo: ',req);
+  // console.log('recibiendo: ',req);
   res.download('./documentos/informe-practica'+'/'+ req.body.filename);
 }
 
@@ -304,7 +305,7 @@ export const deleteFileInformeEstudiante=(req,res)=>{
     }
     fs.unlink('./documentos/informe-practica/'+req.body.filename,(err)=>{
       if(err){
-          console.log(err);
+          // console.log(err);
       }
     });
   });

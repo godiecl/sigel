@@ -5,7 +5,7 @@ export const createPublicacion = async (req, res) =>{
 
     try {
         
-        console.log(' body crear publicacion ',req.body);
+        // console.log(' body crear publicacion ',req.body);
 
         const { remitente, asunto, mensaje, id_comisionPracticaTitulacion } = req.body.publicacion;
 
@@ -32,7 +32,7 @@ export const createPublicacion = async (req, res) =>{
         })
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(400).json({
             ok: false,
             msg: error.message
@@ -48,7 +48,7 @@ export const getPublicaciones = async (req, res) => {
 
 export const getPublicacion = async (req, res) => {
     try {
-    console.log(req.params)
+    // console.log(req.params)
     const id = req.params.id
     const publicacion = await Publicacion.findByPk(id);
     res.json({ok: true, publicacion: publicacion})
@@ -62,8 +62,8 @@ export const updatePublicacion = async (req, res) => {
 
     try{
   
-      console.log('request body publicacion update', req.body);
-      console.log('param', req.params.id);
+      // console.log('request body publicacion update', req.body);
+      // console.log('param', req.params.id);
       const id = req.params.id;
       const { remitente, asunto, mensaje, id_comisionPracticaTitulacion } = req.body.publicacion;
   
@@ -88,7 +88,7 @@ export const updatePublicacion = async (req, res) => {
 export const deletePublicacion = async (req, res) =>{
 
     try {
-      console.log('request params publicacion delete', req.params);
+      // console.log('request params publicacion delete', req.params);
       const id = req.params.id;
       const publicacion = await Publicacion.findByPk(id);
     
