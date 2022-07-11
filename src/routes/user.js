@@ -21,7 +21,7 @@ import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getList
 import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
-import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
+import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante, responderSolicitudCartaVacante, verSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
 
 const router = Router();
 
@@ -186,12 +186,14 @@ router.patch('/publicaciones:id', updatePublicacion)
 router.post('/solicitud-carta-vacantes', createSolicitudCartaVacante)
 router.get('/solicitud-carta-vacantes', getSolicitudesCartaVacante)
 router.get('/solicitud-carta-vacantes:id', getSolicitudCartaVacante)
+router.get('/ver-solicitud-carta-vacantes:id', verSolicitudCartaVacante)
 router.get('/lista-carta-vacante', getListaCartaVacantes)
 router.post('/correo-carta-vacante', enviarCorreoCartaVacantePendiente )
 router.patch('/aprobar-solicitud-carta-vacante:id', autorizarSolicitudCartaVacante)
 router.patch('/reprobar-solicitud-carta-vacante:id', reprobarSolicitudCartaVacante)
 router.patch('/pendiente-solicitud-carta-vacante:id', dejarPendienteSolicitudCartaVacante)
 router.get('/lista-responder-carta-vacante:id', getListaResponderCartaVacante)
+router.patch('/solicitud-carta-vacantes:id', responderSolicitudCartaVacante)
 
 
 //INFORME

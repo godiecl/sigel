@@ -30,7 +30,7 @@ export const createSolicitudCartaVacante = async (req, res) =>{
         // }
 
         const newSolicitud = await SolicitudCartaVacante.create({
-            periodoRealizar, anioRealizar, ciudadRealizar, estado: 'pendiente',
+            periodoRealizar, anioRealizar, ciudadRealizar, estado: 'pendiente', estadoRespuesta: 'pendiente',
             // id_empresa,
              id_solicitudEstudiante, id_estudiante
         })
@@ -112,6 +112,7 @@ export const getListaCartaVacantes = async (req, res) => {
 
 export const getSolicitudCartaVacante = async (req, res) => {
     try {
+    // to do: optimizar
     // // console.log(req.params)
     const id = req.params.id
     const solicitud = await SolicitudCartaVacante.findByPk(id);
@@ -121,8 +122,51 @@ export const getSolicitudCartaVacante = async (req, res) => {
     const encargado = await EncargadoEmpresa.findByPk(solicitudE.id_encargadoEmpresa)
     const empresa = await Empresa.findByPk(encargado.id_empresa);
     const nombreEmpresa = empresa.nombreEmpresa
-    res.json({ok: true, solicitud: solicitud, solicitudE: solicitudE, usuario: usuario, nombreEmpresa: nombreEmpresa})
+    res.json({ok: true, solicitud: solicitud, solicitudE: solicitudE, usuario: usuario, nombreEmpresa: nombreEmpresa, encargado: encargado})
         
+    } catch (error) {
+        res.json({ok: false, msg: error.message})
+    }
+}
+
+export const verSolicitudCartaVacante = async (req, res) => {
+    try {
+    // to do: optimizar
+    // // console.log(req.params)
+    const id = req.params.id
+    const solicitud = await SolicitudCartaVacante.findByPk(id);
+    const estudiante = await Estudiante.findByPk(solicitud.id_estudiante);
+    const usuario = await Usuario.findByPk(estudiante.id_usuario);
+    const solicitudE = await SolicitudEstudiante.findByPk(solicitud.id_solicitudEstudiante);
+    const encargado = await EncargadoEmpresa.findByPk(solicitudE.id_encargadoEmpresa)
+    const empresa = await Empresa.findByPk(encargado.id_empresa);
+    const usuarioEnc = await Usuario.findByPk(encargado.id_usuario);
+    const nombreEmpresa = empresa.nombreEmpresa
+    res.json({ok: true, 
+    nombreEstudiante: usuario.nombre, apellidopEstudiante: usuario.apellidop, apellidomEstudiante: usuario.apellidom, 
+    rutEstudiante: usuario.rut, carreraEstudiante: estudiante.carrera, nombreEmpresa: nombreEmpresa,
+    nombreEncargado: usuarioEnc.nombre, apellidopEncargado: usuarioEnc.apellidop, apellidomEncargado: usuarioEnc.apellidom, 
+    cargoEncargado: encargado.cargo, 
+    })
+        
+    } catch (error) {
+        res.json({ok: false, msg: error.message})
+    }
+}
+
+export const responderSolicitudCartaVacante = async (req, res) => {
+    try {
+    // to do: optimizar
+    console.log('params:    ',req.params)
+    console.log('body: ',req.body)
+    const id = req.params.id
+    const solicitud = await SolicitudCartaVacante.findByPk(id);
+    solicitud.fechaInicio = req.body.fechaInicio;
+    solicitud.fechaFinal = req.body.fechaFinal;
+    solicitud.estadoRespuesta = 'completada'
+    solicitud.save();
+
+    res.json({ok: true, msg: 'Se ha actualizado la carta.'})
     } catch (error) {
         res.json({ok: false, msg: error.message})
     }
@@ -269,7 +313,7 @@ export const getListaResponderCartaVacante = async (req, res)=>{
         })
     }
 
-    console.log(datos)
+    // console.log(datos)
 
     res.json(datos)
     
