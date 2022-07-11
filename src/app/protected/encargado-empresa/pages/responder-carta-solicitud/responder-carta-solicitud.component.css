@@ -27,27 +27,31 @@ nav a:hover{
 }
 
 .mat-column-nombreProyecto{
-    width: 32px;
+    width: 600px;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-nombreEstudiante{
+    width:800px;
     padding-right: 24px;
     text-align: center;
 }
 .mat-column-periodoRealizar{
-    width: 32px;
-    padding-right: 24px;
-    text-align: center;
-}
-.mat-column-nombreEstudiante{
-    width: 32px;
+    width:500px;
     padding-right: 24px;
     text-align: center;
 }
 .mat-column-estado {
-    width: 32px;
+    width:300px;
     padding-right: 24px;
     text-align: center;
 }
 .mat-column-enviarCorreo{
-    width: 32px;
+    width: 320px;
     padding-right: 24px;
     text-align: center;
+}
+.tablaResp {
+    overflow-x:auto;
 }

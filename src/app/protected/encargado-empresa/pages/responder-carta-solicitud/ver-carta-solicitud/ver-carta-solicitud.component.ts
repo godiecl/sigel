@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SolicitudCartaVacante } from 'src/app/auth/interfaces/documentos/solicitudCartaVacante';
 import { Estudiante } from '../../../../../auth/interfaces/estudiante.interface';
 import { AdministradorService } from '../../../../administrador/services/administrador.service';
@@ -14,18 +14,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class VerCartaSolicitudComponent implements OnInit {
 
   datos!: any;
-  estudiante!: Estudiante;
-  usuario!: User;
-
-  respuestaForm: FormGroup = this.fb.group({
-    fechaInicio: [, Validators.required],
-    fechaFinal: [, Validators.required],
-    confirmar: [,Validators.requiredTrue],
-  })
+  now = new Date();
 
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private adminS: AdministradorService,
     private fb: FormBuilder,
   ) { 
@@ -42,9 +36,9 @@ export class VerCartaSolicitudComponent implements OnInit {
    
   }
 
-  enviarRespuesta(): void{
-    
-  }
+  volver(): void{
+    this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
+  } 
 
 }
 

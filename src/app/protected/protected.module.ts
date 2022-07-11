@@ -40,7 +40,8 @@ import { AutorizarCartaVacanteComponent } from './secretaria/pages/autorizar-car
 import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes/ver-lista-vacantes.component';
 import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/responder-carta-solicitud.component';
 import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
-
+import { VerCartaDialogComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-dialog/ver-carta-dialog.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -71,6 +72,7 @@ import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-
     VerListaVacantesComponent,
     ResponderCartaSolicitudComponent,
     VerCartaSolicitudComponent,
+    VerCartaDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -80,6 +82,7 @@ import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-
     MatCardModule,
     MatCheckboxModule,
     MatDatepickerModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,

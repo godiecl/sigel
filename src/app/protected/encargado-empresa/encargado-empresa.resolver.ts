@@ -37,7 +37,7 @@ export class ResponderCartaVacanteResolver implements Resolve<any>
     {
         //  // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
-        return this._encEmpresaS.getSolicitudCartaVacante(id);
+        return this._encEmpresaS.verSolicitudCartaVacante(id);
                 
     }
 }
