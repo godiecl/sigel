@@ -14,7 +14,7 @@ import { FormControl } from '@angular/forms';
 export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
 
   displayedColumns!: string[];
-  solicitudesCartaVacante!: any;
+  solicitudesCartaVacante!: [];
   estado = new FormControl('');
 
   estados: string []= ['pendiente', 'aprobado', 'reprobado'];
@@ -32,7 +32,7 @@ export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
     this.secretariaS.getListaVacantes()
       .pipe(takeUntil(this._unsubscribeAll))
         .subscribe((solicitudes)=>{
-          console.log(solicitudes)
+          // console.log(solicitudes)
           this.solicitudesCartaVacante = solicitudes;
           this.displayedColumns = ['nombreEmpresa','rutEmpresa', 'giroEmpresa', 
           'nombreProyecto', 'cargoEncargado','nombreEncargado', 'telefonoEncargado',
@@ -48,8 +48,51 @@ export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  actualizar(id: number, estado: string){
+
+    // // console.log('lleegue')
+
+    if(estado === 'aprobado'){
+      this.secretariaS.aprobarSolicitudCartaVacante(id)
+        .pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
+          if(res.ok){
+            Swal.fire('Se ha actualizado la solicitud exitósamente.','','success')
+          }
+          else{
+            Swal.fire('Ha ocurrido un error','','error')
+          }
+        })
+    }
+    else if(estado === 'pendiente'){
+      this.secretariaS.dejarPendienteSolicitudCartaVacante(id)
+      .pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
+        if(res.ok){
+          Swal.fire('Se ha actualizado la solicitud exitósamente.','','success')
+        }
+        else{
+          Swal.fire('Ha ocurrido un error','','error')
+        }
+      })
+    }
+    else if(estado === 'reprobado'){
+      this.secretariaS.reprobarSolicitudCartaVacante (id)
+      .pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
+        if(res.ok){
+          Swal.fire('Se ha actualizado la solicitud exitósamente.','','success')
+        }
+        else{
+          Swal.fire('Ha ocurrido un error','','error')
+        }
+      })
+    }
+
+    
+  }
+
+  
+
   enviarCorreo(correoEncargado: string){
-    console.log(correoEncargado)
+    // console.log(correoEncargado)
 
     // FUNCION QUE ENVIE CORREO AL ENCARGADO QUE SE LE HAYA HECHO CLICK
     // PETICION POST ENVIANDO ID DEL CORREO ENCARGADO.

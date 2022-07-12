@@ -18,17 +18,17 @@ export class HeaderComponent implements OnInit {
   // }
 
   constructor(private router: Router, private authService: AuthService) { 
-    // console.log('hola');
+    // // console.log('hola');
    
   }
 
   ngOnInit(): void {
     this.usuarioLogeado = this.authService.usuario
-    console.log('usuario log', this.usuarioLogeado)
+    // console.log('usuario log', this.usuarioLogeado)
   }
   isRoute(route: string){
-    // console.log('route ',route);
-    // console.log('ruta del ruter', this.router.url)
+    // // console.log('route ',route);
+    // // console.log('ruta del ruter', this.router.url)
     if(this.router.url === route){
       return true
     }

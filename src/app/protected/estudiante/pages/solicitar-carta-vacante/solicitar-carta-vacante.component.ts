@@ -57,7 +57,7 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
     this.usuarioLogeado = this.authS.usuario;
     this.adminS.obtenerEstudiantePorIdUsuario(this.usuarioLogeado.id)
         .pipe(takeUntil(this._unsubscribeAll)).subscribe((estudiante)=>{
-          console.log(estudiante)
+          // console.log(estudiante)
           this.id_estudiante = estudiante.id_estudiante;
         })
 
@@ -75,11 +75,11 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.estudianteS.getEmpresasSolicitadoEstudiante()
       .pipe(takeUntil(this._unsubscribeAll)).subscribe((data: any)=>{
-        // console.log(data); 
+        // // console.log(data); 
         this.datos = [... data];
         // const filtrados = data.filter((v:any)=> this.datos.filter((d)=> d.id_empresa !== v.id_empresa ).length === 0  );
         // const filtrados = this.datos.filter(onlyUnique)
-        // console.log(filtrados);
+        // // console.log(filtrados);
         
         // const filtrados = this.datos.filter((v,i,a) => a.indexOf(v) === i );
 
@@ -88,15 +88,15 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
         this.filtrados = [...new Map(this.datos.map(item =>
           [item['id_empresa'], item])).values()];
 
-        // console.log(unique)
+        // // console.log(unique)
 
       })
 
       this.solicitarCartaForm.valueChanges.pipe(takeUntil(this._unsubscribeAll))
         .subscribe(({empresa, ...rest})=>{
-          // console.log('empresa', empresa)
+          // // console.log('empresa', empresa)
           this.porEmpresa = this.datos.filter(item=> item.id_empresa === empresa )
-          // console.log(x)
+          // // console.log(x)
           // if(empresa.id_empresa === this.datos.forEach()){
 
           // }
@@ -111,7 +111,7 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
   }
 
   enviar(): void {
-    // console.log(this.solicitarCartaForm.value);
+    // // console.log(this.solicitarCartaForm.value);
 
 
     const solicitudCartaVacante: SolicitudCartaVacante = this.solicitarCartaForm.value;
@@ -120,7 +120,7 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
     solicitudCartaVacante.id_estudiante=this.id_estudiante;
     this.estudianteS.crearSolicitudVacante(solicitudCartaVacante)
       .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp:any)=>{
-        // console.log(resp);
+        // // console.log(resp);
         if(resp.ok){
           Swal.fire('Se ha registrado la solicitud de carta para vacante.','','success');
         }else{

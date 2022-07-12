@@ -48,6 +48,13 @@ export class MainMenuComponent implements OnInit {
   downloadDocument(){
     this.router.navigateByUrl('/dashboard/download-document')
   }
+  uploadInforme(){
+    this.router.navigateByUrl('/dashboard/upload-informe')
+  }
+  downloadInforme(){
+    this.router.navigateByUrl('/dashboard/download-informe')
+  }
+
   verListaVacantes(){
     this.router.navigateByUrl('/dashboard/estudiante/ver-lista-vacantes')
   }
@@ -57,11 +64,9 @@ export class MainMenuComponent implements OnInit {
   autorizarCartaVacante(){
     this.router.navigateByUrl('/dashboard/secretaria/autorizar-carta-vacante')
   }
-  uploadInforme(){
-    this.router.navigateByUrl('/dashboard/upload-informe')
+  responderCartaVacante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
   }
-  downloadInforme(){
-    this.router.navigateByUrl('/dashboard/download-informe')
-  }
+
 }
  

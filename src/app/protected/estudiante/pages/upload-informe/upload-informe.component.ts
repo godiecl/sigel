@@ -57,12 +57,12 @@ export class UploadInformeComponent implements OnInit {
     const body=new FormData();
     body.append('myFile',this.fileTmpInformeEstudiante.fileRaw,this.fileTmpInformeEstudiante.fileName.replaceAll(" ","_"));
     body.append('author','Camilo');
-    console.log('body tiene:',body);
+    // console.log('body tiene:',body);
     //conexion con backend
     this.comisionTitulacionPracticaService.sendPostInformeEstudiante(body)
     .subscribe((res)=>{
       //this.loading=false;
-      console.log(res)
+      // console.log(res)
     });
     this.fileInformeEstudiante.nativeElement.value = null;
   }

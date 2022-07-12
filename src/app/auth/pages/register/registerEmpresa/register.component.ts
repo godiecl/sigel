@@ -99,8 +99,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       // SI OPRIME BOTON SI.
       if (result.isConfirmed) {
 
-        // console.log('valor formulario de crear empresa:',this.empresaForm.value);
-        // console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
+        // // console.log('valor formulario de crear empresa:',this.empresaForm.value);
+        // // console.log('formulario de crear empresa, valido? ',this.empresaForm.valid);
 
         // PRIMERO SE CREA LA EMPRESA
 
@@ -108,12 +108,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.empresaForm.value.nombreEmpresa,this.empresaForm.value.rutEmpresa, this.empresaForm.value.giroEmpresa
         );
 
-        console.log('this empresa', this.empresa)
+        // console.log('this empresa', this.empresa)
         // SE REGISTRA LA EMPRESA
         this.authService.crearEmpresa(this.empresa).
           // pipe(takeUntil(this._unsubscribeAll)).
             subscribe( resp => {
-            console.log('respuesta CREAR EMPRESA', resp);
+            // console.log('respuesta CREAR EMPRESA', resp);
               
             if(resp.ok){
                
@@ -121,17 +121,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
               Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
               this.idEmpresaActual = resp.newEmpresa.id_empresa;
-               // console.log('empresa id', empresa.id_empresa);
+               // // console.log('empresa id', empresa.id_empresa);
               //  this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
                // let idEmpresaxd;
                // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
-               //  console.log('subject',idEmpresaxd )
+               //  // console.log('subject',idEmpresaxd )
                // this.router.navigateByUrl('/auth/solicitar-estudiante');        
               // this.authService.actualizarEmpresaActual(resp.newEmpresa.id_empresa);
               // Swal.fire('Se ha registrado su empresa exitosamente', '', 'success');
               // let idEmpresaxd;
               // this.authService.empresaActual.subscribe(idEmpresa => idEmpresaxd = idEmpresa )
-              //  console.log('subject',idEmpresaxd )
+              //  // console.log('subject',idEmpresaxd )
               // this.router.navigateByUrl('/auth/solicitar-estudiante');
 
               
@@ -140,7 +140,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               this.usuario.password = this.empresaForm.value.password;
               this.usuario.roles = [...this.usuario.roles, 'EncargadoEmpresa'];
               this.usuario.estado = false;
-              console.log('this usuario', this.usuario)
+              // console.log('this usuario', this.usuario)
 
               // SE REGISTRA EN LA BDD
               this.adminService.crearUsuario(this.usuario)
@@ -150,11 +150,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
                     this.encargadoEmpresa = new EncargadoEmpresaModel(0,
                     this.empresaForm.value.cargo, this.empresaForm.value.telefono, resp.id, this.idEmpresaActual)
-                    console.log('encargado empresa', this.encargadoEmpresa)
+                    // console.log('encargado empresa', this.encargadoEmpresa)
                     // se manda a la bdd
                     this.authService.crearEncargadoEmpresa(this.encargadoEmpresa)
                     .subscribe((response: any)=>{
-                      // console.log(response);
+                      // // console.log(response);
                       if(response.ok){
 
                       Swal.fire('Se ha registrado su contacto en el sistema.', '', 'success');
@@ -171,7 +171,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
                     }else{
                     // imprimir error
                     Swal.fire('Ha ocurrido un error.', '', 'info')
-                    // console.log('aqui fallo')
+                    // // console.log('aqui fallo')
                     }
                   })
                 }else{

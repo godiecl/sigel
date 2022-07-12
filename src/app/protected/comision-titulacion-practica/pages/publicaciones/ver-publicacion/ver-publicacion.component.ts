@@ -31,7 +31,7 @@ export class VerPublicacionCTComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.subscribe(({publicacion}) => {
-      console.log('si',publicacion)
+      // console.log('si',publicacion)
 
       this.publicacionActual= publicacion.publicacion;
     })
@@ -85,7 +85,7 @@ export class VerPublicacionCTComponent implements OnInit {
         // Se elimina
         this.comisionS.eliminarPublicacion(id_publicacion)
           .pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
-            console.log('respuesta de borrar', resp)
+            // console.log('respuesta de borrar', resp)
             if(resp.ok){
               Swal.fire('Se ha eliminado la publicación exitosamente.','','success');
               // this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')

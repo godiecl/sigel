@@ -31,7 +31,7 @@ export class PublicacionResolver implements Resolve<any>
      */
     resolve(route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Observable<any>
     {
-        //  console.log(' HOLA',route.paramMap.get('id'));
+        //  // console.log(' HOLA',route.paramMap.get('id'));
         const id = route.paramMap.get('id');
         return this.comisionTPS.getPublicacion(id)
                   

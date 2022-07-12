@@ -69,7 +69,7 @@ export class DownloadInformeComponent implements OnInit {
     var filenombre= name;
     this.comisionTitulacionPracticaService.deleteFileInformeEstudiante(filenombre)
     .subscribe((res)=>{
-      console.log(res);
+      // console.log(res);
     });
   }
 }

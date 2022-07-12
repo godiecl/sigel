@@ -181,11 +181,11 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     // this.usuario.confirmPassword = this.usuarioForm.value.password;
     
-    console.log('this usuario', this.usuario);
+    // console.log('this usuario', this.usuario);
 
     
 
-    console.log('this usuario', this.usuario);
+    // console.log('this usuario', this.usuario);
     this.adminService.crearUsuario(this.usuario).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (respuesta: any) => {
 
@@ -241,7 +241,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     const observable2 = this.adminService.crearEstudiante(this.estudiante).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) =>{
-        console.log('respuesta peticion crear estudiante', res);
+        // console.log('respuesta peticion crear estudiante', res);
       }
     )
 
@@ -250,7 +250,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   nuevoAdmin(idUser: number){
     const observable3 = this.adminService.crearAdmin(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
-        console.log('respuesta de la peticion crear admin', res);
+        // console.log('respuesta de la peticion crear admin', res);
       }
     )
   }
@@ -258,7 +258,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   nuevoEncargadoPracticaTitulacion(idUser: number){
     const observable3 = this.adminService.crearEncargadoPracticaCP(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
-        console.log('respuesta de la peticion crear encargado practica titulacion', res);
+        // console.log('respuesta de la peticion crear encargado practica titulacion', res);
       }
     )
   }
@@ -266,7 +266,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   nuevoAsistenteAcademica(idUser: number){
     const observable3 = this.adminService.crearAsistenteAcademica(idUser).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
-        console.log('respuesta de la peticion crear asistente academica', res);
+        // console.log('respuesta de la peticion crear asistente academica', res);
       }
     )
   }
@@ -274,7 +274,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
   nuevoComisionTitulacionPractica(idUser: number, jefeCarrera: boolean){
     const observable3 = this.adminService.crearComisionTitulacion(idUser, jefeCarrera).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
-        console.log('respuesta de la peticion crear comisionTitulacionPracticas', res);
+        // console.log('respuesta de la peticion crear comisionTitulacionPracticas', res);
       }
     )
   }
@@ -286,7 +286,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
     )
     const observable3 = this.adminService.crearProfesorCC(profesorCC).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
-        console.log('respuesta de la peticion crear profesorCCs', res);
+        // console.log('respuesta de la peticion crear profesorCCs', res);
       });
   }
 
@@ -298,7 +298,7 @@ export class RegisterUsuarioComponent implements OnInit, OnDestroy{
 
     const observable3 = this.adminService.crearProfesorGuiaCP(profesorGuiaCP).pipe(takeUntil(this._unsubscribeAll)).subscribe(
       (res: any) => {
-        console.log('respuesta de la peticion crear profesorGuiaCPs', res);
+        // console.log('respuesta de la peticion crear profesorGuiaCPs', res);
       });
   }
 

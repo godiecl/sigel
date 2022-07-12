@@ -50,17 +50,17 @@ export class CrearPublicacionComponent implements OnInit {
     // this.apellidos = this.apellidos.concat(this.nombre);
     // this.apellidos = this.apellidos.concat(" ");
     // this.apellidos = this.apellidos.concat(this.usuariolog.apellidom!);
-    console.log(this.nombre)
+    // console.log(this.nombre)
     // this.remitente = this.remitente.concat(this.apellidos);
     this.admin.obtenerComisionTitulacion(this.usuariolog.id).subscribe((resp)=>{
-      // console.log('resp obtener', resp)
+      // // console.log('resp obtener', resp)
       this.id_comisionPracticaTitulacion  = resp.comision.id_comisionPracticaTitulacion;
     })
     
    }
 
   ngOnInit(): void {
-    console.log(' usuario logeado ',this.usuariolog)
+    // console.log(' usuario logeado ',this.usuariolog)
     // OBTENER ID DE COMISION DE TITULACION Y PRÁCTICA PARA ENVIARSELA A LA PUBLICACION
     
   }
@@ -76,7 +76,7 @@ export class CrearPublicacionComponent implements OnInit {
 
   crearPublicacion(): void{
 
-    // console.log(this.publicacionForm.value)
+    // // console.log(this.publicacionForm.value)
     
     this.publicacionNueva = new PublicacionModel(
       0, this.nombre, this.publicacionForm.value.asunto, this.publicacionForm.value.mensaje,
@@ -87,10 +87,10 @@ export class CrearPublicacionComponent implements OnInit {
     // this.publicacionNueva.mensaje = this.publicacionForm.value.mensaje;
     // this.publicacionNueva.remitente = this.usuariolog.nombre;
 
-    console.log('publicacion nueva',this.publicacionNueva);
+    // console.log('publicacion nueva',this.publicacionNueva);
 
     this.ctp.crearPublicacion(this.publicacionNueva).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
-      // console.log('resp de crear pub',resp);
+      // // console.log('resp de crear pub',resp);
 
       if(resp.ok){
         Swal.fire('Se ha realizado la publicación.', '', 'success');

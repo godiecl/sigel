@@ -12,14 +12,14 @@ export class SecretariaService {
 
   constructor(private http: HttpClient) { }
 
-  getSolicitudesEstudiante(): Observable<SolicitudCartaVacante[]> {
+  getSolicitudesCartaVacante(): Observable<SolicitudCartaVacante[]> {
 
     const url = `${this.baseUrl}solicitud-carta-vacantes`;
     return this.http.get<any>(url)
   }
 
   getListaVacantes(): Observable<any>{
-    console.log('get a lista-carta-vacante')
+    // console.log('get a lista-carta-vacante')
     const url = `${this.baseUrl}lista-carta-vacante`;
     return this.http.get<any>(url)
   }
@@ -28,6 +28,21 @@ export class SecretariaService {
     
     const url = `${this.baseUrl}correo-carta-vacante`;
     return this.http.post<any>(url, {correo})
+  }
+
+  aprobarSolicitudCartaVacante(id_solicitudCartaVacante: number): Observable<any>{
+    const url = `${this.baseUrl}aprobar-solicitud-carta-vacante${id_solicitudCartaVacante}`;
+    return this.http.patch<any>(url,{})
+  }
+
+  reprobarSolicitudCartaVacante(id_solicitudCartaVacante: number): Observable<any>{
+    const url = `${this.baseUrl}reprobar-solicitud-carta-vacante${id_solicitudCartaVacante}`;
+    return this.http.patch<any>(url,{})
+  }
+
+  dejarPendienteSolicitudCartaVacante(id_solicitudCartaVacante: number): Observable<any>{
+    const url = `${this.baseUrl}pendiente-solicitud-carta-vacante${id_solicitudCartaVacante}`;
+    return this.http.patch<any>(url,{})
   }
 
 }

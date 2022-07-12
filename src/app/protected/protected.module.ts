@@ -9,7 +9,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCommonModule} from '@angular/material/core';
+import {MatCommonModule, MatNativeDateModule} from '@angular/material/core';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -33,14 +35,13 @@ import { EditarPublicacionComponent } from './comision-titulacion-practica/pages
 import { EliminarPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/eliminar-publicacion/eliminar-publicacion.component';
 import { VerPublicacionCTComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
 import { VerPublicacionComponent } from './estudiante/pages/publicaciones/ver-publicacion/ver-publicacion.component';
-
-import { UploadInformeComponent } from './estudiante/pages/upload-informe/upload-informe.component';
-import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
-import { DownloadInformeComponent } from './comision-correccion-practica/pages/download-informe/download-informe.component';
-
 import { SolicitarCartaVacanteComponent } from './estudiante/pages/solicitar-carta-vacante/solicitar-carta-vacante.component';
 import { AutorizarCartaVacanteComponent } from './secretaria/pages/autorizar-carta-vacante/autorizar-carta-vacante.component';
 import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes/ver-lista-vacantes.component';
+import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/responder-carta-solicitud.component';
+import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
+import { VerCartaDialogComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-dialog/ver-carta-dialog.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -66,12 +67,12 @@ import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes
     VerPublicacionComponent,
     EditarPublicacionComponent,
     EliminarPublicacionComponent,
-    UploadInformeComponent,
-    CreateComisionCorreccionComponent,
-    DownloadInformeComponent,
     SolicitarCartaVacanteComponent,
     AutorizarCartaVacanteComponent,
     VerListaVacantesComponent,
+    ResponderCartaSolicitudComponent,
+    VerCartaSolicitudComponent,
+    VerCartaDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -79,13 +80,22 @@ import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes
     ReactiveFormsModule,
     FormsModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatSelectModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class ProtectedModule { }

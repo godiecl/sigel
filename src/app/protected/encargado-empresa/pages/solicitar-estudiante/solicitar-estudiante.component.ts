@@ -58,11 +58,11 @@ export class SolicitarEstudianteMenuComponent implements OnInit {
       this.adminS.obtenerEncargadoEmpresaPorIdUsuario(this.usuarioLogeado.id)
         .pipe(takeUntil(this._unsubscribeAll)).subscribe((encargado)=>{
           this.encargadoEmpresaLog = encargado;
-          console.log(this.encargadoEmpresaLog)
+          // console.log(this.encargadoEmpresaLog)
           this.encargadoS.obtenerEmpresa(this.encargadoEmpresaLog.id_empresa)
             .pipe(takeUntil(this._unsubscribeAll)).subscribe((empresa: any)=>{
               this.empresaLog = empresa.empresa;
-              console.log(this.empresaLog)
+              // console.log(this.empresaLog)
             })
 
         })
@@ -97,9 +97,9 @@ export class SolicitarEstudianteMenuComponent implements OnInit {
 
        this.newSolicitud = this.solicitarEstudianteForm.getRawValue();
        this.newSolicitud.id_encargadoEmpresa = this.encargadoEmpresaLog.id_encargadoEmpresa;
-      console.log(this.newSolicitud)
+      // console.log(this.newSolicitud)
        if(this.newSolicitud.id_encargadoEmpresa){
-         // console.log(this.newSolicitud);
+         // // console.log(this.newSolicitud);
 
          this.authS.crearSolicitudEstudiante(this.newSolicitud).subscribe((resp)=>{
          if(resp.ok){

@@ -175,7 +175,7 @@ export class DownloadDocumentComponent implements OnInit,OnDestroy {
           timer: 1500
         })
         //timer reload 
-        window.setTimeout(function(){location.reload()},1500)
+        window.setTimeout(function(){location.reload()},100)
 
         
       } else if (result.isDenied) {
@@ -221,7 +221,7 @@ export class DownloadDocumentComponent implements OnInit,OnDestroy {
     this.comisionTitulacionPracticaService.sendPostDocPracticaEstudiante(body)
     .subscribe((res)=>{
       //this.loading=false;
-      console.log(res)
+      // console.log(res)
     });
     this.fileDocPracticaEstudiante.nativeElement.value = null;
   }
@@ -234,7 +234,7 @@ export class DownloadDocumentComponent implements OnInit,OnDestroy {
     this.comisionTitulacionPracticaService.sendPostDocCapstoneEstudiante(body)
     .subscribe((res)=>{
       //this.loading=false;
-      console.log(res)
+      // console.log(res)
     });
     this.fileDocCapstoneEstudiante.nativeElement.value = null;
   }
@@ -259,14 +259,14 @@ export class DownloadDocumentComponent implements OnInit,OnDestroy {
     var filenombre= name;
     this.comisionTitulacionPracticaService.deleteFileDocPracticaEstudiante(filenombre)
     .subscribe((res)=>{
-      console.log(res);
+      // console.log(res);
     });
   }
   deleteDocCapstoneEstudiante(name:String){
     var filenombre= name;
     this.comisionTitulacionPracticaService.deleteFileDocCapstoneEstudiante(filenombre)
     .subscribe((res)=>{
-      console.log(res);
+      // console.log(res);
     });
   }
 //-----------------------------------------------------------------------------------------------------------
@@ -392,7 +392,7 @@ sendFileDocPracticaProfesor():void{
   this.comisionTitulacionPracticaService.sendPostDocPracticaProfesor(body)
   .subscribe((res)=>{
     //this.loading=false;
-    console.log(res)
+    // console.log(res)
   });
   this.fileDocPracticaProfesor.nativeElement.value = null;
 }
@@ -405,7 +405,7 @@ sendFileDocCapstoneProfesor():void{
   this.comisionTitulacionPracticaService.sendPostDocCapstoneProfesor(body)
   .subscribe((res)=>{
     //this.loading=false;
-    console.log(res)
+    // console.log(res)
   });
   this.fileDocCapstoneProfesor.nativeElement.value = null;
 }
@@ -430,14 +430,14 @@ deleteDocPracticaProfesor(name:String){
   var filenombre= name;
   this.comisionTitulacionPracticaService.deleteFileDocPracticaProfesor(filenombre)
   .subscribe((res)=>{
-    console.log(res);
+    // console.log(res);
   });
 }
 deleteDocCapstoneProfesor(name:String){
   var filenombre= name;
   this.comisionTitulacionPracticaService.deleteFileDocCapstoneProfesor(filenombre)
   .subscribe((res)=>{
-    console.log(res);
+    // console.log(res);
   });
 }
 }

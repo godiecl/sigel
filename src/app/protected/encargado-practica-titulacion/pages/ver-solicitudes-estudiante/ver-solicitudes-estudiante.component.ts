@@ -17,7 +17,7 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
 
   
   // const solicitudesEstudiante: SolicitudEstudiante[] = this.encargadoTP.solicitudesEstudiante().subscribe((solicitudes: SolicitudEstudiante[]) => {
-  //   console.log(solicitudes)
+  //   // console.log(solicitudes)
   //   this.solicitudesEstudiante = solicitudes;
     
   // })
@@ -47,10 +47,10 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // console.log(this.ELEMENT_DATA)
+    // // console.log(this.ELEMENT_DATA)
 
     this.encargadoTP.getSolicitudesEstudianteTabla().subscribe((solicitudes) => {
-      // console.log(solicitudes)
+      // // console.log(solicitudes)
 
       this.solicitudesEstudiante = solicitudes
       this.displayedColumns = ['nombreProyecto', 'nombreEmpresa', 'nombreEncargado', 'apellidoEncargado', 'telefono', 'estado', 'boton']
@@ -60,8 +60,8 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
   }
 
   isRoute(route: string){
-    // console.log('route ',route);
-    // console.log('ruta del ruter', this.router.url)
+    // // console.log('route ',route);
+    // // console.log('ruta del ruter', this.router.url)
     if(this.router.url === route){
       return true
     }
@@ -70,7 +70,7 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
 
   verSolicitud(id: string){
     const url =`/dashboard/encargado-practica/ver-solicitudes-estudiante/${id}`
-    // console.log('si', url)
+    // // console.log('si', url)
     this.router.navigateByUrl(url)
   }
   

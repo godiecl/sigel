@@ -47,10 +47,10 @@ export class ForgotPasswordComponent implements OnInit {
           this.forgotForm.markAllAsTouched();
           return;
         }
-        console.log('form: ',this.forgotForm.value.correo);
+        // console.log('form: ',this.forgotForm.value.correo);
 
         this.authService.forgotPassword(this.forgotForm.value.correo).subscribe((resp) => {
-        console.log(resp);
+        // console.log(resp);
         Swal.fire('Se te ha enviado un correo, por favor sigue las indicaciones', '', 'success');
     })
         
@@ -65,7 +65,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.authService.comprobarCorreo(correo).subscribe( ok => {
 
-      console.log(ok);
+      // console.log(ok);
 
       if(ok === true){
         Swal.fire('correo existe!', '', 'success');

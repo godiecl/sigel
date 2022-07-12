@@ -72,7 +72,7 @@ export class NewPasswordComponent implements OnInit {
         this.token = routeParams.get('token');
     
         this.authservice.cambiarPassword(this.newPasswordForm.value.newPassword, this.token ).subscribe((resp)=>{
-          console.log(resp);
+          // console.log(resp);
           Swal.fire('Se ha cambiado la contraseña exitosamente', '', 'success');
           this.rr.navigateByUrl('/auth/login')
     
