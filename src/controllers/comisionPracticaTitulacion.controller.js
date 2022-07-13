@@ -21,7 +21,7 @@ export const createComisionPracticaTitulacion = async (request, response) =>{
         })
         }
 
-        // console.log('request body comision practica', request.body);
+        // // console.log('request body comision practica', request.body);
 
         // Crear en la bdd
         const newComisionPracticaTitulacion = await ComisionPracticaTitulacion.create({
@@ -41,18 +41,18 @@ export const createComisionPracticaTitulacion = async (request, response) =>{
     }
 }
 
-export const deleteAdmin = async (req, res) =>{
+export const deleteComisionTitulacion = async (req, res) =>{
 
     try {
-      // console.log('request params admin delete', req.params);
+      // // console.log('request params admin delete', req.params);
       const id = req.params;
-      const admin = await ComisionPracticaTitulacion.findOne({
+      const comision = await ComisionPracticaTitulacion.findOne({
         where: {
           id_usuario : id
         }
       });
     
-      await admin.destroy();
+      await comision.destroy();
   
       return res.status(200);
       
@@ -62,11 +62,11 @@ export const deleteAdmin = async (req, res) =>{
   
   }
 
-  export const updateComisionPracticaTitulacionPorId = async (req, res) => {
+export const updateComisionPracticaTitulacionPorId = async (req, res) => {
 
     try{
   
-      // console.log('request body comision practica titulacion por id update', req.body.estudiante);
+      // // console.log('request body comision practica titulacion por id update', req.body.estudiante);
       
       const  jefeCarrera = request.body.jefeCarrera;
       const  id_usuario  = request.body.id_usuario;
@@ -88,12 +88,12 @@ export const deleteAdmin = async (req, res) =>{
   
     }
   
-  }
+ }
 
-  export const deleteComisionPracticaTitulacionPorIdUsuario = async (req, res) =>{
+export const deleteComisionPracticaTitulacionPorIdUsuario = async (req, res) =>{
 
     try {
-      // console.log('request params comision practica titulacion delete por id', req.params.id);
+      // // console.log('request params comision practica titulacion delete por id', req.params.id);
       const id = req.params.id;
       let comisionpracticatitulacion = await ComisionPracticaTitulacion.findOne({
         where: {
@@ -108,4 +108,29 @@ export const deleteAdmin = async (req, res) =>{
       return res.status(500).json({ok: false, message: error.message})
     }
   
-  }
+}
+
+export const getComisionPorId = async (req, res) => {
+
+  try{  
+
+
+        const { id } = req.params;
+        
+        // console.log(id);
+        const comision = await ComisionPracticaTitulacion.findOne({
+          where: {
+            id_usuario: id
+        },});
+
+        if(!comision) return res.status(404).json({ ok: false, message: 'El comision no existe'})
+
+      
+        return res.json({ok:true, comision: comision});
+
+
+      }catch(error){
+        return res.status(500).json({ok: false, message: error.message})
+      }
+  
+ }

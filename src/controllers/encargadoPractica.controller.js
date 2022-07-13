@@ -19,8 +19,8 @@ export const createEncargadoPractica = async (request, response) =>{
           })
           }
 
-        // console.log('request body', request.body);
-        // console.log(' _id_user', _id_user)
+        // // console.log('request body', request.body);
+        // // console.log(' _id_user', _id_user)
 
         // Crear en la bdd
         const newEncargadoPractica = await EncargadoPractica.create({
@@ -42,7 +42,7 @@ export const createEncargadoPractica = async (request, response) =>{
 export const deleteEncargadoPracticaPorIdUsuario = async (req, res) =>{
 
     try {
-      console.log('request params encargado practica delete por id', req.params.id);
+      // console.log('request params encargado practica delete por id', req.params.id);
       const id = req.params.id;
       let encargadoPractica = await EncargadoPractica.findOne({
         where: {

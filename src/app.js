@@ -1,6 +1,9 @@
 import express from 'express';
 import userRoutes from './routes/user.js';
 import cors from 'cors';
+import multer from 'multer';
+
+
 
 const app = express();
 
@@ -15,7 +18,13 @@ app.use(cors(corsOptions));
 
 // directorio publico
 app.use( express.static('public'));
+//contenido practica
+app.use( express.static('./public/contenido/practica'));
+//contenido capstone
+app.use( express.static('./public/contenido/capstone'));
 
+//documentos practica-estudiante
+app.use( express.static('./documentos/practica-estudiante'));
 
 // middlewares
 // lectura y parseo del body  

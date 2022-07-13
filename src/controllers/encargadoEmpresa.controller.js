@@ -4,28 +4,28 @@ import { Usuario } from '../models/Usuario.js';
 export const createEncargadoEmpresa = async (request, response) =>{
 
     try{
-        // console.log('request', request);
+        // // console.log('request', request);
         // Tomo parametros de la request.
         const { id_encargadoEmpresa, cargo, telefono, id_usuario, id_empresa} = request.body.encargadoEmpresa;
 
-        //  console.log('request body', request.body);
-        //  console.log('request body encargadoEmpresa crear', request.body.encargadoEmpresa);
-        //  console.log('telefono', telefono);
-        //  console.log('cargo', cargo);
+        //  // console.log('request body', request.body);
+        //  // console.log('request body encargadoEmpresa crear', request.body.encargadoEmpresa);
+        //  // console.log('telefono', telefono);
+        //  // console.log('cargo', cargo);
 
          const userRepetido = await EncargadoEmpresa.findOne({
             where:{
               id_usuario: id_usuario
             }
           });
-          // console.log('lmao');
+          // // console.log('lmao');
           if(userRepetido){
             return response.status(400).json({
               ok: false,
               msg: 'No se agregó el usuario, porque ya está registrado.'
           })
           }
-          // console.log('2lmao');
+          // // console.log('2lmao');
 
         // Crear en la bdd
         const newEncargadoEmpresa = await EncargadoEmpresa.create({
@@ -34,14 +34,14 @@ export const createEncargadoEmpresa = async (request, response) =>{
             id_usuario,
             id_empresa
         })
-        // console.log('3lmao');
+        // // console.log('3lmao');
         return response.status(200).json({
             ok: true,
             msg: 'Encargado Empresa added.',
             id: newEncargadoEmpresa.id_encargadoEmpresa
         })
     }catch(error){
-        console.log(error);
+        // console.log(error);
         return response.status(400).json({
             ok: false,
             msg: 'Didnt added Encargado Empresa.'
@@ -56,7 +56,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
   
           const { id } = req.params;
           
-          // console.log(id);
+          // // console.log(id);
           const encargado = await EncargadoEmpresa.findOne({
             where: {
               id_usuario: id
@@ -81,7 +81,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
   
           const { id } = req.params;
           
-          // console.log(id);
+          // // console.log(id);
           const encargado = await EncargadoEmpresa.findOne({
             where: {
               id_encargadoEmpresa: id
@@ -104,7 +104,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
 
     try{
   
-      // console.log('request body encargado empresa update', req.body.encargadoEmpresa);
+      // // console.log('request body encargado empresa update', req.body.encargadoEmpresa);
       const { id, cargo, telefono, id_usuario, id_empresa} = req.body.encargadoEmpresa;
   
       const encargado = await EncargadoEmpresa.findOne({
@@ -127,7 +127,7 @@ export const createEncargadoEmpresa = async (request, response) =>{
   export const deleteEncargadoEmpresaPorIdUsuario = async (req, res) =>{
 
     try {
-      // console.log('request params encargado empresa delete por id', req.params.id);
+      // // console.log('request params encargado empresa delete por id', req.params.id);
       const id = req.params.id;
       let encargadoEmpresa = await EncargadoEmpresa.findOne({
         where: {

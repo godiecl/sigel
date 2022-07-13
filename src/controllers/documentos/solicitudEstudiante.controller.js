@@ -7,7 +7,7 @@ export const createSolicitudEstudiante = async (req, res) =>{
 
     try {
         
-        console.log(' body crear solicitud estudiante ',req.body);
+        // console.log(' body crear solicitud estudiante ',req.body);
 
         const {nombreProyecto, problemaResolver, 
             area, solucion, entregableFinal, 
@@ -43,13 +43,22 @@ export const createSolicitudEstudiante = async (req, res) =>{
             id_encargadoEmpresa
         })
 
+        const encargadoEmpresa = await EncargadoEmpresa.findByPk(id_encargadoEmpresa)
+        const iduser = encargadoEmpresa.id_usuario;
+        const usuario = await Usuario.findOne({where:{
+            id : iduser
+        }})
+        usuario.estado = true;
+        await usuario.save(); 
+
+
         return res.status(200).json({
             ok: true,
             msg: 'Solicitud registrada'
         })
 
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return res.status(400).json({
             ok: false,
             msg: error
@@ -62,8 +71,8 @@ export const updateSolicitudEstudiante = async (req, res) => {
 
     try{
   
-      console.log('request body solicitud estudiante update', req.body);
-      console.log('param', req.params.id);
+      // console.log('request body solicitud estudiante update', req.body);
+      // console.log('param', req.params.id);
       const id = req.params.id;
       const { estadoAutorizacion, comentarioAutorizacion, descripcionRequerimientoPractica} = req.body;
   
@@ -91,7 +100,7 @@ export const updateSolicitudEstudiante = async (req, res) => {
 
   export const getSolicitudEstudiante = async (req, res) => {
     try {
-    console.log(req.params)
+    // console.log(req.params)
     const id = req.params.id
     const solicitud = await SolicitudEstudiante.findByPk(id);
     res.json({ok: true, solicitud: solicitud})
@@ -114,7 +123,7 @@ export const updateSolicitudEstudiante = async (req, res) => {
                 id: encargado.id_usuario
             }
         })
-        // console.log(encargado);
+        // // console.log(encargado);
         const empresa = await Empresa.findByPk(encargado.id_empresa);
         
          data.push({
@@ -129,8 +138,55 @@ export const updateSolicitudEstudiante = async (req, res) => {
         })
     }
 
-     console.log(data)
+    //  // console.log(data)
 
     res.json(data)
 }
+
+export const getListaVacantes = async (req, res) => {
+
+    const solicitudes = await SolicitudEstudiante.findAll({
+        where: {
+            estadoAutorizacion: true
+        }
+    });
+
+    let data = [];
+
+    for(let i=0; i<solicitudes.length ;i++){
+        const encargado = await EncargadoEmpresa.findByPk(solicitudes[i].id_encargadoEmpresa);
+
+        const usuario = await Usuario.findOne({
+            where: {
+                id: encargado.id_usuario
+            }
+        })
+        // // console.log(encargado);
+        const empresa = await Empresa.findByPk(encargado.id_empresa);
+        
+        // if(data.findIndex(id_empresa !== empresa.id_empresa )){
+        //     continue;
+        // }
+
+         data.push({
+            id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
+            nombreProyecto: solicitudes[i].nombreProyecto,
+            descripcionRequerimientoPractica: solicitudes[i].descripcionRequerimientoPractica,
+            id_encargadoEmpresa: encargado.id_encargadoEmpresa,
+            telefono: encargado.telefono,
+            nombreEmpresa: empresa.nombreEmpresa,
+            id_empresa: empresa.id_empresa, 
+            correo: usuario.correo, 
+            nombreEncargado: usuario.nombre,
+            apellidoEncargado: usuario.apellidop,
+
+        })
+    }
+
+     // console.log(data)
+
+    res.json(data)
+}
+
+
 

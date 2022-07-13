@@ -19,10 +19,6 @@ export const Publicacion = sequelize.define('publicacion',{
     mensaje: {
         type: DataTypes.TEXT
     },
-    fecha: {
-        type: DataTypes.DATE
-    }
-
 })
 
 ComisionPracticaTitulacion.hasMany(Publicacion, {

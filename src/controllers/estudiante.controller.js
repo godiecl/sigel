@@ -6,7 +6,7 @@ export const createEstudiante = async (request, response) => {
 
     const { correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP, id_usuario } = request.body.estudiante;
     
-    //  console.log('request body estudiante', request.body);
+    //  // console.log('request body estudiante', request.body);
 
     const estudiante = await Estudiante.findOne({
       where:{
@@ -32,7 +32,7 @@ export const createEstudiante = async (request, response) => {
     });
 
     //imprimir por consola
-    // console.log('nuevo estudiante', newEstudiante);
+    // // console.log('nuevo estudiante', newEstudiante);
 
     return response.status(200).json({ok: true, msg: 'Estudiante added'})
 
@@ -42,7 +42,7 @@ export const createEstudiante = async (request, response) => {
 
   //   await sequelize.query('INSERT INTO estudiantes ("correoPersonal", carrera, "practicaAprobada", telefono, "estadoAsignacionCP") VALUES ($1, $2, $3, $4, $5)', [correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP], (error, results) => {
   //     if (error) {
-  //       console.log('error', error);
+  //       // console.log('error', error);
   //       throw error
   //     }
   //     )
@@ -56,7 +56,7 @@ export const getEstudiantePorId = async (req, res) => {
 
         const { id } = req.params;
         
-        console.log(id);
+        // console.log(id);
         const estudiante = await Estudiante.findOne({
           where: {
             id_usuario: id
@@ -78,7 +78,7 @@ export const getEstudiantePorId = async (req, res) => {
 
   try{
 
-    console.log('request body estudiante update', req.body.estudiante);
+    // console.log('request body estudiante update', req.body.estudiante);
     const { id, correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP, id_usuario} = req.body.estudiante;
 
     const estudiante = await Estudiante.findByPk(id);
@@ -105,7 +105,7 @@ export const updateEstudiantePorId = async (req, res) => {
 
   try{
 
-    console.log('request body estudiante update', req.body.estudiante);
+    // console.log('request body estudiante update', req.body.estudiante);
     const { id, correoPersonal, carrera, practicaAprobada, telefono, estadoAsignacionCP, id_usuario} = req.body.estudiante;
 
     const estudiante = await Estudiante.findOne({
@@ -134,7 +134,7 @@ export const updateEstudiantePorId = async (req, res) => {
 export const deleteEstudiante = async (req, res) =>{
 
   try {
-    console.log('request params estudiante delete', req.params);
+    // console.log('request params estudiante delete', req.params);
     const id = req.params;
     const estudiante = await Estudiante.findByPk(id);
   
@@ -151,7 +151,7 @@ export const deleteEstudiante = async (req, res) =>{
 export const deleteEstudiantePorIdUsuario = async (req, res) =>{
 
   try {
-    console.log('request params estudiante delete por id', req.params.id);
+    // console.log('request params estudiante delete por id', req.params.id);
     const id = req.params.id;
     let estudiante = await Estudiante.findOne({
       where: {

@@ -3,11 +3,11 @@ import { ProfesorComisionCorrecion } from '../models/ProfesorComisionCorreccion.
 export const createProfesorComisionCorreccion  = async (request, response) =>{
 
     try{
-        // console.log('request', request);
+        // // console.log('request', request);
         // Tomo parametros de la request.
         const { estadoDisponible, telefono, id_usuario} = request.body.profesorCC;
 
-        // console.log('request body', request.body.profesorCC);
+        // // console.log('request body', request.body.profesorCC);
 
         const userRepetido = await ProfesorComisionCorrecion.findOne({
           where:{
@@ -45,7 +45,7 @@ export const createProfesorComisionCorreccion  = async (request, response) =>{
 export const getProfesorCCPorIdUsuario = async (req, res) => {
 
     try{  
-          // console.log('res',res);
+          // // console.log('res',res);
   
           const { id } = req.params;
           const profesorcc = await ProfesorComisionCorrecion.findOne({
@@ -69,7 +69,7 @@ export const getProfesorCCPorIdUsuario = async (req, res) => {
   
     try{
   
-      console.log('request body profesor cc update', request.body.profesorCC);
+      // console.log('request body profesor cc update', request.body.profesorCC);
       const { id, estadoDisponible, telefono} = request.body.profesorCC;
   
       const profesorcc = await ProfesorComisionCorrecion.findByPk(id);
@@ -94,7 +94,7 @@ export const getProfesorCCPorIdUsuario = async (req, res) => {
 
     try{
   
-      console.log('request body profesor cc por id update', req.body.profesorCC);
+      // console.log('request body profesor cc por id update', req.body.profesorCC);
       const { estadoDisponible, telefono, id_usuario } = req.body.profesorCC;
   
       const profesorcc = await ProfesorComisionCorrecion.findOne({
@@ -117,7 +117,7 @@ export const getProfesorCCPorIdUsuario = async (req, res) => {
   export const deleteProfesorCCPorIdUsuario = async (req, res) =>{
 
     try {
-      console.log('request params profesor cc delete por id', req.params.id);
+      // console.log('request params profesor cc delete por id', req.params.id);
       const id = req.params.id;
       let profesor = await ProfesorComisionCorrecion.findOne({
         where: {

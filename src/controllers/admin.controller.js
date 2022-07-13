@@ -19,8 +19,8 @@ export const createAdmin = async (request, response) =>{
         })
         }
 
-        // console.log('request body', request.body);
-        // console.log(_id_user);
+        // // console.log('request body', request.body);
+        // // console.log(_id_user);
 
         // Crear en la bdd
         const newAdmin = await Admin.create({
@@ -43,7 +43,7 @@ export const createAdmin = async (request, response) =>{
 export const deleteAdminPorId = async (req, res) =>{
 
     try {
-      // console.log('request params admin delete', req.params);
+      // // console.log('request params admin delete', req.params);
       const id = req.params.id;
       const admin = await Admin.findOne({
         where: {
