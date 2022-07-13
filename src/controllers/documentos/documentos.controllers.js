@@ -1,6 +1,7 @@
 import multer from "multer";
 import util from 'util';
 import fs from 'fs';
+import { InformePractica } from "../../models/documentos/InformePractica.js";
 
 //Contenido practica
 export const storagePractica = multer.diskStorage({
@@ -256,16 +257,17 @@ export const deleteFileDocCP=(req,res)=>{
 } 
 //Informe estudiante práctica
 //subir documentos práctica estudiante funciona
-export const storageInformePractica = multer.diskStorage({
+export const storageInformePractica = multer.diskStorage({  
   filename: function(res, file, cb){
-      const ext = file.originalname.split('.').pop();//
-      const fileName = Date.now();
+      // const ext = file.originalname.split('.').pop();//
+      // const fileName = Date.now();
       //const fileName="ContenidoCapstone"; //que tenga un nombre determinado
-      //cb(null,file.originalname);       //nombre original
-      cb(null, `${fileName}.${ext}`); 
+      cb(null,file.originalname);       //nombre original
+      // cb(null, `${fileName}.${ext}`); 
   },
   destination:function(res,file, cb){
-      cb(null,'./documentos/informe-practica')
+    const ubicacion =  './documentos/informe-practica';
+      cb(null,ubicacion)
   }
 });
 

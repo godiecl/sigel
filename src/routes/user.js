@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
 import multer from 'multer';
+import path from 'path';
 import util from 'util';
 import fs from 'fs';
 
@@ -15,14 +16,13 @@ import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '..
 import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresa, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, getComisionPorId, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
-import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
-import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP,storageInformePractica,getListFilesInformeEstudiante,deleteFileInformeEstudiante,downloadInformeEstudiante } from '../controllers/documentos/documentos.controllers.js';
 import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
 import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante, responderSolicitudCartaVacante, verSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
 import { autorizarSeguro, dejarPendienteSeguro, getSeguros } from '../controllers/documentos/seguro.controller.js';
+import { createInforme } from '../controllers/documentos/informePractica.controller.js';
 
 const router = Router();
 
@@ -203,10 +203,19 @@ router.patch('/pendiente-seguro:id', dejarPendienteSeguro)
 
 //INFORME
 //subir informe de práctica estudiante
-const uploadInformeEstudiante = multer({storage:storageInformePractica})
+const uploadInformeEstudiante = multer({storage:storageInformePractica, 
+    fileFilter: function (req, file, callback) {
+            var ext = path.extname(file.originalname);
+            if(ext !== '.pdf' ) {
+                return callback(new Error('Solo se aceptan archivos con formato: PDF'))
+            }
+            callback(null, true)
+        }
+    })
 router.post('/upload-informe/informe-estudiante',uploadInformeEstudiante.single('myFile'),(req,res)=>{
     res.send({data:'OK'})
 });
+router.post('/guardar-informe/informe-estudiante', createInforme)
 //ver informes de práctica estudiante
 router.get('/get-informe/informe-estudiante', getListFilesInformeEstudiante);
 //descargar informe de práctica estudiante
