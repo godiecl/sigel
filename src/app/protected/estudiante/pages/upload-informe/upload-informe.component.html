@@ -19,7 +19,7 @@
             <div class="wrap-input100 m-b-23">
                 <span class="label-input100 m-b-23"><p>El informe debe ser en formato PDF, el nombre debe comenzar con su rut (sin puntos, ni guion), su nombre, apellido, y la carrera a la que pertenece (ICCI o IenCI), ejemplo: "12345678k_Juan_Perez_IenCI.pdf"</p><br></span><br>
                 <div id="fileSelector">
-                    <input class="form-control" style="font-size: 20px;" type="file" #fileInformeEstudiante (change)="getFileInformeEstudiante($event)">
+                    <input class="form-control" style="font-size: 20px;" type="file" #fileInformeEstudiante accept="application/pdf" (change)="getFileInformeEstudiante($event)">
                 </div>
                 <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaAgregarInformeEstudiante()">
                     Subir informe de práctica

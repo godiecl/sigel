@@ -191,6 +191,12 @@ export class ComisionTitulacionPracticaService {
       })
     );
   }
+  postInformePractica(data: any): Observable <any>{
+    const url= `${this.baseUrl}guardar-informe/informe-estudiante`;
+    return this.http.post(url, data);
+  }
+
+
   downloadInformeEstudiante(file:String){
     var body = {filename:file};
     const url=`${this.baseUrl}download-informe/informe-estudiante`;

@@ -3,6 +3,9 @@ import { ComisionTitulacionPracticaService } from 'src/app/protected/comision-ti
 import Swal from 'sweetalert2';
 import {saveAs} from 'file-saver';
 import { Observable, Subscription } from 'rxjs';
+import { AuthService } from '../../../../auth/services/auth.service';
+import { AdministradorService } from '../../../administrador/services/administrador.service';
+import { Estudiante } from '../../../../auth/interfaces/estudiante.interface';
 
 @Component({
   selector: 'app-upload-informe',
@@ -13,8 +16,21 @@ export class UploadInformeComponent implements OnInit {
   @ViewChild('fileInformeEstudiante') fileInformeEstudiante!:ElementRef;
 
   private fileTmpInformeEstudiante:any;
+  estudiante!: number;
 
-  constructor(private comisionTitulacionPracticaService:ComisionTitulacionPracticaService) { }
+  constructor(
+    private authS: AuthService ,
+    private adminS: AdministradorService ,
+    private comisionTitulacionPracticaService:ComisionTitulacionPracticaService,
+    ) {
+      const usuarioLogId = authS.usuario.id;
+      this.adminS.obtenerEstudiantePorIdUsuario(usuarioLogId).subscribe(
+        (resp)=>{
+          this.estudiante = resp.id_estudiante;
+          console.log(this.estudiante)
+        }
+      )
+   }
 
   ngOnInit(): void {
   }
@@ -43,7 +59,7 @@ export class UploadInformeComponent implements OnInit {
         //
         this.sendFileInformeEstudiante();
         //vaciar 
-        this.fileInformeEstudiante.nativeElement.value = null;
+        // this.fileInformeEstudiante.nativeElement.value = null;
 
       } else if (result.isDenied) {
         Swal.fire('No se ha guardado el contenido', '', 'info')
@@ -52,19 +68,32 @@ export class UploadInformeComponent implements OnInit {
   }
   sendFileInformeEstudiante():void{
     //this.loading=true;
-    const nombre=this.fileTmpInformeEstudiante.fileName;
+    // ALMACENAR EN HDD.
+    const nombre = this.fileTmpInformeEstudiante.fileName.replaceAll(" ","_");
     const body=new FormData();
     body.append('myFile',this.fileTmpInformeEstudiante.fileRaw,this.fileTmpInformeEstudiante.fileName.replaceAll(" ","_"));
-    body.append('author','Camilo');
+   
     // console.log('body tiene:',body);
+    // console.log('nombre del archivo: ', nombre);
     //conexion con backend
     this.comisionTitulacionPracticaService.sendPostInformeEstudiante(body)
     .subscribe((res)=>{
       //this.loading=false;
       // console.log(res)
-      
-      Swal.fire('Se ha agregado el archivo con exito!!', '', 'success')
+      const data = {
+        ruta: nombre,
+        id_estudiante: this.estudiante,
+      }
+      this.comisionTitulacionPracticaService.postInformePractica(data).subscribe((resp)=>{
+        if(resp.ok){
+          Swal.fire('Se ha almacenado el archivo con éxito','','success');
+        }
+      })
     });
+
+    // ALMACENAR EN BDD:
+    
+
     this.fileInformeEstudiante.nativeElement.value = null;
   }
 

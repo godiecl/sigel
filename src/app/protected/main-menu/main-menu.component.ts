@@ -67,6 +67,9 @@ export class MainMenuComponent implements OnInit {
   verSubirInforme(){
     this.router.navigateByUrl('/dashboard/estudiante/upload-informe')
   }
+  verDescargarInforme(){
+    this.router.navigateByUrl('/dashboard/comision-correccion-practica/download-informe')
+  }
 
 }
  

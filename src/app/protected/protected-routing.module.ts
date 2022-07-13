@@ -75,7 +75,6 @@ const routes: Routes = [
       children: [
         {path:'',},
         { path:'upload-informe',component:UploadInformeComponent},
-        { path:'download-informe',component:DownloadInformeComponent},
         {path:'ver-lista-vacantes', component: VerListaVacantesComponent},
         {path:'solicitar-carta-vacante', component: SolicitarCartaVacanteComponent},
         {path: 'ver-publicaciones', component: PublicacionesComponent, 
@@ -129,10 +128,18 @@ const routes: Routes = [
         {path: 'crear-publicacion', component: CrearPublicacionComponent,},
       ]
     },
+      { path:'comision-correccion-practica',
+      // component: DashboardComponent,
+      children: [
+          {path:'',},
+          { path:'download-informe',component:DownloadInformeComponent}, 
+        ]
+      },
     
       { path:'**', redirectTo: ''},
     ]
   },
+  
 
   // {
   //   path:'',
