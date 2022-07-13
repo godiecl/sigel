@@ -17,7 +17,12 @@ export class DownloadInformeComponent implements OnInit {
   constructor(private comisionTitulacionPracticaService:ComisionTitulacionPracticaService) { }
 
   ngOnInit(): void {
-    this.fileInfosInformePractica = this.comisionTitulacionPracticaService.getFilesInformeEstudiante();
+    this.comisionTitulacionPracticaService.getFilesInformeEstudiante().subscribe(
+      (resp)=>{
+        console.log(resp)
+        this.fileInfosInformePractica = resp;
+      }
+    )
     this.suscriptionInformePractica=this.comisionTitulacionPracticaService.refresh$.subscribe(()=>{//refrescar tabla
       this.fileInfosInformePractica = this.comisionTitulacionPracticaService.getFilesInformeEstudiante();
     });
