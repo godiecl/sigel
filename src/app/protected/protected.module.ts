@@ -9,7 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatCommonModule, MatNativeDateModule} from '@angular/material/core';
+import {MatCommonModule, MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
@@ -42,6 +42,7 @@ import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/resp
 import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
 import { VerCartaDialogComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-dialog/ver-carta-dialog.component';
 import {MatDividerModule} from '@angular/material/divider';
+import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/controlar-seguros.component';
 
 
 
@@ -73,6 +74,7 @@ import {MatDividerModule} from '@angular/material/divider';
     ResponderCartaSolicitudComponent,
     VerCartaSolicitudComponent,
     VerCartaDialogComponent,
+    ControlarSegurosComponent,
   ],
   imports: [
     CommonModule,
@@ -94,6 +96,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatNativeDateModule
   ],
   providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'es-CL'},
     MatDatepickerModule,
     MatNativeDateModule
   ]

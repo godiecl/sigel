@@ -81,6 +81,11 @@ export class ResponderCartaSolicitudComponent implements OnInit {
     return false;
   }
 
+  verCarta(id: string){
+    const url = `/dashboard/encargado-empresa/responder-carta-vacante/${id}`
+    this.router.navigateByUrl(url);
+  }
+
   verSolicitud(id: string){
 
     this.encargadoES.getSolicitudCartaVacante(id).subscribe((resp:any)=>{

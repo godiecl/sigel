@@ -138,7 +138,7 @@
                     </ng-container> -->
                 <ng-container matColumnDef="enviarCorreo" >
                 <th mat-header-cell *matHeaderCellDef></th>
-                    <td button  style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button   (click)="enviarCorreo(element.correoEncargado)" > 
+                    <td button  style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button   (click)="enviarCorreo(element.correoEncargado,element.nombreEmpresa)" > 
                         <mat-icon >outgoing_mail</mat-icon>
                         <!-- (click)="verSolicitud(element.id_solicitudEstudiante)" -->
                     </td> 
@@ -147,7 +147,6 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <router-outlet></router-outlet>
         </div>
     <!-- </div> -->
 </div>

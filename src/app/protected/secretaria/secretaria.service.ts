@@ -45,4 +45,19 @@ export class SecretariaService {
     return this.http.patch<any>(url,{})
   }
 
+  getSeguros(): Observable<any>{
+    const url = `${this.baseUrl}seguros`;
+    return this.http.get(url);
+  }
+
+  dejarPendienteSeguro(id_seguro: number): Observable<any>{
+    const url = `${this.baseUrl}pendiente-seguro${id_seguro}`;
+    return this.http.patch<any>(url,{})
+  }
+
+  aprobarSeguro(id_seguro: number): Observable<any>{
+    const url = `${this.baseUrl}aprobar-seguro${id_seguro}`;
+    return this.http.patch<any>(url,{})
+  }
+
 }

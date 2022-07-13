@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class VerCartaDialogComponent implements OnInit {
 
+  now= new Date();
+
   respuestaForm: FormGroup = this.fb.group({
     fechaInicio: [, Validators.required],
     fechaFinal: [, Validators.required],
@@ -26,7 +28,7 @@ export class VerCartaDialogComponent implements OnInit {
   }
 
   verCarta(): void{
-    console.log(this.datos.solicitud.id_solicitudCartaVacante)
+    // console.log(this.datos.solicitud.id_solicitudCartaVacante)
     const url = `/dashboard/encargado-empresa/responder-carta-vacante/${this.datos.solicitud.id_solicitudCartaVacante}`
     this.router.navigateByUrl(url);
     this.dialogRef.close();

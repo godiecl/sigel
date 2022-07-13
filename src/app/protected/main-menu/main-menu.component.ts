@@ -48,12 +48,6 @@ export class MainMenuComponent implements OnInit {
   downloadDocument(){
     this.router.navigateByUrl('/dashboard/download-document')
   }
-  uploadInforme(){
-    this.router.navigateByUrl('/dashboard/upload-informe')
-  }
-  downloadInforme(){
-    this.router.navigateByUrl('/dashboard/download-informe')
-  }
 
   verListaVacantes(){
     this.router.navigateByUrl('/dashboard/estudiante/ver-lista-vacantes')
@@ -66,6 +60,12 @@ export class MainMenuComponent implements OnInit {
   }
   responderCartaVacante(){
     this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
+  }
+  verControlarSeguros(){
+    this.router.navigateByUrl('/dashboard/secretaria/controlar-seguros')
+  }
+  verSubirInforme(){
+    this.router.navigateByUrl('/dashboard/estudiante/upload-informe')
   }
 
 }

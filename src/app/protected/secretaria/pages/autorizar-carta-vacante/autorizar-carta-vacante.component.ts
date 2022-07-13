@@ -91,13 +91,13 @@ export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
 
   
 
-  enviarCorreo(correoEncargado: string){
+  enviarCorreo(correoEncargado: string, nombreEmpresa: string){
     // console.log(correoEncargado)
 
     // FUNCION QUE ENVIE CORREO AL ENCARGADO QUE SE LE HAYA HECHO CLICK
     // PETICION POST ENVIANDO ID DEL CORREO ENCARGADO.
     Swal.fire({
-      title: `¿Está seguro de enviar el correo? <br> El correo del contacto es: ${correoEncargado}`,
+      title: `¿Está seguro de enviar el correo a la empresa ${nombreEmpresa}?  <br> El correo del contacto es: ${correoEncargado}`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Si',

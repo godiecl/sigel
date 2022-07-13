@@ -27,6 +27,7 @@ import { DownloadInformeComponent } from './comision-correccion-practica/pages/d
 import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/responder-carta-solicitud.component';
 import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
 import { ResponderCartaVacanteResolver } from './encargado-empresa/encargado-empresa.resolver';
+import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/controlar-seguros.component';
 
 
 const routes: Routes = [
@@ -69,12 +70,12 @@ const routes: Routes = [
           
         ]
       },
-      { path:'upload-informe',component:UploadInformeComponent},
-      { path:'download-informe',component:DownloadInformeComponent},
       { path:'estudiante',
       // component: DashboardComponent,
       children: [
         {path:'',},
+        { path:'upload-informe',component:UploadInformeComponent},
+        { path:'download-informe',component:DownloadInformeComponent},
         {path:'ver-lista-vacantes', component: VerListaVacantesComponent},
         {path:'solicitar-carta-vacante', component: SolicitarCartaVacanteComponent},
         {path: 'ver-publicaciones', component: PublicacionesComponent, 
@@ -93,6 +94,7 @@ const routes: Routes = [
       // component: DashboardComponent,
       children: [
         {path:'',},
+        {path:'controlar-seguros', component: ControlarSegurosComponent},
         {path:'autorizar-carta-vacante', component: AutorizarCartaVacanteComponent},
       
       ]

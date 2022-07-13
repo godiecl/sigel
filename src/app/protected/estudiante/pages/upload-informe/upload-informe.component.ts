@@ -45,7 +45,6 @@ export class UploadInformeComponent implements OnInit {
         //vaciar 
         this.fileInformeEstudiante.nativeElement.value = null;
 
-        Swal.fire('Se ha agregado el archivo con exito!!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('No se ha guardado el contenido', '', 'info')
       }
@@ -63,6 +62,8 @@ export class UploadInformeComponent implements OnInit {
     .subscribe((res)=>{
       //this.loading=false;
       // console.log(res)
+      
+      Swal.fire('Se ha agregado el archivo con exito!!', '', 'success')
     });
     this.fileInformeEstudiante.nativeElement.value = null;
   }

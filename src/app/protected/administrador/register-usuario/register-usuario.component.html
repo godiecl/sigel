@@ -166,6 +166,7 @@
                         placeholder="Ingrese correo personal"
                         formControlName="correoPersonal">
                         <span class="focus-input100"></span>
+                        
                     </div>
                     
         
@@ -195,13 +196,19 @@
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
                         <span class="label-input100" style="font-size: 25px;">Teléfono</span>
                         <input class="input100" style="font-size: 20px;"
+                        type="tel" pattern="[0-9]{9}"
                         placeholder="Ingrese teléfono"
                         formControlName="telefono">
                         <span class="focus-input100"></span>
+                        <div class="text-danger" *ngIf="usuarioForm.get('telefono')?.invalid">
+                            El formato es inválido.
+                        </div>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC || mostrarAtributosProfesorGuiaCP">
                         <span class="label-input100" style="font-size: 25px;">Teléfono</span>
                         <input class="input100" style="font-size: 20px;"
+                        minlength="9"
+                        maxlength="15"
                         placeholder="Ingrese teléfono"
                         formControlName="telefonoCC">
                         <span class="focus-input100"></span>

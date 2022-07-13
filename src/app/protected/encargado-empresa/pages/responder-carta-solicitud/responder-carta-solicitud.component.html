@@ -106,7 +106,17 @@
                 <ng-container matColumnDef="enviarCorreo" >
                 <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element"> 
-                        <button mat-raised-button color="warn" (click)="verSolicitud(element.id_solicitudCartaVacante)" >Responder</button>
+                        <div *ngIf="element.estadoRespuesta === 'pendiente' " >
+                            <button 
+                            mat-raised-button color="warn" 
+                            (click)="verSolicitud(element.id_solicitudCartaVacante)" >Responder</button>
+
+                        </div>
+                        <div *ngIf="element.estadoRespuesta === 'completada' " >
+                            <button 
+                            mat-raised-button color="primary" 
+                            (click)="verCarta(element.id_solicitudCartaVacante)" >Ver carta</button>
+                        </div>
                         <!-- (click)="verSolicitud(element.id_solicitudEstudiante)" -->
                     </td> 
                 </ng-container>
