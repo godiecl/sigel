@@ -4,7 +4,8 @@ import { Empresa } from "../../models/Empresa.js";
 import { Estudiante } from "../../models/Estudiante.js";
 import { EncargadoEmpresa } from "../../models/EncargadoEmpresa.js";
 import { Usuario } from "../../models/Usuario.js";
-import {transporter} from '../../middlewares/mailer.js'
+import {transporter} from '../../middlewares/mailer.js';
+import { Seguro } from "../../models/documentos/Seguro.js";
 
 export const createSolicitudCartaVacante = async (req, res) =>{
 
@@ -166,7 +167,25 @@ export const responderSolicitudCartaVacante = async (req, res) => {
     solicitud.estadoRespuesta = 'completada'
     solicitud.save();
 
-    res.json({ok: true, msg: 'Se ha actualizado la carta.'})
+    const seguro = await Seguro.findOne({
+        where: {
+            id_estudiante: solicitud.id_estudiante
+        }
+    })
+
+    if(seguro){
+        return res.status(400).json({
+            ok: false,
+            msg: 'No se pudo registrar este seguro, debido a que ese estudiante ya tiene.'
+        })
+    }
+
+    const newSeguro = await Seguro.create({
+        id_estudiante: solicitud.id_estudiante,
+        estado: 'pendiente',
+    })
+
+    res.json({ok: true, msg: 'Se ha respondido la carta y se ha creado el seguro.'})
     } catch (error) {
         res.json({ok: false, msg: error.message})
     }

@@ -22,6 +22,7 @@ import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstud
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
 import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante, responderSolicitudCartaVacante, verSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
+import { autorizarSeguro, dejarPendienteSeguro, getSeguros } from '../controllers/documentos/seguro.controller.js';
 
 const router = Router();
 
@@ -195,6 +196,10 @@ router.patch('/pendiente-solicitud-carta-vacante:id', dejarPendienteSolicitudCar
 router.get('/lista-responder-carta-vacante:id', getListaResponderCartaVacante)
 router.patch('/solicitud-carta-vacantes:id', responderSolicitudCartaVacante)
 
+// Seguros
+router.get('/seguros', getSeguros );
+router.patch('/aprobar-seguro:id', autorizarSeguro);
+router.patch('/pendiente-seguro:id', dejarPendienteSeguro)
 
 //INFORME
 //subir informe de práctica estudiante
