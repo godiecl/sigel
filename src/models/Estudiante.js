@@ -31,8 +31,9 @@ export const Estudiante = sequelize.define('estudiantes',{
         type: DataTypes.BOOLEAN,
         defaultValue: false
     },
-    id_CCpractica: {
-        type: DataTypes.INTEGER
+    estadoDisponibleCC: {
+        type: DataTypes.STRING,
+        defaultValue: "disponible"
     },
     id_preinscripcionCP: {
         type: DataTypes.INTEGER

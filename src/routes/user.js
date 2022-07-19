@@ -6,12 +6,12 @@ import util from 'util';
 import fs from 'fs';
 
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
-import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
+import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, getEstudiantes, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
 import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.js';
 import { createProfesorGuiaCP, deleteProfesorGuiaCPPorIdUsuario, getProfesorGuiaCPPorIdUsuario, updateProfesorGuiaPorId } from '../controllers/profesorGuiaCP.controller.js';
-import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
+import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, getProfesoresCC, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
 import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '../controllers/encargadoPractica.controller.js';
 import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresa, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, getComisionPorId, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
@@ -23,6 +23,7 @@ import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones,
 import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante, responderSolicitudCartaVacante, verSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
 import { autorizarSeguro, dejarPendienteSeguro, getSeguros } from '../controllers/documentos/seguro.controller.js';
 import { createInforme } from '../controllers/documentos/informePractica.controller.js';
+import { createComisionCorreccion, deleteComision, getListaComisiones } from '../controllers/comisionCorrecion.controller.js';
 
 const router = Router();
 
@@ -78,12 +79,14 @@ router.get('/estudiantes/:id', getEstudiantePorId);
 // router.delete('/estudiantes:id', deleteEstudiante);
 router.patch('/estudiantes', updateEstudiantePorId);
 router.delete('/estudiantes:id', deleteEstudiantePorIdUsuario);
+router.get('/estudiantes', getEstudiantes);
 
 // ProfesorCC
 router.post('/profesorCCs', createProfesorComisionCorreccion)
 router.get('/profesorCCs/:id', getProfesorCCPorIdUsuario);
 router.patch('/profesorCCs', updateProfesorCCPorId);
 router.delete('/profesorCCs:id', deleteProfesorCCPorIdUsuario);
+router.get('/profesoresCC', getProfesoresCC);
 
 
 // ProfesorGuiaCP
@@ -217,7 +220,7 @@ router.post('/upload-informe/informe-estudiante',uploadInformeEstudiante.single(
 });
 router.post('/guardar-informe/informe-estudiante', createInforme)
 //ver informes de práctica estudiante
-router.get('/get-informe/informe-estudiante', getListFilesInformeEstudiante);
+router.get('/get-informe/informe-estudiante/:id', getListFilesInformeEstudiante);
 //descargar informe de práctica estudiante
 router.post('/download-informe/informe-estudiante',downloadInformeEstudiante);
 //Eliminar informe de práctica estudiante
@@ -232,6 +235,11 @@ router.post('/correo-carta-vacante', enviarCorreoCartaVacantePendiente )
 router.patch('/aprobar-solicitud-carta-vacante:id', autorizarSolicitudCartaVacante)
 router.patch('/reprobar-solicitud-carta-vacante:id', reprobarSolicitudCartaVacante)
 router.patch('/pendiente-solicitud-carta-vacante:id', dejarPendienteSolicitudCartaVacante)
+
+// comision de correccion de práctica
+router.post('/crear-cc-practica', createComisionCorreccion);
+router.get('/comision-correccion/lista', getListaComisiones)
+router.delete('/comision-correccion/lista/eliminar:id', deleteComision)
 
 
 export default router;

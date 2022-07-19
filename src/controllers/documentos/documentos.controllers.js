@@ -2,6 +2,9 @@ import multer from "multer";
 import util from 'util';
 import fs from 'fs';
 import { InformePractica } from "../../models/documentos/InformePractica.js";
+import { ProfesorComisionCorrecion } from "../../models/ProfesorComisionCorreccion.js";
+import { Usuario } from "../../models/Usuario.js";
+import { Estudiante } from "../../models/Estudiante.js";
 
 //Contenido practica
 export const storagePractica = multer.diskStorage({
@@ -55,13 +58,19 @@ export const getListFilesDocPE = (req, res) => {
           message: "Unable to scan files!",
         });
       }
-      let fileInfos = [];
+      try {
+        let fileInfos = [];
       files.forEach((file) => {
         fileInfos.push({
           name: file
         });
       });
-      res.status(200).send(fileInfos);
+      console.log(fileInfos)
+      res.status(200).send({ok: true, fileInfos: fileInfos});
+      } catch (error) {
+        res.json({ok: false, msg: error.msg})
+      }
+      
     });
   };
 
@@ -272,21 +281,64 @@ export const storageInformePractica = multer.diskStorage({
 });
 
 //ver archivos de carpeta Capstone estudiante
-export const getListFilesInformeEstudiante = (req, res) => {
+export const getListFilesInformeEstudiante = async (req, res) => {
+  console.log('req params', req.params)
+  const id = req.params.id;
   const directoryPath = "./documentos/informe-practica";
-  fs.readdir(directoryPath, function (err, files) {
+  const informes = await InformePractica.findAll();
+  let informesArr = [];
+  let profesoresArr = [];
+  let datos = [];
+
+  const profesores = await ProfesorComisionCorrecion.findAll(
+    {where: {
+      id_comisionCorreccion: id
+    }}
+  )
+
+  for(let x = 0 ; x < profesores.length; x ++){
+
+    let usuarioProfe = await Usuario.findByPk(profesores[x].id_usuario);
+
+    profesoresArr.push({
+      nombre: usuarioProfe.nombre,
+      apellidop: usuarioProfe.apellidop,
+      apellidom: usuarioProfe.apellidom
+    })
+  }
+  
+  fs.readdir(directoryPath, async function (err, files) {
     if (err) {
       res.status(500).send({
         message: "Unable to scan files!",
       });
     }
-    let fileInfos = [];
-    files.forEach((file) => {
-      fileInfos.push({
-        name: file
-      });
-    });
-    res.status(200).send(fileInfos);
+    // let fileInfos = [];
+    for(let i =0; i < informes.length ; i++){
+      
+      let estudiante = await Estudiante.findByPk(informes[i].id_estudiante)
+      let usuarioEstudiante = await Usuario.findByPk(estudiante.id_usuario)
+    // files.forEach((file) => {
+    //   console.log('vuelta', informes.length)
+      informesArr.push({
+        nombre: files[i],
+        ruta: files[i].ruta,
+        notaEvaluador1: informes[i].notaEvaluador1,
+        notaEvaluador2: informes[i].notaEvaluador2,
+        notaFinal: informes[i].notaFinal,
+        id_estudiante: informes[i].id_estudiante,
+        nombreEstudiante: usuarioEstudiante.nombre,
+        apellidopEstudiante: usuarioEstudiante.apellidop,
+        apellidomEstudiante: usuarioEstudiante.apellidom,
+        rutEstudiante: usuarioEstudiante.rut,
+      })
+    // });
+    }
+
+    datos.push({profesores: profesoresArr, informes: informesArr })
+
+    // data.push({informes: informes, fileInfos: fileInfos })
+    res.status(200).json(datos);
   });
 };
 
@@ -297,18 +349,28 @@ export const downloadInformeEstudiante=(req,res,next)=>{
 }
 
 //eliminar documentos Capstone estudiantes
-export const deleteFileInformeEstudiante=(req,res)=>{
+export const deleteFileInformeEstudiante = async (req,res)=>{
   const directoryPath = "./documentos/informe-practica";
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
       res.status(500).send({
+        ok:false,
         message: "Unable to scan files!",
       });
     }
-    fs.unlink('./documentos/informe-practica/'+req.body.filename,(err)=>{
+    fs.unlink('./documentos/informe-practica/'+req.body.filename,async (err)=>{
+
       if(err){
           // console.log(err);
       }
+      let rutaBorrar = './documentos/informe-practica/'+req.body.filename
+      const borrar = await InformePractica.findOne({
+        where:{
+          ruta: rutaBorrar
+        }
+      })
+      await borrar.destroy();
+      res.status(200).json({ok: true})
     });
   });
 } 

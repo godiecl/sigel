@@ -90,6 +90,8 @@ export const getListaCartaVacantes = async (req, res) => {
          datos.push({
             id_solicitudEstudiante: solicitudes[i].id_solicitudEstudiante,
             id_solicitudCartaVacante: solicitudes[i].id_solicitudCartaVacante,
+            periodoRealizar: solicitudes[i].periodoRealizar,
+            anioRealizar: solicitudes[i].anioRealizar,
             estado: solicitudes[i].estado,
             nombreEmpresa: empresa.nombreEmpresa, 
             rutEmpresa: empresa.rutEmpresa,
@@ -295,7 +297,7 @@ export const getListaResponderCartaVacante = async (req, res)=>{
     })
 
     // // console.log('------------------------------------------')
-    // // console.log(solicitudes)
+    // console.log('lol ',solicitudes)
 
     let datos = [];
 
@@ -309,27 +311,35 @@ export const getListaResponderCartaVacante = async (req, res)=>{
         })
         // console.log('solicitudes carta vacante: ', solicitud);
 
-        const estudiante = await Estudiante.findByPk(solicitud[0].id_estudiante);
         
+
+        
+
+        for(let j=0; j< solicitud.length; j++){
+            const estudiante = await Estudiante.findByPk(solicitud[j].id_estudiante);
+            const usuarioEstudiante = await Usuario.findOne({
+                where: {
+                    id: estudiante.id_usuario
+                }
+            })
+            
+             datos.push({
+                id_solicitudCartaVacante: solicitud[j].id_solicitudCartaVacante,
+                nombreProyecto: solicitudes[i].nombreProyecto,
+                periodoRealizar: solicitud[j].periodoRealizar,
+                anioRealizar: solicitud[j].anioRealizar,
+                estadoRespuesta: solicitud[j].estadoRespuesta,
+                nombreEstudiante: usuarioEstudiante.nombre,
+                apellidopEstudiante: usuarioEstudiante.apellidop,
+                apellidomEstudiante: usuarioEstudiante.apellidom,
+            })
+        }
+        
+        // console.log('estudiante', estudiante)
 
         // // // console.log('HOLA ')
 
-        const usuarioEstudiante = await Usuario.findOne({
-            where: {
-                id: estudiante.id_usuario
-            }
-        })
         
-         datos.push({
-            id_solicitudCartaVacante: solicitud[0].id_solicitudCartaVacante,
-            nombreProyecto: solicitudes[i].nombreProyecto,
-            periodoRealizar: solicitud[0].periodoRealizar,
-            anioRealizar: solicitud[0].anioRealizar,
-            estadoRespuesta: solicitud[0].estadoRespuesta,
-            nombreEstudiante: usuarioEstudiante.nombre,
-            apellidopEstudiante: usuarioEstudiante.apellidop,
-            apellidomEstudiante: usuarioEstudiante.apellidom,
-        })
     }
 
     // console.log(datos)

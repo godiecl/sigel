@@ -1,4 +1,5 @@
 import { Estudiante } from '../models/Estudiante.js'
+import { Usuario } from '../models/Usuario.js';
 
 export const createEstudiante = async (request, response) => {
 
@@ -164,6 +165,34 @@ export const deleteEstudiantePorIdUsuario = async (req, res) =>{
     
   } catch (error) {
     return res.status(500).json({message: error.message})
+  }
+
+}
+
+export const getEstudiantes = async (req,res) =>{
+
+  try {
+    const estudiantes = await Estudiante.findAll();
+
+    let data = [];
+
+    for(let x=0; x<estudiantes.length; x++){
+
+      const usuarioEstudiante = await Usuario.findByPk(estudiantes[x].id_usuario);
+
+      data.push({
+        id_estudiante: estudiantes[x].id_estudiante,
+        nombreEstudiante: usuarioEstudiante.nombre,
+        apellidop: usuarioEstudiante.apellidop,
+        apellidom: usuarioEstudiante.apellidom,
+        estadoEstudiante: estudiantes[x].estadoDisponibleCC,
+      })
+    }
+
+    return res.json(data)
+    
+  } catch (error) {
+    return res.status(500).json({ok:false, msg: error.msg})
   }
 
 }
