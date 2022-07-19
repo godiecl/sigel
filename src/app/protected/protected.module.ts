@@ -14,6 +14,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
+import {MatSortModule} from '@angular/material/sort';
+import {MatDividerModule} from '@angular/material/divider';
 
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -35,7 +37,6 @@ import { EditarPublicacionComponent } from './comision-titulacion-practica/pages
 import { EliminarPublicacionComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/eliminar-publicacion/eliminar-publicacion.component';
 import { VerPublicacionCTComponent } from './comision-titulacion-practica/pages/publicaciones/ver-publicacion/ver-publicacion.component';
 import { VerPublicacionComponent } from './estudiante/pages/publicaciones/ver-publicacion/ver-publicacion.component';
-import {MatDividerModule} from '@angular/material/divider';
 import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/responder-carta-solicitud.component';
 import { VerCartaDialogComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-dialog/ver-carta-dialog.component';
 import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
@@ -43,6 +44,10 @@ import { SolicitarCartaVacanteComponent } from './estudiante/pages/solicitar-car
 import { VerListaVacantesComponent } from './estudiante/pages/ver-lista-vacantes/ver-lista-vacantes.component';
 import { AutorizarCartaVacanteComponent } from './secretaria/pages/autorizar-carta-vacante/autorizar-carta-vacante.component';
 import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/controlar-seguros.component';
+import { UploadInformeComponent } from './estudiante/pages/upload-informe/upload-informe.component';
+import { DownloadInformeComponent } from './comision-correccion-practica/pages/download-informe/download-informe.component';
+import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
+import { AsignarProfesoresCcComponent } from './comision-titulacion-practica/pages/create-comision-correccion/asignar-profesores-cc/asignar-profesores-cc.component';
 
 
 
@@ -74,7 +79,11 @@ import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/
     ResponderCartaSolicitudComponent,
     VerCartaSolicitudComponent,
     VerCartaDialogComponent,
+    CreateComisionCorreccionComponent,
     ControlarSegurosComponent,
+    UploadInformeComponent,
+    DownloadInformeComponent,
+    AsignarProfesoresCcComponent,
   ],
   imports: [
     CommonModule,
@@ -89,6 +98,7 @@ import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/
     MatInputModule,
     MatIconModule,
     MatSelectModule,
+    MatSortModule,
     MatTableModule,
     MatButtonModule,
     MatDialogModule,

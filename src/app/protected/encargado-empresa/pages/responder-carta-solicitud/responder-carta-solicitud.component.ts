@@ -23,7 +23,6 @@ export class ResponderCartaSolicitudComponent implements OnInit {
   empresaLog!: Empresa;
   listaResponder!: [];
   displayedColumns!: string[];
-
   estados: string []= ['pendiente', 'aprobado', 'reprobado'];
 
   constructor(
@@ -111,7 +110,7 @@ export class ResponderCartaSolicitudComponent implements OnInit {
                     return obj.id_solicitudCartaVacante === id;
                   })
                   actualizar.estadoRespuesta === 'completado';
-                  console.log('solicitud completada:',actualizar)
+                  // console.log('solicitud completada:',actualizar)
                   this.cdr.detectChanges();
 
                 }else{

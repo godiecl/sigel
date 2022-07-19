@@ -5,32 +5,145 @@
             <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
             <li style="color:white; font-size: 18px;">></li>
             <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
-            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Descargar Informes de Práctica</li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Evaluar Informes de Práctica</li>
         </ul>
     </nav>
 </div>
 <div class="row">
     <div class="col flex-col-c">
-        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
-            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
-                Descargar informes de práctica
-            </span>
-            
-            <div class="card-header" style="font-size: 25px;">Lista de Informes</div>
-            <div class="scrollbar" style="overflow-y: auto; height: 400px;">
-                <ul
-                    class="list-group list-group-flush"
-                    *ngFor="let file of fileInfosInformePractica | async">
-                    <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
-                        <button style="font-size: 17px;" (click)="downloadInformePractica(file.name)">{{ file.name }}</button>
-                        <div>
-                            <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadInformePractica(file.name)">Descargar</button>
-                            <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarInformePractica(file.name)">Eliminar</button>
-                        </div>
-                    
-                    </li>
-                </ul>
-            </div>
+        <div *ngIf="!fileInfosInformePractica">
+            <span class="text-danger" > No se han conformado o no perteneces a una comisión de corrección </span>     
         </div>
+        <div *ngIf="fileInfosInformePractica">
+            <table  
+            mat-table 
+            [dataSource]="fileInfosInformePractica" 
+            
+            class="mat-elevation-z8 ">
+        
+                <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+                <!-- Name Column -->
+                <!-- Weight Column  -->
+
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="nombreEstudiante">
+                    <th mat-header-cell *matHeaderCellDef> NOMBRE ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        {{ element.nombreEstudiante | titlecase }} {{ element.apellidopEstudiante | titlecase }} {{ element.apellidomEstudiante | titlecase }}
+                         </td>
+                </ng-container>  
+
+                <ng-container matColumnDef="rutEstudiante">
+                    <th mat-header-cell *matHeaderCellDef> RUT ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        {{ element.rutEstudiante }}
+                    </td>
+                </ng-container>  
+
+                <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> INFORME </th>
+                <td mat-cell *matCellDef="let element"> 
+                    <a style="cursor: pointer; color: blue; " (click)="downloadInformePractica(element.nombre)"> <u> {{element.nombre  | uppercase }} </u> </a> 
+                     </td>
+                </ng-container>  
+
+
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="notaEvaluador1">
+                    <div *ngIf="profesores === null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR </th> 
+                    </div>
+                    <div *ngIf="profesores !== null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR: <br> {{profesores[0].nombre}} {{profesores[0].apellidop}} {{profesores[0].apellidom}} </th> 
+                    </div>
+                <td mat-cell *matCellDef="let element"> 
+                    <div style="display: flex; flex-direction: column-reverse; " *ngIf="element.notaEvaluador1 === null" >
+                        <input type="number" placeholder="Pendiente">
+                    </div>
+                    <div *ngIf="element.notaEvaluador1 !== null">
+                        {{element.notaEvaluador1 | uppercase}} 
+                    </div>
+                </td>
+                </ng-container>
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="notaEvaluador2">
+                    <div *ngIf="profesores === null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR </th> 
+                    </div>
+                    <div *ngIf="profesores !== null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR: <br> {{profesores[1].nombre}} {{profesores[1].apellidop}} {{profesores[1].apellidom}}</th> 
+                    </div>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.notaEvaluador2 === null" >
+                            <input type="number" placeholder="Pendiente">
+                        </div>
+                        <div *ngIf="element.notaEvaluador2 !== null">
+                            {{element.notaEvaluador2 }} 
+                        </div>
+                    </td>
+                    </ng-container>
+    
+                    <!-- Weight Column  -->
+                <ng-container matColumnDef="notaFinal">
+                    <th mat-header-cell *matHeaderCellDef> NOTA FINAL </th> 
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.notaFinal === null" >
+                            Pendiente
+                        </div>
+                        <div *ngIf="element.notaFinal !== null">
+                            {{element.notaFinal | uppercase}} 
+                        </div>
+                    </td>
+                    </ng-container>
+    
+
+                
+
+                <ng-container matColumnDef="descargar">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <!-- <mat-label> {{ element.estado }} </mat-label> -->
+                        <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
+                        <button mat-raised-button color="warn" (click)="downloadInformePractica(element.nombre)" > Descargar </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="evaluar">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <!-- <mat-label> {{ element.estado }} </mat-label> -->
+                        <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
+                        <button mat-raised-button color="warn" > Guardar nota </button>
+                    </td>
+                </ng-container>
+            
+                <!-- <ng-container matColumnDef="enviarCorreo" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.estadoRespuesta === 'pendiente' " >
+                            <button 
+                            mat-raised-button color="warn" 
+                             >Responder</button>
+
+                        </div>
+                        <div *ngIf="element.estadoRespuesta === 'completada' " >
+                            <button 
+                            mat-raised-button color="primary" 
+                             >Ver carta</button>
+                        </div>
+                        (click)="verSolicitud(element.id_solicitudEstudiante)"
+                 </td> 
+                </ng-container> -->
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <!-- </div> -->
     </div>
 </div>

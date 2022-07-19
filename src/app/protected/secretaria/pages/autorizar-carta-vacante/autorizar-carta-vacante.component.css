@@ -82,8 +82,20 @@ nav a:hover{
     text-align: center;
 }
 
-.mat-column-estado {
+.mat-column-periodoRealizar {
     width: 32px;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-anioRealizar {
+    width: 32px;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-estado {
+    width: 20px;
     padding-right: 24px;
     text-align: center;
 }

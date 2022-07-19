@@ -36,7 +36,7 @@ export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
           this.solicitudesCartaVacante = solicitudes;
           this.displayedColumns = ['nombreEmpresa','rutEmpresa', 'giroEmpresa', 
           'nombreProyecto', 'cargoEncargado','nombreEncargado', 'telefonoEncargado',
-          'rutEstudiante','nombreEstudiante', 'estado', 'enviarCorreo',  ]
+          'rutEstudiante','nombreEstudiante', 'periodoRealizar','anioRealizar' ,'estado', 'enviarCorreo',  ]
         })
 
   }

@@ -28,6 +28,8 @@ import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/resp
 import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
 import { ResponderCartaVacanteResolver } from './encargado-empresa/encargado-empresa.resolver';
 import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/controlar-seguros.component';
+import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
+import { AsignarProfesoresCcComponent } from './comision-titulacion-practica/pages/create-comision-correccion/asignar-profesores-cc/asignar-profesores-cc.component';
 
 
 const routes: Routes = [
@@ -126,6 +128,8 @@ const routes: Routes = [
           ]  
         },
         {path: 'crear-publicacion', component: CrearPublicacionComponent,},
+        {path: 'crear-comision-correccion', component: CreateComisionCorreccionComponent,},
+        {path: 'asignar-comision-correccion', component: AsignarProfesoresCcComponent,},
       ]
     },
       { path:'comision-correccion-practica',

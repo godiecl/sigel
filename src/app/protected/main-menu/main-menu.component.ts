@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
+import { UsuarioLog } from '../../auth/interfaces/usuarioLog.interface';
 
 @Component({
   selector: 'app-main-menu',
@@ -9,8 +10,39 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class MainMenuComponent implements OnInit {
 
+  usuarioLog!: UsuarioLog;
+  esAdmin: boolean = false;
+  esEncargadoDePractica: boolean = false;
+  esComisionTitulacionPractica: boolean = false;
+  esEstudiante: boolean = false;
+  esEncargadoEmpresa: boolean = false;
+  esSecretaria: boolean = false;
+  esProfesorCC: boolean = false;
+  
   constructor(private router: Router, private authS: AuthService) {
-    
+    this.usuarioLog = this.authS.usuario
+    if(this.usuarioLog.roles?.includes('Administrador')){
+      this.esAdmin = true;
+    }
+    if(this.usuarioLog.roles?.includes('EncargadoPracticaTitulacion')){
+      this.esEncargadoDePractica = true;
+    }
+    if(this.usuarioLog.roles?.includes('ComisionTitulacionPractica')){
+      this.esComisionTitulacionPractica = true;
+    }
+    if(this.usuarioLog.roles?.includes('Estudiante')){
+      this.esEstudiante = true;
+    }
+    if(this.usuarioLog.roles?.includes('EncargadoEmpresa')){
+      this.esEncargadoEmpresa = true;
+    }
+    if(this.usuarioLog.roles?.includes('AsistenteAcademica')){
+      this.esSecretaria = true;
+    }
+    if(this.usuarioLog.roles?.includes('ProfesorCC')){
+      this.esProfesorCC = true;
+    }
+
    }
 
   ngOnInit(): void {
@@ -69,6 +101,10 @@ export class MainMenuComponent implements OnInit {
   }
   verDescargarInforme(){
     this.router.navigateByUrl('/dashboard/comision-correccion-practica/download-informe')
+  }
+
+  verConformarCC(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/crear-comision-correccion')
   }
 
 }

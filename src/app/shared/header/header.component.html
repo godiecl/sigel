@@ -9,7 +9,11 @@
     </div>
     <div id="login1" class="log">
         <img class="iconlog" src="./assets/images/icons/log.png" width="90px">
-        <a class="boton-logout m-1-23" routerLink="/dashboard/main-menu">
+        <div *ngIf="(isLogged$ | async)">
+            <span class="boton-logout m-1-23" >{{ usuarioLogeado?.nombre }} {{ usuarioLogeado?.apellidop }} {{ usuarioLogeado?.apellidom }}</span>
+            
+        </div>
+        <a class="boton-logout m-1-23" routerLink="/dashboard/main-menu" *ngIf="!isRoute('/home') && !isRoute('/dashboard/main-menu') && !isRoute('/auth/login')">
             Menú principal
         </a>
         <a class="boton-logout m-1-23" routerLink="/auth/login" *ngIf="isRoute('/home')">
