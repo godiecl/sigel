@@ -17,6 +17,7 @@ export class UploadInformeComponent implements OnInit {
 
   private fileTmpInformeEstudiante:any;
   estudiante!: number;
+  hayArchivo: boolean = false;
 
   constructor(
     private authS: AuthService ,
@@ -40,6 +41,7 @@ export class UploadInformeComponent implements OnInit {
       fileRaw:file,
       fileName:file.name
     }
+    this.hayArchivo = true;
   }
   alertaAgregarInformeEstudiante():void{
     Swal.fire({
@@ -57,7 +59,13 @@ export class UploadInformeComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         //
-        this.sendFileInformeEstudiante();
+        if(this.hayArchivo){
+          this.sendFileInformeEstudiante();
+        }else{
+          Swal.fire('No ha seleccionado ningún archivo','','warning')
+          return
+        }
+        
         //vaciar 
         // this.fileInformeEstudiante.nativeElement.value = null;
 

@@ -22,7 +22,7 @@
                 <div id="fileSelector">
                     <input class="form-control" style="font-size: 20px;" type="file" #fileInformeEstudiante accept="application/pdf" (change)="getFileInformeEstudiante($event)">
                 </div>
-                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaAgregarInformeEstudiante()">
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" [disabled]="!fileInformeEstudiante" (click)="alertaAgregarInformeEstudiante()">
                     Subir informe de práctica
                 </button>
             </div>

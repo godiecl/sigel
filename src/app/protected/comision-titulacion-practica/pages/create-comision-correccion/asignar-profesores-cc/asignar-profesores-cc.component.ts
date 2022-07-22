@@ -117,27 +117,39 @@ export class AsignarProfesoresCcComponent implements OnInit, OnDestroy, AfterVie
       return;
     }
 
-    if(estudiantesPorAsignar.length < 4){
-      Swal.fire('Seleccione entre 4 y 6 estudiantes.','','warning')
+    if(estudiantesPorAsignar.length < 1){
+      Swal.fire('Seleccione entre 1 y 10 estudiantes.','','warning')
       return;
     }
 
-    if(estudiantesPorAsignar.length > 6){
-      Swal.fire('Seleccione entre 4 y 6 estudiantes.','','warning')
+    if(estudiantesPorAsignar.length > 10){
+      Swal.fire('Seleccione entre 1 y 10 estudiantes.','','warning')
       return;
     }
 
-    if(estudiantesPorAsignar.length === 4){
+    // if(estudiantesPorAsignar.length === 4){
+      let estudiantes: string = 'Estudiantes: <br>';
+      let estudiante: string;
+      for(let i = 0; i < estudiantesPorAsignar.length; i ++){
+        estudiante = `<b>${estudiantesPorAsignar[i].nombreEstudiante} ${estudiantesPorAsignar[i].apellidop} ${estudiantesPorAsignar[i].apellidom} </b> <br>`
+        estudiantes = estudiantes + estudiante 
+      }
+
+      const mensaje  = `¿Está seguro de querer conformar esta comisión de corrección? <br>
+      Profesores: 
+      <b>${profesoresPorAsignar[0].nombre} ${profesoresPorAsignar[0].apellidop} ${profesoresPorAsignar[0].apellidom} </b> y
+      <b>${profesoresPorAsignar[1].nombre} ${profesoresPorAsignar[1].apellidop} ${profesoresPorAsignar[1].apellidom} </b>
+      `;
+      const alerta = mensaje + estudiantes;
+      
+      // Estudiantes:
+      // <b>${estudiantesPorAsignar[0].nombreEstudiante} ${estudiantesPorAsignar[0].apellidop} ${estudiantesPorAsignar[0].apellidom} </b>
+      // <b>${estudiantesPorAsignar[1].nombreEstudiante} ${estudiantesPorAsignar[1].apellidop} ${estudiantesPorAsignar[1].apellidom} </b>
+      // <b>${estudiantesPorAsignar[2].nombreEstudiante} ${estudiantesPorAsignar[2].apellidop} ${estudiantesPorAsignar[2].apellidom} </b>
+      // <b>${estudiantesPorAsignar[3].nombreEstudiante} ${estudiantesPorAsignar[3].apellidop} ${estudiantesPorAsignar[3].apellidom} </b>
+
       Swal.fire({
-        title: `Profesores: 
-        <b>${profesoresPorAsignar[0].nombre} ${profesoresPorAsignar[0].apellidop} ${profesoresPorAsignar[0].apellidom} </b> y
-        <b>${profesoresPorAsignar[1].nombre} ${profesoresPorAsignar[1].apellidop} ${profesoresPorAsignar[1].apellidom} </b>
-        Estudiantes:
-        <b>${estudiantesPorAsignar[0].nombreEstudiante} ${estudiantesPorAsignar[0].apellidop} ${estudiantesPorAsignar[0].apellidom} </b>
-        <b>${estudiantesPorAsignar[1].nombreEstudiante} ${estudiantesPorAsignar[1].apellidop} ${estudiantesPorAsignar[1].apellidom} </b>
-        <b>${estudiantesPorAsignar[2].nombreEstudiante} ${estudiantesPorAsignar[2].apellidop} ${estudiantesPorAsignar[2].apellidom} </b>
-        <b>${estudiantesPorAsignar[3].nombreEstudiante} ${estudiantesPorAsignar[3].apellidop} ${estudiantesPorAsignar[3].apellidom} </b>
-        ¿Está seguro de querer conformar esta comisión de corrección?`,
+        title: alerta,
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Si',
@@ -170,99 +182,99 @@ export class AsignarProfesoresCcComponent implements OnInit, OnDestroy, AfterVie
           // Swal.fire('Los cambios no se han guardado', '', 'info')
         }
       })
-    }
+    // }
 
-    else if(estudiantesPorAsignar.length === 5){
-      Swal.fire({
-        title: `Profesores: 
-        <b>${profesoresPorAsignar[0].nombre} ${profesoresPorAsignar[0].apellidop} ${profesoresPorAsignar[0].apellidom} </b> y
-        <b>${profesoresPorAsignar[1].nombre} ${profesoresPorAsignar[1].apellidop} ${profesoresPorAsignar[1].apellidom} </b>
-        Estudiantes:
-        <b>${estudiantesPorAsignar[0].nombreEstudiante} ${estudiantesPorAsignar[0].apellidop} ${estudiantesPorAsignar[0].apellidom} </b>
-        <b>${estudiantesPorAsignar[1].nombreEstudiante} ${estudiantesPorAsignar[1].apellidop} ${estudiantesPorAsignar[1].apellidom} </b>
-        <b>${estudiantesPorAsignar[2].nombreEstudiante} ${estudiantesPorAsignar[2].apellidop} ${estudiantesPorAsignar[2].apellidom} </b>
-        <b>${estudiantesPorAsignar[3].nombreEstudiante} ${estudiantesPorAsignar[3].apellidop} ${estudiantesPorAsignar[3].apellidom} </b>
-        <b>${estudiantesPorAsignar[4].nombreEstudiante} ${estudiantesPorAsignar[4].apellidop} ${estudiantesPorAsignar[4].apellidom} </b>
-        ¿Está seguro de querer conformar esta comisión de corrección?`,
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Si',
-        denyButtonText: 'No',
-        customClass: {
-          actions: 'my-actions',
-          cancelButton: 'order-1 right-gap',
-          confirmButton: 'order-2',
-          denyButton: 'order-3',
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
+    // else if(estudiantesPorAsignar.length === 5){
+    //   Swal.fire({
+    //     title: `Profesores: 
+    //     <b>${profesoresPorAsignar[0].nombre} ${profesoresPorAsignar[0].apellidop} ${profesoresPorAsignar[0].apellidom} </b> y
+    //     <b>${profesoresPorAsignar[1].nombre} ${profesoresPorAsignar[1].apellidop} ${profesoresPorAsignar[1].apellidom} </b>
+    //     Estudiantes:
+    //     <b>${estudiantesPorAsignar[0].nombreEstudiante} ${estudiantesPorAsignar[0].apellidop} ${estudiantesPorAsignar[0].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[1].nombreEstudiante} ${estudiantesPorAsignar[1].apellidop} ${estudiantesPorAsignar[1].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[2].nombreEstudiante} ${estudiantesPorAsignar[2].apellidop} ${estudiantesPorAsignar[2].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[3].nombreEstudiante} ${estudiantesPorAsignar[3].apellidop} ${estudiantesPorAsignar[3].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[4].nombreEstudiante} ${estudiantesPorAsignar[4].apellidop} ${estudiantesPorAsignar[4].apellidom} </b>
+    //     ¿Está seguro de querer conformar esta comisión de corrección?`,
+    //     showDenyButton: true,
+    //     showCancelButton: false,
+    //     confirmButtonText: 'Si',
+    //     denyButtonText: 'No',
+    //     customClass: {
+    //       actions: 'my-actions',
+    //       cancelButton: 'order-1 right-gap',
+    //       confirmButton: 'order-2',
+    //       denyButton: 'order-3',
+    //     }
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
   
-          let idProfesores = [];
-          let idEstudiantes = [];
-          for(let i = 0; i < profesoresPorAsignar.length ; i++){
-            idProfesores.push(profesoresPorAsignar[i].id_profesorCC) 
-          }
-          for(let i = 0; i < estudiantesPorAsignar.length ; i++){
-            idEstudiantes.push(estudiantesPorAsignar[i].id_estudiante) 
-          }
+    //       let idProfesores = [];
+    //       let idEstudiantes = [];
+    //       for(let i = 0; i < profesoresPorAsignar.length ; i++){
+    //         idProfesores.push(profesoresPorAsignar[i].id_profesorCC) 
+    //       }
+    //       for(let i = 0; i < estudiantesPorAsignar.length ; i++){
+    //         idEstudiantes.push(estudiantesPorAsignar[i].id_estudiante) 
+    //       }
   
-          //
-          this.conformarComision(idProfesores, idEstudiantes);
+    //       //
+    //       this.conformarComision(idProfesores, idEstudiantes);
   
-          // Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
-          //se borra todo lo que contiene el formulario
+    //       // Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
+    //       //se borra todo lo que contiene el formulario
           
-        } else if (result.isDenied) {
-          // Swal.fire('Los cambios no se han guardado', '', 'info')
-        }
-      })
-    }
-    else if(estudiantesPorAsignar.length === 6){
-      Swal.fire({
-        title: `Profesores: 
-        <b>${profesoresPorAsignar[0].nombre} ${profesoresPorAsignar[0].apellidop} ${profesoresPorAsignar[0].apellidom} </b> y
-        <b>${profesoresPorAsignar[1].nombre} ${profesoresPorAsignar[1].apellidop} ${profesoresPorAsignar[1].apellidom} </b>
-        Estudiantes:
-        <b>${estudiantesPorAsignar[0].nombreEstudiante} ${estudiantesPorAsignar[0].apellidop} ${estudiantesPorAsignar[0].apellidom} </b>
-        <b>${estudiantesPorAsignar[1].nombreEstudiante} ${estudiantesPorAsignar[1].apellidop} ${estudiantesPorAsignar[1].apellidom} </b>
-        <b>${estudiantesPorAsignar[2].nombreEstudiante} ${estudiantesPorAsignar[2].apellidop} ${estudiantesPorAsignar[2].apellidom} </b>
-        <b>${estudiantesPorAsignar[3].nombreEstudiante} ${estudiantesPorAsignar[3].apellidop} ${estudiantesPorAsignar[3].apellidom} </b>
-        <b>${estudiantesPorAsignar[4].nombreEstudiante} ${estudiantesPorAsignar[4].apellidop} ${estudiantesPorAsignar[4].apellidom} </b>
-        <b>${estudiantesPorAsignar[5].nombreEstudiante} ${estudiantesPorAsignar[5].apellidop} ${estudiantesPorAsignar[5].apellidom} </b>
-        ¿Está seguro de querer conformar esta comisión de corrección?`,
-        showDenyButton: true,
-        showCancelButton: false,
-        confirmButtonText: 'Si',
-        denyButtonText: 'No',
-        customClass: {
-          actions: 'my-actions',
-          cancelButton: 'order-1 right-gap',
-          confirmButton: 'order-2',
-          denyButton: 'order-3',  
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
+    //     } else if (result.isDenied) {
+    //       // Swal.fire('Los cambios no se han guardado', '', 'info')
+    //     }
+    //   })
+    // }
+    // else if(estudiantesPorAsignar.length === 6){
+    //   Swal.fire({
+    //     title: `Profesores: 
+    //     <b>${profesoresPorAsignar[0].nombre} ${profesoresPorAsignar[0].apellidop} ${profesoresPorAsignar[0].apellidom} </b> y
+    //     <b>${profesoresPorAsignar[1].nombre} ${profesoresPorAsignar[1].apellidop} ${profesoresPorAsignar[1].apellidom} </b>
+    //     Estudiantes:
+    //     <b>${estudiantesPorAsignar[0].nombreEstudiante} ${estudiantesPorAsignar[0].apellidop} ${estudiantesPorAsignar[0].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[1].nombreEstudiante} ${estudiantesPorAsignar[1].apellidop} ${estudiantesPorAsignar[1].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[2].nombreEstudiante} ${estudiantesPorAsignar[2].apellidop} ${estudiantesPorAsignar[2].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[3].nombreEstudiante} ${estudiantesPorAsignar[3].apellidop} ${estudiantesPorAsignar[3].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[4].nombreEstudiante} ${estudiantesPorAsignar[4].apellidop} ${estudiantesPorAsignar[4].apellidom} </b>
+    //     <b>${estudiantesPorAsignar[5].nombreEstudiante} ${estudiantesPorAsignar[5].apellidop} ${estudiantesPorAsignar[5].apellidom} </b>
+    //     ¿Está seguro de querer conformar esta comisión de corrección?`,
+    //     showDenyButton: true,
+    //     showCancelButton: false,
+    //     confirmButtonText: 'Si',
+    //     denyButtonText: 'No',
+    //     customClass: {
+    //       actions: 'my-actions',
+    //       cancelButton: 'order-1 right-gap',
+    //       confirmButton: 'order-2',
+    //       denyButton: 'order-3',  
+    //     }
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
 
-          let idProfesores = [];
-          let idEstudiantes = [];
-          for(let i = 0; i < profesoresPorAsignar.length ; i++){
-            idProfesores.push(profesoresPorAsignar[i].id_profesorCC) 
-          }
-          for(let i = 0; i < estudiantesPorAsignar.length ; i++){
-            idEstudiantes.push(estudiantesPorAsignar[i].id_estudiante) 
-          }
+    //       let idProfesores = [];
+    //       let idEstudiantes = [];
+    //       for(let i = 0; i < profesoresPorAsignar.length ; i++){
+    //         idProfesores.push(profesoresPorAsignar[i].id_profesorCC) 
+    //       }
+    //       for(let i = 0; i < estudiantesPorAsignar.length ; i++){
+    //         idEstudiantes.push(estudiantesPorAsignar[i].id_estudiante) 
+    //       }
   
-          //
-          this.conformarComision(idProfesores, idEstudiantes);
+    //       //
+    //       this.conformarComision(idProfesores, idEstudiantes);
   
-          // Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
-          //se borra todo lo que contiene el formulario
+    //       // Swal.fire('Usuario se ha agregado con exito!!', '', 'success')
+    //       //se borra todo lo que contiene el formulario
           
-        } else if (result.isDenied) {
-          // Swal.fire('Los cambios no se han guardado', '', 'info')
-        }
-      })
-    }
+    //     } else if (result.isDenied) {
+    //       // Swal.fire('Los cambios no se han guardado', '', 'info')
+    //     }
+    //   })
+    // }
 
    
   }

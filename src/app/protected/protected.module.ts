@@ -48,6 +48,7 @@ import { UploadInformeComponent } from './estudiante/pages/upload-informe/upload
 import { DownloadInformeComponent } from './comision-correccion-practica/pages/download-informe/download-informe.component';
 import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
 import { AsignarProfesoresCcComponent } from './comision-titulacion-practica/pages/create-comision-correccion/asignar-profesores-cc/asignar-profesores-cc.component';
+import { DialogObservacionesComponent } from './comision-correccion-practica/pages/download-informe/dialog-observaciones/dialog-observaciones.component';
 
 
 
@@ -84,6 +85,7 @@ import { AsignarProfesoresCcComponent } from './comision-titulacion-practica/pag
     UploadInformeComponent,
     DownloadInformeComponent,
     AsignarProfesoresCcComponent,
+    DialogObservacionesComponent,
   ],
   imports: [
     CommonModule,

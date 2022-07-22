@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import Swal from 'sweetalert2';
 import { SecretariaService } from '../../secretaria.service';
 import { takeUntil } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-controlar-seguros',
@@ -23,15 +24,23 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
 
   constructor(
     private secretariaS: SecretariaService,
+    private router: Router,
   ) { 
     this._unsubscribeAll = new Subject();
     this.secretariaS.getSeguros().pipe(takeUntil(this._unsubscribeAll))
       .subscribe((data)=>{
         console.log('data: ',data);
-        this.seguros = data;
+        if(data.ok){
+          this.seguros = data.datos;
+        }else{
+          Swal.fire('No hay seguros disponibles.','','error')
+          this.router.navigateByUrl('/dashboard/main-menu')
+        }
+        
+        
       })
 
-    this.displayedColumns = ['nombreEstudiante', 'rutEstudiante', 'estado']
+    this.displayedColumns = ['nombreEstudiante', 'rutEstudiante', 'periodoRealizar','estado']
   }
 
   ngOnInit(): void {

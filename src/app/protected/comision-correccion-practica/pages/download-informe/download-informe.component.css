@@ -37,45 +37,46 @@ table {
   }
 
 .mat-column-nombre{
-    width: 300px;
+    width: 350px;
     padding-right: 8px;
     text-align: center;
 }
 
 .mat-column-notaEvaluador1{
-    width: 20px;
+    width: 5% !important;
     padding-right: 8px;
     text-align: center;
 }
 
 .mat-column-notaEvaluador2 {
-    width: 20px;
+    width: 5% !important;
     padding-right: 8px;
     text-align: center;
 }
 .mat-column-notaFinal {
-    width: 20px;
-    padding-right: 8px;
+    width: 3%;
+    padding-right: 16px;
     text-align: center;
 }
 .mat-column-nombreEstudiante {
-    width: 600px;
+    width: 200px;
     padding-right: 8px;
     text-align: left;
 }
 .mat-column-rutEstudiante {
-    width: 400px;
+    width: 100px;
     padding-right: 8px;
     text-align: left;
 }
 .mat-column-descargar {
-    width: 100px;
-    padding-right: 8px;
+    width: 80px;
+    padding-right: 16px;
+    padding-left: 16px;
     text-align: center;
 }
 
 .mat-column-evaluar {
-    width: 100px;
+    width: 80px;
     padding-right: 8px;
     text-align: center;
 }
@@ -89,3 +90,29 @@ table {
     text-align: right;
     margin-bottom: 10px;
   }
+
+table {
+    width: 100%;
+    margin: auto;
+    margin-top: 25px;
+}
+th.mat-header-cell, td.mat-cell { 
+    text-align: left; 
+}
+th.mat-header-cell{
+    text-align: center;
+}
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+}
+::ng-deep .mat-column-descargar div.mat-form-field-infix,
+::ng-deep .mat-column-evaluar div.mat-form-field-infix,
+::ng-deep .mat-column-notaEvaluador1 div.mat-form-field-infix,
+::ng-deep .mat-column-notaEvaluador2 div.mat-form-field-infix { width: 17% !important; }
+
+.mat-form-field {
+    font-size: 14px;
+    width: 90%;
+  }
+  

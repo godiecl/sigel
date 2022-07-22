@@ -69,6 +69,13 @@
                             (click)="cambiarEstado('disponible', element.id_profesorCC)" 
                              >Quitar</button>
                         </div>
+                        <div *ngIf="element.estado === 'asignado' " >
+                            <button 
+                            mat-raised-button color="primary"
+                            [disabled]="element.estado === 'asignado'" 
+                             >Deshabilitado</button>
+
+                        </div>
                         
                  </td> 
                 </ng-container>
@@ -137,6 +144,13 @@
                             mat-raised-button color="warn" 
                             (click)="cambiarEstadoEstudiante('disponible', estudiante.id_estudiante)" 
                              >Quitar</button>
+                        </div>
+                        <div *ngIf="estudiante.estadoEstudiante === 'asignado' " >
+                            <button 
+                            mat-raised-button color="primary"
+                            [disabled]="estudiante.estadoEstudiante === 'asignado'" 
+                             >Deshabilitado</button>
+
                         </div>
                         
                  </td> 

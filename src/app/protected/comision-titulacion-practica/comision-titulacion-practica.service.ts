@@ -214,7 +214,7 @@ export class ComisionTitulacionPracticaService {
   }
 
   getEstudiantes(): Observable<any>{
-    const url = `${this.baseUrl}estudiantes`
+    const url = `${this.baseUrl}/practica-estudiantes`
     return this.http.get<any>(url);
   }
 
