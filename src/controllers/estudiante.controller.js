@@ -1,3 +1,4 @@
+import { Seguro } from '../models/documentos/Seguro.js';
 import { Estudiante } from '../models/Estudiante.js'
 import { Usuario } from '../models/Usuario.js';
 
@@ -190,6 +191,48 @@ export const getEstudiantes = async (req,res) =>{
     }
 
     return res.json(data)
+    
+  } catch (error) {
+    return res.status(500).json({ok:false, msg: error.msg})
+  }
+
+}
+
+export const getEstudiantesPractica = async (req,res) =>{
+
+  try {
+    console.log('ejecutando get estudiantes practica')
+    const seguros = await Seguro.findAll();
+    let estudiantes = [];
+
+    for(let i = 0; i < seguros.length; i++){
+      const estudiante = await Estudiante.findOne({where: {
+        id_estudiante: seguros[i].id_estudiante
+      }});
+      if(estudiante){
+        estudiantes.push(estudiante);
+      }
+    } 
+    console.log(estudiantes)
+      let data = [];
+  
+      for(let x=0; x<estudiantes.length; x++){
+  
+        const usuarioEstudiante = await Usuario.findByPk(estudiantes[x].id_usuario);
+  
+        data.push({
+          id_estudiante: estudiantes[x].id_estudiante,
+          nombreEstudiante: usuarioEstudiante.nombre,
+          apellidop: usuarioEstudiante.apellidop,
+          apellidom: usuarioEstudiante.apellidom,
+          estadoEstudiante: estudiantes[x].estadoDisponibleCC,
+        })
+      }
+  
+      return res.json(data)
+    
+
+   
     
   } catch (error) {
     return res.status(500).json({ok:false, msg: error.msg})

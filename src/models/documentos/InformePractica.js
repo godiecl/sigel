@@ -21,6 +21,12 @@ export const InformePractica = sequelize.define('informe_practica',{
     notaFinal: {
         type: DataTypes.DOUBLE,
     },
+    observacionesEvaluador1: {
+        type: DataTypes.STRING,
+    },
+    observacionesEvaluador2: {
+        type: DataTypes.STRING,
+    },
 
 })
 
