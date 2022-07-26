@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { SolicitudCartaVacante } from '../../auth/interfaces/documentos/solicitudCartaVacante';
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,12 @@ import { SolicitudCartaVacante } from '../../auth/interfaces/documentos/solicitu
 export class SecretariaService {
 
   private baseUrl: string = environment.baseUrl;
+  private _refresh$ = new Subject<void>();
 
   constructor(private http: HttpClient) { }
-
+  get refresh$(){
+    return this._refresh$;
+  }
   getSolicitudesCartaVacante(): Observable<SolicitudCartaVacante[]> {
 
     const url = `${this.baseUrl}solicitud-carta-vacantes`;
@@ -58,6 +61,14 @@ export class SecretariaService {
   aprobarSeguro(id_seguro: number): Observable<any>{
     const url = `${this.baseUrl}aprobar-seguro${id_seguro}`;
     return this.http.patch<any>(url,{})
+  }
+  ocultarSeguro(id_seguro: number): Observable<any>{
+    const url = `${this.baseUrl}ocultar-seguro${id_seguro}`;
+    return this.http.patch<any>(url,{}).pipe(
+      tap(()=>{
+        this._refresh$.next();
+      })
+    );
   }
 
 }

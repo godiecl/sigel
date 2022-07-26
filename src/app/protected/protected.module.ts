@@ -16,6 +16,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSortModule} from '@angular/material/sort';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -49,6 +51,10 @@ import { DownloadInformeComponent } from './comision-correccion-practica/pages/d
 import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
 import { AsignarProfesoresCcComponent } from './comision-titulacion-practica/pages/create-comision-correccion/asignar-profesores-cc/asignar-profesores-cc.component';
 import { DialogObservacionesComponent } from './comision-correccion-practica/pages/download-informe/dialog-observaciones/dialog-observaciones.component';
+import { EvaluarEstudianteComponent } from './encargado-empresa/pages/evaluar-estudiante/evaluar-estudiante.component';
+import { RegistroDatosPracticaComponent } from './comision-titulacion-practica/pages/registro-datos-practica/registro-datos-practica.component';
+import { HemerotecaComponent } from './secretaria/pages/hemeroteca/hemeroteca.component';
+import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
 
 
 
@@ -86,6 +92,10 @@ import { DialogObservacionesComponent } from './comision-correccion-practica/pag
     DownloadInformeComponent,
     AsignarProfesoresCcComponent,
     DialogObservacionesComponent,
+    EvaluarEstudianteComponent,
+    RegistroDatosPracticaComponent,
+    HemerotecaComponent,
+    EvaluarDefensaComponent,
   ],
   imports: [
     CommonModule,
@@ -102,6 +112,7 @@ import { DialogObservacionesComponent } from './comision-correccion-practica/pag
     MatSelectModule,
     MatSortModule,
     MatTableModule,
+    MatTabsModule,
     MatButtonModule,
     MatDialogModule,
     MatDatepickerModule,

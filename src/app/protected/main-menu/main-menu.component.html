@@ -42,6 +42,9 @@
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verConformarCC()" >
                     Lista Comisiones de Corrección
                 </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verRegistroDatosPractica()" >
+                    Registro de datos práctica
+                </button>
             </div>
 
             <div *ngIf="esEstudiante" >
@@ -69,6 +72,9 @@
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="responderCartaVacante()" >
                     Responder Carta Vacante
                 </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEvaluarEstudiante()" >
+                    Evaluar Estudiante
+                </button>
             </div>
             
             <div *ngIf="esSecretaria" >
@@ -78,11 +84,17 @@
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verControlarSeguros()" >
                     Controlar Seguros
                 </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verHemeroteca()" >
+                    Hemeroteca
+                </button>
             </div>
             
             <div *ngIf="esProfesorCC" >
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verDescargarInforme()" >
                     Evaluar Informe de práctica
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEvaluarDefensa()" >
+                    Evaluar Defensa de práctica
                 </button>
             </div>  
 

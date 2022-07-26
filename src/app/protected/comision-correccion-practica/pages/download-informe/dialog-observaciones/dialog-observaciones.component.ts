@@ -12,10 +12,7 @@ export class DialogObservacionesComponent implements OnInit {
 
   
 
-  dataForm: FormGroup = this.fb.group({
-    observacionEvaluador1: [this.data.observacionEvaluador1,[]],
-    observacionEvaluador2: [this.data.observacionEvaluador2,[]],
-  })
+  dataForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +20,10 @@ export class DialogObservacionesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,) { }
   ngOnInit(): void {
     console.log(this.data)
+    this.dataForm = this.fb.group({
+      observacionEvaluador1: [this.data.observacionesEvaluador1,[]],
+      observacionEvaluador2: [this.data.observacionesEvaluador2,[]],
+    })
   }
 
   

@@ -55,7 +55,7 @@
                         <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR: <br> {{ nombreProfesor1 }} </th> 
                     </div>
                 <td mat-cell *matCellDef="let element"> 
-                    <div style="display: flex; flex-direction: column-reverse; " *ngIf="element.notaEvaluador1 === null" >
+                    <div style="display: flex; flex-direction: column-reverse; " *ngIf="element.notaEvaluador1 === null || element.editarNota === true" >
                         
                             <mat-form-field>
                                 <input matInput type="number" formControlName="notaEvaluador1" step="1.0" min="1" max="7">
@@ -77,12 +77,12 @@
                         <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR: <br> {{ nombreProfesor2 }} </th> 
                     </div>
                     <td mat-cell *matCellDef="let element"> 
-                        <div *ngIf="element.notaEvaluador2 === null" >
+                        <div *ngIf="element.notaEvaluador2 === null || element.editarNota === true" >
                             <mat-form-field>
                                 <input matInput type="number" formControlName="notaEvaluador2" step="1.0" min="1" max="7">
                             </mat-form-field>
                         </div>
-                        <div *ngIf="element.notaEvaluador2 !== null">
+                        <div *ngIf="element.notaEvaluador2 !== null ">
                             {{element.notaEvaluador2 }} 
                         </div>
                     </td>
@@ -95,10 +95,10 @@
                         <div *ngIf="element.notaFinal === null" >
                             Pendiente
                         </div>
-                        <div *ngIf="element.notaFinal > 4" style="background-color: lightblue;" >
+                        <div *ngIf="element.notaFinal >= 4 " style="background-color: lightblue;" >
                              {{ element.notaFinal }}
                         </div>
-                        <div *ngIf="element.notaFinal < 4" style="background-color: red;" >
+                        <div *ngIf="element.notaFinal < 4 " style="background-color: red;" >
                             {{ element.notaFinal }}
                        </div>
                     </td>
@@ -119,12 +119,12 @@
                 <ng-container matColumnDef="evaluar">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.notaEvaluador1 && element.notaEvaluador2" >
-                            <!-- <button mat-raised-button color="warn" (click)="alertaSeguroCalificar(element.id_informePractica)" > Editar nota </button> -->
+                        <div *ngIf="element.notaEvaluador1 !== null   && element.notaEvaluador2 !== null  " >
+                            <button mat-raised-button color="warn" (click)="editarNota(element.id_informePractica)" > Editar nota </button>
                         </div>
                         <!-- <mat-label> {{ element.estado }} </mat-label> -->
                         <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
-                        <div *ngIf="!element.notaEvaluador1 || !element.notaEvaluador2" >    
+                        <div *ngIf="!element.notaEvaluador1 || !element.notaEvaluador2 " >    
                             <button mat-raised-button style="background-color: rgb(240,60,60);; color: white; " (click)="openDialog(element.id_informePractica)" > Guardar nota </button>
                         </div>
                      </td>

@@ -95,6 +95,9 @@ export class UploadInformeComponent implements OnInit {
       this.comisionTitulacionPracticaService.postInformePractica(data).subscribe((resp)=>{
         if(resp.ok){
           Swal.fire('Se ha almacenado el archivo con éxito','','success');
+        }else if(!resp.ok){
+          console.log(resp)
+          Swal.fire(resp.msg,'','error');
         }
       })
     });

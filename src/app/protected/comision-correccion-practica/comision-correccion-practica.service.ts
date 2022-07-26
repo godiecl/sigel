@@ -26,4 +26,8 @@ export class ComisionCorreccionPracticaService {
       this._refresh$.next();
     }))
   }
+  getDatosAsociados(id_usuario: any){
+    const url = `${this.baseUrl}evaluacion-defensa${id_usuario}`
+    return this.http.get<any>(url)
+  }
 }

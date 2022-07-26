@@ -99,6 +99,8 @@ export class DownloadInformeComponent implements OnInit {
 
   openDialog(id_informePractica: any): void {
 
+    console.log('id informe: ',id_informePractica)
+
     if(!this.notasForm.value.notaEvaluador1 && !this.notasForm.value.notaEvaluador2 ){
       Swal.fire('No ha ingresado nota o notas','','warning');
       return;
@@ -108,13 +110,13 @@ export class DownloadInformeComponent implements OnInit {
       return;
     }
     const informe: any = this.fileInfosInformePractica.find((info:any)=>{
-      return info.id_informePractica = id_informePractica;
+      return info.id_informePractica === id_informePractica;
     })
     this.observacionesEvaluador1 = informe.observacionesEvaluador1;
     this.observacionesEvaluador2 = informe.observacionesEvaluador2;
 
-    console.log('observacion 1 ', informe.observacionesEvaluador1)
-    console.log('observacion 2 ', informe)
+    console.log('observacion 1 ', this.observacionesEvaluador1)
+    console.log('observacion 2 ', this.observacionesEvaluador2) 
 
     const dialogRef = this.dialog.open(DialogObservacionesComponent, {
       width: '850px',
@@ -165,6 +167,7 @@ export class DownloadInformeComponent implements OnInit {
                 // return obj.id_informePractica === id_informePractica
               // })
               informe.notaFinal = resp.notaFinal;
+              informe.editarNota = false;
               this.cdr.detectChanges();
             }
           })
@@ -174,6 +177,20 @@ export class DownloadInformeComponent implements OnInit {
         Swal.fire(resp.msg, '', 'error')
       }
     })
+  }
+
+  editarNota(id: any){
+    let informe:any = this.fileInfosInformePractica.find((obj:any)=>{
+             return obj.id_informePractica === id
+    })
+    informe.editarNota = true;
+    this.notasForm = this.fb.group({
+      notaEvaluador1: [informe.notaEvaluador1, ],
+      notaEvaluador2: [informe.notaEvaluador2, ]
+    })
+    informe.notaEvaluador1 = null;
+    informe.notaEvaluador2 = null;
+
   }
 
   // getNotaFinal(id_informePractica: any) {

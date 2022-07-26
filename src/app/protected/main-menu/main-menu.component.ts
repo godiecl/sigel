@@ -49,29 +49,16 @@ export class MainMenuComponent implements OnInit {
 
   }
 
+  // ADMINISTRADOR
+
   eliminarUsuario(){
     this.router.navigateByUrl('/dashboard/delete-usuario')
   }
-  
   registrarUsuario(){
     this.router.navigateByUrl('/dashboard/register-usuario')
   }
-
   editarUsuario(){
     this.router.navigateByUrl('/dashboard/edit-usuario')
-  }
-
-  verSolicitudesEstudiante(){
-    this.router.navigateByUrl('/dashboard/encargado-practica/ver-solicitudes-estudiante')
-  }
-  irSolicitarEstudiante(){
-    this.router.navigateByUrl('/dashboard/encargado-empresa/solicitar-estudiante')
-  }
-  verPublicaciones(){
-    this.router.navigateByUrl('/dashboard/estudiante/ver-publicaciones')
-  }
-  administrarPublicaciones(){
-    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')
   }
 
   uploadContenido(){
@@ -81,31 +68,63 @@ export class MainMenuComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/download-document')
   }
 
+  // COMISION TITULACION PRACTICA
+  verConformarCC(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/crear-comision-correccion')
+  }
+  administrarPublicaciones(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')
+  }
+  verRegistroDatosPractica(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/registro-datos-practica')
+  }
+
+  // ENCARGADO EMPRESA
+  verEvaluarEstudiante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/evaluar-estudiante')
+  }
+  responderCartaVacante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
+  }
+  irSolicitarEstudiante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/solicitar-estudiante')
+  }
+
+  // ESTUDIANTE
   verListaVacantes(){
     this.router.navigateByUrl('/dashboard/estudiante/ver-lista-vacantes')
   }
   solicitarCartaVacante(){
     this.router.navigateByUrl('/dashboard/estudiante/solicitar-carta-vacante')
   }
+  verSubirInforme(){
+    this.router.navigateByUrl('/dashboard/estudiante/upload-informe')
+  }
+  verPublicaciones(){
+    this.router.navigateByUrl('/dashboard/estudiante/ver-publicaciones')
+  }
+  
+  // ENCARGADO PRACTICA
+  verSolicitudesEstudiante(){
+    this.router.navigateByUrl('/dashboard/encargado-practica/ver-solicitudes-estudiante')
+  }
+
+  // SECRETARIA
   autorizarCartaVacante(){
     this.router.navigateByUrl('/dashboard/secretaria/autorizar-carta-vacante')
-  }
-  responderCartaVacante(){
-    this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
   }
   verControlarSeguros(){
     this.router.navigateByUrl('/dashboard/secretaria/controlar-seguros')
   }
-  verSubirInforme(){
-    this.router.navigateByUrl('/dashboard/estudiante/upload-informe')
+  verHemeroteca(){
+    this.router.navigateByUrl('/dashboard/secretaria/hemeroteca')
   }
+  // PROFESOR CC
   verDescargarInforme(){
     this.router.navigateByUrl('/dashboard/comision-correccion-practica/download-informe')
   }
-
-  verConformarCC(){
-    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/crear-comision-correccion')
+  verEvaluarDefensa(){
+    this.router.navigateByUrl('/dashboard/comision-correccion-practica/evaluar-defensa')
   }
-
 }
  

@@ -1,9 +1,10 @@
-table {
-    width: 100%;
-    /* margin: 4rem; */
-    /* padding: 5rem; */
+/* table {
+    width: 1200px;
+     margin: 4rem; 
+     padding: 5rem; 
   }
- [id=menuheader]{
+   */
+   [id=menuheader]{
     margin-bottom: 40px;
     display:inline-block;
     align-items: center;
@@ -29,30 +30,55 @@ nav a:hover{
     color: white;
     background-color: rgb(0,26,48);
 }
-.mat-column-nombreEstudiante{
-    width: 300px;
-    padding-right: 24px;
-    text-align: center;
+
+/* .example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  } */
+
+.alinear {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+} 
+
+/* .mat-form-field{
+    width: 40%;
 }
-.mat-column-rutEstudiante{
-    width: 300px;
+.mat-select{
+    width: 100%;
+} */
+
+table {
+    width: 100%;
+  }
+
+.mat-column-sobresaliente{
+    width:100px;
     padding-right: 24px;
     text-align: center;
 }
 
-.mat-column-estado {
-    width: 200px;
+.mat-column-muybueno{
+    width:100px;
     padding-right: 24px;
     text-align: center;
 }
-.mat-column-boton {
-    width: 200px;
+.mat-column-bueno{
+    width:100px;
     padding-right: 24px;
     text-align: center;
 }
-
-.mat-column-periodoRealizar {
-    width: 200px;
+.mat-column-regular{
+    width:100px;
     padding-right: 24px;
+    text-align: center;
+}
+.mat-column-insatisfactorio{
+    width:100px;
+    padding-right: 24px;
+    text-align: center;
+}
+.spanc{
     text-align: center;
 }
