@@ -46,7 +46,11 @@ export const createSeguro = async (req, res) =>{
 export const getSeguros = async (req, res) => {
     
     try {
-        const seguros = await Seguro.findAll();
+        const seguros = await Seguro.findAll({
+            where: {
+                mostrar: true
+            }
+        });
 
         let datos = [];
     
@@ -101,10 +105,10 @@ export const dejarPendienteSeguro = async (req, res) =>{
     seguro.estado = 'pendiente';
     seguro.save();
 
-    return res.json({ok: true, message: 'Se ha dejado pendiente el seguro.'})
+    return res.json({ok: true, msg: 'Se ha dejado pendiente el seguro.'})
         
     } catch (error) {
-        return res.json({ok: false, message: error.message })
+        return res.json({ok: false, msg: error.message })
     }
     
 }
@@ -119,9 +123,26 @@ export const autorizarSeguro = async (req, res) =>{
     seguro.estado = 'tramitado';
     seguro.save();
 
-    return res.json({ok: true, message: 'Se ha autorizado el seguro.'})
+    return res.json({ok: true, msg: 'Se ha autorizado el seguro.'})
     } catch (error) {
-        return res.json({ok: false, message: error.message })
+        return res.json({ok: false, msg: error.message })
+    }
+
+}
+
+export const ocultarSeguro = async (req, res) =>{
+    try {
+        // console.log(req.params);
+    const id_seguro = req.params.id;
+
+    const seguro = await Seguro.findByPk(id_seguro);
+
+    seguro.mostrar = false;
+    seguro.save();
+
+    return res.json({ok: true, msg: 'Se ha ocultado el seguro.'})
+    } catch (error) {
+        return res.json({ok: false, msg: error.message })
     }
 
 }

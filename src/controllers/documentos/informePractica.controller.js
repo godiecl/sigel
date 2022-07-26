@@ -10,7 +10,14 @@ export const createInforme = async (req, res) =>{
 
         console.log('data: ', req.body);
         const id = req.body.id_estudiante;
-        const ruta = './documentos/informe-practica/'+req.body.ruta;
+        const nombreInforme = req.body.ruta;
+        const patron = /^[0-9]{8,9}[_]{1}[a-zA-Z]+[_]{1}[a-zA-Z]+[_]{1}[a-nA-N]{4,5}[.pdf]/
+        let formatoValido = patron.test(nombreInforme)
+        if(formatoValido === false){
+          console.log('no cumple con el formato')
+          return res.json({ok: false, msg: 'El formato del archivo es inválido.'})
+        }
+        const ruta = './documentos/informe-practica/'+nombreInforme;
 
         const informeNew = await InformePractica.create({
             
@@ -21,7 +28,7 @@ export const createInforme = async (req, res) =>{
         return res.status(200).json({ok: true, msg: 'Se ha almacenado el informe exitosamente.'})
 
     } catch (error) {
-        return res.json({ok: false, msg: error.msg})
+        return res.json({ok: false, msg: error.message})
     }
 
   }

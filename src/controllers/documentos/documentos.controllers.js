@@ -281,68 +281,7 @@ export const storageInformePractica = multer.diskStorage({
 });
 
 //ver archivos de carpeta Capstone estudiante
-export const getListFilesInformeEstudiante = async (req, res) => {
-  console.log('req params', req.params)
-  const id = req.params.id;
-  // const directoryPath = "./documentos/informe-practica";
-  
-  let informesArr = [];
-  let profesoresArr = [];
-  let datos = [];
 
-  const profesores = await ProfesorComisionCorrecion.findAll(
-    {where: {
-      id_comisionCorreccion: id
-    }}
-  )
-
-  for(let x = 0 ; x < profesores.length; x ++){
-
-    let usuarioProfe = await Usuario.findByPk(profesores[x].id_usuario);
-
-    profesoresArr.push({
-      nombre: usuarioProfe.nombre,
-      apellidop: usuarioProfe.apellidop,
-      apellidom: usuarioProfe.apellidom
-    })
-  }
-  const informes = await InformePractica.findAll();
-  
-
-  for(let i = 0; i < informes.length; i++){
-    const estudianteCC = await Estudiante.findOne({ where: {
-      id_estudiante: informes[i].id_estudiante,
-      id_comisionCorreccion: id,
-    }})
-    if(!estudianteCC){
-      continue;
-    }
-    let usuarioEstudiante = await Usuario.findByPk(estudianteCC.id_usuario)
-    let nombreArchivo = informes[i].ruta.slice(30);
-    // console.log(nombreArchivo)
-    // files.forEach((file) => {
-    //   console.log('vuelta', informes.length)
-    informesArr.push({
-      id_informePractica: informes[i].id_informePractica, 
-      nombre: nombreArchivo,
-      // ruta: files[i].ruta,
-      notaEvaluador1: informes[i].notaEvaluador1,
-      notaEvaluador2: informes[i].notaEvaluador2,
-      notaFinal: informes[i].notaFinal,
-      id_estudiante: informes[i].id_estudiante,
-      nombreEstudiante: usuarioEstudiante.nombre,
-      apellidopEstudiante: usuarioEstudiante.apellidop,
-      apellidomEstudiante: usuarioEstudiante.apellidom,
-      rutEstudiante: usuarioEstudiante.rut,
-    })
-  }
-
-    datos.push({profesores: profesoresArr, informes: informesArr })
-
-    // data.push({informes: informes, fileInfos: fileInfos })
-    res.status(200).json(datos);
-  // });
-};
 
 //descargar documentos Capstone estudiantes
 export const downloadInformeEstudiante=(req,res,next)=>{
@@ -377,50 +316,3 @@ export const deleteFileInformeEstudiante = async (req,res)=>{
   });
 } 
 
-export const evaluarInformeEstudiante = async (req, res) =>{
-  try {
-    console.log(req.body)
-    const id = req.params.id;
-    let notas = req.body;
-    let informe = await InformePractica.findByPk(id);
-    let nota1Modif = false;
-    let nota2Modif = false;
-    if(!notas){
-      res.json({ok: false, msg: 'Ha ocurrido un error. El body esta vacío'})
-    }else{
-      if(notas.notaEvaluador1){
-        informe.notaEvaluador1 = notas.notaEvaluador1;
-        nota1Modif = true;
-      }
-      if(notas.notaEvaluador2){
-        informe.notaEvaluador2 = notas.notaEvaluador2;
-        nota2Modif = true;
-      }
-      if(informe.notaEvaluador1 && informe.notaEvaluador2){
-        informe.notaFinal = (informe.notaEvaluador1 + informe.notaEvaluador2) / 2;
-      }
-      if(nota1Modif || nota2Modif){
-        await informe.save();
-      }
-      
-    
-      if(!nota1Modif && !nota2Modif){
-        res.json({ok: false, msg: 'No se han modificado las notas'})
-      }
-      else if(nota1Modif && nota2Modif){
-        res.json({ok: true, msg: 'Se han modificado ambas notas'})
-      }
-      else if(nota1Modif){
-        res.json({ok: true, msg: 'Se ha modificado la nota 1'})
-      }
-      else if(nota2Modif){
-        res.json({ok: true, msg: 'Se ha modificado la nota 2'})
-      }
-    }
-    
-    
-
-  } catch (error) {
-    res.json({ok: false, msg: error.msg})
-  }
-}

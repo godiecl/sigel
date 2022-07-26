@@ -21,9 +21,11 @@ import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstud
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
 import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante, responderSolicitudCartaVacante, verSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
-import { autorizarSeguro, dejarPendienteSeguro, getSeguros } from '../controllers/documentos/seguro.controller.js';
+import { autorizarSeguro, dejarPendienteSeguro, getSeguros, ocultarSeguro } from '../controllers/documentos/seguro.controller.js';
 import { createInforme, getNotaFinal, getListFilesInformeEstudiante ,evaluarInformeEstudiante } from '../controllers/documentos/informePractica.controller.js';
 import { createComisionCorreccion, deleteComision, getListaComisiones } from '../controllers/comisionCorrecion.controller.js';
+import { createEvaluacionEmpresa, getEstudiantesAsociados } from '../controllers/documentos/evaluacionEmpresa.controller.js';
+import { createEvaluacionDefensa, getDatosAsociados } from '../controllers/documentos/evaluacionDefensa.controller.js';
 
 const router = Router();
 
@@ -203,6 +205,7 @@ router.patch('/solicitud-carta-vacantes:id', responderSolicitudCartaVacante)
 // Seguros
 router.get('/seguros', getSeguros );
 router.patch('/aprobar-seguro:id', autorizarSeguro);
+router.patch('/ocultar-seguro:id', ocultarSeguro);
 router.patch('/pendiente-seguro:id', dejarPendienteSeguro)
 
 //INFORME
@@ -244,5 +247,13 @@ router.post('/crear-cc-practica', createComisionCorreccion);
 router.get('/comision-correccion/lista', getListaComisiones)
 router.delete('/comision-correccion/lista/eliminar:id', deleteComision)
 
+// Evaluaciones de empresa
+
+router.post('/evaluacion-empresa/', createEvaluacionEmpresa)
+router.get('/evaluacion-empresa/listaEstudiantesAsociados:id', getEstudiantesAsociados)
+
+// Evaluacion de defensa de práctica
+router.post('/evaluacion-defensa', createEvaluacionDefensa)
+router.get('/evaluacion-defensa:id', getDatosAsociados)
 
 export default router;

@@ -12,6 +12,10 @@ export const Seguro = sequelize.define('seguro',{
     },
     estado: {
         type: DataTypes.STRING,
+    },
+    mostrar: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
     }
 })
 
