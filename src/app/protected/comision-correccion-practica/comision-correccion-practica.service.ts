@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, tap } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,5 +29,10 @@ export class ComisionCorreccionPracticaService {
   getDatosAsociados(id_usuario: any){
     const url = `${this.baseUrl}evaluacion-defensa${id_usuario}`
     return this.http.get<any>(url)
+  }
+
+  actualizarEvaluacionDefensa(evaluacionDefensa: any): Observable<any>{
+    const url = `${this.baseUrl}evaluacion-defensa`;
+    return this.http.post<any>(url, evaluacionDefensa)
   }
 }

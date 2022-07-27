@@ -18,6 +18,9 @@
             <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                 Evaluar Estudiante
             </span>
+            <div class="spanc" >
+                <span>Ingrese las notas para evaluar el trabajo del estudiante en los siguientes campos.</span>
+            </div>
             <form mat-form [formGroup]="evaluarTrabajoForm" (ngSubmit)="alertaSeguro()" >
                 
                         <div class="w-full" >
@@ -79,10 +82,17 @@
                                     <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
                                         <mat-label>Asistencia y puntualidad</mat-label>
                                         <input formControlName="asistenciaPuntualidad" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('asistenciaPuntualidad')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error>                                                                                                    
                                     </mat-form-field>
                                     <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
                                     <mat-label>Conducta personal</mat-label>
                                     <input formControlName="conducta" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('conducta')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error>  
+                                    
                                     </mat-form-field>
 
                             </div>  
@@ -91,10 +101,16 @@
                                     <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
                                         <mat-label>Dedicación e interés por el trabajo</mat-label>
                                         <input formControlName="dedicacion" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('dedicacion')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error>  
                                         </mat-form-field>
                                     <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
                                         <mat-label>Habilidad para aprender</mat-label>
                                         <input formControlName="habilidadAprender" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('habilidadAprender')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error> 
                                         </mat-form-field>
                             </div>
 
@@ -102,11 +118,17 @@
                                     <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
                                         <mat-label>Adaptación a cambios y circunstancias</mat-label>
                                         <input formControlName="adaptacion" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('adaptacion')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error> 
                                         </mat-form-field>
                                
                                     <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
                                         <mat-label>Iniciativa y proactividad</mat-label>
                                         <input formControlName="iniciativa" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('iniciativa')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error> 
                                     </mat-form-field>
                             </div>
                             
@@ -123,6 +145,9 @@
                                 <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
                                     <mat-label>Aporte y apreciación de la práctica para la empresa</mat-label>
                                     <input formControlName="aporteEmpresa"  min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('aporteEmpresa')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
                                 </mat-form-field>
                                 
                                 
@@ -131,12 +156,18 @@
                                 <mat-form-field appearance="fill"  style="flex-basis: 100%;"> 
                                     <mat-label>Conocimientos y nivel de preparación del estudiante</mat-label>
                                     <input formControlName="conocimientos"  min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('conocimientos')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
                                 </mat-form-field>
                             </div>
                             <div style="display: flex;" >
                                 <mat-form-field appearance="fill"  style="flex-basis: 100%;"> 
                                     <mat-label>Criterio profesional</mat-label>
                                     <input formControlName="criterio"  min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('criterio')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
                                 </mat-form-field>
                             </div>
                         </div>
@@ -148,12 +179,18 @@
                                 <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
                                     <mat-label>Fortalezas del estudiante</mat-label>
                                     <textarea formControlName="fortalezas" matInput ></textarea>
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('fortalezas')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
                                 </mat-form-field>
                             </div>
                             <div style="display: flex;">
                                 <mat-form-field appearance="fill" style="flex-basis: 100%;" >
                                     <mat-label>Debilidades del estudiante</mat-label>
                                     <textarea formControlName="debilidades" matInput ></textarea>
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('debilidades')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
                                 </mat-form-field>
                             </div>
                         </div>

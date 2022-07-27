@@ -166,6 +166,26 @@ export class DownloadInformeComponent implements OnInit {
               // let informe:any = this.fileInfosInformePractica.find((obj:any)=>{
                 // return obj.id_informePractica === id_informePractica
               // })
+              if(resp.observacionesEvaluador1){
+                informe.observacionesEvaluador1 = resp.observacionesEvaluador1;
+                informe.notaFinal = resp.notaFinal;
+                informe.editarNota = false;
+                this.cdr.detectChanges();
+              }
+              if(resp.observacionesEvaluador2){
+                informe.observacionesEvaluador2 = resp.observacionesEvaluador2;
+                informe.notaFinal = resp.notaFinal;
+                informe.editarNota = false;
+                this.cdr.detectChanges();
+                
+              }
+              if(resp.observacionesEvaluador1 && resp.observacionesEvaluador2){
+                informe.observacionesEvaluador1 = resp.observacionesEvaluador1;
+                informe.observacionesEvaluador2 = resp.observacionesEvaluador2;                
+                informe.notaFinal = resp.notaFinal;
+                informe.editarNota = false;
+                this.cdr.detectChanges();
+              }
               informe.notaFinal = resp.notaFinal;
               informe.editarNota = false;
               this.cdr.detectChanges();

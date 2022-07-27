@@ -75,6 +75,9 @@ export class MainMenuComponent implements OnInit {
   administrarPublicaciones(){
     this.router.navigateByUrl('/dashboard/comision-titulacion-practica/administrar-publicaciones')
   }
+  verGenerarActaPractica(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/generar-actas-practica')
+  }
   verRegistroDatosPractica(){
     this.router.navigateByUrl('/dashboard/comision-titulacion-practica/registro-datos-practica')
   }

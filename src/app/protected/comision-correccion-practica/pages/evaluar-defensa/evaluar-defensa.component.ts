@@ -12,30 +12,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./evaluar-defensa.component.css']
 })
 export class EvaluarDefensaComponent implements OnInit, OnDestroy {
-
-  // estudiantes: any[] = [{id_estudiante: 1, nombre: 'Walter'}]
-  estudiantes!: any[];
-  profesores!: any[];
-  private _unsubscribeAll: Subject<any>;
-
-  evaluarDefensaForm: FormGroup = this.fb.group({
-    estudiante: [,[Validators.required]],
-    calidadMaterialEvaluador1: [, [Validators.required]],
-    contenidoEvaluador1: [, [Validators.required]],
-    dominioEscenicoEvaluador1: [, [Validators.required]],
-    claridadEvaluador1: [, [Validators.required]],
-    tiempoEvaluador1: [, [Validators.required]],
-    defensaEvaluador1: [, [Validators.required]],
-    observacionesEvaluador1: [, [Validators.required]],
-    calidadMaterialEvaluador2: [, [Validators.required]],
-    contenidoEvaluador2: [, [Validators.required]],
-    dominioEscenicoEvaluador2: [, [Validators.required]],
-    claridadEvaluador2: [, [Validators.required]],
-    tiempoEvaluador2: [, [Validators.required]],
-    defensaEvaluador2: [, [Validators.required]],
-    observacionesEvaluador2: [, [Validators.required]],
-  })
-
+  
   displayedCalidad: string[] = [
     'categoria',
     'excelente',
@@ -77,6 +54,31 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
     fortalezasMostrar: string = 'Seleccione un estudiante para mostrar.'
     debilidadesMostrar: string = 'Seleccione un estudiante para mostrar';
 
+  // estudiantes: any[] = [{id_estudiante: 1, nombre: 'Walter'}]
+  estudiantes!: any[];
+  profesor: any;
+  id_cc: any;
+  private _unsubscribeAll: Subject<any>;
+
+  evaluarDefensaForm: FormGroup = this.fb.group({
+    estudiante: [,[Validators.required]],
+    calidadMaterialEvaluador: [, [Validators.required]],
+    contenidoEvaluador: [, [Validators.required]],
+    dominioEscenicoEvaluador: [, [Validators.required]],
+    claridadEvaluador: [, [Validators.required]],
+    tiempoEvaluador: [, [Validators.required]],
+    defensaEvaluador: [, [Validators.required]],
+    observacionesEvaluador: [, []],
+    // calidadMaterialEvaluador2: [, [Validators.required]],
+    // contenidoEvaluador2: [, [Validators.required]],
+    // dominioEscenicoEvaluador2: [, [Validators.required]],
+    // claridadEvaluador2: [, [Validators.required]],
+    // tiempoEvaluador2: [, [Validators.required]],
+    // defensaEvaluador2: [, [Validators.required]],
+    // observacionesEvaluador2: [, []],
+  })
+
+
   constructor(
     private fb: FormBuilder,
     private authSv: AuthService,
@@ -98,8 +100,8 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
 
         this.estudiantes = resp.datos[0].datosEstudiantes;
         console.log('estudiantes: ',this.estudiantes)
-        this.profesores = resp.datos[0].datosProfesores;
-
+        this.profesor = resp.datos[0].profesor;
+        this.id_cc = resp.datos[0].idCC;
         
 
       }else{
@@ -128,8 +130,17 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
 }
 
   alerta(){
+
+    const data:any = this.evaluarDefensaForm.getRawValue()
+    const promedio = ((data.calidadMaterialEvaluador * 0.15) + (data.contenidoEvaluador * 0.20) +
+    (data.dominioEscenicoEvaluador * 0.15) + (data.claridadEvaluador * 0.20) + (data.tiempoEvaluador * 0.10) + (data.defensaEvaluador * 0.20))
+    console.log(promedio)
+    data.promedioEvaluador = Math.round( promedio * 1e2 ) / 1e2;
+    data.id_comisionCorreccion = this.id_cc;
+    console.log(data)
+
     Swal.fire({
-      title: '¿Está seguro de los datos ingresados?. <br> Esta evaluación no se puede cambiar. <br> Click en sí para enviar la evaluación.',
+      title: `¿Está seguro de los datos ingresados?. <br> El promedio de la defensa del estudiante sería: ${data.promedioEvaluador} <br> Esta evaluación no se puede cambiar. <br> Click en sí para enviar la evaluación.`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Sí, estoy seguro',
@@ -138,7 +149,7 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.enviar()
+        this.enviar(data)
         // Swal.fire('', '', 'success')
       } else if (result.isDenied) {
         // Swal.fire('Changes are not saved', '', 'info')
@@ -146,10 +157,16 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
     })
   }
 
-  enviar(){
+  enviar(data: any){
 
-    const data:any = this.evaluarDefensaForm.getRawValue()
-    console.log(data)
+    this.ccSv.actualizarEvaluacionDefensa(data).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
+      if(resp.ok){
+        Swal.fire(resp.msg,'','success');
+      }else{
+        Swal.fire('Ha ocurrido un error',resp.msg,'error');
+      }
+    })
+    
     // data.id_encargadoEmpresa = this.encargadoEmpresaLog.id_encargadoEmpresa;
     // data.id_estudiante = id;
     // this.encEmpS.crearEvaluacionEmpresa(data).pipe(takeUntil(this._unsubscribeAll))

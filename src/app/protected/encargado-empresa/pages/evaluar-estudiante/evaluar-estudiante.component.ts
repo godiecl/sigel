@@ -36,11 +36,11 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
   'insatisfactorio',
 ];
   dataSource = [{ 
-  sobresaliente: 'Nota 7.0', 
-  muybueno: 'Nota 6.0', 
-  bueno: 'Nota 5.0', 
-  regular: 'Nota 4.0', 
-  insatisfactorio: 'Nota 3.0'
+  sobresaliente: 'Nota 7.0 - 6.1', 
+  muybueno: 'Nota 6.0 - 5.1', 
+  bueno: 'Nota 5.0 - 4.1', 
+  regular: 'Nota 4.0 - 3.1', 
+  insatisfactorio: 'Nota 3.0 - 1.0'
   }]
 
   evaluarTrabajoForm: FormGroup = this.fb.group({
@@ -97,8 +97,15 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
   }
 
   alertaSeguro(): void{
+    
+    const data:any = this.evaluarTrabajoForm.getRawValue()
+    const notaFinal = ((data.asistenciaPuntualidad + data.conducta + data.dedicacion + data.habilidadAprender + data.adaptacion + data.iniciativa + data.aporteEmpresa + data.conocimientos + data.criterio) / 9)
+    data.notaFinal = notaFinal.toFixed(2)
+    console.log(notaFinal)
+    data.id_encargadoEmpresa = this.encargadoEmpresaLog.id_encargadoEmpresa;
+
     Swal.fire({
-      title: '¿Está seguro de los datos ingresados?. <br> Esta evaluación no se puede cambiar. <br> Click en sí para enviar la evaluación.',
+      title: `¿Está seguro de los datos ingresados?. <br> El promedio del estudiante sería: ${data.notaFinal}. <br> Esta evaluación no se puede cambiar. <br> Click en sí para enviar la evaluación.`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Sí, estoy seguro',
@@ -107,7 +114,7 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.enviar()
+        this.enviar(data)
         // Swal.fire('', '', 'success')
       } else if (result.isDenied) {
         // Swal.fire('Changes are not saved', '', 'info')
@@ -115,12 +122,9 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
     })
   }
 
-  enviar(){
+  enviar(data: any){
 
-    const data:any = this.evaluarTrabajoForm.getRawValue()
-    data.notaFinal = ((data.asistenciaPuntualidad + data.conducta + data.dedicacion + data.habilidadAprender + data.adaptacion + data.iniciativa + data.aporteEmpresa + data.conocimientos + data.criterio) / 9) 
-    console.log(data)
-    data.id_encargadoEmpresa = this.encargadoEmpresaLog.id_encargadoEmpresa;
+    
     // data.id_estudiante = id;
     this.encEmpS.crearEvaluacionEmpresa(data).pipe(takeUntil(this._unsubscribeAll))
     .subscribe((resp:any)=>{

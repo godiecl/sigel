@@ -58,25 +58,25 @@ nav a:hover{
 .mat-column-excelente{
     width:100px;
     padding-right: 24px;
-    text-align: justify;
+    text-align: left;
     height: 100%;
 }
 .mat-column-bueno{
     width:100px;
     padding-right: 24px;
-    text-align: justify;
+    text-align: left;
     height: 100%;
 }
 .mat-column-regular{
     width:100px;
     padding-right: 24px;
-    text-align: justify;
+    text-align: left;
     height: 100%;
 }
 .mat-column-insatisfactorio{
     width:100px;
     padding-right: 24px;
-    text-align: justify;
+    text-align: left;
     height: 100%;
 }
 .mat-header-cell{

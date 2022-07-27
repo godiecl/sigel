@@ -34,6 +34,7 @@ import { HemerotecaComponent } from './secretaria/pages/hemeroteca/hemeroteca.co
 import { EvaluarEstudianteComponent } from './encargado-empresa/pages/evaluar-estudiante/evaluar-estudiante.component';
 import { RegistroDatosPracticaComponent } from './comision-titulacion-practica/pages/registro-datos-practica/registro-datos-practica.component';
 import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
+import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/pages/generar-acta-evaluacion/generar-acta-evaluacion.component';
 
 
 const routes: Routes = [
@@ -133,6 +134,7 @@ const routes: Routes = [
           ]  
         },
         {path: 'crear-publicacion', component: CrearPublicacionComponent,},
+        {path: 'generar-actas-practica', component: GenerarActaEvaluacionComponent,},
         {path: 'crear-comision-correccion', component: CreateComisionCorreccionComponent,},
         {path: 'asignar-comision-correccion', component: AsignarProfesoresCcComponent,},
         {path: 'registro-datos-practica', component: RegistroDatosPracticaComponent }

@@ -55,6 +55,7 @@ import { EvaluarEstudianteComponent } from './encargado-empresa/pages/evaluar-es
 import { RegistroDatosPracticaComponent } from './comision-titulacion-practica/pages/registro-datos-practica/registro-datos-practica.component';
 import { HemerotecaComponent } from './secretaria/pages/hemeroteca/hemeroteca.component';
 import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
+import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/pages/generar-acta-evaluacion/generar-acta-evaluacion.component';
 
 
 
@@ -96,6 +97,7 @@ import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/ev
     RegistroDatosPracticaComponent,
     HemerotecaComponent,
     EvaluarDefensaComponent,
+    GenerarActaEvaluacionComponent,
   ],
   imports: [
     CommonModule,

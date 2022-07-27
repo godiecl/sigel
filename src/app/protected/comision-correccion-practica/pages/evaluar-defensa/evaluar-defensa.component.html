@@ -13,8 +13,8 @@
 <div class="row" >
     <div class="col flex-col-c">
         <div class="wrap-login300 p-l-55 p-r-55 p-t-65 p-b-54">
-            <div style="text-align: center;" >
-                <span>Rúbrica para evaluar la defensa de la práctica pre-profesional</span>
+            <div style="text-align: center; font-size: large; text-transform: uppercase;" class="m-b-20" >
+                <span>Rúbrica para evaluar la defensa de práctica pre-profesional</span>
             </div>
             
             <mat-tab-group mat-align-tabs="start" backgroundColor="primary" >
@@ -215,24 +215,15 @@
                         <ng-container matColumnDef="excelente">
                           <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
                           <td mat-cell *matCellDef="let element">∙ Presenta como mínimo los contenidos asociados al informe de  práctica: <br>
-                            
-                            ⮚ Introducción. <br>
-                            
-                            ⮚ Trabajo Realizado. <br>
-                            
-                            ⮚ Conclusiones. <br>
-                            
-                            ∙ Va desde lo general al detalle. <br>
-                            
-                            ∙ Muestra las evidencias formales del trabajo de ingeniería realizado (por  ejemplo, modelos, diagramas). <br>
-                            
-                            ∙ Distribuye el tiempo según  importancia:  <br>
-                            
-                            ⮚ Introducción 20 -30 %. <br>
-                            
-                            ⮚ Trabajo Realizado 50 - 60 %. <br>
-                            
-                            ⮚ Conclusiones 20 - 30%.</td>
+                            ∙  Introducción. <br>
+                            ∙  Trabajo Realizado. <br>                            
+                            ∙  Conclusiones. <br>                            
+                            ∙ Va desde lo general al detalle. <br>                            
+                            ∙ Muestra las evidencias formales del trabajo de ingeniería realizado (por  ejemplo, modelos, diagramas). <br>                            
+                            ∙ Distribuye el tiempo según  importancia:  <br>                            
+                            ∙ Introducción 20 -30 %. <br>                            
+                            ∙ Trabajo Realizado 50 - 60 %.<br>                            
+                            ∙ Conclusiones 20 - 30%.</td>
                         </ng-container>
                       
                         <!-- Weight Column -->
@@ -389,18 +380,24 @@
                     
 
                     <div class="m-t-20 spanc m-b-5">
-                        <span > Calcular nota de defensa: Evaluador 1: {{ profesores[0].nombre }} </span>
+                        <span > Evaluador: {{ profesor }} <br> Ingrese las notas para evaluar la defensa.  </span>
                     </div>
                     <div class="m-b-10"  >
                         <div style="display: flex;" >
                         
                                 <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                    <mat-label>Calidad del material</mat-label>
-                                    <input formControlName="calidadMaterialEvaluador1" min="1" max="7" matInput type="number">
+                                    <mat-label>Calidad del material:</mat-label>
+                                    <input formControlName="calidadMaterialEvaluador" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarDefensaForm.get('calidadMaterialEvaluador')?.errors">
+                                      <strong>Este campo es obligatorio</strong>
+                                  </mat-error> 
                                 </mat-form-field>
                                 <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                                  <mat-label>Contenido</mat-label>
-                                <input formControlName="contenidoEvaluador1" min="1" max="7" matInput type="number">
+                                  <mat-label>Contenido:</mat-label>
+                                <input formControlName="contenidoEvaluador" min="1" max="7" matInput type="number">
+                                <mat-error *ngIf="evaluarDefensaForm.get('contenidoEvaluador')?.errors">
+                                  <strong>Este campo es obligatorio</strong>
+                              </mat-error> 
                                 </mat-form-field>
 
                         </div>  
@@ -408,23 +405,35 @@
                         <div style="display: flex;">
                                 <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
                                   <mat-label>Dominio Escénico:</mat-label>
-                                    <input formControlName="dominioEscenicoEvaluador1" min="1" max="7" matInput type="number">
+                                    <input formControlName="dominioEscenicoEvaluador" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarDefensaForm.get('dominioEscenicoEvaluador')?.errors">
+                                      <strong>Este campo es obligatorio</strong>
+                                  </mat-error> 
                                     </mat-form-field>
                                 <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
                                   <mat-label>Claridad de la exposición:</mat-label>
-                                    <input formControlName="claridadEvaluador1" min="1" max="7" matInput type="number">
+                                    <input formControlName="claridadEvaluador" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarDefensaForm.get('claridadEvaluador')?.errors">
+                                      <strong>Este campo es obligatorio</strong>
+                                  </mat-error> 
                                     </mat-form-field>
                         </div>
 
                         <div style="display: flex;" >
                                 <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
                                   <mat-label>Tiempo empleado:</mat-label>
-                                    <input formControlName="tiempoEvaluador1" min="1" max="7" matInput type="number">
+                                    <input formControlName="tiempoEvaluador" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarDefensaForm.get('tiempoEvaluador')?.errors">
+                                      <strong>Este campo es obligatorio</strong>
+                                  </mat-error> 
                                     </mat-form-field>
                            
                                 <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
                                   <mat-label>Defensa de la presentación:</mat-label>
-                                    <input formControlName="defensaEvaluador1" min="1" max="7" matInput type="number">
+                                    <input formControlName="defensaEvaluador" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarDefensaForm.get('defensaEvaluador')?.errors">
+                                      <strong>Este campo es obligatorio</strong>
+                                  </mat-error> 
                                 </mat-form-field>
                         </div>
                         
@@ -433,29 +442,29 @@
                       <div class="m-b-10" >
                           <div style="display: flex;">
                               <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
-                                  <mat-label>Observaciones</mat-label>
-                                  <textarea formControlName="observacionesEvaluador1" matInput ></textarea>
+                                  <mat-label>Observaciones:</mat-label>
+                                  <textarea formControlName="observacionesEvaluador" matInput ></textarea>
                               </mat-form-field>
                           </div>
                       </div>
                 </div>
 
               <!-- Evaluador 1 -->
-              <div >
+              <!-- <div >
                     
 
                 <div class="m-t-20 spanc m-b-5">
-                    <span > Calcular nota de defensa: Evaluador 2: {{ profesores[1].nombre }}</span>
+                    <span > Calcular nota de defensa: Evaluador: {{ profesores[1].nombre }}</span>
                 </div>
                 <div class="m-b-10"  >
                     <div style="display: flex;" >
                     
                             <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                            <mat-label>Calidad del material (Diapositivas):</mat-label>
+                            <mat-label>Calidad del material:</mat-label>
                             <input formControlName="calidadMaterialEvaluador2" min="1" max="7" matInput type="number">
                             </mat-form-field>
                             <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                            <mat-label>Contenido</mat-label>
+                            <mat-label>Contenido:</mat-label>
                             <input formControlName="contenidoEvaluador2" min="1" max="7" matInput type="number">
                             </mat-form-field>
 
@@ -486,17 +495,16 @@
                     
                 </div>
                 <div class="spanc m-b-5" >
-                  <!-- <span> Observaciones </span> -->
                  </div>
                   <div class="m-b-10" >
                       <div style="display: flex;">
                           <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
-                              <mat-label>Observaciones</mat-label>
+                              <mat-label>Observaciones:</mat-label>
                               <textarea formControlName="observacionesEvaluador2" matInput ></textarea>
                           </mat-form-field>
                       </div>
                   </div>
-            </div>
+            </div> -->
 
             <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
               <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" cdkFocusInitial>Evaluar estudiante</button>
