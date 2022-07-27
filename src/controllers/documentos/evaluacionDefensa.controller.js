@@ -1,51 +1,80 @@
 
-import { Estudiante } from "../../models/Estudiante.js";
+import { Op } from "sequelize";
+import { EvaluacionDefensa } from "../../models/documentos/EvaluacionDefensa.js";
 import { ProfesorComisionCorrecion } from "../../models/ProfesorComisionCorreccion.js";
 import { Usuario } from "../../models/Usuario.js";
-import { InformePractica } from "../../models/documentos/InformePractica.js";
+import { Estudiante } from "../../models/Estudiante.js";
 import { EvaluacionEmpresa } from "../../models/documentos/EvaluacionEmpresa.js";
-import { Op } from "sequelize";
+import { InformePractica } from "../../models/documentos/InformePractica.js";
+import { ComisionCorreccion } from "../../models/ComisionCorreccionPractica.js";
 
 
 // registrar id de cc, formulario y estudiante.
-export const createEvaluacionDefensa = async (req, res) =>{
+export const actualizarEvaluacionDefensa = async (req, res) =>{
 
     try {
         
-        console.log(' body crear EVALUACION EMPRESA ',req.body);
+        console.log(' body actualizar EVALUACION DEFENSA ',req.body);
 
-        const { asistenciaPuntualidad, conducta, dedicacion, habilidadAprender, adaptacion, iniciativa,
-            aporteEmpresa, conocimientos, criterio, fortalezas, debilidades, estudiante, id_encargadoEmpresa } = req.body;
+        const { estudiante, id_comisionCorreccion, calidadMaterialEvaluador, contenidoEvaluador, dominioEscenicoEvaluador, 
+        claridadEvaluador, tiempoEvaluador, defensaEvaluador, promedioEvaluador, observacionesEvaluador } = req.body;
 
-        const evaluacion = await EvaluacionEmpresa.findOne({
+        const evaluacionExiste = await EvaluacionDefensa.findOne({
             where: {
                 id_estudiante: estudiante,
-                id_encargadoEmpresa: id_encargadoEmpresa
+                id_comisionCorreccion: id_comisionCorreccion,
             }
         })
 
-        if(evaluacion){
+        if(evaluacionExiste){
+
+            if(evaluacionExiste.promedioEvaluador1 && !evaluacionExiste.promedioEvaluador2){
+               // actualizar nota 2
+                evaluacionExiste.calidadMaterialEvaluador2 = calidadMaterialEvaluador;
+                evaluacionExiste.contenidoEvaluador2 = contenidoEvaluador;
+                evaluacionExiste.dominioEscenicoEvaluador2 = dominioEscenicoEvaluador;
+                evaluacionExiste.claridadEvaluador2 = claridadEvaluador;
+                evaluacionExiste.tiempoEvaluador2 = tiempoEvaluador;
+                evaluacionExiste.defensaEvaluador2 = defensaEvaluador;
+                evaluacionExiste.observacionesEvaluador2 = observacionesEvaluador;
+                evaluacionExiste.promedioEvaluador2 = promedioEvaluador;
+                let notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
+                evaluacionExiste.notaFinal = notaF.toFixed(2)
+                await evaluacionExiste.save()
+                return res.json({
+                    ok: true,
+                    msg: 'Evaluacion de defensa actualizada'
+                })
+            }
+
             return res.json({
                 ok: false,
-                msg: 'No se pudo registrar esta evaluacion de empresa, debido a que ya se evaluó ese estudiante.'
+                msg: 'No se pudo registrar esta evaluacion de defensa, debido a que ya se evaluó ese estudiante.'
+            })
+        }else{
+            const newEvaluacion = await EvaluacionDefensa.create({
+                id_comisionCorreccion,
+                calidadMaterialEvaluador1: calidadMaterialEvaluador,
+                contenidoEvaluador1: contenidoEvaluador,
+                dominioEscenicoEvaluador1: dominioEscenicoEvaluador,
+                claridadEvaluador1: claridadEvaluador,
+                tiempoEvaluador1: tiempoEvaluador,
+                defensaEvaluador1: defensaEvaluador,
+                promedioEvaluador1: promedioEvaluador,
+                observacionesEvaluador1: observacionesEvaluador, 
+                id_estudiante: estudiante, 
+            })
+            return res.status(200).json({
+                ok: true,
+                msg: 'Evaluacion de defensa nueva registrada'
             })
         }
-
-        const newEvaluacion = await EvaluacionEmpresa.create({
-            asistenciaPuntualidad, conducta, dedicacion, habilidadAprender, adaptacion, iniciativa,
-            aporteEmpresa, conocimientos, criterio, fortalezas, debilidades, id_estudiante: estudiante, id_encargadoEmpresa
-        })
-
-        return res.status(200).json({
-            ok: true,
-            msg: 'Evaluacion de empresa registrada'
-        })
 
     } catch (error) {
         // console.log(error)
         return res.json({
             ok: false,
-            msg: error.msg
+            msg: error.message
         })
     }
 
@@ -75,26 +104,29 @@ export const getDatosAsociados = async (req, res) =>{
     const idCC = profesorLog.id_comisionCorreccion;
     let datos = [];
 
-    let datosProfesores = [];
+    // let datosProfesores = [];
 
-    const profesores = await ProfesorComisionCorrecion.findAll(
-        {where: {
-          id_comisionCorreccion: idCC
-        }}
-      )
-    if(!profesores){
-        res.json({ok: false, msg: 'No existe una comisión asociada'})
-    }
-      for(let x = 0 ; x < profesores.length; x ++){
+    // const profesores = await ProfesorComisionCorrecion.findAll(
+    //     {where: {
+    //       id_comisionCorreccion: idCC
+    //     }}
+    //   )
+    // if(!profesores){
+    //     res.json({ok: false, msg: 'No existe una comisión asociada'})
+    // }
+    //   for(let x = 0 ; x < profesores.length; x ++){
     
-        let usuarioProfe = await Usuario.findByPk(profesores[x].id_usuario);
-        const nombre = usuarioProfe.nombre + ' ' + usuarioProfe.apellidop + ' ' + usuarioProfe.apellidom;
+    //     let usuarioProfe = await Usuario.findByPk(profesores[x].id_usuario);
+    //     const nombre = usuarioProfe.nombre + ' ' + usuarioProfe.apellidop + ' ' + usuarioProfe.apellidom;
     
-        datosProfesores.push({
-          nombre: nombre,       
-        })
-      }
+    //     datosProfesores.push({
+    //       nombre: nombre,       
+    //     })
+    //   }
     
+    
+    let usuarioProfe = await Usuario.findByPk(profesorLog.id_usuario);
+    const nombre = usuarioProfe.nombre + ' ' + usuarioProfe.apellidop + ' ' + usuarioProfe.apellidom;
    
     
     const estudiantes = await Estudiante.findAll({
@@ -154,7 +186,7 @@ export const getDatosAsociados = async (req, res) =>{
         
     }
 
-    datos.push({datosEstudiantes: datosEstudiantes, datosProfesores: datosProfesores})
+    datos.push({datosEstudiantes: datosEstudiantes, profesor: nombre, idCC: idCC})
 
     // console.log({datos})
 

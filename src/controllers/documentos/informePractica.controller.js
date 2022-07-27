@@ -61,8 +61,23 @@ export const createInforme = async (req, res) =>{
             res.json({ok: false, msg: 'Todavía no tiene nota final'})
         }
         const nota = informe.notaFinal;
+        const observacionesEvaluador1 = informe.observacionesEvaluador1;
+        const observacionesEvaluador2 = informe.observacionesEvaluador2;
+        if(!observacionesEvaluador1 && !observacionesEvaluador2){
+          res.json({ok: true, notaFinal: nota })
+
+        }else if(observacionesEvaluador1 && observacionesEvaluador2){
+          res.json({ok: true, notaFinal: nota, observacionesEvaluador1: observacionesEvaluador1  , observacionesEvaluador2: observacionesEvaluador2 })
+        }
+        else if(observacionesEvaluador1){
+          res.json({ok: true, notaFinal: nota, observacionesEvaluador1: observacionesEvaluador1 })
+
+        }
+        else if(observacionesEvaluador2){
+          res.json({ok: true, notaFinal: nota, observacionesEvaluador2: observacionesEvaluador2 })
+
+        }
         console.log(nota)
-        res.json({ok: true, notaFinal: nota })
     } catch (error) {
         
     }
@@ -116,7 +131,7 @@ export const evaluarInformeEstudiante = async (req, res) =>{
             res.json({ok: false, msg: 'No se ha modificado nada.'})
         }
         else if(nota1Modif && nota2Modif){
-          res.json({ok: true, msg: 'Se han modificado ambas notas'})
+          res.json({ok: true, msg: 'Se han actualizado las notas'})
         }
         else if(nota1Modif){
           res.json({ok: true, msg: 'Se ha modificado la nota 1'})

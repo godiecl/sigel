@@ -25,7 +25,7 @@ import { autorizarSeguro, dejarPendienteSeguro, getSeguros, ocultarSeguro } from
 import { createInforme, getNotaFinal, getListFilesInformeEstudiante ,evaluarInformeEstudiante } from '../controllers/documentos/informePractica.controller.js';
 import { createComisionCorreccion, deleteComision, getListaComisiones } from '../controllers/comisionCorrecion.controller.js';
 import { createEvaluacionEmpresa, getEstudiantesAsociados } from '../controllers/documentos/evaluacionEmpresa.controller.js';
-import { createEvaluacionDefensa, getDatosAsociados } from '../controllers/documentos/evaluacionDefensa.controller.js';
+import { actualizarEvaluacionDefensa, getDatosAsociados } from '../controllers/documentos/evaluacionDefensa.controller.js';
 
 const router = Router();
 
@@ -253,7 +253,7 @@ router.post('/evaluacion-empresa/', createEvaluacionEmpresa)
 router.get('/evaluacion-empresa/listaEstudiantesAsociados:id', getEstudiantesAsociados)
 
 // Evaluacion de defensa de práctica
-router.post('/evaluacion-defensa', createEvaluacionDefensa)
+router.post('/evaluacion-defensa', actualizarEvaluacionDefensa)
 router.get('/evaluacion-defensa:id', getDatosAsociados)
 
 export default router;
