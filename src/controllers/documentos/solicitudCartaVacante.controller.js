@@ -164,23 +164,21 @@ export const responderSolicitudCartaVacante = async (req, res) => {
     console.log('body: ',req.body)
     const id = req.params.id
     const solicitud = await SolicitudCartaVacante.findByPk(id);
-    solicitud.fechaInicio = req.body.fechaInicio;
-    solicitud.fechaFinal = req.body.fechaFinal;
-    solicitud.estadoRespuesta = 'completada'
-    solicitud.save();
-
     const seguro = await Seguro.findOne({
         where: {
             id_estudiante: solicitud.id_estudiante
         }
     })
-
     if(seguro){
         return res.status(400).json({
             ok: false,
-            msg: 'No se pudo registrar este seguro, debido a que ese estudiante ya tiene.'
+            msg: 'No se responder esta solicitud, debido a que el estudiante ya esta rindiendo su práctica.'
         })
     }
+    solicitud.fechaInicio = req.body.fechaInicio;
+    solicitud.fechaFinal = req.body.fechaFinal;
+    solicitud.estadoRespuesta = 'completada'
+    solicitud.save();
 
     const newSeguro = await Seguro.create({
         id_estudiante: solicitud.id_estudiante,

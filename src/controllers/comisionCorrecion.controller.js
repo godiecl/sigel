@@ -9,7 +9,7 @@ export const createComisionCorreccion = async (req, res) =>{
 
         const estudiantes = req.body.data.idEstudiantes;
         const profesores = req.body.data.idProfesores;
-        console.log('length', estudiantes.length);
+        console.log('profesores', profesores);
         // console.log(data[0][2])
 
         const newComisionCorreccion = await ComisionCorreccion.create({
@@ -17,7 +17,7 @@ export const createComisionCorreccion = async (req, res) =>{
         })
 
         for(let i = 0; i < estudiantes.length; i++){
-            console.log(estudiantes[i])
+            // console.log(estudiantes[i])
             let id_estudiante = estudiantes[i];
             
             let estudiante = await Estudiante.findByPk(id_estudiante);
@@ -28,15 +28,16 @@ export const createComisionCorreccion = async (req, res) =>{
             
             await estudiante.save()
             
-            console.log('Se ha añadido un estudiante')
+            // console.log('Se ha añadido un estudiante')
 
         }
 
         for(let j = 0; j < profesores.length; j++){
-            const id_profesor = profesores[j];
+            const id_profesor = profesores[j].idProfesor;
             let profesorCC = await ProfesorComisionCorrecion.findByPk(id_profesor);
             profesorCC.id_comisionCorreccion = newComisionCorreccion.id_comisionCorreccion;
             profesorCC.estadoDisponible = 'asignado';
+            profesorCC.secretario = profesores[j].secretario;
             await profesorCC.save()
             console.log('Se ha añadido un profesor')
         }

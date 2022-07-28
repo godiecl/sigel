@@ -7,6 +7,7 @@ import { Estudiante } from "../../models/Estudiante.js";
 import { EvaluacionEmpresa } from "../../models/documentos/EvaluacionEmpresa.js";
 import { InformePractica } from "../../models/documentos/InformePractica.js";
 import { ComisionCorreccion } from "../../models/ComisionCorreccionPractica.js";
+import { SolicitudCartaVacante } from "../../models/documentos/SolicitudCartaVacante.js";
 
 
 // registrar id de cc, formulario y estudiante.
@@ -17,7 +18,7 @@ export const actualizarEvaluacionDefensa = async (req, res) =>{
         console.log(' body actualizar EVALUACION DEFENSA ',req.body);
 
         const { estudiante, id_comisionCorreccion, calidadMaterialEvaluador, contenidoEvaluador, dominioEscenicoEvaluador, 
-        claridadEvaluador, tiempoEvaluador, defensaEvaluador, promedioEvaluador, observacionesEvaluador } = req.body;
+        claridadEvaluador, tiempoEvaluador, defensaEvaluador, promedioEvaluador, observacionesEvaluador, secretario } = req.body;
 
         const evaluacionExiste = await EvaluacionDefensa.findOne({
             where: {
@@ -28,8 +29,35 @@ export const actualizarEvaluacionDefensa = async (req, res) =>{
 
         if(evaluacionExiste){
 
-            if(evaluacionExiste.promedioEvaluador1 && !evaluacionExiste.promedioEvaluador2){
+            if(secretario){
                // actualizar nota 2
+                evaluacionExiste.calidadMaterialEvaluador1 = calidadMaterialEvaluador;
+                evaluacionExiste.contenidoEvaluador1 = contenidoEvaluador;
+                evaluacionExiste.dominioEscenicoEvaluador1 = dominioEscenicoEvaluador;
+                evaluacionExiste.claridadEvaluador1 = claridadEvaluador;
+                evaluacionExiste.tiempoEvaluador1 = tiempoEvaluador;
+                evaluacionExiste.defensaEvaluador1 = defensaEvaluador;
+                evaluacionExiste.observacionesEvaluador1 = observacionesEvaluador;
+                evaluacionExiste.promedioEvaluador1 = promedioEvaluador;
+                let notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
+                evaluacionExiste.notaFinal = notaF.toFixed(1)
+                await evaluacionExiste.save()
+                let estudiante = await Estudiante.findOne({
+                    where: {
+                        id_estudiante: evaluacionExiste.id_estudiante,
+                    }
+                })
+                if(evaluacionExiste.notaFinal >= 4 ){
+                    estudiante.practicaAprobada = true;
+                    estudiante.save();
+                }
+
+
+                return res.json({
+                    ok: true,
+                    msg: 'Evaluación de defensa actualizada'
+                })
+            }else{
                 evaluacionExiste.calidadMaterialEvaluador2 = calidadMaterialEvaluador;
                 evaluacionExiste.contenidoEvaluador2 = contenidoEvaluador;
                 evaluacionExiste.dominioEscenicoEvaluador2 = dominioEscenicoEvaluador;
@@ -39,35 +67,64 @@ export const actualizarEvaluacionDefensa = async (req, res) =>{
                 evaluacionExiste.observacionesEvaluador2 = observacionesEvaluador;
                 evaluacionExiste.promedioEvaluador2 = promedioEvaluador;
                 let notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
-                evaluacionExiste.notaFinal = notaF.toFixed(2)
+                evaluacionExiste.notaFinal = notaF.toFixed(1)
                 await evaluacionExiste.save()
+                let estudiante = await Estudiante.findOne({
+                    where: {
+                        id_estudiante: evaluacionExiste.id_estudiante,
+                    }
+                })
+                if(evaluacionExiste.notaFinal >= 4 ){
+                    estudiante.practicaAprobada = true;
+                    await estudiante.save();
+                }
                 return res.json({
                     ok: true,
-                    msg: 'Evaluacion de defensa actualizada'
+                    msg: 'Evaluación de defensa actualizada'
                 })
             }
 
-            return res.json({
-                ok: false,
-                msg: 'No se pudo registrar esta evaluacion de defensa, debido a que ya se evaluó ese estudiante.'
-            })
         }else{
-            const newEvaluacion = await EvaluacionDefensa.create({
-                id_comisionCorreccion,
-                calidadMaterialEvaluador1: calidadMaterialEvaluador,
-                contenidoEvaluador1: contenidoEvaluador,
-                dominioEscenicoEvaluador1: dominioEscenicoEvaluador,
-                claridadEvaluador1: claridadEvaluador,
-                tiempoEvaluador1: tiempoEvaluador,
-                defensaEvaluador1: defensaEvaluador,
-                promedioEvaluador1: promedioEvaluador,
-                observacionesEvaluador1: observacionesEvaluador, 
-                id_estudiante: estudiante, 
-            })
-            return res.status(200).json({
-                ok: true,
-                msg: 'Evaluacion de defensa nueva registrada'
-            })
+
+            if(secretario){
+
+                const newEvaluacion = await EvaluacionDefensa.create({
+                    id_comisionCorreccion,
+                    calidadMaterialEvaluador1: calidadMaterialEvaluador,
+                    contenidoEvaluador1: contenidoEvaluador,
+                    dominioEscenicoEvaluador1: dominioEscenicoEvaluador,
+                    claridadEvaluador1: claridadEvaluador,
+                    tiempoEvaluador1: tiempoEvaluador,
+                    defensaEvaluador1: defensaEvaluador,
+                    promedioEvaluador1: promedioEvaluador,
+                    observacionesEvaluador1: observacionesEvaluador, 
+                    id_estudiante: estudiante, 
+                })
+
+                return res.status(200).json({
+                    ok: true,
+                    msg: 'Evaluación de defensa nueva registrada'
+                })
+
+            }else{
+
+                const newEvaluacion = await EvaluacionDefensa.create({
+                    id_comisionCorreccion,
+                    calidadMaterialEvaluador2: calidadMaterialEvaluador,
+                    contenidoEvaluador2: contenidoEvaluador,
+                    dominioEscenicoEvaluador2: dominioEscenicoEvaluador,
+                    claridadEvaluador2: claridadEvaluador,
+                    tiempoEvaluador2: tiempoEvaluador,
+                    defensaEvaluador2: defensaEvaluador,
+                    promedioEvaluador2: promedioEvaluador,
+                    observacionesEvaluador2: observacionesEvaluador, 
+                    id_estudiante: estudiante, 
+                })
+                return res.status(200).json({
+                    ok: true,
+                    msg: 'Evaluación de defensa nueva registrada'
+                })
+            }   
         }
 
     } catch (error) {
@@ -102,6 +159,7 @@ export const getDatosAsociados = async (req, res) =>{
 
     // // console.log(id_encargadoEmp)
     const idCC = profesorLog.id_comisionCorreccion;
+    const secretario = profesorLog.secretario;
     let datos = [];
 
     // let datosProfesores = [];
@@ -127,6 +185,7 @@ export const getDatosAsociados = async (req, res) =>{
     
     let usuarioProfe = await Usuario.findByPk(profesorLog.id_usuario);
     const nombre = usuarioProfe.nombre + ' ' + usuarioProfe.apellidop + ' ' + usuarioProfe.apellidom;
+    
    
     
     const estudiantes = await Estudiante.findAll({
@@ -186,7 +245,7 @@ export const getDatosAsociados = async (req, res) =>{
         
     }
 
-    datos.push({datosEstudiantes: datosEstudiantes, profesor: nombre, idCC: idCC})
+    datos.push({datosEstudiantes: datosEstudiantes, profesor: nombre, secretario: secretario, idCC: idCC})
 
     // console.log({datos})
 
@@ -196,3 +255,4 @@ export const getDatosAsociados = async (req, res) =>{
         res.json({ok: false, msg: error.message})
     }
 }
+

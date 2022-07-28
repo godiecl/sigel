@@ -1,5 +1,10 @@
 import { Seguro } from '../models/documentos/Seguro.js';
+import { SolicitudCartaVacante } from '../models/documentos/SolicitudCartaVacante.js';
+import { SolicitudEstudiante } from '../models/documentos/SolicitudEstudiante.js';
+import { Empresa } from '../models/Empresa.js';
+import { EncargadoEmpresa } from '../models/EncargadoEmpresa.js';
 import { Estudiante } from '../models/Estudiante.js'
+import { ProfesorComisionCorrecion } from '../models/ProfesorComisionCorreccion.js';
 import { Usuario } from '../models/Usuario.js';
 
 export const createEstudiante = async (request, response) => {
@@ -239,3 +244,88 @@ export const getEstudiantesPractica = async (req,res) =>{
   }
 
 }
+
+export const getEstudiantesAprobados = async (req, res) =>{
+  try {
+      
+    const estudiantes = await Estudiante.findAll({
+      where: {
+        practicaAprobada: true
+      }
+    })
+
+    if(!estudiantes){
+      res.json({ok: false, msg: 'No hay estudiantes que hayan aprobado sus prácticas actualmente.'})
+    }
+
+    
+    let datos = [] 
+
+    for(let i = 0; i < estudiantes.length ; i++){
+      const usuarioEstudiante = await Usuario.findByPk(estudiantes[i].id_usuario);
+      const nombre = usuarioEstudiante.nombre + ' ' + usuarioEstudiante.apellidop + ' ' + usuarioEstudiante.apellidom;
+      
+      const solicitudCarta = await SolicitudCartaVacante.findOne({
+        where: {
+          id_estudiante: estudiantes[i].id_estudiante,
+          estadoRespuesta: 'completada'
+        }
+      })
+      const solicitudEstudiante = await SolicitudEstudiante.findOne({
+        where: {
+          id_solicitudEstudiante: solicitudCarta.id_solicitudEstudiante
+        }
+      })
+      const encEmpresa = await EncargadoEmpresa.findOne({
+        where: {
+          id_encargadoEmpresa: solicitudEstudiante.id_encargadoEmpresa
+        }
+      })
+
+      const empresa = await Empresa.findOne({
+        where: {
+          id_empresa: encEmpresa.id_empresa
+        }
+      })
+
+      datos.push({
+        nombreEmpresa: empresa.nombreEmpresa,
+        nombreProyecto: solicitudEstudiante.nombreProyecto,
+        periodo: solicitudCarta.periodoRealizar,
+        anio: solicitudCarta.anioRealizar,
+        nombre: nombre, 
+        rut: usuarioEstudiante.rut
+      })
+      
+    }
+
+    
+    res.json({ok: true, datos: datos})
+
+    
+  } catch (error) {
+      res.json({ok: false, msg: error.message})
+  }
+}
+
+// let profesor = profesoresArr.find((profesor)=>{
+      //   return profesor.id_comisionCorreccion === estudiantes[i].id_comisionCorreccion;
+      // })
+      // if(!profesor){
+      //   const profesoresCC = await ProfesorComisionCorrecion.findAll({
+      //     where: {
+      //       id_comisionCorreccion: estudiantes[i].id_comisionCorreccion
+      //     }
+      //   })
+
+      //   profesoresArr.push()
+      // }
+
+      // const profesores = await ProfesorComisionCorrecion.findAll({
+    //   where: {
+    //     id_comisionCorreccion: 
+    //   }
+    // })
+
+    // for(let j = 0; j < )
+      

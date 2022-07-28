@@ -25,7 +25,7 @@ async function main(){
     // const queryInterface = sequelize.getQueryInterface();
 
     // queryInterface.addColumn('users', 'resetToken', { type: DataTypes.STRING });
-      await sequelize.sync({alter: true});
+      await sequelize.sync({alter: false});
       console.log('Connection has been established successfully.');
         
       app.listen(process.env.PORT);

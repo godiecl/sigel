@@ -6,7 +6,7 @@ import util from 'util';
 import fs from 'fs';
 
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
-import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, getEstudiantes, getEstudiantesPractica, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
+import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, getEstudiantes, getEstudiantesAprobados, getEstudiantesPractica, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
 import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.js';
@@ -255,5 +255,7 @@ router.get('/evaluacion-empresa/listaEstudiantesAsociados:id', getEstudiantesAso
 // Evaluacion de defensa de práctica
 router.post('/evaluacion-defensa', actualizarEvaluacionDefensa)
 router.get('/evaluacion-defensa:id', getDatosAsociados)
+
+router.get('/estudiantes-aprobados',getEstudiantesAprobados)
 
 export default router;

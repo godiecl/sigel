@@ -15,6 +15,10 @@ export const ProfesorComisionCorrecion = sequelize.define('profesores_comision_c
     },
     telefono: {
         type: DataTypes.STRING,
+    },
+    secretario: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 })
 Usuario.hasOne(ProfesorComisionCorrecion, {
