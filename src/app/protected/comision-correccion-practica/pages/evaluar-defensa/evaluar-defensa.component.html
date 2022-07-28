@@ -356,25 +356,6 @@
                 </mat-error>
                 </mat-form-field>
 
-                <div class="spanc" >
-                <span>Observaciones de la empresa:</span>
-                </div>
-                <div class="wmitad" >
-                  <mat-tab-group dynamicHeight>
-                    <mat-tab label="Fortalezas">
-                      <div class="example-large-box mat-elevation-z4">
-                        {{ fortalezasMostrar }}
-                      </div>
-                    </mat-tab>
-                    <mat-tab label="Debilidades">
-                      <div class="example-large-box mat-elevation-z4">
-                        {{ debilidadesMostrar }}
-                      </div>
-                    </mat-tab>
-                  </mat-tab-group>
-                </div>
-
-
                 <!-- Evaluador 1 -->
                 <div >
                     
@@ -448,6 +429,24 @@
                           </div>
                       </div>
                 </div>
+
+                <div class="spanc" >
+                  <span>Observaciones de la empresa:</span>
+                  </div>
+                  <div class="wmitad" >
+                    <mat-tab-group dynamicHeight>
+                      <mat-tab label="Fortalezas">
+                        <div class="example-large-box mat-elevation-z4">
+                          {{ fortalezasMostrar }}
+                        </div>
+                      </mat-tab>
+                      <mat-tab label="Debilidades">
+                        <div class="example-large-box mat-elevation-z4">
+                          {{ debilidadesMostrar }}
+                        </div>
+                      </mat-tab>
+                    </mat-tab-group>
+                  </div>
 
               <!-- Evaluador 1 -->
               <!-- <div >

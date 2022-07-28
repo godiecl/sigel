@@ -233,5 +233,11 @@ export class ComisionTitulacionPracticaService {
     )
   }
 
+  getEstudiantesAprobados(): Observable<any>{
+    const url = `${this.baseUrl}estudiantes-aprobados`
+    return this.http.get<any>(url);
+    
+  }
+
 }
 
