@@ -138,6 +138,7 @@ export const getListaComisiones = async (req, res) =>{
 
                 profesoresArr.push({
                     nombre: profesor.nombre,
+                    secretario: profesores[o].secretario,
                     apellidop: profesor.apellidop,
                     apellidom: profesor.apellidom
                 })

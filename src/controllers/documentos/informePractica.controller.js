@@ -17,6 +17,9 @@ export const createInforme = async (req, res) =>{
           console.log('no cumple con el formato')
           return res.json({ok: false, msg: 'El formato del archivo es inválido.'})
         }
+
+        // validar si estudiante no ha sido autorizado por una empresa
+
         const ruta = './documentos/informe-practica/'+nombreInforme;
 
         const informeNew = await InformePractica.create({
@@ -106,7 +109,8 @@ export const evaluarInformeEstudiante = async (req, res) =>{
           nota2Modif = true;
         }
         if(informe.notaEvaluador1 && informe.notaEvaluador2){
-          informe.notaFinal = (informe.notaEvaluador1 + informe.notaEvaluador2) / 2;
+          const notaF = (informe.notaEvaluador1 + informe.notaEvaluador2) / 2;
+          informe.notaFinal = notaF.toFixed(1)
         }
         if(notas.observacionesEvaluador1){
             informe.observacionesEvaluador1 = notas.observacionesEvaluador1;
@@ -131,13 +135,13 @@ export const evaluarInformeEstudiante = async (req, res) =>{
             res.json({ok: false, msg: 'No se ha modificado nada.'})
         }
         else if(nota1Modif && nota2Modif){
-          res.json({ok: true, msg: 'Se han actualizado las notas'})
+          res.json({ok: true, msg: 'Se ha actualizado la evaluación del informe'})
         }
         else if(nota1Modif){
-          res.json({ok: true, msg: 'Se ha modificado la nota 1'})
+          res.json({ok: true, msg: 'Se ha actualizado la evaluación del informe'})
         }
         else if(nota2Modif){
-          res.json({ok: true, msg: 'Se ha modificado la nota 2'})
+          res.json({ok: true, msg: 'Se ha actualizado la evaluación del informe'})
         }
       }
       

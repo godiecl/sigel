@@ -75,6 +75,7 @@ export const getSeguros = async (req, res) => {
              datos.push({
                 id_seguro: seguros[i].id_seguro,
                 periodoRealizar: solicitudCarta.periodoRealizar,
+                anio: solicitudCarta.anioRealizar,
                 estado: seguros[i].estado,
                 rutEstudiante: usuarioEstudiante.rut,
                 nombreEstudiante: usuarioEstudiante.nombre,
