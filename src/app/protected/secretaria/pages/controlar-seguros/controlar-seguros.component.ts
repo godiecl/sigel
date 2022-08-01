@@ -49,7 +49,7 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
       
     })
 
-  this.displayedColumns = ['nombreEstudiante', 'rutEstudiante', 'periodoRealizar','estado', 'boton']
+  this.displayedColumns = ['nombreEstudiante', 'rutEstudiante', 'periodoRealizar','anio','estado', 'boton']
 
     this.secretariaS.refresh$.subscribe(()=>{//refrescar tabla
       this.secretariaS.getSeguros().subscribe(

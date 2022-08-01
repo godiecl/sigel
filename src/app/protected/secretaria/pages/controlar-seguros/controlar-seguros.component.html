@@ -52,6 +52,11 @@
                         </td>
                     </ng-container>
     
+                    <ng-container matColumnDef="anio">
+                    <th mat-header-cell *matHeaderCellDef> AÑO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.anio }} </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="estado">
                         <th mat-header-cell *matHeaderCellDef> ESTADO </th>
                         <td mat-cell *matCellDef="let element">

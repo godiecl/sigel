@@ -16,6 +16,10 @@
             <div style="text-align: center; font-size: large; text-transform: uppercase;" class="m-b-20" >
                 <span>Rúbrica para evaluar la defensa de práctica pre-profesional</span>
             </div>
+
+            <div *ngIf="estudiantes.length === 0">
+              <span class="text-danger">No hay estudiantes disponibles para evaluar </span>
+            </div>
             
             <mat-tab-group mat-align-tabs="start" backgroundColor="primary" >
                 <mat-tab label="Calidad de material de diapositivas">
@@ -343,8 +347,9 @@
                       </table>
                 </mat-tab>
               </mat-tab-group>
-              
-            <form [formGroup]="evaluarDefensaForm" (ngSubmit)="alerta()" >
+
+            <div *ngIf="estudiantes.length > 0" >
+              <form [formGroup]="evaluarDefensaForm" (ngSubmit)="alerta()" >
 
                 <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
                 <mat-label>Seleccione estudiante para evaluar: </mat-label>
@@ -510,6 +515,7 @@
             </mat-card-actions>
 
             </form>
+            </div>  
         </div>
     </div>
 

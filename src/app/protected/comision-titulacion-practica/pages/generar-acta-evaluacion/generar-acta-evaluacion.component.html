@@ -78,7 +78,7 @@
                 <ng-container matColumnDef="boton" >
                 <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element"> 
-                    <button mat-raised-button color="primary" > Generar Acta </button>
+                    <button mat-raised-button color="primary" (click)="downloadPDF(element.id_estudiante)" > Generar Acta </button>
                         
                  </td> 
                 </ng-container>

@@ -21,7 +21,11 @@
             <div class="spanc" >
                 <span>Ingrese las notas para evaluar el trabajo del estudiante en los siguientes campos.</span>
             </div>
-            <form mat-form [formGroup]="evaluarTrabajoForm" (ngSubmit)="alertaSeguro()" >
+            <div *ngIf="estudiantes.length === 0" >
+                <span class="text-danger" >No hay estudiantes disponibles para evaluar</span>
+            </div>
+            <div *ngIf="estudiantes.length > 0" >
+                <form mat-form [formGroup]="evaluarTrabajoForm" (ngSubmit)="alertaSeguro()" >
                 
                         <div class="w-full" >
                             <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
@@ -200,6 +204,8 @@
                     <button mat-raised-button color="warn" type="submit" [disabled]="evaluarTrabajoForm.invalid" cdkFocusInitial>Evaluar estudiante</button>
                 </mat-card-actions>
             </form>
+            </div>
+            
             
         </div>
     </div>

@@ -239,5 +239,18 @@ export class ComisionTitulacionPracticaService {
     
   }
 
+  getEstudiantesRegistro(): Observable<any>{
+    const url = `${this.baseUrl}estudiantes-registro`
+    return this.http.get<any>(url);
+    
+  }
+
+  getDatosEstudiante(id: any): Observable<any>{
+    const url = `${this.baseUrl}acta-evaluacion/${id}`
+    return this.http.get<any>(url);
+    
+  }
+
+
 }
 

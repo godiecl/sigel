@@ -100,7 +100,7 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
     
     const data:any = this.evaluarTrabajoForm.getRawValue()
     const notaFinal = ((data.asistenciaPuntualidad + data.conducta + data.dedicacion + data.habilidadAprender + data.adaptacion + data.iniciativa + data.aporteEmpresa + data.conocimientos + data.criterio) / 9)
-    data.notaFinal = notaFinal.toFixed(2)
+    data.notaFinal = notaFinal.toFixed(1)
     console.log(notaFinal)
     data.id_encargadoEmpresa = this.encargadoEmpresaLog.id_encargadoEmpresa;
 
