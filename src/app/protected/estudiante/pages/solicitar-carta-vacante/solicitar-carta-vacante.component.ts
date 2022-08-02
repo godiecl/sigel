@@ -40,9 +40,6 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
     {id: 1, periodo: 'Primer Semestre'},
     {id: 2, periodo: 'Segundo Semestre'},
     {id: 3, periodo: 'Verano'},
-    // {id: 7, periodo: '1er Semestre 2024'},
-    // {id: 8, periodo: '2do Semestre 2024'},
-    // {id: 9, periodo: 'Verano 2024-2025'},
   ]
 
   ciudades = ['Antofagasta', 'Coquimbo', 'Calama','Mejillones']

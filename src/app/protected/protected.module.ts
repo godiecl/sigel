@@ -56,6 +56,7 @@ import { RegistroDatosPracticaComponent } from './comision-titulacion-practica/p
 import { HemerotecaComponent } from './secretaria/pages/hemeroteca/hemeroteca.component';
 import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
 import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/pages/generar-acta-evaluacion/generar-acta-evaluacion.component';
+import { ModalExtenderSeguroComponent } from './secretaria/pages/controlar-seguros/modal-extender-seguro/modal-extender-seguro.component';
 
 
 
@@ -98,6 +99,7 @@ import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/p
     HemerotecaComponent,
     EvaluarDefensaComponent,
     GenerarActaEvaluacionComponent,
+    ModalExtenderSeguroComponent,
   ],
   imports: [
     CommonModule,

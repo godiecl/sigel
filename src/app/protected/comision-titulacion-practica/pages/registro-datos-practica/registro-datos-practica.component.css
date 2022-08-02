@@ -90,13 +90,13 @@ nav a:hover{
     padding-right: 12px;
     text-align: center;
 }
-.mat-column-periodo{
-    width: 400px;
+.mat-column-fechaInicio{
+    width: 600px;
     padding-right: 12px;
     text-align: center;
 }
-.mat-column-anio{
-    width: 400px;
+.mat-column-fechaFinal{
+    width: 600px;
     padding-right: 12px;
     text-align: center;
 }

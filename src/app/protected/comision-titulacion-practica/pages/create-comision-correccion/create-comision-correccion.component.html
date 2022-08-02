@@ -30,7 +30,7 @@
                     <div *ngIf="element.duplasAsignadas !== null">
                         <div *ngFor="let profesor of element.profesores" >
                             <div *ngIf="profesor.secretario" >
-                            {{ profesor.nombre | titlecase }} {{ profesor.apellidop | titlecase}} {{ profesor.apellidom | titlecase}}  >>> Secretario
+                            {{ profesor.nombre | titlecase }} {{ profesor.apellidop | titlecase}} {{ profesor.apellidom | titlecase}} (Secretario)
                             </div>
                             <div *ngIf="!profesor.secretario" >
                                 {{ profesor.nombre | titlecase }} {{ profesor.apellidop | titlecase}} {{ profesor.apellidom | titlecase}}   

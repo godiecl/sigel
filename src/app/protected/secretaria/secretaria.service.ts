@@ -70,5 +70,24 @@ export class SecretariaService {
       })
     );
   }
+  getTodosInforme(): Observable<any>{
+    const url = `${this.baseUrl}get-todos-informe`;
+    return this.http.get(url);
+  }
+
+  descargarInforme(id: any): Observable<any>{
+    const url = `${this.baseUrl}descargar-informe/${id}`;
+    return this.http.get(url);
+  }
+
+  extenderSeguro(id: any, fechaFinal: any): Observable<any>{
+    console.log('extender seguro')
+    const url = `${this.baseUrl}extender-seguro${id}`;
+    return this.http.patch<any>(url,fechaFinal).pipe(
+      tap(()=>{
+        this._refresh$.next();
+      })
+    );
+  }
 
 }

@@ -43,8 +43,16 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
   insatisfactorio: 'Nota 3.0 - 1.0'
   }]
 
+  periodos = [
+    {id: 1, periodo: 'Primer Semestre'},
+    {id: 2, periodo: 'Segundo Semestre'},
+    {id: 3, periodo: 'Verano'},
+  ]
+
   evaluarTrabajoForm: FormGroup = this.fb.group({
     estudiante: [, [Validators.required]],
+    periodoRealizar: [, [Validators.required]],
+    anioRealizar: [, [Validators.required]],
     asistenciaPuntualidad: [, [Validators.required]],
     conducta: [, [Validators.required]],
     dedicacion: [, [Validators.required]],
@@ -73,11 +81,15 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this._unsubscribeAll)).subscribe((encargado: EncargadoEmpresa)=>{
           this.encargadoEmpresaLog = encargado;
           // console.log(this.encargadoEmpresaLog)
-          this.encEmpS.getEstudiantesAsociados(encargado.id_encargadoEmpresa).subscribe((datos: any)=>{
-            console.log(datos)
-            this.datos = [... datos.datos];
+          this.encEmpS.getEstudiantesAsociados(encargado.id_encargadoEmpresa).subscribe((resp: any)=>{
+            console.log(resp)
+            if(resp.ok){  
+            this.datos = [... resp.datos];
             this.estudiantes = [...new Map(this.datos.map(item =>
-              [item['id_estudiante'], item])).values()];
+            [item['id_estudiante'], item])).values()];
+            }else{
+              Swal.fire('Ha ocurrido un error', resp.msg, 'error')
+            }
           })
 
         })

@@ -6,6 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { AdministradorService } from '../../../administrador/services/administrador.service';
 import { Estudiante } from '../../../../auth/interfaces/estudiante.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-upload-informe',
@@ -18,11 +19,18 @@ export class UploadInformeComponent implements OnInit {
   private fileTmpInformeEstudiante:any;
   estudiante!: number;
   hayArchivo: boolean = false;
+  informeForm!: FormGroup;
+  periodos = [
+    {id: 1, periodo: 'Primer Semestre'},
+    {id: 2, periodo: 'Segundo Semestre'},
+    {id: 3, periodo: 'Verano'},
+  ]
 
   constructor(
     private authS: AuthService ,
     private adminS: AdministradorService ,
     private comisionTitulacionPracticaService:ComisionTitulacionPracticaService,
+    private fb: FormBuilder
     ) {
       const usuarioLogId = authS.usuario.id;
       this.adminS.obtenerEstudiantePorIdUsuario(usuarioLogId).subscribe(
@@ -34,6 +42,10 @@ export class UploadInformeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.informeForm = this.fb.group({
+      periodoRealizar: [,[Validators.required]],
+      anioRealizar: [,[Validators.required]]
+    })
   }
   getFileInformeEstudiante($event:any):void{
     const [file] = $event.target.files;
@@ -75,32 +87,30 @@ export class UploadInformeComponent implements OnInit {
     })
   }
   sendFileInformeEstudiante():void{
-    //this.loading=true;
     // ALMACENAR EN HDD.
     const nombre = this.fileTmpInformeEstudiante.fileName.replaceAll(" ","_");
-    const body=new FormData();
-    body.append('myFile',this.fileTmpInformeEstudiante.fileRaw,this.fileTmpInformeEstudiante.fileName.replaceAll(" ","_"));
-   
-    // console.log('body tiene:',body);
-    // console.log('nombre del archivo: ', nombre);
-    //conexion con backend
-    this.comisionTitulacionPracticaService.sendPostInformeEstudiante(body)
-    .subscribe((res)=>{
-      //this.loading=false;
-      // console.log(res)
+    
+
       const data = {
+        periodoRealizar: this.informeForm.value.periodoRealizar,
+        anioRealizar: this.informeForm.value.anioRealizar,
         ruta: nombre,
         id_estudiante: this.estudiante,
       }
       this.comisionTitulacionPracticaService.postInformePractica(data).subscribe((resp)=>{
         if(resp.ok){
+          const body=new FormData();
+          body.append('myFile',this.fileTmpInformeEstudiante.fileRaw,this.fileTmpInformeEstudiante.fileName.replaceAll(" ","_"));
+          this.comisionTitulacionPracticaService.sendPostInformeEstudiante(body)
+          .subscribe((res)=>{
+
+          });
           Swal.fire('Se ha almacenado el archivo con éxito','','success');
-        }else if(!resp.ok){
+        }else{
           console.log(resp)
           Swal.fire(resp.msg,'','error');
         }
       })
-    });
 
     // ALMACENAR EN BDD:
     

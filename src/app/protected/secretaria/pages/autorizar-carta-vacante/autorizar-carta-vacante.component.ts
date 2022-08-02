@@ -31,12 +31,17 @@ export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
 
     this.secretariaS.getListaVacantes()
       .pipe(takeUntil(this._unsubscribeAll))
-        .subscribe((solicitudes)=>{
+        .subscribe((resp)=>{
           // console.log(solicitudes)
-          this.solicitudesCartaVacante = solicitudes;
-          this.displayedColumns = ['nombreEmpresa','rutEmpresa', 'giroEmpresa', 
-          'nombreProyecto', 'cargoEncargado','nombreEncargado', 'telefonoEncargado',
-          'rutEstudiante','nombreEstudiante', 'periodoRealizar','anioRealizar' ,'estado', 'enviarCorreo',  ]
+          if(resp.ok){
+
+            this.solicitudesCartaVacante = resp.datos;
+            this.displayedColumns = ['nombreEmpresa','rutEmpresa', 'giroEmpresa', 
+            'nombreProyecto', 'cargoEncargado','nombreEncargado', 'telefonoEncargado',
+            'rutEstudiante','nombreEstudiante', 'periodoRealizar','anioRealizar' ,'estado', 'enviarCorreo',  ]
+          }else{
+            Swal.fire('Ha ocurrido un error', resp.msg, 'error')
+          }
         })
 
   }

@@ -107,6 +107,7 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
         
 
       }else{
+        console.log(resp)
         Swal.fire('Ha ocurrido un error', resp.msg,'error');
         // this.router.navigate(['../'], {relativeTo: this._activatedRoute});
       }

@@ -47,7 +47,11 @@ export class ResponderCartaSolicitudComponent implements OnInit {
         id_encemp = encargadoEmp.id_encargadoEmpresa;
         this.encargadoES.getListaResponderCartaVacante(encargadoEmp.id_encargadoEmpresa).subscribe((res)=>{
           console.log(res);
-          this.listaResponder = res;
+          if(res.ok){
+            this.listaResponder = res.datos;
+          }else{
+            Swal.fire('Ha ocurrido un error', res.msg, 'error' )
+          }
           this.displayedColumns = ['nombreProyecto', 'nombreEstudiante', 'periodoRealizar', 'anio','estado', 'enviarCorreo',  ]
         })
 
@@ -57,9 +61,13 @@ export class ResponderCartaSolicitudComponent implements OnInit {
 
       })
     this.encargadoES.Refreshrequider.subscribe((response)=>{
-      this.encargadoES.getListaResponderCartaVacante(id_encemp).subscribe((res)=>{
+      this.encargadoES.getListaResponderCartaVacante(id_encemp).pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
         console.log(res);
-        this.listaResponder = res;
+        if(res.ok){
+          this.listaResponder = res.datos;
+        }else{
+          Swal.fire('Ha ocurrido un error', res.msg, 'error' )
+        }
       })
     })
   }

@@ -77,24 +77,16 @@
                            {{ element.rutEmpresa | titlecase }}
                     </td>
                 </ng-container>  
-                <ng-container matColumnDef="periodo">
-                    <th mat-header-cell *matHeaderCellDef > PERIODO </th>
+                <ng-container matColumnDef="fechaInicio">
+                    <th mat-header-cell *matHeaderCellDef > FECHA INICIO </th>
                     <td mat-cell *matCellDef="let element">
-                           <div *ngIf="element.periodo === '1'" > 
-                                Primer semestre
-                           </div>
-                           <div *ngIf="element.periodo === '2'" > 
-                            Segundo semestre
-                       </div>
-                       <div *ngIf="element.periodo === '3'" > 
-                        Verano
-                   </div>
+                        {{ element.fechaInicio | date: 'dd-MM-YYYY' }}
                     </td>
                 </ng-container> 
-                <ng-container matColumnDef="anio">
-                    <th mat-header-cell *matHeaderCellDef > AÑO </th>
+                <ng-container matColumnDef="fechaFinal">
+                    <th mat-header-cell *matHeaderCellDef > FECHA FINAL </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.anio }}
+                           {{ element.fechaFinal | date : 'dd-mm-yyyy' }}
                     </td>
                 </ng-container> 
                 <ng-container matColumnDef="nombreProfesorS">

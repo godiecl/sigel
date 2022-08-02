@@ -6,6 +6,8 @@ import { SecretariaService } from '../../secretaria.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalExtenderSeguroComponent } from './modal-extender-seguro/modal-extender-seguro.component';
 
 @Component({
   selector: 'app-controlar-seguros',
@@ -17,6 +19,7 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
   seguros: [] = [];
   displayedColumns!: string[];
   estado = new FormControl('');
+  now= new Date();
 
   private _unsubscribeAll: Subject<any>;
   dataSource!: MatTableDataSource<never>;
@@ -26,7 +29,8 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
   constructor(
     private secretariaS: SecretariaService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog
   ) { 
     this._unsubscribeAll = new Subject();
    
@@ -49,7 +53,7 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
       
     })
 
-  this.displayedColumns = ['nombreEstudiante', 'rutEstudiante', 'periodoRealizar','anio','estado', 'boton']
+  this.displayedColumns = ['nombreEstudiante', 'rutEstudiante', 'periodoRealizar','anio','fechaInicio','fechaFinal','estado', 'vigencia' ,'boton2' ,'boton']
 
     this.secretariaS.refresh$.subscribe(()=>{//refrescar tabla
       this.secretariaS.getSeguros().subscribe(
@@ -73,6 +77,17 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  siEstaPorCaducar(fecha1 : any, fecha2: any){
+
+    let diffTime = Math.abs(fecha1 - fecha2);
+    let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    if(diffDays <= 7 ){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   actualizar(id: number, estado: string){
 
     // // console.log('lleegue')
@@ -81,6 +96,11 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
       this.secretariaS.aprobarSeguro(id)
         .pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
           if(res.ok){
+            let seguro :any = this.seguros.find((obj:any)=>{
+              return obj.id_seguro === id
+            })
+            seguro.vigencia = 'activo';
+            this.cdr.detectChanges()
             Swal.fire('Se ha actualizado el seguro exitósamente.','','success')
           }
           else{
@@ -92,6 +112,11 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
       this.secretariaS.dejarPendienteSeguro(id)
       .pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
         if(res.ok){
+          let seguro :any = this.seguros.find((obj:any)=>{
+            return obj.id_seguro === id
+          })
+          seguro.vigencia = 'pendiente';
+          this.cdr.detectChanges()
           Swal.fire('Se ha actualizado el seguro exitósamente.','','success')
         }
         else{
@@ -112,11 +137,12 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
       if(resp.ok){
         Swal.fire(resp.msg,'','success');
         let seguroBorrar: any = this.seguros.find((seguro: any)=>{
-          return seguro.id_seguro = id;
+          return seguro.id_seguro === id;
         })
-        console.log(seguroBorrar)
-        seguroBorrar.mostrar = false;
-        this.seguros.splice(seguroBorrar,1);
+        // console.log(seguroBorrar)
+        seguroBorrar.vigencia = 'terminado'
+        // seguroBorrar.mostrar = false;
+        // this.seguros.splice(seguroBorrar,1);
         this.cdr.detectChanges();
       }
     })
@@ -128,5 +154,33 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
     const filtro = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filtro.trim().toLowerCase();
   } 
+
+  extenderSeguro(id: any){
+
+    let seguro: any = this.seguros.find((seguro: any)=>{
+      return seguro.id_seguro === id;
+    })
+
+    const dialogRef = this.dialog.open(ModalExtenderSeguroComponent, {
+      width: '450px',
+      data: {id: id, fechaFinal: seguro.fechaFinal  }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        console.log('result del dialog',result)
+        this.secretariaS.extenderSeguro(id, result).pipe(takeUntil(this._unsubscribeAll)).subscribe((resp)=>{
+          console.log('respuesta extender',resp)
+          if(resp.ok){
+          Swal.fire('Se ha extendido el seguro exitosamente','','success')
+          seguro.fechaFinal = result; 
+          this.cdr.detectChanges()
+          }else{
+            Swal.fire('Ha ocurrido un error', resp.msg, 'error')
+          }
+        })
+      }
+    });
+  }
 
 }

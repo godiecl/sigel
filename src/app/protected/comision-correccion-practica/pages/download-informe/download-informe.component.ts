@@ -21,7 +21,7 @@ export class DownloadInformeComponent implements OnInit {
 
   suscriptionInformePractica!:Subscription;
   // data!: TablaInforme;
-  fileInfosInformePractica !: [];
+  fileInfosInformePractica !: any[];
   profesores!: any;
   displayedColumns!: string[];
   estados: string []= ['pendiente', 'aprobado', 'reprobado'];
@@ -62,6 +62,11 @@ export class DownloadInformeComponent implements OnInit {
           (resp:any)=>{
             console.log('console log de get files ',resp)
             this.fileInfosInformePractica = resp[0].informes;
+            for(let i = 0; i < this.fileInfosInformePractica.length; i++){
+              if(this.fileInfosInformePractica[i].notaEvaluador1 === null || this.fileInfosInformePractica[i].notaEvaluador2 === null ){
+                this.fileInfosInformePractica[i].editarNota = true;
+              }
+            }
             // this.observacionesEvaluador1 = this.fileInfosInformePractica[]
             this.profesores = resp[0].profesores;
             this.nombreProfesor1 = this.profesores[0].nombre + ' '+ this.profesores[0].apellidop + ' '+ this.profesores[0].apellidom
@@ -146,10 +151,22 @@ export class DownloadInformeComponent implements OnInit {
 
 
   calificarInforme(id_informePractica: any){
-    console.log(id_informePractica)
-    let data = this.notasForm.getRawValue()
-    data.observacionesEvaluador1 = this.observacionesEvaluador1;
-    data.observacionesEvaluador2 = this.observacionesEvaluador2;
+    // console.log(id_informePractica)
+    // let data = this.notasForm.getRawValue()
+    let data:any;
+    if(this.notasForm.value.observacionesEvaluador1){
+      data.observacionesEvaluador1 = this.notasForm.value.observacionesEvaluador1;
+    }
+    if(this.notasForm.value.observacionesEvaluador2){
+      data.observacionesEvaluador2 = this.notasForm.value.observacionesEvaluador2;
+    }
+    if(this.notasForm.value.notaEvaluador1){
+      data.notaEvaluador1 = this.notasForm.value.notaEvaluador1;
+    }
+    if(this.notasForm.value.observacionesEvaluador2){
+      data.notaEvaluador2 = this.notasForm.value.notaEvaluador2;
+    }
+
     console.log(data);
     this.comisionCCService.evaluarInforme(id_informePractica, data).subscribe((resp)=>{
       if(resp.ok){
@@ -159,6 +176,9 @@ export class DownloadInformeComponent implements OnInit {
         })
         informe.notaEvaluador1 = this.notasForm.value.notaEvaluador1;
         informe.notaEvaluador2 = this.notasForm.value.notaEvaluador2;
+        informe.observacionesEvaluador1 = this.observacionesEvaluador1;
+        informe.observacionesEvaluador2 = this.observacionesEvaluador2;
+        this.cdr.detectChanges()
         if(informe.notaEvaluador2 > 0 && informe.notaEvaluador1 > 0){
           this.comisionCCService.getNotaFinal(id_informePractica).subscribe((resp:any)=>{
             if(resp.ok){
@@ -185,6 +205,8 @@ export class DownloadInformeComponent implements OnInit {
                 informe.notaFinal = resp.notaFinal;
                 informe.editarNota = false;
                 this.cdr.detectChanges();
+              }else{
+                
               }
               informe.notaFinal = resp.notaFinal;
               informe.editarNota = false;
