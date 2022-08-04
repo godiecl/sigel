@@ -43,7 +43,7 @@ export const createPublicacion = async (req, res) =>{
 
 export const getPublicaciones = async (req, res) => {
     const publicaciones = await Publicacion.findAll();
-    res.json(publicaciones)
+   return res.json(publicaciones)
 }
 
 export const getPublicacion = async (req, res) => {
@@ -51,10 +51,10 @@ export const getPublicacion = async (req, res) => {
     // console.log(req.params)
     const id = req.params.id
     const publicacion = await Publicacion.findByPk(id);
-    res.json({ok: true, publicacion: publicacion})
+   return res.json({ok: true, publicacion: publicacion})
         
     } catch (error) {
-        res.json({ok: false, msg: error.message})
+      return  res.json({ok: false, msg: error.message})
     }
 }
 

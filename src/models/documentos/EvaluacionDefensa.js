@@ -10,6 +10,12 @@ export const EvaluacionDefensa = sequelize.define('evaluacion_defensa',{
         primaryKey: true,
         autoIncrement: true
     },
+    periodoRealizar: {
+        type: DataTypes.INTEGER,
+    },
+    anioRealizar: {
+        type: DataTypes.STRING,
+    },
     calidadMaterialEvaluador1: {
         type: DataTypes.DOUBLE,
     },

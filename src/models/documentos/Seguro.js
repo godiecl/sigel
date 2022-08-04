@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import { Estudiante } from "../Estudiante.js";
 import { sequelize } from "../../database/database.js";
+import { SolicitudCartaVacante } from "./SolicitudCartaVacante.js";
 
 
 
@@ -12,6 +13,10 @@ export const Seguro = sequelize.define('seguro',{
     },
     estado: {
         type: DataTypes.STRING,
+    },
+    vigencia: {
+        type: DataTypes.STRING,
+        defaultValue: 'pendiente'
     },
     mostrar: {
         type: DataTypes.BOOLEAN,
@@ -27,4 +32,14 @@ Estudiante.hasOne(Seguro, {
 Seguro.belongsTo(Estudiante, {
     foreignKey: 'id_estudiante',
     targetKey: 'id_estudiante'
+})
+
+SolicitudCartaVacante.hasOne(Seguro, {
+    foreignKey: 'id_solicitudCartaVacante',
+    sourceKey: 'id_solicitudCartaVacante'
+})
+
+Seguro.belongsTo(SolicitudCartaVacante, {
+    foreignKey: 'id_solicitudCartaVacante',
+    targetKey: 'id_solicitudCartaVacante'
 })

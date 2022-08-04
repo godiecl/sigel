@@ -92,6 +92,7 @@ export const deleteComision = async (req, res)=>{
 
             profesores[i].id_comisionCorreccion = null;
             profesores[i].estadoDisponible = 'disponible';
+            profesores[i].secretario = false;
             await profesores[i].save()
         }
 
@@ -99,7 +100,7 @@ export const deleteComision = async (req, res)=>{
 
         await comisionBorrar.destroy();
 
-        res.json({ok: true, msg: 'Se borró exitósamente la comisión'})
+        return res.json({ok: true, msg: 'Se borró exitósamente la comisión'})
 
         
     } catch (error) {
@@ -178,10 +179,10 @@ export const getListaComisiones = async (req, res) =>{
 
         console.log(comisionesArr);
 
-        res.json({ok: true, comisiones: comisionesArr})
+        return res.json({ok: true, comisiones: comisionesArr})
         
     } catch (error) {
-        res.json({ok: false, msg: error.msg})
+        return res.json({ok: false, msg: error.msg})
     }   
 
 }

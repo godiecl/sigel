@@ -17,18 +17,21 @@ export const createSolicitudCartaVacante = async (req, res) =>{
             //  id_empresa,
               id_solicitudEstudiante, id_estudiante } = req.body.solicitud;
 
-        // const solicitud = await SolicitudCartaVacante.findOne({
-        //     where: {
-        //         asunto: asunto
-        //     }
-        // })
+        const solicitud = await SolicitudCartaVacante.findOne({
+            where: {
+                id_estudiante: id_estudiante,
+                periodoRealizar: periodoRealizar,
+                anioRealizar: anioRealizar,
+                id_solicitudEstudiante: id_solicitudEstudiante,
+            }
+        })
 
-        // if(solicitud){
-        //     return res.status(400).json({
-        //         ok: false,
-        //         msg: 'No se pudo registrar esta solicitud, debido a que ese nombre de proyecto ya existe.'
-        //     })
-        // }
+        if(solicitud){
+            return res.json({
+                ok: false,
+                msg: 'No se pudo registrar esta solicitud, debido a que ya postulaste a esta empresa este periodo.'
+            })
+        }
 
         const newSolicitud = await SolicitudCartaVacante.create({
             periodoRealizar, anioRealizar, ciudadRealizar, estado: 'pendiente', estadoRespuesta: 'pendiente',
@@ -60,7 +63,9 @@ export const getListaCartaVacantes = async (req, res) => {
 
     // // console.log('HOLA BRO')
 
-    const solicitudes = await SolicitudCartaVacante.findAll();
+    try {
+
+        const solicitudes = await SolicitudCartaVacante.findAll();
 
     let datos = [];
 
@@ -110,7 +115,13 @@ export const getListaCartaVacantes = async (req, res) => {
 
     //  // console.log(datos)
 
-    res.json(datos)
+    return res.json({ok: true, datos: datos})
+        
+    } catch (error) {
+        return res.json({ok: false, msg: error.message})
+    }
+
+    
 }
 
 export const getSolicitudCartaVacante = async (req, res) => {
@@ -125,10 +136,10 @@ export const getSolicitudCartaVacante = async (req, res) => {
     const encargado = await EncargadoEmpresa.findByPk(solicitudE.id_encargadoEmpresa)
     const empresa = await Empresa.findByPk(encargado.id_empresa);
     const nombreEmpresa = empresa.nombreEmpresa
-    res.json({ok: true, solicitud: solicitud, solicitudE: solicitudE, usuario: usuario, nombreEmpresa: nombreEmpresa, encargado: encargado})
+   return res.json({ok: true, solicitud: solicitud, solicitudE: solicitudE, usuario: usuario, nombreEmpresa: nombreEmpresa, encargado: encargado})
         
     } catch (error) {
-        res.json({ok: false, msg: error.message})
+       return res.json({ok: false, msg: error.message})
     }
 }
 
@@ -145,7 +156,7 @@ export const verSolicitudCartaVacante = async (req, res) => {
     const empresa = await Empresa.findByPk(encargado.id_empresa);
     const usuarioEnc = await Usuario.findByPk(encargado.id_usuario);
     const nombreEmpresa = empresa.nombreEmpresa
-    res.json({ok: true, 
+   return res.json({ok: true, 
     nombreEstudiante: usuario.nombre, apellidopEstudiante: usuario.apellidop, apellidomEstudiante: usuario.apellidom, 
     rutEstudiante: usuario.rut, carreraEstudiante: estudiante.carrera, nombreEmpresa: nombreEmpresa,
     nombreEncargado: usuarioEnc.nombre, apellidopEncargado: usuarioEnc.apellidop, apellidomEncargado: usuarioEnc.apellidom, 
@@ -153,7 +164,7 @@ export const verSolicitudCartaVacante = async (req, res) => {
     })
         
     } catch (error) {
-        res.json({ok: false, msg: error.message})
+        return res.json({ok: false, msg: error.message})
     }
 }
 
@@ -166,13 +177,15 @@ export const responderSolicitudCartaVacante = async (req, res) => {
     const solicitud = await SolicitudCartaVacante.findByPk(id);
     const seguro = await Seguro.findOne({
         where: {
-            id_estudiante: solicitud.id_estudiante
+            id_estudiante: solicitud.id_estudiante,
+            id_solicitudCartaVacante: solicitud.id_solicitudCartaVacante,
+            vigencia: 'activo'
         }
     })
     if(seguro){
         return res.status(400).json({
             ok: false,
-            msg: 'No se responder esta solicitud, debido a que el estudiante ya esta rindiendo su práctica.'
+            msg: 'No se puede responder esta solicitud, debido a que el estudiante ya esta rindiendo su práctica.'
         })
     }
     solicitud.fechaInicio = req.body.fechaInicio;
@@ -182,12 +195,13 @@ export const responderSolicitudCartaVacante = async (req, res) => {
 
     const newSeguro = await Seguro.create({
         id_estudiante: solicitud.id_estudiante,
+        id_solicitudCartaVacante: solicitud.id_solicitudCartaVacante,
         estado: 'pendiente',
     })
 
-    res.json({ok: true, msg: 'Se ha respondido la carta y se ha creado el seguro.'})
+   return res.json({ok: true, msg: 'Se ha respondido la carta y se ha creado el seguro.'})
     } catch (error) {
-        res.json({ok: false, msg: error.message})
+       return res.json({ok: false, msg: error.message})
     }
 }
 
@@ -218,9 +232,9 @@ export const enviarCorreoCartaVacantePendiente = async (req, res) =>{
          `, // html body
        });
        
-       res.json({ok: true, message: 'Se ha enviado el correo exitosamente'})
+       return res.json({ok: true, message: 'Se ha enviado el correo exitosamente'})
      } catch (error2) {
-       res.json({ok: false, message: 'Ha ocurrido un error'})
+       return res.json({ok: false, message: 'Ha ocurrido un error'})
      }
 }
 
@@ -280,9 +294,10 @@ export const dejarPendienteSolicitudCartaVacante = async (req, res) =>{
 
 export const getListaResponderCartaVacante = async (req, res)=>{
 
-    // NOMBRE ESTUDIANTE, NOMBRE PROYECTO, PERIODO, ESTADO
+    try {
+        // NOMBRE ESTUDIANTE, NOMBRE PROYECTO, PERIODO, ESTADO
 
-    // // console.log(req.params);
+    // console.log(req.params);
 
     const id_encargadoEmp = req.params.id;
 
@@ -294,7 +309,7 @@ export const getListaResponderCartaVacante = async (req, res)=>{
         }
     })
 
-    // // console.log('------------------------------------------')
+    // console.log('------------------------------------------')
     // console.log('lol ',solicitudes)
 
     let datos = [];
@@ -335,13 +350,17 @@ export const getListaResponderCartaVacante = async (req, res)=>{
         
         // console.log('estudiante', estudiante)
 
-        // // // console.log('HOLA ')
-
+        // console.log('HOLA ')
         
     }
 
     // console.log(datos)
 
-    res.json(datos)
+    return res.json({ok: true, datos: datos})
+        
+    } catch (error) {
     
+        return res.json({ok: false, msg: error.message})
+    }
+
 }

@@ -74,9 +74,12 @@ export const getSeguros = async (req, res) => {
             
              datos.push({
                 id_seguro: seguros[i].id_seguro,
+                estado: seguros[i].estado,
+                vigencia: seguros[i].vigencia,
                 periodoRealizar: solicitudCarta.periodoRealizar,
                 anio: solicitudCarta.anioRealizar,
-                estado: seguros[i].estado,
+                fechaInicio: solicitudCarta.fechaInicio,
+                fechaFinal: solicitudCarta.fechaFinal,
                 rutEstudiante: usuarioEstudiante.rut,
                 nombreEstudiante: usuarioEstudiante.nombre,
                 apellidopEstudiante: usuarioEstudiante.apellidop,
@@ -86,10 +89,10 @@ export const getSeguros = async (req, res) => {
     
         //  // console.log(datos)
     
-        res.json({ok: true, datos: datos})
+       return res.json({ok: true, datos: datos})
         
     } catch (error) {
-        res.json({ok: false, msg: error.msg})
+       return res.json({ok: false, msg: error.msg})
     }
 
     // // console.log('HOLA BRO')
@@ -102,8 +105,12 @@ export const dejarPendienteSeguro = async (req, res) =>{
     const id_seguro = req.params.id;
 
     const seguro = await Seguro.findByPk(id_seguro);
+    if(!seguro){
+        return res.json({ok: false, msg: 'El seguro no existe.'})
+    }
 
     seguro.estado = 'pendiente';
+    seguro.vigencia = 'pendiente'
     seguro.save();
 
     return res.json({ok: true, msg: 'Se ha dejado pendiente el seguro.'})
@@ -120,11 +127,40 @@ export const autorizarSeguro = async (req, res) =>{
     const id_seguro = req.params.id;
 
     const seguro = await Seguro.findByPk(id_seguro);
+    if(!seguro){
+        return res.json({ok: false, msg: 'El seguro no existe.'})
+    }
 
     seguro.estado = 'tramitado';
+    seguro.vigencia = 'activo';
     seguro.save();
 
     return res.json({ok: true, msg: 'Se ha autorizado el seguro.'})
+    } catch (error) {
+        return res.json({ok: false, msg: error.message })
+    }
+
+}
+
+export const extenderSeguro = async (req, res) =>{
+    try {
+        console.log(req.body);
+    const id_seguro = req.params.id;
+    const nuevaFecha = req.body.fechaFinal;
+
+    const seguro = await Seguro.findByPk(id_seguro);
+    
+    if(!seguro){
+        return res.json({ok: false, msg: 'El seguro no existe.'})
+    }
+    const solicitud = await SolicitudCartaVacante.findByPk(seguro.id_solicitudCartaVacante)
+    if(!solicitud){
+        return res.json({ok: false, msg: 'El seguro no existe.'})
+    }
+    solicitud.fechaFinal = nuevaFecha;
+    solicitud.save();
+
+    return res.json({ok: true, msg: 'Se ha extendido el seguro.'})
     } catch (error) {
         return res.json({ok: false, msg: error.message })
     }
@@ -138,10 +174,11 @@ export const ocultarSeguro = async (req, res) =>{
 
     const seguro = await Seguro.findByPk(id_seguro);
 
-    seguro.mostrar = false;
+    // seguro.mostrar = false;
+    seguro.vigencia = 'terminado'
     seguro.save();
 
-    return res.json({ok: true, msg: 'Se ha ocultado el seguro.'})
+    return res.json({ok: true, msg: 'Se ha terminado la vigencia del seguro.'})
     } catch (error) {
         return res.json({ok: false, msg: error.message })
     }

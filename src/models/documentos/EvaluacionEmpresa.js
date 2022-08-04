@@ -2,6 +2,7 @@ import { DataTypes } from "sequelize"
 import { Estudiante } from "../Estudiante.js";
 import { sequelize } from "../../database/database.js";
 import { EncargadoEmpresa } from "../EncargadoEmpresa.js";
+import { SolicitudCartaVacante } from "./SolicitudCartaVacante.js";
 
 
 export const EvaluacionEmpresa = sequelize.define('evaluacion_empresa',{
@@ -11,31 +12,31 @@ export const EvaluacionEmpresa = sequelize.define('evaluacion_empresa',{
         autoIncrement: true
     },
     asistenciaPuntualidad: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     conducta: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     dedicacion: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     habilidadAprender: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     adaptacion: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     iniciativa: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     aporteEmpresa: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     conocimientos: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     criterio: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
     },
     fortalezas: {
         type: DataTypes.TEXT,
@@ -44,7 +45,7 @@ export const EvaluacionEmpresa = sequelize.define('evaluacion_empresa',{
         type: DataTypes.TEXT,
     },
     notaFinal: {
-        type: DataTypes.INTEGER
+        type: DataTypes.DOUBLE
     }
 
 })
@@ -67,4 +68,14 @@ EncargadoEmpresa.hasOne(EvaluacionEmpresa, {
 EvaluacionEmpresa.belongsTo(EncargadoEmpresa, {
     foreignKey: 'id_encargadoEmpresa',
     targetKey: 'id_encargadoEmpresa'
+})
+
+SolicitudCartaVacante.hasOne(EvaluacionEmpresa, {
+    foreignKey: 'id_solicitudCartaVacante',
+    sourceKey: 'id_solicitudCartaVacante'
+})
+
+EvaluacionEmpresa.belongsTo(SolicitudCartaVacante, {
+    foreignKey: 'id_solicitudCartaVacante',
+    targetKey: 'id_solicitudCartaVacante'
 })

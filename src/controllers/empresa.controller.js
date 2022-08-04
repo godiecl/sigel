@@ -154,5 +154,5 @@ export const createEmpresa = async (request, response) =>{
 
     //  // console.log(data)
 
-    res.json(data)
+   return res.json(data)
 }
