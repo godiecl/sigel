@@ -92,6 +92,7 @@ export class CreateComisionCorreccionComponent implements OnInit, OnDestroy {
           return comi.id_comisionCorreccion === id_comisionCorreccion
         } )
         console.log(comision)
+        
         this.listaComisiones.splice(comision,1);
         this.cdr.detectChanges();
         

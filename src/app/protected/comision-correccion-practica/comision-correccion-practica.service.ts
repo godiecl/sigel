@@ -13,6 +13,9 @@ export class ComisionCorreccionPracticaService {
 
   constructor(private http: HttpClient) { }
 
+  get refresh$(){
+    return this._refresh$;
+  }
   evaluarInforme(id_informePractica: any, data: any){
     const url = `${this.baseUrl}evaluar-informe/informe-estudiante${id_informePractica}`
     return this.http.patch<any>(url, data).pipe(tap(()=>{
@@ -34,5 +37,17 @@ export class ComisionCorreccionPracticaService {
   actualizarEvaluacionDefensa(evaluacionDefensa: any): Observable<any>{
     const url = `${this.baseUrl}evaluacion-defensa`;
     return this.http.post<any>(url, evaluacionDefensa)
+  }
+
+  editarEvaluacionDefensa(evaluacionDefensa: any, id_usuario: any): Observable<any>{
+    const url = `${this.baseUrl}evaluacion-defensa/${id_usuario}`;
+    return this.http.patch<any>(url, evaluacionDefensa).pipe(tap(()=>{
+      this._refresh$.next();
+    }))
+  }
+
+  getEstudiantesEditarEvaluacionDefensa(id_usuario: any){
+    const url = `${this.baseUrl}estudiantes-editar-evaluacion-defensa/${id_usuario}`
+    return this.http.get<any>(url)
   }
 }

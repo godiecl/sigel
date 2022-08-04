@@ -21,7 +21,7 @@
             <div *ngIf="informes.length > 0" >
                 <mat-form-field>
                     <mat-label>Buscar</mat-label>
-                    <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="buscar">
+                    <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="Rut, Nombre">
                 </mat-form-field>
                 <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
                     <!-- Weight Column  -->

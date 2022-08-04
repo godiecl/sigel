@@ -125,7 +125,7 @@
                         <!-- <mat-label> {{ element.estado }} </mat-label> -->
                         <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
                         <div *ngIf="!element.notaEvaluador1 || !element.notaEvaluador2 " >    
-                            <button mat-raised-button style="background-color: rgb(240,60,60);; color: white;" [disabled]="notasForm.invalid" (click)="openDialog(element.id_informePractica)" > Guardar nota </button>
+                            <button mat-raised-button style="background-color: rgb(240,60,60);; color: white;" [disabled]="notasForm.invalid" (click)="openDialog(element.id_informePractica)" > Evaluar nota </button>
                         </div>
                      </td>
                 </ng-container>

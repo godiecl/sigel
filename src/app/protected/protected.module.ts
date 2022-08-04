@@ -57,6 +57,8 @@ import { HemerotecaComponent } from './secretaria/pages/hemeroteca/hemeroteca.co
 import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
 import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/pages/generar-acta-evaluacion/generar-acta-evaluacion.component';
 import { ModalExtenderSeguroComponent } from './secretaria/pages/controlar-seguros/modal-extender-seguro/modal-extender-seguro.component';
+import { EditarEvaluarDefensaComponent } from './comision-correccion-practica/pages/editar-evaluar-defensa/editar-evaluar-defensa.component';
+import { EditarEvaluarEstudianteComponent } from './encargado-empresa/pages/editar-evaluar-estudiante/editar-evaluar-estudiante.component';
 
 
 
@@ -100,6 +102,8 @@ import { ModalExtenderSeguroComponent } from './secretaria/pages/controlar-segur
     EvaluarDefensaComponent,
     GenerarActaEvaluacionComponent,
     ModalExtenderSeguroComponent,
+    EditarEvaluarDefensaComponent,
+    EditarEvaluarEstudianteComponent,
   ],
   imports: [
     CommonModule,

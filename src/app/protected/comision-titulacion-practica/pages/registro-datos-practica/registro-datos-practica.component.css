@@ -55,7 +55,7 @@ nav a:hover{
     text-align: center;
 }
 .mat-column-rut{
-    width: 100px;
+    width: 200px;
     padding-right: 12px;
     text-align: center;
 }
@@ -80,23 +80,23 @@ nav a:hover{
     text-align: center;
 }
 .mat-column-nombreProyecto{
-    width: 400px;
+    width: 200px;
     padding-right: 12px;
     text-align: center;
 }
 
 .mat-column-nombreEmpresa{
-    width: 400px;
+    width: 200px;
     padding-right: 12px;
     text-align: center;
 }
 .mat-column-fechaInicio{
-    width: 600px;
+    width: 400px;
     padding-right: 12px;
     text-align: center;
 }
 .mat-column-fechaFinal{
-    width: 600px;
+    width: 400px;
     padding-right: 12px;
     text-align: center;
 }

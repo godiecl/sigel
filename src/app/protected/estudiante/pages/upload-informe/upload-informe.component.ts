@@ -115,7 +115,7 @@ export class UploadInformeComponent implements OnInit {
     // ALMACENAR EN BDD:
     
 
-    this.fileInformeEstudiante.nativeElement.value = null;
+    // this.fileInformeEstudiante.nativeElement.value = null;
   }
 
 

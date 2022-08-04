@@ -59,6 +59,18 @@ export class EncargadoEmpresaService {
     return this.http.get<any>(url)
   }
  
-  
+  getEstudiantesEditarEvaluacionEmpresa(id_usuario: any): Observable<any>{
+    const url = `${this.baseUrl}estudiantes-editar-evaluacion-empresa/${id_usuario}`;
+    return this.http.get<any>(url)
+  }
+
+  editarEvaluacionEmpresa(id_usuario: any, data: any): Observable<any>{
+    const url = `${this.baseUrl}evaluacion-empresa/${id_usuario}`;
+    return this.http.patch<any>(url, data).pipe(
+      tap(()=>{
+        this._refreshRequired.next();
+      })
+    )
+  }
 
 }

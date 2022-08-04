@@ -19,6 +19,10 @@
         </div>
         <!-- matSort #profeSort="matSort" -->
         <div *ngIf="data.length > 0" >
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="Rut, Nombre, Apellido">
+            </mat-form-field>
             <table mat-table [dataSource]="dataSource" 
             
             class="mat-elevation-z8 m-b-10 ">
@@ -86,43 +90,74 @@
                 <ng-container matColumnDef="fechaFinal">
                     <th mat-header-cell *matHeaderCellDef > FECHA FINAL </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.fechaFinal | date : 'dd-mm-yyyy' }}
+                           {{ element.fechaFinal | date : 'dd-MM-yyyy' }}
                     </td>
                 </ng-container> 
                 <ng-container matColumnDef="nombreProfesorS">
                     <th mat-header-cell *matHeaderCellDef > EVALUADOR 1 </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.nombreProfesorS | titlecase }}
+                        <div *ngIf="element.nombreProfesorS === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.nombreProfesorS !== null" >
+                            {{ element.nombreProfesorS | titlecase }}
+                        </div>
+                           
                     </td>
                 </ng-container>  
                 <ng-container matColumnDef="nombreProfesor2">
                     <th mat-header-cell *matHeaderCellDef > EVALUADOR 2 </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.nombreProfesor2 | titlecase }}
+                           <div *ngIf="element.nombreProfesor2 === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.nombreProfesor2 !== null" >
+                            {{ element.nombreProfesor2 | titlecase }}
+                        </div>
                     </td>
                 </ng-container> 
                 <ng-container matColumnDef="notaInforme">
                     <th mat-header-cell *matHeaderCellDef > NOTA INFORME </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.notaInforme  }}
+                        <div *ngIf="element.notaInforme === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaInforme !== null" >
+                            {{ element.notaInforme }}
+                        </div>
                     </td>
                 </ng-container>  
                 <ng-container matColumnDef="notaDefensa">
                     <th mat-header-cell *matHeaderCellDef > NOTA DEFENSA </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.notaDefensa  }}
+                        <div *ngIf="element.notaDefensa === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaDefensa !== null" >
+                            {{ element.notaDefensa }}
+                        </div>
                     </td>
                 </ng-container>  
                 <ng-container matColumnDef="notaEmpresa">
                     <th mat-header-cell *matHeaderCellDef > NOTA EMPRESA </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.notaEmpresa  }}
+                        <div *ngIf="element.notaEmpresa== null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaEmpresa !== null" >
+                            {{ element.notaEmpresa }}
+                        </div>
                     </td>
                 </ng-container>  
                 <ng-container matColumnDef="notaFinal">
                     <th mat-header-cell *matHeaderCellDef > NOTA FINAL </th>
                     <td mat-cell *matCellDef="let element">
-                           {{ element.notaFinal   }}
+                        <div *ngIf="element.notaFinal === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaFinal !== null" >
+                            {{ element.notaFinal }}
+                        </div>
                     </td>
                 </ng-container>
                 

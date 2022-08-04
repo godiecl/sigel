@@ -35,6 +35,8 @@ import { EvaluarEstudianteComponent } from './encargado-empresa/pages/evaluar-es
 import { RegistroDatosPracticaComponent } from './comision-titulacion-practica/pages/registro-datos-practica/registro-datos-practica.component';
 import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
 import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/pages/generar-acta-evaluacion/generar-acta-evaluacion.component';
+import { EditarEvaluarDefensaComponent } from './comision-correccion-practica/pages/editar-evaluar-defensa/editar-evaluar-defensa.component';
+import { EditarEvaluarEstudianteComponent } from './encargado-empresa/pages/editar-evaluar-estudiante/editar-evaluar-estudiante.component';
 
 
 const routes: Routes = [
@@ -117,7 +119,8 @@ const routes: Routes = [
         ]
       },
       {path: 'solicitar-estudiante', component: SolicitarEstudianteMenuComponent, },
-      {path: 'evaluar-estudiante', component: EvaluarEstudianteComponent }
+      {path: 'evaluar-estudiante', component: EvaluarEstudianteComponent },
+      {path: 'editar-evaluar-estudiante', component: EditarEvaluarEstudianteComponent }
       
     ]
   },
@@ -145,6 +148,7 @@ const routes: Routes = [
       children: [
           {path:'',},
           { path:'download-informe',component:DownloadInformeComponent}, 
+          { path:'editar-evaluar-defensa',component:EditarEvaluarDefensaComponent}, 
           {path: 'evaluar-defensa', component: EvaluarDefensaComponent }
         ]
       },

@@ -46,7 +46,7 @@
                     Generar acta de evaluación de práctica
                 </button>
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verRegistroDatosPractica()" >
-                    Registro de datos práctica
+                    Seguimiento de estudiantes
                 </button>
             </div>
 
@@ -78,6 +78,9 @@
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEvaluarEstudiante()" >
                     Evaluar Estudiante
                 </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEditarEvaluarEstudiante()" >
+                    Editar Evaluación de Estudiante
+                </button>
             </div>
             
             <div *ngIf="esSecretaria" >
@@ -98,6 +101,9 @@
                 </button>
                 <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEvaluarDefensa()" >
                     Evaluar Defensa de práctica
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEditarEvaluarDefensa()" >
+                    Editar Evaluación de Defensa de práctica
                 </button>
             </div>  
 

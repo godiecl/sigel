@@ -43,7 +43,7 @@ nav a:hover{
 .mat-column-nombre {
     width: 200px;
     padding-right: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .mat-column-fecha {

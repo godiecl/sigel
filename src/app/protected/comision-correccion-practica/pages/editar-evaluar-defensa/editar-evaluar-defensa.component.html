@@ -5,7 +5,7 @@
           <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
           <li style="color:white; font-size: 18px;">></li>
           <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
-          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Evaluar defensa de práctica</li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Editar evaluación defensa de práctica</li>
           
         </ul>
     </nav>
@@ -17,7 +17,7 @@
                 <span>Rúbrica para evaluar la defensa de práctica pre-profesional</span>
             </div>
 
-            <div style="text-align: center; " class="m-b-20" *ngIf="estudiantes.length === 0">
+            <div style="text-align: center; " class="m-b-20" *ngIf="evaluaciones.length === 0">
               <span class="text-danger">No hay estudiantes disponibles para evaluar </span>
             </div>
             
@@ -348,192 +348,123 @@
                 </mat-tab>
               </mat-tab-group>
 
-            <div *ngIf="estudiantes.length > 0" >
-              <form [formGroup]="evaluarDefensaForm" (ngSubmit)="alerta()" >
+            <div *ngIf="evaluaciones.length > 0" >
+                <form [formGroup]="evaluacionSelectForm" >
+                    <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
+                        <mat-label>Seleccione evaluación de defensa para editar: </mat-label>
+                        <mat-select formControlName="evaluacion" >
+                            <mat-option *ngFor="let item of evaluaciones" [value]="item.id_evaluacionDefensa" >Evaluación - {{ item.nombreEstudiante | titlecase }} - {{ item.periodoRealizar }} - {{ item.anioRealizar }}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluacionSelectForm.get('evaluacion')?.errors">
+                            <strong>Seleccione una evaluación por favor</strong>
+                        </mat-error>
+                        </mat-form-field>
+                </form>
+                <div *ngIf="mostrarFormulario" >
+                    <form [formGroup]="evaluarDefensaForm" (ngSubmit)="alerta()" >
 
-                <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
-                <mat-label>Seleccione estudiante para evaluar: </mat-label>
-                <mat-select formControlName="estudiante" >
-                    <mat-option  *ngFor="let item of estudiantes" [value]="item.id_estudiante" >{{item.nombreEstudiante}}</mat-option>
-                </mat-select>
-                <mat-error *ngIf="evaluarDefensaForm.get('estudiante')?.errors">
-                    <strong>Seleccione un estudiante por favor</strong>
-                </mat-error>
-                </mat-form-field>
+                
 
-                <div class="alinear" >
-                  <mat-form-field style="display: inline-block; flex-direction: end;"class="m-b-20" appearance="fill">
-                      <mat-label>Seleccione periodo</mat-label>
-                      <mat-select formControlName="periodoRealizar" >
-                          <mat-option *ngFor="let periodo of periodos"  [value] ="periodo.id">{{periodo.periodo}} </mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="evaluarDefensaForm.get('periodoRealizar')?.errors">
-                          <strong>El periodo es obligatorio</strong>
-                      </mat-error>
-                  </mat-form-field>
-                  <mat-form-field style="display: inline-block; flex-direction: end;" class="m-b-20" appearance="fill">
-                      <mat-label>Ingrese Año</mat-label>
-                      <input matInput  type="text" pattern="\d*" maxlength="4" minlength="4" formControlName="anioRealizar">
-                      <mat-error *ngIf="evaluarDefensaForm.get('anioRealizar')?.errors">
-                          <strong>Ingrese un año válido </strong>
-                      </mat-error>
-                  </mat-form-field>
-                </div>
-
-                <!-- Evaluador 1 -->
-                <div >
-                    
-
-                    <div class="m-t-20 spanc m-b-5">
-                        <span > Evaluador: {{ profesor }} <br> Ingrese las notas para evaluar la defensa.  </span>
-                    </div>
-                    <div class="m-b-10"  >
-                        <div style="display: flex;" >
-                        
-                                <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                    <mat-label>Calidad del material:</mat-label>
-                                    <input formControlName="calidadMaterialEvaluador" min="1" max="7" matInput type="number">
-                                    <mat-error *ngIf="evaluarDefensaForm.get('calidadMaterialEvaluador')?.errors">
-                                      <strong>Este campo es obligatorio</strong>
-                                  </mat-error> 
-                                </mat-form-field>
-                                <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                                  <mat-label>Contenido:</mat-label>
-                                <input formControlName="contenidoEvaluador" min="1" max="7" matInput type="number">
-                                <mat-error *ngIf="evaluarDefensaForm.get('contenidoEvaluador')?.errors">
-                                  <strong>Este campo es obligatorio</strong>
-                              </mat-error> 
-                                </mat-form-field>
-
-                        </div>  
-
-                        <div style="display: flex;">
-                                <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                  <mat-label>Dominio Escénico:</mat-label>
-                                    <input formControlName="dominioEscenicoEvaluador" min="1" max="7" matInput type="number">
-                                    <mat-error *ngIf="evaluarDefensaForm.get('dominioEscenicoEvaluador')?.errors">
-                                      <strong>Este campo es obligatorio</strong>
-                                  </mat-error> 
-                                    </mat-form-field>
-                                <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                                  <mat-label>Claridad de la exposición:</mat-label>
-                                    <input formControlName="claridadEvaluador" min="1" max="7" matInput type="number">
-                                    <mat-error *ngIf="evaluarDefensaForm.get('claridadEvaluador')?.errors">
-                                      <strong>Este campo es obligatorio</strong>
-                                  </mat-error> 
-                                    </mat-form-field>
+                        <!-- Evaluador 1 -->
+                        <div >
+                            
+        
+                            <div class="m-t-20 spanc m-b-5">
+                                <span > Evaluador: {{ profesor }} <br> Ingrese las notas para evaluar la defensa.  </span>
+                            </div>
+                            <div class="m-b-10"  >
+                                <div style="display: flex;" >
+                                
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                            <mat-label>Calidad del material:</mat-label>
+                                            <input formControlName="calidadMaterialEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('calidadMaterialEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                        </mat-form-field>
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
+                                          <mat-label>Contenido:</mat-label>
+                                        <input formControlName="contenidoEvaluador" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarDefensaForm.get('contenidoEvaluador')?.errors">
+                                          <strong>Este campo es obligatorio</strong>
+                                      </mat-error> 
+                                        </mat-form-field>
+        
+                                </div>  
+        
+                                <div style="display: flex;">
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                          <mat-label>Dominio Escénico:</mat-label>
+                                            <input formControlName="dominioEscenicoEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('dominioEscenicoEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                            </mat-form-field>
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
+                                          <mat-label>Claridad de la exposición:</mat-label>
+                                            <input formControlName="claridadEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('claridadEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                            </mat-form-field>
+                                </div>
+        
+                                <div style="display: flex;" >
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                          <mat-label>Tiempo empleado:</mat-label>
+                                            <input formControlName="tiempoEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('tiempoEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                            </mat-form-field>
+                                   
+                                        <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
+                                          <mat-label>Defensa de la presentación:</mat-label>
+                                            <input formControlName="defensaEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('defensaEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                        </mat-form-field>
+                                </div>
+                                
+                            </div>
+                            
+                              <div class="m-b-10" >
+                                  <div style="display: flex;">
+                                      <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
+                                          <mat-label>Observaciones:</mat-label>
+                                          <textarea formControlName="observacionesEvaluador" matInput ></textarea>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
                         </div>
-
-                        <div style="display: flex;" >
-                                <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                  <mat-label>Tiempo empleado:</mat-label>
-                                    <input formControlName="tiempoEvaluador" min="1" max="7" matInput type="number">
-                                    <mat-error *ngIf="evaluarDefensaForm.get('tiempoEvaluador')?.errors">
-                                      <strong>Este campo es obligatorio</strong>
-                                  </mat-error> 
-                                    </mat-form-field>
-                           
-                                <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
-                                  <mat-label>Defensa de la presentación:</mat-label>
-                                    <input formControlName="defensaEvaluador" min="1" max="7" matInput type="number">
-                                    <mat-error *ngIf="evaluarDefensaForm.get('defensaEvaluador')?.errors">
-                                      <strong>Este campo es obligatorio</strong>
-                                  </mat-error> 
-                                </mat-form-field>
-                        </div>
-                        
-                    </div>
-                    
-                      <div class="m-b-10" >
-                          <div style="display: flex;">
-                              <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
-                                  <mat-label>Observaciones:</mat-label>
-                                  <textarea formControlName="observacionesEvaluador" matInput ></textarea>
-                              </mat-form-field>
+        
+                        <div class="spanc" >
+                          <span>Observaciones de la empresa:</span>
                           </div>
-                      </div>
+                          <div class="wmitad" >
+                            <mat-tab-group dynamicHeight>
+                              <mat-tab label="Fortalezas">
+                                <div class="example-large-box mat-elevation-z4">
+                                  {{ fortalezasMostrar }}
+                                </div>
+                              </mat-tab>
+                              <mat-tab label="Debilidades">
+                                <div class="example-large-box mat-elevation-z4">
+                                  {{ debilidadesMostrar }}
+                                </div>
+                              </mat-tab>
+                            </mat-tab-group>
+                          </div>
+        
+        
+                    <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
+                      <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" cdkFocusInitial>Editar evaluación</button>
+                    </mat-card-actions>
+        
+                    </form>
+        
                 </div>
-
-                <div class="spanc" >
-                  <span>Observaciones de la empresa:</span>
-                  </div>
-                  <div class="wmitad" >
-                    <mat-tab-group dynamicHeight>
-                      <mat-tab label="Fortalezas">
-                        <div class="example-large-box mat-elevation-z4">
-                          {{ fortalezasMostrar }}
-                        </div>
-                      </mat-tab>
-                      <mat-tab label="Debilidades">
-                        <div class="example-large-box mat-elevation-z4">
-                          {{ debilidadesMostrar }}
-                        </div>
-                      </mat-tab>
-                    </mat-tab-group>
-                  </div>
-
-              <!-- Evaluador 1 -->
-              <!-- <div >
-                    
-
-                <div class="m-t-20 spanc m-b-5">
-                    <span > Calcular nota de defensa: Evaluador: {{ profesores[1].nombre }}</span>
-                </div>
-                <div class="m-b-10"  >
-                    <div style="display: flex;" >
-                    
-                            <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                            <mat-label>Calidad del material:</mat-label>
-                            <input formControlName="calidadMaterialEvaluador2" min="1" max="7" matInput type="number">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                            <mat-label>Contenido:</mat-label>
-                            <input formControlName="contenidoEvaluador2" min="1" max="7" matInput type="number">
-                            </mat-form-field>
-
-                    </div>  
-
-                    <div style="display: flex;">
-                            <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                <mat-label>Dominio Escénico:</mat-label>
-                                <input formControlName="dominioEscenicoEvaluador2" min="1" max="7" matInput type="number">
-                                </mat-form-field>
-                            <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                                <mat-label>Claridad de la exposición:</mat-label>
-                                <input formControlName="claridadEvaluador2" min="1" max="7" matInput type="number">
-                                </mat-form-field>
-                    </div>
-
-                    <div style="display: flex;" >
-                            <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                <mat-label>Tiempo empleado:</mat-label>
-                                <input formControlName="tiempoEvaluador2" min="1" max="7" matInput type="number">
-                                </mat-form-field>
-                       
-                            <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
-                                <mat-label>Defensa de la presentación:</mat-label>
-                                <input formControlName="defensaEvaluador2" min="1" max="7" matInput type="number">
-                            </mat-form-field>
-                    </div>
-                    
-                </div>
-                <div class="spanc m-b-5" >
-                 </div>
-                  <div class="m-b-10" >
-                      <div style="display: flex;">
-                          <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
-                              <mat-label>Observaciones:</mat-label>
-                              <textarea formControlName="observacionesEvaluador2" matInput ></textarea>
-                          </mat-form-field>
-                      </div>
-                  </div>
-            </div> -->
-
-            <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
-              <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" cdkFocusInitial>Evaluar estudiante</button>
-            </mat-card-actions>
-
-            </form>
             </div>  
         </div>
     </div>

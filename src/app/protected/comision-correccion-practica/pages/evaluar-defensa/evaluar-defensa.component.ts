@@ -60,9 +60,16 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
   id_cc: any;
   secretario: boolean = false;
   private _unsubscribeAll: Subject<any>;
+  periodos = [
+    {id: 1, periodo: 'Primer Semestre'},
+    {id: 2, periodo: 'Segundo Semestre'},
+    {id: 3, periodo: 'Verano'},
+  ]
 
   evaluarDefensaForm: FormGroup = this.fb.group({
     estudiante: [,[Validators.required]],
+    periodoRealizar: [, [Validators.required]],
+    anioRealizar: [, [Validators.required]],
     calidadMaterialEvaluador: [, [Validators.required]],
     contenidoEvaluador: [, [Validators.required]],
     dominioEscenicoEvaluador: [, [Validators.required]],
@@ -144,7 +151,7 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
     console.log(data)
 
     Swal.fire({
-      title: `¿Está seguro de los datos ingresados?. <br> El promedio de la defensa del estudiante sería: ${data.promedioEvaluador} <br> Obs. Esta evaluación no se puede cambiar. <br> Click en sí para enviar la evaluación.`,
+      title: `¿Está seguro de los datos ingresados?. <br> El promedio de la defensa del estudiante sería: ${data.promedioEvaluador} <br>  <br> Click en sí para enviar la evaluación.`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Sí, estoy seguro',

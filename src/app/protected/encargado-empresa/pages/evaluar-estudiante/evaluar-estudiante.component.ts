@@ -117,7 +117,7 @@ export class EvaluarEstudianteComponent implements OnInit, OnDestroy {
     data.id_encargadoEmpresa = this.encargadoEmpresaLog.id_encargadoEmpresa;
 
     Swal.fire({
-      title: `¿Está seguro de los datos ingresados?. <br> El promedio del estudiante sería: ${data.notaFinal}. <br> Esta evaluación no se puede cambiar. <br> Click en sí para enviar la evaluación.`,
+      title: `¿Está seguro de los datos ingresados?. <br> El promedio del estudiante sería: ${data.notaFinal}. <br> <br> Click en sí para enviar la evaluación.`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Sí, estoy seguro',

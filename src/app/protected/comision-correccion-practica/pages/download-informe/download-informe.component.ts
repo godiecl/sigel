@@ -21,7 +21,7 @@ export class DownloadInformeComponent implements OnInit {
 
   suscriptionInformePractica!:Subscription;
   // data!: TablaInforme;
-  fileInfosInformePractica !: any[];
+  fileInfosInformePractica !: [];
   profesores!: any;
   displayedColumns!: string[];
   estados: string []= ['pendiente', 'aprobado', 'reprobado'];
@@ -62,17 +62,18 @@ export class DownloadInformeComponent implements OnInit {
           (resp:any)=>{
             console.log('console log de get files ',resp)
             this.fileInfosInformePractica = resp[0].informes;
-            for(let i = 0; i < this.fileInfosInformePractica.length; i++){
-              if(this.fileInfosInformePractica[i].notaEvaluador1 === null || this.fileInfosInformePractica[i].notaEvaluador2 === null ){
-                this.fileInfosInformePractica[i].editarNota = true;
-              }
-            }
             // this.observacionesEvaluador1 = this.fileInfosInformePractica[]
             this.profesores = resp[0].profesores;
             this.nombreProfesor1 = this.profesores[0].nombre + ' '+ this.profesores[0].apellidop + ' '+ this.profesores[0].apellidom
             this.nombreProfesor2 = this.profesores[1].nombre + ' '+ this.profesores[1].apellidop + ' '+ this.profesores[1].apellidom
-            console.log(this.profesores)
-            console.log(this.fileInfosInformePractica)
+            // console.log(this.profesores)
+            // console.log(this.fileInfosInformePractica)
+            this.fileInfosInformePractica.forEach((informe : any)=>{
+              if(informe.notaEvaluador1 === null || informe.notaEvaluador2 === null)
+              informe.editarNota = true
+            })
+
+
             this.displayedColumns = ['nombreEstudiante','rutEstudiante','nombre', 'notaEvaluador1','notaEvaluador2','notaFinal', 'descargar', 'evaluar']
           }
         )
@@ -151,22 +152,10 @@ export class DownloadInformeComponent implements OnInit {
 
 
   calificarInforme(id_informePractica: any){
-    // console.log(id_informePractica)
-    // let data = this.notasForm.getRawValue()
-    let data:any;
-    if(this.notasForm.value.observacionesEvaluador1){
-      data.observacionesEvaluador1 = this.notasForm.value.observacionesEvaluador1;
-    }
-    if(this.notasForm.value.observacionesEvaluador2){
-      data.observacionesEvaluador2 = this.notasForm.value.observacionesEvaluador2;
-    }
-    if(this.notasForm.value.notaEvaluador1){
-      data.notaEvaluador1 = this.notasForm.value.notaEvaluador1;
-    }
-    if(this.notasForm.value.observacionesEvaluador2){
-      data.notaEvaluador2 = this.notasForm.value.notaEvaluador2;
-    }
-
+    console.log(id_informePractica)
+    let data = this.notasForm.getRawValue()
+    data.observacionesEvaluador1 = this.observacionesEvaluador1;
+    data.observacionesEvaluador2 = this.observacionesEvaluador2;
     console.log(data);
     this.comisionCCService.evaluarInforme(id_informePractica, data).subscribe((resp)=>{
       if(resp.ok){
@@ -174,11 +163,10 @@ export class DownloadInformeComponent implements OnInit {
         let informe:any = this.fileInfosInformePractica.find((obj:any)=>{
           return obj.id_informePractica === id_informePractica
         })
-        informe.notaEvaluador1 = this.notasForm.value.notaEvaluador1;
-        informe.notaEvaluador2 = this.notasForm.value.notaEvaluador2;
-        informe.observacionesEvaluador1 = this.observacionesEvaluador1;
-        informe.observacionesEvaluador2 = this.observacionesEvaluador2;
-        this.cdr.detectChanges()
+        informe.notaEvaluador1 = resp.nota1;
+        informe.notaEvaluador2 = resp.nota2
+        informe.observacionesEvaluador2 = resp.observaciones2
+        informe.observacionesEvaluador1 = resp.observaciones1
         if(informe.notaEvaluador2 > 0 && informe.notaEvaluador1 > 0){
           this.comisionCCService.getNotaFinal(id_informePractica).subscribe((resp:any)=>{
             if(resp.ok){
@@ -187,26 +175,24 @@ export class DownloadInformeComponent implements OnInit {
                 // return obj.id_informePractica === id_informePractica
               // })
               if(resp.observacionesEvaluador1){
-                informe.observacionesEvaluador1 = resp.observacionesEvaluador1;
+                // informe.observacionesEvaluador1 = resp.observacionesEvaluador1;
                 informe.notaFinal = resp.notaFinal;
                 informe.editarNota = false;
                 this.cdr.detectChanges();
               }
               if(resp.observacionesEvaluador2){
-                informe.observacionesEvaluador2 = resp.observacionesEvaluador2;
+                // informe.observacionesEvaluador2 = resp.observacionesEvaluador2;
                 informe.notaFinal = resp.notaFinal;
                 informe.editarNota = false;
                 this.cdr.detectChanges();
                 
               }
               if(resp.observacionesEvaluador1 && resp.observacionesEvaluador2){
-                informe.observacionesEvaluador1 = resp.observacionesEvaluador1;
-                informe.observacionesEvaluador2 = resp.observacionesEvaluador2;                
+                // informe.observacionesEvaluador1 = resp.observacionesEvaluador1;
+                // informe.observacionesEvaluador2 = resp.observacionesEvaluador2;                
                 informe.notaFinal = resp.notaFinal;
                 informe.editarNota = false;
                 this.cdr.detectChanges();
-              }else{
-                
               }
               informe.notaFinal = resp.notaFinal;
               informe.editarNota = false;

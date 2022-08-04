@@ -77,16 +77,34 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  siEstaPorCaducar(fecha1 : any, fecha2: any){
+  diasPorVencer(fecha1 : Date, fecha2: Date, id: any){
 
-    let diffTime = Math.abs(fecha1 - fecha2);
-    let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
-    if(diffDays <= 7 ){
-      return true;
-    }else{
-      return false;
+    const t1 = new Date(fecha1)
+    const t2 = new Date(fecha2)
+
+    var diff = Math.abs(t1.getTime() - t2.getTime());
+    var diffDays = Math.ceil(diff / (1000 * 3600 * 24)); 
+    console.log(diffDays)
+    if(diffDays === 0){
+      this.secretariaS.ocultarSeguro(id).pipe
+    (takeUntil(this._unsubscribeAll)).subscribe((resp:any)=>{
+      if(resp.ok){
+        // Swal.fire(resp.msg,'','success');
+        let seguroBorrar: any = this.seguros.find((seguro: any)=>{
+          return seguro.id_seguro === id;
+        })
+        // console.log(seguroBorrar)
+        seguroBorrar.vigencia = 'terminado'
+        // seguroBorrar.mostrar = false;
+        // this.seguros.splice(seguroBorrar,1);
+        this.cdr.detectChanges();
+      }
+    })
     }
+    return diffDays;
   }
+
+ 
 
   actualizar(id: number, estado: string){
 

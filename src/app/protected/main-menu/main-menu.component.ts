@@ -83,14 +83,17 @@ export class MainMenuComponent implements OnInit {
   }
 
   // ENCARGADO EMPRESA
-  verEvaluarEstudiante(){
-    this.router.navigateByUrl('/dashboard/encargado-empresa/evaluar-estudiante')
-  }
   responderCartaVacante(){
     this.router.navigateByUrl('/dashboard/encargado-empresa/responder-carta-vacante')
   }
   irSolicitarEstudiante(){
     this.router.navigateByUrl('/dashboard/encargado-empresa/solicitar-estudiante')
+  }
+  verEvaluarEstudiante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/evaluar-estudiante')
+  }
+  verEditarEvaluarEstudiante(){
+    this.router.navigateByUrl('/dashboard/encargado-empresa/editar-evaluar-estudiante')
   }
 
   // ESTUDIANTE
@@ -128,6 +131,9 @@ export class MainMenuComponent implements OnInit {
   }
   verEvaluarDefensa(){
     this.router.navigateByUrl('/dashboard/comision-correccion-practica/evaluar-defensa')
+  }
+  verEditarEvaluarDefensa(){
+    this.router.navigateByUrl('/dashboard/comision-correccion-practica/editar-evaluar-defensa')
   }
 }
  
