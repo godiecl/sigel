@@ -20,10 +20,22 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
 
         const { estudiante, id_comisionCorreccion, calidadMaterialEvaluador, contenidoEvaluador, dominioEscenicoEvaluador,
             claridadEvaluador, tiempoEvaluador, defensaEvaluador, promedioEvaluador, observacionesEvaluador, secretario,
-            periodoRealizar, anioRealizar } = req.body;
+            periodoRealizar, anioRealizar, periodoExamen, anioExamen } = req.body;
 
 
+            // Validar que práctica exista:
+        const solicitudCV = await SolicitudCartaVacante.findOne({
+            where: {
+                id_estudiante: estudiante,
+                estadoRespuesta: 'completada',
+                periodoRealizar: periodoRealizar,
+                anioRealizar: anioRealizar
+            }
+        })
 
+        if(!solicitudCV){
+            return res.json({ok: false, msg: 'No existe una práctica vinculada al estudiante y periodos ingresados.'})
+        }
 
         const evaluacionRepetida = await EvaluacionDefensa.findOne({
             where: {
@@ -31,25 +43,36 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
                 id_comisionCorreccion: id_comisionCorreccion,
                 periodoRealizar: periodoRealizar,
                 anioRealizar: anioRealizar,
+                periodoExamen: periodoExamen,
+                anioExamen: anioExamen
             }
         })
+       
         if (evaluacionRepetida) {
-            if (secretario) {
-                if (evaluacionRepetida.promedioEvaluador1) {
-                    return res.json({
-                        ok: false,
-                        msg: 'No se ha podido crear la evaluación debido a que ya has evaluado a este estudiante en ese periodo.'
-                    })
+            if(evaluacionRepetida.notaFinal){
+                return res.json({
+                    ok: false,
+                    msg: 'No se ha podido crear la evaluación debido a que ya está evaluado el estudiante en esos periodos.'
+                })
+            }else{
+                if (secretario) {
+                    if (evaluacionRepetida.promedioEvaluador1) {
+                        return res.json({
+                            ok: false,
+                            msg: 'No se ha podido crear la evaluación debido a que ya has evaluado a este estudiante en ese periodo.'
+                        })
+                    }
+                }
+                if (!secretario) {
+                    if (evaluacionRepetida.promedioEvaluador2) {
+                        return res.json({
+                            ok: false,
+                            msg: 'No se ha podido crear la evaluación debido a que ya has evaluado a este estudiante en ese periodo.'
+                        })
+                    }
                 }
             }
-            if (!secretario) {
-                if (evaluacionRepetida.promedioEvaluador2) {
-                    return res.json({
-                        ok: false,
-                        msg: 'No se ha podido crear la evaluación debido a que ya has evaluado a este estudiante en ese periodo.'
-                    })
-                }
-            }
+            
         }
 
 
@@ -60,6 +83,8 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
                 id_comisionCorreccion: id_comisionCorreccion,
                 periodoRealizar: periodoRealizar,
                 anioRealizar: anioRealizar,
+                periodoExamen: periodoExamen,
+                anioExamen: anioExamen,
                 notaFinal: {
                     [Op.is]: null
                 }
@@ -78,9 +103,15 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
                 evaluacionExiste.defensaEvaluador1 = defensaEvaluador;
                 evaluacionExiste.observacionesEvaluador1 = observacionesEvaluador;
                 evaluacionExiste.promedioEvaluador1 = promedioEvaluador;
-                let notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
+                let notaF;
+                if(evaluacionExiste.promedioEvaluador1 < 4 ){
+                    notaF = evaluacionExiste.promedioEvaluador1;
+                } else if(evaluacionExiste.promedioEvaluador2 < 4 ){
+                    notaF = evaluacionExiste.promedioEvaluador2;
+                }else{
+                    notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
+                }
                 evaluacionExiste.notaFinal = notaF.toFixed(1)
-                await evaluacionExiste.save()
                 let estudiante = await Estudiante.findOne({
                     where: {
                         id_estudiante: evaluacionExiste.id_estudiante,
@@ -136,7 +167,14 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
                 evaluacionExiste.defensaEvaluador2 = defensaEvaluador;
                 evaluacionExiste.observacionesEvaluador2 = observacionesEvaluador;
                 evaluacionExiste.promedioEvaluador2 = promedioEvaluador;
-                let notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
+                let notaF;
+                if(evaluacionExiste.promedioEvaluador1 < 4 ){
+                    notaF = evaluacionExiste.promedioEvaluador1;
+                } else if(evaluacionExiste.promedioEvaluador2 < 4 ){
+                    notaF = evaluacionExiste.promedioEvaluador2;
+                }else{
+                    notaF = ((evaluacionExiste.promedioEvaluador1 + evaluacionExiste.promedioEvaluador2) / 2)
+                }
                 evaluacionExiste.notaFinal = notaF.toFixed(1)
                 await evaluacionExiste.save()
                 let estudiante = await Estudiante.findOne({
@@ -190,6 +228,8 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
                     id_comisionCorreccion,
                     periodoRealizar,
                     anioRealizar,
+                    periodoExamen,
+                    anioExamen,
                     calidadMaterialEvaluador1: calidadMaterialEvaluador,
                     contenidoEvaluador1: contenidoEvaluador,
                     dominioEscenicoEvaluador1: dominioEscenicoEvaluador,
@@ -212,6 +252,8 @@ export const actualizarEvaluacionDefensa = async (req, res) => {
                     id_comisionCorreccion,
                     periodoRealizar,
                     anioRealizar,
+                    periodoExamen,
+                    anioExamen,
                     calidadMaterialEvaluador2: calidadMaterialEvaluador,
                     contenidoEvaluador2: contenidoEvaluador,
                     dominioEscenicoEvaluador2: dominioEscenicoEvaluador,

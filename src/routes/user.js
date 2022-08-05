@@ -6,7 +6,7 @@ import util from 'util';
 import fs from 'fs';
 
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
-import { createEstudiante, deleteEstudiantePorIdUsuario, getActaEvaluacion, getEstudiantePorId, getEstudiantes, getEstudiantesAprobados, getEstudiantesAprobadosRegistro, getEstudiantesPractica, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
+import { createEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, getEstudiantes, getEstudiantesPractica, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
 import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.js';
@@ -26,6 +26,7 @@ import { createInforme, getNotaFinal, getListFilesInformeEstudiante ,evaluarInfo
 import { createComisionCorreccion, deleteComision, getListaComisiones } from '../controllers/comisionCorrecion.controller.js';
 import { createEvaluacionEmpresa, editarEvaluacionEmpresa, getEstudiantesAsociados, getEstudiantesParaEditarEvaluacionEmpresaa } from '../controllers/documentos/evaluacionEmpresa.controller.js';
 import { actualizarEvaluacionDefensa, editarEvaluacionDefensa, getDatosAsociados, getEstudiantesParaEditarEvaluacionDefensa } from '../controllers/documentos/evaluacionDefensa.controller.js';
+import { getActaEvaluacion, getActasEvaluaciones , getEstudiantesAprobadosRegistro } from '../controllers/documentos/actaEvaluacion.controller.js';
 
 const router = Router();
 
@@ -263,7 +264,7 @@ router.patch('/evaluacion-defensa/:id', editarEvaluacionDefensa)
 router.get('/evaluacion-defensa:id', getDatosAsociados)
 router.get('/estudiantes-editar-evaluacion-defensa/:id', getEstudiantesParaEditarEvaluacionDefensa)
 
-router.get('/estudiantes-aprobados',getEstudiantesAprobados)
+router.get('/actas-evaluaciones',getActasEvaluaciones)
 router.get('/estudiantes-registro',getEstudiantesAprobadosRegistro)
 router.get('/acta-evaluacion/:id',getActaEvaluacion)
 

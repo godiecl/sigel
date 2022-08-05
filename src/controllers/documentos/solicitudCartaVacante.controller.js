@@ -178,7 +178,6 @@ export const responderSolicitudCartaVacante = async (req, res) => {
     const seguro = await Seguro.findOne({
         where: {
             id_estudiante: solicitud.id_estudiante,
-            id_solicitudCartaVacante: solicitud.id_solicitudCartaVacante,
             vigencia: 'activo'
         }
     })

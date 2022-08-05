@@ -16,6 +16,12 @@ export const EvaluacionDefensa = sequelize.define('evaluacion_defensa',{
     anioRealizar: {
         type: DataTypes.STRING,
     },
+    periodoExamen: {
+        type: DataTypes.INTEGER,
+    },
+    anioExamen: {
+        type: DataTypes.STRING,
+    },
     calidadMaterialEvaluador1: {
         type: DataTypes.DOUBLE,
     },
