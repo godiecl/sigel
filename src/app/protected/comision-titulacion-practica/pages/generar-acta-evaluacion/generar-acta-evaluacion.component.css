@@ -55,6 +55,11 @@ nav a:hover{
     padding-right: 12px;
     text-align: center;
 }
+.mat-column-fechaDefensa{
+    width: 400px;
+    padding-right: 12px;
+    text-align: center;
+}
 .mat-column-boton{
     width: 400px;
     padding-right: 12px;

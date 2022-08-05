@@ -66,10 +66,18 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
     {id: 3, periodo: 'Verano'},
   ]
 
+  periodosExamen = [
+    {id: 1, periodo: 'Primera semana de primer semestre'},
+    {id: 2, periodo: 'Última semana de primer semestre'},
+    {id: 3, periodo: 'Última semana de segundo semestre'},
+  ]
+
   evaluarDefensaForm: FormGroup = this.fb.group({
     estudiante: [,[Validators.required]],
     periodoRealizar: [, [Validators.required]],
     anioRealizar: [, [Validators.required]],
+    periodoExamen: [, [Validators.required]],
+    anioExamen: [, [Validators.required]],
     calidadMaterialEvaluador: [, [Validators.required]],
     contenidoEvaluador: [, [Validators.required]],
     dominioEscenicoEvaluador: [, [Validators.required]],

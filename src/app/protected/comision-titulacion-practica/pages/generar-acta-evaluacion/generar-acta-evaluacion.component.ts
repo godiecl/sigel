@@ -26,12 +26,12 @@ export class GenerarActaEvaluacionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.ctpSv.getEstudiantesAprobados().subscribe((resp)=>{
+    this.ctpSv.getActasEvaluaciones().subscribe((resp)=>{
       if(resp.ok){
         this.data = resp.datos
         console.log(this.data)
         this.dataSource = new MatTableDataSource(this.data)
-        this.displayedColumns = ['nombre', 'rut', 'nombreProyecto', 'nombreEmpresa', 'periodo','anio','boton']
+        this.displayedColumns = ['nombre', 'rut', 'nombreProyecto', 'nombreEmpresa', 'periodo','anio', 'fechaDefensa' ,'boton']
       }else{
         Swal.fire('Ha ocurrido un error', resp.msg, 'error')
       }
@@ -39,9 +39,7 @@ export class GenerarActaEvaluacionComponent implements OnInit {
   }
 
   public downloadPDF(id: any): void {
-    const datos = this.data.find((obj)=>{
-      return obj.id_estudiante === id;
-    })
+   
     const doc = new jsPDF();
 
     this.ctpSv.getDatosEstudiante(id).subscribe((resp)=>{
@@ -69,32 +67,36 @@ export class GenerarActaEvaluacionComponent implements OnInit {
 
         let image = new Image();
         image.src= 'assets/images/Escudo-UCN-Full-Color.png'
+        let logoDisc = new Image();
+        logoDisc.src= 'assets/images/LogosDisc/LOGO DISC.png'
         
         let fechaInicio = this.datePipe.transform(data.fechaInicio, 'dd-MM-yyyy') ; 
         let fechaFinal = this.datePipe.transform(data.fechaFinal, 'dd-MM-yyyy') ;
         let fechaExamen = this.datePipe.transform(data.fechaExamen, 'dd-MM-yyyy') 
          
 
-        doc.setFontSize(10)
-        doc.text('Universidad Católica del Norte', 105, 10, {align: "center"})
-        doc.text('Facultad de Ingeniería y Ciencias Geológicas', 105, 15, {align: "center"})
-        doc.text('Departamento de Ingeniería de Sistemas y Computación', 105, 20, {align: "center"})
-        doc.addImage(image, 'png', 10, 10, 10, 10)
         doc.setFontSize(16)
-        doc.text('Informe de Evaluación Actividad de Práctica Pre-Profesional', 105, 30,{ align: "center"});
+        doc.text('Universidad Católica del Norte', 105, 10, {align: "center"})
+        doc.text('Facultad de Ingeniería y Ciencias Geológicas', 105, 18, {align: "center"})
+        doc.text('Departamento de Ingeniería de Sistemas y Computación', 105, 26, {align: "center"})
+        doc.addImage(image, 'png', 10, 10, 14, 14)
+        doc.addImage(logoDisc, 'png', 170, 5, 30, 20)
+        // doc.setFontSize(16)
+        doc.setFont('times','bold')
+        doc.text('Informe de Evaluación Actividad de Práctica Pre-Profesional', 105, 40,{ align: "center"});
         doc.setFontSize(10)
         
-        doc.line(10, 35, 200, 35)
+        doc.line(10, 45, 200, 45)
         // DATOS DEL ESTUDIANTE
-        doc.setFont('times','bold')
+        
         doc.text('Datos del Estudiante', 10,50)
         const textWidth = doc.getTextWidth('Datos del Estudiante');
         doc.line(10,50.4,10 + textWidth, 50.4)
         doc.setFont('times','normal')
         doc.text('Nombre: ', 10, 60);
-        doc.text(datos.nombre, 200, 60, {align: "right"})
+        doc.text(data.nombreEstudiante, 200, 60, {align: "right"})
         doc.text('Rut: ', 10, 70)
-        doc.text(datos.rut, 200, 70, {align: "right"})
+        doc.text(data.rut, 200, 70, {align: "right"})
         doc.text('Carrera: ', 10, 80)
         doc.text(carrera, 200, 80, {align: "right"})
         doc.text('Empresa donde se realizó la práctica: ', 10, 90)
@@ -107,13 +109,13 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text(String(fechaFinal), 200, 120, {align: "right"})
         doc.text('Año: ', 10, 130)
         doc.text(String(data.anio), 200, 130, {align: "right"})
-
-        
-        doc.text('Evaluador 1: ', 10, 140)
-        doc.text(data.nombreProfesorS, 200, 140, {align: "right"})
-        doc.text('Evaluador 2: ', 10, 150)
-        doc.text(data.nombreProfesor2, 200, 150, {align: "right"})
-        doc.line(10, 155, 200, 155)
+        doc.text('Fecha de defensa de práctica: ', 10, 140)
+        doc.text(String(fechaExamen), 200, 140, {align: "right"})
+        doc.text('Evaluador 1: ', 10, 150)
+        doc.text(data.nombreProfesorS, 200, 150, {align: "right"})
+        doc.text('Evaluador 2: ', 10, 160)
+        doc.text(data.nombreProfesor2, 200, 160, {align: "right"})
+        doc.line(10, 165, 200, 165)
         
         doc.setFont('times','bold')
         doc.text('Resumen de Notas', 10,170)
@@ -124,7 +126,7 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text(String(data.notaEmpresa), 200, 180, {align: "right"})
         doc.text('Nota de la Informe: ', 10, 190)
         doc.text(String(data.notaInforme), 200, 190, {align: "right"})
-        doc.text('Nota de Examen: ', 10, 200)
+        doc.text('Nota de Defensa de Práctica: ', 10, 200)
         doc.text(String(data.notaDefensa), 200, 200, {align: "right"})
         doc.text('Nota Final: ', 10, 210)
         doc.text(String(data.notaFinal), 200, 210, {align: "right"})
@@ -141,16 +143,18 @@ export class GenerarActaEvaluacionComponent implements OnInit {
 
         // Segundo página
         doc.addPage()
-
-        doc.setFontSize(10)
-        doc.text('Universidad Católica del Norte', 105, 10, {align: "center"})
-        doc.text('Facultad de Ingeniería y Ciencias Geológicas', 105, 15, {align: "center"})
-        doc.text('Departamento de Ingeniería de Sistemas y Computación', 105, 20, {align: "center"})
-        doc.addImage(image, 'png', 10, 10, 10, 10)
         doc.setFontSize(16)
-        doc.text('Detalle de Calificaciones Actividad de Práctica Pre-Profesional', 105, 30,{ align: "center"});
+        doc.text('Universidad Católica del Norte', 105, 10, {align: "center"})
+        doc.text('Facultad de Ingeniería y Ciencias Geológicas', 105, 18, {align: "center"})
+        doc.text('Departamento de Ingeniería de Sistemas y Computación', 105, 26, {align: "center"})
+        doc.addImage(image, 'png', 10, 10, 14, 14)
+        doc.addImage(logoDisc, 'png', 170, 5, 30, 20)
+        // doc.setFontSize(16)
+        doc.setFont('times','bold')
+        doc.text('Detalle de Calificaciones Actividad de Práctica Pre-Profesional', 105, 40,{ align: "center"});
         doc.setFontSize(10)
-        doc.line(10, 35, 200, 35)
+        
+        doc.line(10, 45, 200, 45)
         
         doc.setFont('times','bold')
         doc.text('Notas de la Empresa', 10, 50)
@@ -184,8 +188,8 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         // doc.text(String(data.actitud), 200, 150)
         
         doc.setFont('times','bold')
-        doc.text('Notas del Exámen', 10, 125)
-        const textWidth4 = doc.getTextWidth('Notas del Examen');
+        doc.text('Notas de Defensa de Práctica', 10, 125)
+        const textWidth4 = doc.getTextWidth('Notas de Defensa de Práctica');
         doc.line(10,125.4,10 + textWidth4, 125.4)
         doc.setFont('times','normal')
         doc.text(data.nombreProfesorS, 100, 125, {align: "center"})
@@ -213,16 +217,19 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text(String(data.promedioEvaluador2), 155, 165, {align: "center"})
         doc.addPage()
         // TERCERA PAGINA
-        doc.setFontSize(10)
-        doc.text('Universidad Católica del Norte', 105, 10, {align: "center"})
-        doc.text('Facultad de Ingeniería y Ciencias Geológicas', 105, 15, {align: "center"})
-        doc.text('Departamento de Ingeniería de Sistemas y Computación', 105, 20, {align: "center"})
-        doc.addImage(image, 'png', 10, 10, 10, 10)
         doc.setFontSize(16)
-        doc.text('Detalle de Observaciones Actividad de Práctica Pre-Profesional', 105, 30,{ align: "center"});
+        doc.text('Universidad Católica del Norte', 105, 10, {align: "center"})
+        doc.text('Facultad de Ingeniería y Ciencias Geológicas', 105, 18, {align: "center"})
+        doc.text('Departamento de Ingeniería de Sistemas y Computación', 105, 26, {align: "center"})
+        doc.addImage(image, 'png', 10, 10, 14, 14)
+        doc.addImage(logoDisc, 'png', 170, 5, 30, 20)
+        // doc.setFontSize(16)
+        doc.setFont('times','bold')
+        doc.text('Detalle de Observaciones Actividad de Práctica Pre-Profesional', 105, 40,{ align: "center"});
         doc.setFontSize(10)
-
-        doc.line(10, 35, 200, 35)
+        
+        doc.line(10, 45, 200, 45)
+        
         doc.setFont('times','bold')
         doc.text('Observaciones de la Empresa: ', 10, 50)
         doc.setFont('times','normal')
@@ -268,7 +275,7 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         
         
 
-        const nombreArchivo = `${datos.nombre}_${datos.rut}_acta_evaluacion.pdf`
+        const nombreArchivo = `${data.nombreEstudiante}_${data.rut}_acta_evaluacion.pdf`
         doc.save(nombreArchivo);
       }else{
         Swal.fire('Ha ocurrido un error',resp.msg,'error')

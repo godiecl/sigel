@@ -93,6 +93,18 @@
                            {{ element.fechaFinal | date : 'dd-MM-yyyy' }}
                     </td>
                 </ng-container> 
+                <ng-container matColumnDef="fechaDefensa">
+                    <th mat-header-cell *matHeaderCellDef > FECHA DEFENSA </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.fechaDefensa === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.fechaDefensa !== null" >
+                            {{ element.fechaDefensa | date : 'dd-MM-yyyy' }}
+                        </div>
+                          
+                    </td>
+                </ng-container> 
                 <ng-container matColumnDef="nombreProfesorS">
                     <th mat-header-cell *matHeaderCellDef > EVALUADOR 1 </th>
                     <td mat-cell *matCellDef="let element">

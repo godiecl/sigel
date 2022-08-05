@@ -24,7 +24,7 @@ export class RegistroDatosPracticaComponent implements OnInit {
         this.data = resp.datos
         console.log(this.data)
         this.dataSource = new MatTableDataSource(this.data)
-        this.displayedColumns = ['apellidopEstudiante', 'apellidomEstudiante','nombreEstudiante','rut', 'carrera' , 'nombreProyecto', 'nombreEmpresa','rutEmpresa' ,'nombreProfesorS' ,'nombreProfesor2' , 'fechaInicio','fechaFinal','notaEmpresa' ,'notaInforme','notaDefensa','notaFinal']
+        this.displayedColumns = ['apellidopEstudiante', 'apellidomEstudiante','nombreEstudiante','rut', 'carrera' , 'nombreProyecto', 'nombreEmpresa','rutEmpresa' ,'nombreProfesorS' ,'nombreProfesor2' , 'fechaInicio','fechaFinal', 'fechaDefensa' ,'notaEmpresa' ,'notaInforme','notaDefensa','notaFinal']
       }else{
         Swal.fire('Ha ocurrido un erorr',resp.msg,'error')
       }
