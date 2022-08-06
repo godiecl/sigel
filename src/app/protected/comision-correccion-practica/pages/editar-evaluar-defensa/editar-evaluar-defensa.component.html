@@ -353,7 +353,23 @@
                     <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
                         <mat-label>Seleccione evaluación de defensa para editar: </mat-label>
                         <mat-select formControlName="evaluacion" >
-                            <mat-option *ngFor="let item of evaluaciones" [value]="item.id_evaluacionDefensa" >Evaluación - {{ item.nombreEstudiante | titlecase }} - {{ item.periodoRealizar }} - {{ item.anioRealizar }}</mat-option>
+                            <mat-option *ngFor="let item of evaluaciones" [value]="item.id_evaluacionDefensa" > 
+                            <div *ngIf="item.periodoExamen === 1">
+                              Evaluación - {{ item.nombreEstudiante | titlecase }} - 
+                              Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
+                              Periodo Examen: Principio Primer Semestre, {{ item.anioExamen }}
+                            </div>
+                            <div *ngIf="item.periodoExamen === 2">
+                              Evaluación - {{ item.nombreEstudiante | titlecase }} - 
+                              Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
+                              Periodo Examen: Final Primer Semestre, {{ item.anioExamen }}
+                            </div> 
+                            <div *ngIf="item.periodoExamen === 3">
+                              Evaluación - {{ item.nombreEstudiante | titlecase }} - 
+                              Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
+                              Periodo Examen: Final Segundo Semestre, {{ item.anioExamen }}
+                            </div> 
+                          </mat-option>
                         </mat-select>
                         <mat-error *ngIf="evaluacionSelectForm.get('evaluacion')?.errors">
                             <strong>Seleccione una evaluación por favor</strong>

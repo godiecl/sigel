@@ -372,7 +372,7 @@
                       </mat-error>
                   </mat-form-field>
                   <mat-form-field style="display: inline-block; flex-direction: end;" class="m-b-20" appearance="fill">
-                      <mat-label>Ingrese Año</mat-label>
+                      <mat-label>Ingrese año de práctica</mat-label>
                       <input matInput  type="text" pattern="\d*" maxlength="4" minlength="4" formControlName="anioRealizar">
                       <mat-error *ngIf="evaluarDefensaForm.get('anioRealizar')?.errors">
                           <strong>Ingrese un año válido </strong>
@@ -391,7 +391,7 @@
                       </mat-error>
                   </mat-form-field>
                   <mat-form-field style="display: inline-block; flex-direction: end;" class="m-b-20" appearance="fill">
-                      <mat-label>Ingrese Año</mat-label>
+                      <mat-label>Ingrese año de defensa de práctica</mat-label>
                       <input matInput  type="text" pattern="\d*" maxlength="4" minlength="4" formControlName="anioExamen">
                       <mat-error *ngIf="evaluarDefensaForm.get('anioExamen')?.errors">
                           <strong>Ingrese un año válido </strong>
@@ -477,14 +477,16 @@
                   <span>Observaciones de la empresa:</span>
                   </div>
                   <div class="wmitad" >
-                    <mat-tab-group dynamicHeight>
+                    <mat-tab-group>
                       <mat-tab label="Fortalezas">
-                        <div class="example-large-box mat-elevation-z4">
+                        <div class="example-large-box mat-elevation-z4"
+                        style="height: 150px;">
                           {{ fortalezasMostrar }}
                         </div>
                       </mat-tab>
                       <mat-tab label="Debilidades">
-                        <div class="example-large-box mat-elevation-z4">
+                        <div class="example-large-box mat-elevation-z4" 
+                        style="height: 150px;" >
                           {{ debilidadesMostrar }}
                         </div>
                       </mat-tab>

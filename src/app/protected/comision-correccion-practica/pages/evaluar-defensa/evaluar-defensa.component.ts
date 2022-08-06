@@ -67,9 +67,9 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
   ]
 
   periodosExamen = [
-    {id: 1, periodo: 'Primera semana de primer semestre'},
-    {id: 2, periodo: 'Última semana de primer semestre'},
-    {id: 3, periodo: 'Última semana de segundo semestre'},
+    {id: 1, periodo: 'Principio primer semestre'},
+    {id: 2, periodo: 'Final primer semestre'},
+    {id: 3, periodo: 'Final segundo semestre'},
   ]
 
   evaluarDefensaForm: FormGroup = this.fb.group({
