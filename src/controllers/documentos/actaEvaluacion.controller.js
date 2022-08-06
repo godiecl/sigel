@@ -109,6 +109,8 @@ export const getActaEvaluacion = async (req, res) =>{
           notaEmpresa: evaluacionEmpresaEstudiante.notaFinal,
           observacionesInforme1: informeEstudiante.observacionesEvaluador1,
           observacionesInforme2: informeEstudiante.observacionesEvaluador2,
+          promedioEvaluador1Informe: informeEstudiante.notaEvaluador1,
+          promedioEvaluador2Informe: informeEstudiante.notaEvaluador2,
           notaInforme: informeEstudiante.notaFinal,
           calidadMaterialEvaluador: evaluacionDefensaEstudiante.calidadMaterialEvaluador1,
           contenidoEvaluador: evaluacionDefensaEstudiante.contenidoEvaluador1,
