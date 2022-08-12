@@ -174,8 +174,8 @@ export const ocultarSeguro = async (req, res) =>{
 
     const seguro = await Seguro.findByPk(id_seguro);
 
-    // seguro.mostrar = false;
     seguro.vigencia = 'terminado'
+    seguro.mostrar = false;
     seguro.save();
 
     return res.json({ok: true, msg: 'Se ha terminado la vigencia del seguro.'})

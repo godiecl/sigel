@@ -512,6 +512,8 @@ export const getEstudiantesParaEditarEvaluacionDefensa = async (req, res) => {
                     debilidadesEmpresa: evaluacionEmpresa.debilidades,
                     periodoRealizar: periodo,
                     anioRealizar: evaluacionDefensa.anioRealizar,
+                    periodoExamen: evaluacionDefensa.periodoExamen,
+                    anioExamen: evaluacionDefensa.anioExamen,
                     calidadMaterialEvaluador: evaluacionDefensa.calidadMaterialEvaluador2,
                     contenidoEvaluador: evaluacionDefensa.contenidoEvaluador2,
                     dominioEscenicoEvaluador: evaluacionDefensa.dominioEscenicoEvaluador2,

@@ -39,14 +39,14 @@ export const createSolicitudCartaVacante = async (req, res) =>{
              id_solicitudEstudiante, id_estudiante
         })
 
-        return res.status(200).json({
+        return res.json({
             ok: true,
             msg: 'Solicitud de carta de vacante registrada'
         })
 
     } catch (error) {
         // console.log(error)
-        return res.status(400).json({
+        return res.json({
             ok: false,
             msg: error.message
         })

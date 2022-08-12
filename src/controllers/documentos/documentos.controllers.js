@@ -16,7 +16,7 @@ export const storagePractica = multer.diskStorage({
         //cb(null,file.originalname);
     },
     destination:function(res,file, cb){
-        cb(null,'./public/contenido/practica')
+        cb(null,'./public/contenido/practica-profesor')
     }
 });
 
@@ -30,7 +30,7 @@ export const storageCapstone = multer.diskStorage({
         cb(null, `${fileName}.${ext}`); 
     },
     destination:function(res,file, cb){
-        cb(null,'./public/contenido/capstone')
+        cb(null,'./public/contenido/capstone-profesor')
     }
 });
 
