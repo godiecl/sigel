@@ -109,7 +109,7 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text(String(fechaFinal), 105, 120, {align: "left"})
         doc.text('Año: ', 10, 130)
         doc.text(String(data.anio), 105, 130, {align: "left"})
-        doc.text('Fecha de defensa de práctica: ', 10, 140)
+        doc.text('Fecha de examen de práctica: ', 10, 140)
         doc.text(String(fechaExamen), 105, 140, {align: "left"})
         doc.text('Evaluador 1: ', 10, 150)
         doc.text(data.nombreProfesorS, 105, 150, {align: "left"})
@@ -126,7 +126,7 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text(String(data.notaEmpresa), 105, 180, {align: "left"})
         doc.text('Nota de la Informe: ', 10, 190)
         doc.text(String(data.notaInforme), 105, 190, {align: "left"})
-        doc.text('Nota de Defensa de Práctica: ', 10, 200)
+        doc.text('Nota de Examen de Práctica: ', 10, 200)
         doc.text(String(data.notaDefensa), 105, 200, {align: "left"})
         doc.text('Nota Final: ', 10, 210)
         doc.text(String(data.notaFinal), 105, 210, {align: "left"})
@@ -200,8 +200,8 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text(String(data.notaInforme), 105, 135, {align: "left"})
         doc.line(10,140, 200, 140)     
         doc.setFont('times','bold')
-        doc.text('Notas de Defensa de Práctica', 10, 145)
-        const textWidth4 = doc.getTextWidth('Notas de Defensa de Práctica');
+        doc.text('Notas de Examen de Práctica', 10, 145)
+        const textWidth4 = doc.getTextWidth('Notas de Examen de Práctica');
         doc.line(10,145.4,10 + textWidth4, 145.4)
         doc.setFont('times','normal')
         doc.text(data.nombreProfesorS, 100, 145, {align: "center"})
