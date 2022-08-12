@@ -27,18 +27,23 @@ nav a:hover{
 }
 
 .mat-column-nombreProyecto{
-    width: 600px;
+    width: 400px;
     padding-right: 24px;
     text-align: center;
 }
 
 .mat-column-nombreEstudiante{
-    width:800px;
+    width:400px;
     padding-right: 24px;
     text-align: center;
 }
 .mat-column-periodoRealizar{
-    width:500px;
+    width:400px;
+    padding-right: 24px;
+    text-align: center;
+}
+.mat-column-anioRealizar{
+    width:100px;
     padding-right: 24px;
     text-align: center;
 }
@@ -47,11 +52,22 @@ nav a:hover{
     padding-right: 24px;
     text-align: center;
 }
-.mat-column-enviarCorreo{
-    width: 320px;
+.mat-column-boton{
+    width: 300px;
     padding-right: 24px;
     text-align: center;
 }
 .tablaResp {
     overflow-x:auto;
+    overflow: auto;
+    height: 600px;
+    max-width: 100%;
+}
+:host ::ng-deep .mat-sort-header-container { 
+    display: flex;  
+    justify-content: center; 
+}
+
+th.mat-header-cell, td.mat-cell { 
+    text-align: center; 
 }

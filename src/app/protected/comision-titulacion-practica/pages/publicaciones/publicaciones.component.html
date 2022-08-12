@@ -20,9 +20,14 @@
         Administrar publicaciones 
       </span>
 
-      <mat-card-actions align="end" >
-        <button mat-raised-button color="warn" style="font-size: 25px;" (click)="irCrearPublicacion()" >Crear publicación</button>
-      </mat-card-actions>
+      <div style="display: flex; align-items: center; justify-content: center; "   >
+        <mat-card-actions >
+          <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+        
+          <button mat-raised-button color="warn"   style="font-size: 25px; " (click)="irCrearPublicacion()" >Crear publicación</button>
+        </mat-card-actions>
+      
+      </div>
               
       <mat-card *ngFor="let item of publicaciones" style="line-height: 25px;" class=" m-b-28">
         <mat-card-title > {{ item.asunto }} </mat-card-title>

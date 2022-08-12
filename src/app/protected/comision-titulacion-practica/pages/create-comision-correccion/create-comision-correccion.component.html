@@ -11,7 +11,9 @@
 </div>
 <div class="row">
     <div class="col flex-col-c">
-        <div class="containertabla m-b-10 " *ngIf="listaComisiones.length > 0">
+        <div class="containertabla m-b-10 scrolltable" *ngIf="listaComisiones.length > 0">
+            
+            
             <table mat-table [dataSource]="listaComisiones" class="mat-elevation-z8">
         
                 <!--- Note that these columns can be defined in any order.
@@ -72,9 +74,10 @@
         <div class="m-b-20" *ngIf="listaComisiones.length === 0">
             <span class="text-danger" > NO SE HAN CONFORMADO COMISIONES ACTUALMENTE.</span>
         </div>
-        <div style="width: 700px;" class="m-t-10" >
-            <button mat-raised-button color="primary" style="font-size: 20px;" class="w-full" (click)="crearComision()" > CREAR COMISIÓN DE CORRECCIÓN DE PRÁCTICA </button>
-        
+        <div style="width: 700px;"> 
+            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER AL MENÚ PRINCIPAL </button> 
+            <button mat-raised-button color="warn" style="font-size: 20px;" class="w-full" (click)="crearComision()" > CREAR COMISIÓN DE CORRECCIÓN DE PRÁCTICA </button>
+                
         </div>
         
     </div>

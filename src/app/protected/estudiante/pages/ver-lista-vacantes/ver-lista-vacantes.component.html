@@ -11,7 +11,7 @@
     </nav>
 </div>
 <div class="row">
-    <div class="col flex-col-c">
+    <div class="col flex-col-c scrolltabla">
         <!-- <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"> -->
             
             <table mat-table [dataSource]="vacantes" class="mat-elevation-z8 ">
@@ -102,8 +102,10 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-            <router-outlet></router-outlet>
-        </div>
+            <div>
+                <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; width: 700px ; margin-top: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+            </div>
+         </div>
     <!-- </div> -->
 </div>
 

@@ -194,13 +194,13 @@
                             </div>
                         </div>
                        <div class="spanc m-b-5" >
-                        <span> Observaciones </span>
+                        <span> Observaciones <br> Recuerde que las observaciones son importantísimas para el crecimiento profesional del estudiante. </span>
                        </div>
                         <div class="m-b-10" >
                             <div style="display: flex;">
                                 <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
                                     <mat-label>Fortalezas del estudiante</mat-label>
-                                    <textarea formControlName="fortalezas" matInput ></textarea>
+                                    <textarea maxlength="1200" formControlName="fortalezas" matInput ></textarea>
                                     <mat-error *ngIf="evaluarTrabajoForm.get('fortalezas')?.errors">
                                         <strong>Este campo es obligatorio</strong>
                                     </mat-error> 
@@ -209,7 +209,7 @@
                             <div style="display: flex;">
                                 <mat-form-field appearance="fill" style="flex-basis: 100%;" >
                                     <mat-label>Debilidades del estudiante</mat-label>
-                                    <textarea formControlName="debilidades" matInput ></textarea>
+                                    <textarea maxlength="1200" formControlName="debilidades" matInput ></textarea>
                                     <mat-error *ngIf="evaluarTrabajoForm.get('debilidades')?.errors">
                                         <strong>Este campo es obligatorio</strong>
                                     </mat-error> 
@@ -217,10 +217,12 @@
                             </div>
                         </div>
                         
+                <div style="width: 100%; display: flex; flex-direction: column; align-items: center;" class="m-t-10" > 
+                            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; width: 700px; "  > VOLVER AL MENÚ PRINCIPAL </button> 
+                            <button mat-raised-button color="warn" type="submit" [disabled]="evaluarTrabajoForm.invalid" style="font-size: 20px; width: 700px; "  >EVALUAR ESTUDIANTE</button>
                        
-                <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
-                    <button mat-raised-button color="warn" type="submit" [disabled]="evaluarTrabajoForm.invalid" cdkFocusInitial>Evaluar estudiante</button>
-                </mat-card-actions>
+                </div>
+                
             </form>
             </div>
             

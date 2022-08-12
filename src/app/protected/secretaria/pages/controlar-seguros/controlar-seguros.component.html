@@ -19,26 +19,29 @@
             <div *ngIf="seguros.length === 0" >
                 <span class="text-danger" > No hay seguros actualmente. </span>
             </div>
-            <div *ngIf="seguros.length > 0" >
+            <div *ngIf="seguros.length > 0" style="display: contents;" class="scrolltable" >
                 <mat-form-field>
                     <mat-label>Buscar por nombre</mat-label>
                     <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="buscar">
                 </mat-form-field>
-                <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" class="mat-elevation-z8 ">
+                <table 
+                class="mat-elevation-z8" 
+                mat-table [dataSource]="dataSource" 
+                matSort #segurosSort="matSort" >
                     <!-- Weight Column  -->
                     <ng-container matColumnDef="nombreEstudiante">
-                    <th mat-header-cell *matHeaderCellDef> NOMBRE ESTUDIANTE </th> 
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > NOMBRE ESTUDIANTE </th> 
                     <td mat-cell *matCellDef="let element"> {{element.nombreEstudiante | uppercase}} {{element.apellidopEstudiante | uppercase}} {{element.apellidomEstudiante | uppercase}}</td>
                     </ng-container>
     
     
                     <ng-container matColumnDef="rutEstudiante">
-                    <th mat-header-cell *matHeaderCellDef> RUT ESTUDIANTE </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT ESTUDIANTE </th>
                     <td mat-cell *matCellDef="let element"> {{element.rutEstudiante | uppercase}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="periodoRealizar">
-                        <th mat-header-cell *matHeaderCellDef> PERIODO </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PERIODO </th>
                         <td mat-cell *matCellDef="let element"> 
                             <div *ngIf="element.periodoRealizar === 1 " >
                                 Primer semestre
@@ -53,22 +56,22 @@
                     </ng-container>
     
                     <ng-container matColumnDef="anio">
-                    <th mat-header-cell *matHeaderCellDef> AÑO </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> AÑO </th>
                     <td mat-cell *matCellDef="let element"> {{element.anio }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="fechaInicio">
-                    <th mat-header-cell *matHeaderCellDef> FECHA INICIO </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA INICIO </th>
                     <td mat-cell *matCellDef="let element"> {{element.fechaInicio | date: 'dd-MM-yyyy'  }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="fechaFinal">
-                    <th mat-header-cell *matHeaderCellDef> FECHA FINAL </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA FINAL </th>
                     <td mat-cell *matCellDef="let element"> {{element.fechaFinal | date: 'dd-MM-yyyy' }} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="estado">
-                        <th mat-header-cell *matHeaderCellDef> ESTADO </th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
                         <td mat-cell *matCellDef="let element">
                             <!-- <mat-label> {{ element.estado }} </mat-label> -->
                             <mat-form-field>
@@ -86,7 +89,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="vigencia">
-                    <th mat-header-cell *matHeaderCellDef> VIGENCIA </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> VIGENCIA </th>
                     <td mat-cell *matCellDef="let element"> 
                         <div *ngIf="diasPorVencer(element.fechaFinal, now, element.id_seguro) <= 7 && diasPorVencer(element.fechaFinal, now, element.id_seguro) !== 0 && element.vigencia === 'activo'" style="background-color: yellow;" >
                             {{element.vigencia | uppercase}} 
@@ -127,6 +130,11 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
+                <div class="m-t-20" style="width: 700px; display: flex; align-items: center; justify-content: center;">
+                
+                    <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+                
+                </div>
             </div>  
         </div>
     <!-- </div> -->

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs/internal/Subject';
 import Swal from 'sweetalert2';
@@ -8,21 +8,23 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalExtenderSeguroComponent } from './modal-extender-seguro/modal-extender-seguro.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-controlar-seguros',
   templateUrl: './controlar-seguros.component.html',
   styleUrls: ['./controlar-seguros.component.css']
 })
-export class ControlarSegurosComponent implements OnInit, OnDestroy {
+export class ControlarSegurosComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  seguros: [] = [];
+  seguros!: any[];
   displayedColumns!: string[];
   estado = new FormControl('');
   now= new Date();
 
   private _unsubscribeAll: Subject<any>;
-  dataSource!: MatTableDataSource<never>;
+  @ViewChild('segurosSort') segurosSort = new MatSort();
+  dataSource!: MatTableDataSource<any>;
   
   estados: string []= ['pendiente', 'tramitado'];
 
@@ -36,6 +38,9 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
    
   }
 
+  ngAfterViewInit() {    
+    this.dataSource.sort = this.segurosSort;
+  }
   ngOnInit(): void {
 
     this.secretariaS.getSeguros().pipe(takeUntil(this._unsubscribeAll))
@@ -65,10 +70,8 @@ export class ControlarSegurosComponent implements OnInit, OnDestroy {
         }
       )
     });
-
-    
-    
   }
+
 
   ngOnDestroy(): void {
 

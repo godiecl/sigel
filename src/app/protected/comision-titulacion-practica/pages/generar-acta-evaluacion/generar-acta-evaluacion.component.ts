@@ -243,31 +243,31 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         // doc.setFontSize(16)
         doc.setFont('times','bold')
         doc.text('Detalle de Observaciones Actividad de Práctica Pre-Profesional', 105, 40,{ align: "center"});
-        doc.setFontSize(10)
+        doc.setFontSize(9)
         
         doc.line(10, 45, 200, 45)
         
         doc.setFont('times','bold')
         doc.text('Observaciones de la Empresa: ', 10, 50)
         doc.setFont('times','normal')
-        doc.text('Fortalezas: '+data.fortalezasEmpresa, 10, 60)
-        doc.text('Debilidades: '+ data.debilidadesEmpresa, 10, 90)
+        doc.text('Fortalezas: '+data.fortalezasEmpresa, 10, 55, { maxWidth: 190, align: 'justify' })
+        doc.text('Debilidades: '+ data.debilidadesEmpresa, 10, 90, { maxWidth: 190, align: 'justify' })
         doc.line(10, 125, 200, 125)
         
         doc.setFont('times','bold')
         doc.text('Observaciones del Informe: ', 10, 130)
         doc.setFont('times','normal')
         if(data.observacionesInforme1 && data.observacionesInforme2){
-          doc.text(data.nombreProfesorS + ': '+ data.observacionesInforme1, 10,140)
-          doc.text(data.nombreProfesor2 + ': '+ data.observacionesInforme2, 10,170)
+          doc.text(data.nombreProfesorS + ': '+ data.observacionesInforme1, 10,135, { maxWidth: 190, align: 'justify' } )
+          doc.text(data.nombreProfesor2 + ': '+ data.observacionesInforme2, 10,170, { maxWidth: 190, align: 'justify' } )
         }else if(data.observacionesInforme1){
-          doc.text(data.nombreProfesorS + ': '+ data.observacionesInforme1, 10,140)
+          doc.text(data.nombreProfesorS + ': '+ data.observacionesInforme1, 10,135,{ maxWidth: 190, align: 'justify' } )
           doc.text(data.nombreProfesor2 + ': ', 10,170)
         }else if(data.observacionesInforme2){
-          doc.text(data.nombreProfesorS + ': ', 10,140)
-          doc.text(data.nombreProfesor2 + ': '+ data.observacionesInforme2, 10,170)
+          doc.text(data.nombreProfesorS + ': ', 10,135)
+          doc.text(data.nombreProfesor2 + ': '+ data.observacionesInforme2, 10,170, { maxWidth: 190, align: 'justify' })
         }else{
-          doc.text(data.nombreProfesorS + ': ', 10,140)
+          doc.text(data.nombreProfesorS + ': ', 10,135)
           doc.text(data.nombreProfesor2 + ': ', 10,170)
         }
         doc.line(10, 205, 200, 205)
@@ -275,17 +275,17 @@ export class GenerarActaEvaluacionComponent implements OnInit {
         doc.text('Observaciones del Examen: ', 10, 210)
         doc.setFont('times','normal')
         if(data.observacionesExamen1 && data.observacionesExamen2){
-          doc.text(data.nombreProfesorS + ': '+ data.observacionesExamen1, 10,220)
-          doc.text(data.nombreProfesor2 + ': '+ data.observacionesExamen2, 10,250)
+          doc.text(data.nombreProfesorS + ': '+ data.observacionesExamen1, 10,215, { maxWidth: 190, align: 'justify' })
+          doc.text(data.nombreProfesor2 + ': '+ data.observacionesExamen2, 10,250, { maxWidth: 190, align: 'justify' })
           
         }else if(data.observacionesExamen1){
-          doc.text(data.nombreProfesorS + ': '+ data.observacionesExamen1, 10,220)
+          doc.text(data.nombreProfesorS + ': '+ data.observacionesExamen1, 10,215, { maxWidth: 190, align: 'justify' })
           doc.text(data.nombreProfesor2 + ': ', 10,250)
         }else if(data.observacionesExamen2){
-          doc.text(data.nombreProfesorS + ': ', 10,220)
-          doc.text(data.nombreProfesor2 + ': '+ data.observacionesExamen2, 10,250)
+          doc.text(data.nombreProfesorS + ': ', 10,215)
+          doc.text(data.nombreProfesor2 + ': '+ data.observacionesExamen2, 10,250, { maxWidth: 190, align: 'justify' })
         }else{
-          doc.text(data.nombreProfesorS + ': ', 10,220)
+          doc.text(data.nombreProfesorS + ': ', 10,215)
           doc.text(data.nombreProfesor2 + ': ', 10,250)
         }
 

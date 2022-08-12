@@ -61,9 +61,7 @@ export class MainMenuComponent implements OnInit {
     this.router.navigateByUrl('/dashboard/edit-usuario')
   }
 
-  uploadContenido(){
-    this.router.navigateByUrl('/dashboard/upload-contenido')
-  }
+  
   downloadDocument(){
     this.router.navigateByUrl('/dashboard/download-document')
   }
@@ -80,6 +78,9 @@ export class MainMenuComponent implements OnInit {
   }
   verRegistroDatosPractica(){
     this.router.navigateByUrl('/dashboard/comision-titulacion-practica/registro-datos-practica')
+  }
+  uploadContenido(){
+    this.router.navigateByUrl('/dashboard/comision-titulacion-practica/upload-contenido')
   }
 
   // ENCARGADO EMPRESA

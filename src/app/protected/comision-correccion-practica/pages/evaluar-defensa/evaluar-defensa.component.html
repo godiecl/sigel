@@ -5,7 +5,7 @@
           <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
           <li style="color:white; font-size: 18px;">></li>
           <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
-          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Evaluar defensa de práctica</li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Evaluar examen de práctica</li>
           
         </ul>
     </nav>
@@ -14,7 +14,7 @@
     <div class="col flex-col-c">
         <div class="wrap-login300 p-l-55 p-r-55 p-t-65 p-b-54">
             <div style="text-align: center; font-size: large; text-transform: uppercase;" class="m-b-20" >
-                <span>Rúbrica para evaluar la defensa de práctica pre-profesional</span>
+                <span>Rúbrica para evaluar examen de práctica pre-profesional</span>
             </div>
 
             <div style="text-align: center; " class="m-b-20" *ngIf="estudiantes.length === 0">
@@ -467,7 +467,7 @@
                           <div style="display: flex;">
                               <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
                                   <mat-label>Observaciones:</mat-label>
-                                  <textarea formControlName="observacionesEvaluador" matInput ></textarea>
+                                  <textarea maxlength="1200" formControlName="observacionesEvaluador" matInput ></textarea>
                               </mat-form-field>
                           </div>
                       </div>
@@ -480,80 +480,26 @@
                     <mat-tab-group>
                       <mat-tab label="Fortalezas">
                         <div class="example-large-box mat-elevation-z4"
-                        style="height: 150px;">
+                        >
                           {{ fortalezasMostrar }}
                         </div>
                       </mat-tab>
                       <mat-tab label="Debilidades">
                         <div class="example-large-box mat-elevation-z4" 
-                        style="height: 150px;" >
+                         >
                           {{ debilidadesMostrar }}
                         </div>
                       </mat-tab>
                     </mat-tab-group>
                   </div>
 
-              <!-- Evaluador 1 -->
-              <!-- <div >
-                    
-
-                <div class="m-t-20 spanc m-b-5">
-                    <span > Calcular nota de defensa: Evaluador: {{ profesores[1].nombre }}</span>
+              
+                <div style="width: 100%; display: flex; flex-direction: column; align-items: center;" class="m-t-10" > 
+                    <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; width: 700px; "  > VOLVER AL MENÚ PRINCIPAL </button> 
+                    <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" style="font-size: 20px; width: 700px; "  >EVALUAR EXAMEN</button>
+               
                 </div>
-                <div class="m-b-10"  >
-                    <div style="display: flex;" >
-                    
-                            <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                            <mat-label>Calidad del material:</mat-label>
-                            <input formControlName="calidadMaterialEvaluador2" min="1" max="7" matInput type="number">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                            <mat-label>Contenido:</mat-label>
-                            <input formControlName="contenidoEvaluador2" min="1" max="7" matInput type="number">
-                            </mat-form-field>
-
-                    </div>  
-
-                    <div style="display: flex;">
-                            <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                <mat-label>Dominio Escénico:</mat-label>
-                                <input formControlName="dominioEscenicoEvaluador2" min="1" max="7" matInput type="number">
-                                </mat-form-field>
-                            <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
-                                <mat-label>Claridad de la exposición:</mat-label>
-                                <input formControlName="claridadEvaluador2" min="1" max="7" matInput type="number">
-                                </mat-form-field>
-                    </div>
-
-                    <div style="display: flex;" >
-                            <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
-                                <mat-label>Tiempo empleado:</mat-label>
-                                <input formControlName="tiempoEvaluador2" min="1" max="7" matInput type="number">
-                                </mat-form-field>
-                       
-                            <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
-                                <mat-label>Defensa de la presentación:</mat-label>
-                                <input formControlName="defensaEvaluador2" min="1" max="7" matInput type="number">
-                            </mat-form-field>
-                    </div>
-                    
-                </div>
-                <div class="spanc m-b-5" >
-                 </div>
-                  <div class="m-b-10" >
-                      <div style="display: flex;">
-                          <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
-                              <mat-label>Observaciones:</mat-label>
-                              <textarea formControlName="observacionesEvaluador2" matInput ></textarea>
-                          </mat-form-field>
-                      </div>
-                  </div>
-            </div> -->
-
-            <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
-              <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" cdkFocusInitial>Evaluar estudiante</button>
-            </mat-card-actions>
-
+           
             </form>
             </div>  
         </div>

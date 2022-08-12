@@ -2,6 +2,7 @@ table {
     width: 1200px;
     /* margin: 4rem; */
     /* padding: 5rem; */
+    overflow-y: scroll;
   }
  [id=menuheader]{
     margin-bottom: 40px;

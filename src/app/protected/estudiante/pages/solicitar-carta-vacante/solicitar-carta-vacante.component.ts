@@ -121,7 +121,7 @@ export class SolicitarCartaVacanteComponent implements OnInit, OnDestroy {
         if(resp.ok){
           Swal.fire('Se ha registrado la solicitud de carta para vacante.','','success');
         }else{
-          Swal.fire('Ha ocurrido un error','','error');
+          Swal.fire('Ha ocurrido un error',resp.msg,'error');
         }
       })
 

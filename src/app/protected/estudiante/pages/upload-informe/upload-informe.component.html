@@ -48,9 +48,11 @@
                         </mat-form-field>
                     </div>
                 </form>
-                <mat-card-actions style="display:flex; align-items: center; justify-content: center;" >
-                    <button mat-raised-button color="primary" style="font-size: 25px;" [disabled]="!fileInformeEstudiante || informeForm.invalid" (click)="alertaAgregarInformeEstudiante()">
-                        Subir informe de práctica
+                <mat-card-actions style="display:contents   ;" >
+                    <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 25px; width: 700px ; margin-bottom: 10px;" > VOLVER AL MENÚ PRINCIPAL 
+                    </button> 
+                    <button mat-raised-button color="primary" style="font-size: 25px; width: 700px ; " [disabled]="!fileInformeEstudiante || informeForm.invalid" (click)="alertaAgregarInformeEstudiante()">
+                        SUBIR INFORME DE PRÁCTICA
                     </button>
                 </mat-card-actions>
             </div>

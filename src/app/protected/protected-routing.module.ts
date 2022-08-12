@@ -62,7 +62,6 @@ const routes: Routes = [
 
       },
       { path:'main-menu', component: MainMenuComponent},
-      { path: 'upload-contenido', component:UploadContenidoComponent},
       { path: 'download-document',component:DownloadDocumentComponent},
       { path:'encargado-practica',
         // component: DashboardComponent,
@@ -128,6 +127,7 @@ const routes: Routes = [
       // component: DashboardComponent,
       children: [
         {path:'',},
+        { path: 'upload-contenido', component:UploadContenidoComponent},
         {path: 'administrar-publicaciones', component: PublicacionesCTComponent, 
           children: [
             {path:'',},
@@ -153,7 +153,7 @@ const routes: Routes = [
         ]
       },
     
-      { path:'**', redirectTo: ''},
+      { path:'**', redirectTo: 'main-menu'},
     ]
   },
   

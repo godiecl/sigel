@@ -19,7 +19,7 @@
             mat-table 
             [dataSource]="fileInfosInformePractica" 
             
-            class="mat-elevation-z8 ">
+            class="mat-elevation-z8 scrolltable">
             <form [formGroup]="notasForm" >
                 <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
@@ -152,6 +152,10 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </form>
             </table>
+        </div>
+        <div style="width: 700px;" class="m-t-10" > 
+            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER AL MENÚ PRINCIPAL </button> 
+               
         </div>
 
         <!-- </div> -->

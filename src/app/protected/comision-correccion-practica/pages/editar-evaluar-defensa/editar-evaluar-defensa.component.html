@@ -5,7 +5,7 @@
           <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
           <li style="color:white; font-size: 18px;">></li>
           <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
-          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Editar evaluación defensa de práctica</li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Editar evaluación examen de práctica</li>
           
         </ul>
     </nav>
@@ -14,7 +14,7 @@
     <div class="col flex-col-c">
         <div class="wrap-login300 p-l-55 p-r-55 p-t-65 p-b-54">
             <div style="text-align: center; font-size: large; text-transform: uppercase;" class="m-b-20" >
-                <span>Rúbrica para evaluar la defensa de práctica pre-profesional</span>
+                <span>Rúbrica para evaluar examen de práctica pre-profesional</span>
             </div>
 
             <div style="text-align: center; " class="m-b-20" *ngIf="evaluaciones.length === 0">
@@ -355,17 +355,17 @@
                         <mat-select formControlName="evaluacion" >
                             <mat-option *ngFor="let item of evaluaciones" [value]="item.id_evaluacionDefensa" > 
                             <div *ngIf="item.periodoExamen === 1">
-                              Evaluación - {{ item.nombreEstudiante | titlecase }} - 
+                              Evaluación - {{ item.nombreEstudiante }} - 
                               Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
                               Periodo Examen: Principio Primer Semestre, {{ item.anioExamen }}
                             </div>
                             <div *ngIf="item.periodoExamen === 2">
-                              Evaluación - {{ item.nombreEstudiante | titlecase }} - 
+                              Evaluación - {{ item.nombreEstudiante }} - 
                               Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
                               Periodo Examen: Final Primer Semestre, {{ item.anioExamen }}
                             </div> 
                             <div *ngIf="item.periodoExamen === 3">
-                              Evaluación - {{ item.nombreEstudiante | titlecase }} - 
+                              Evaluación - {{ item.nombreEstudiante }} - 
                               Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
                               Periodo Examen: Final Segundo Semestre, {{ item.anioExamen }}
                             </div> 
@@ -449,7 +449,7 @@
                                   <div style="display: flex;">
                                       <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
                                           <mat-label>Observaciones:</mat-label>
-                                          <textarea formControlName="observacionesEvaluador" matInput ></textarea>
+                                          <textarea maxlength="1200" formControlName="observacionesEvaluador" matInput ></textarea>
                                       </mat-form-field>
                                   </div>
                               </div>
@@ -473,10 +473,12 @@
                             </mat-tab-group>
                           </div>
         
-        
-                    <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
-                      <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" cdkFocusInitial>Editar evaluación</button>
-                    </mat-card-actions>
+                    <div style="width: 100%; display: flex; flex-direction: column; align-items: center;" class="m-t-10" > 
+                            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; width: 700px; "  > VOLVER AL MENÚ PRINCIPAL </button> 
+                            <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" style="font-size: 20px; width: 700px; "  >EDITAR EVALUACIÓN</button>
+                       
+                    </div>
+                   
         
                     </form>
         

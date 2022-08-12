@@ -11,12 +11,13 @@
 </div>
 <div class="row">
     <div class="col flex-col-c">
+        
         <div class="m-b-10" *ngIf="listaProfesores.length === 0" >
             <span class="text-danger" >
                 No hay profesores de comisión de corrección registrados. 
             </span>
         </div>
-        <div *ngIf="listaProfesores.length > 0" >
+        <div *ngIf="listaProfesores.length > 0" class="scrolltable" >
             <table mat-table [dataSource]="dataSourceProfes" 
             matSort #profeSort="matSort"
             class="mat-elevation-z8 m-b-10 ">
@@ -93,7 +94,7 @@
                 No hay estudiantes registrados. 
             </span>
         </div>
-        <div *ngIf="listaEstudiantes.length > 0" >
+        <div *ngIf="listaEstudiantes.length > 0" class="scrolltable" >
             <table mat-table [dataSource]="dataSource" 
             matSort #estudiantesSort="matSort"
             class="mat-elevation-z8 m-b-10">
@@ -160,11 +161,12 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
             </table>
 
-            <div class="row" >
-                <div class="col flex-col-c m-b-20" style="width: 600px;">    
-                    <button mat-raised-button  (click)="volver()" color="primary" style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER A LISTA DE COMISIONES DE CORRECCIÓN </button>
-                    <button mat-raised-button   (click)="alerta()" color="warn" style="font-size: 20px; " class="w-full " > CONFORMAR COMISIÓN DE CORRECCIÓN </button>
-                </div>
+            
+        </div>
+        <div class="row" >
+            <div class="col flex-col-c m-b-20" style="width: 600px;">    
+                <button mat-raised-button  (click)="volver()" color="primary" style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER A LISTA DE COMISIONES DE CORRECCIÓN </button>
+                <button mat-raised-button   (click)="alerta()" color="warn" style="font-size: 20px; " class="w-full " > CONFORMAR COMISIÓN DE CORRECCIÓN </button>
             </div>
         </div>
     </div>

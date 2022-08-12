@@ -18,7 +18,7 @@
             <div *ngIf="informes.length === 0" >
                 <span class="text-danger" > No hay informes actualmente. </span>
             </div>
-            <div *ngIf="informes.length > 0" >
+            <div *ngIf="informes.length > 0" class="scrolltable" style="display: contents;" >
                 <mat-form-field>
                     <mat-label>Buscar</mat-label>
                     <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="Rut, Nombre">
@@ -51,6 +51,11 @@
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 </table>
+                <div class="m-t-20" style="width: 700px; display: flex; align-items: center; justify-content: center;">
+                
+                    <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+                
+            </div>
             </div>  
         </div>
     <!-- </div> -->

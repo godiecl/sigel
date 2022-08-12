@@ -1,22 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ComisionTitulacionPracticaService } from '../../comision-titulacion-practica.service';
 import Swal from 'sweetalert2';
+import { MatSort } from '@angular/material/sort';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-registro-datos-practica',
   templateUrl: './registro-datos-practica.component.html',
   styleUrls: ['./registro-datos-practica.component.css']
 })
-export class RegistroDatosPracticaComponent implements OnInit {
+export class RegistroDatosPracticaComponent implements OnInit, OnDestroy, AfterViewInit {
 
   dataSource!: MatTableDataSource<any>;
+  @ViewChild('seguimientoSort') seguimientoSort = new MatSort();
+
+  private _unsubscribeAll: Subject<any> = new Subject();
   data!: any[];
   displayedColumns!: string[];
   constructor(
     private ctpSv: ComisionTitulacionPracticaService,
   ) { }
+  ngAfterViewInit() {    
+    this.dataSource.sort = this.seguimientoSort;
+  }
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
 
+  }
   ngOnInit(): void {
     this.ctpSv.getEstudiantesRegistro().subscribe((resp)=>{
       if(resp.ok){

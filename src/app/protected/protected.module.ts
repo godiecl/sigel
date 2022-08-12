@@ -59,6 +59,7 @@ import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/p
 import { ModalExtenderSeguroComponent } from './secretaria/pages/controlar-seguros/modal-extender-seguro/modal-extender-seguro.component';
 import { EditarEvaluarDefensaComponent } from './comision-correccion-practica/pages/editar-evaluar-defensa/editar-evaluar-defensa.component';
 import { EditarEvaluarEstudianteComponent } from './encargado-empresa/pages/editar-evaluar-estudiante/editar-evaluar-estudiante.component';
+import { UploadContenidoComponent } from './comision-titulacion-practica/pages/upload-contenido/upload-contenido.component';
 
 
 
@@ -103,6 +104,7 @@ import { EditarEvaluarEstudianteComponent } from './encargado-empresa/pages/edit
     GenerarActaEvaluacionComponent,
     ModalExtenderSeguroComponent,
     EditarEvaluarDefensaComponent,
+    UploadContenidoComponent,
     EditarEvaluarEstudianteComponent,
   ],
   imports: [

@@ -159,7 +159,7 @@ export class EvaluarDefensaComponent implements OnInit, OnDestroy {
     console.log(data)
 
     Swal.fire({
-      title: `¿Está seguro de los datos ingresados?. <br> El promedio de la defensa del estudiante sería: ${data.promedioEvaluador} <br>  <br> Click en sí para enviar la evaluación.`,
+      title: `¿Está seguro de los datos ingresados?. <br> El promedio del examen del estudiante sería: ${data.promedioEvaluador} <br>  <br> Click en sí para enviar la evaluación.`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Sí, estoy seguro',
