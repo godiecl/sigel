@@ -14,7 +14,16 @@
     <div class="col flex-col-c tablaResp" >
         <!-- <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"> -->
             <!-- *ngIf="isRoute('/dashboard/encargado-practica/ver-solicitudes-estudiante')" -->
-            <table *ngIf="isRoute('/dashboard/encargado-empresa/responder-carta-vacante')" class="mat-elevation-z8" mat-table [dataSource]="listaResponder" class="mat-elevation-z8 ">
+            <div class="m-b-20" style="width: 700px; display: flex; align-items: center; justify-content: center;">
+                
+                <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+            
+            </div>
+            <table 
+            *ngIf="isRoute('/dashboard/encargado-empresa/responder-carta-vacante')" 
+            mat-table [dataSource]="dataSource"
+            matSort #sortResponder="matSort"
+            class="mat-elevation-z8 ">
         
                 <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
@@ -24,7 +33,7 @@
         
                 <!-- Name Column -->
                 <ng-container matColumnDef="nombreProyecto">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE PROYECTO </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE PROYECTO </th>
                 <td mat-cell *matCellDef="let element"> {{element.nombreProyecto  | uppercase }} </td>
                 </ng-container>  
 
@@ -32,28 +41,28 @@
 
                 <!-- Weight Column  -->
                 <ng-container matColumnDef="nombreEstudiante">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE ESTUDIANTE </th> 
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE ESTUDIANTE </th> 
                 <td mat-cell *matCellDef="let element"> {{element.nombreEstudiante | uppercase}} {{element.apellidopEstudiante | uppercase}} {{ element.apellidomEstudiante | uppercase }} </td>
                 </ng-container>
 
                  <!-- Weight Column  -->
                  <ng-container matColumnDef="periodoRealizar">
-                    <th mat-header-cell *matHeaderCellDef> PERIODO </th> 
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> PERIODO </th> 
                     <td mat-cell *matCellDef="let element"> 
-                        <div *ngIf="element.periodoRealizar === '1' " >
+                        <div *ngIf="element.periodoRealizar === 1 " >
                             Primer semestre
                         </div> 
-                        <div *ngIf="element.periodoRealizar === '2' " >
+                        <div *ngIf="element.periodoRealizar === 2 " >
                             Segundo semestre
                         </div> 
-                        <div *ngIf="element.periodoRealizar === '3' " >
+                        <div *ngIf="element.periodoRealizar === 3 " >
                             Verano 
                         </div> 
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="anio">
-                    <th mat-header-cell *matHeaderCellDef> AÑO </th> 
+                <ng-container matColumnDef="anioRealizar">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> AÑO </th> 
                     <td mat-cell *matCellDef="let element"> 
                             {{element.anioRealizar | uppercase}} 
                     </td>
@@ -65,45 +74,16 @@
 
 
                 <ng-container matColumnDef="estado">
-                    <th mat-header-cell *matHeaderCellDef> ESTADO </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
                     <td mat-cell *matCellDef="let element">
                         <!-- <mat-label> {{ element.estado }} </mat-label> -->
                         <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
                         {{ element.estadoRespuesta | uppercase }}
                     </td>
                     
-                    </ng-container>
-                <!-- Position Column -->
-               
-                <!-- <ng-container matColumnDef="apellidoEstudiante" >
-                    <th mat-header-cell *matHeaderCellDef> ESTADO   </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <div *ngIf="element.estado === true">
-                            Aprobado
-                        </div>
-                        <div *ngIf="element.estado === false ">
-                            Reprobado
-                        </div>
-                        <div *ngIf="element.estado === null">
-                            Pendiente
-                        </div>
-                    </td>
-                    </ng-container> -->
-            
-                <!-- Symbol Column -->
-                <!-- <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                </ng-container> -->
-
-                <!-- <ng-container matColumnDef="actualizar" >
-                    <th mat-header-cell *matHeaderCellDef></th>
-                        <td button style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button  (click)="actualizar(element.id_solicitudCartaVacante)" > 
-                            <mat-icon>refresh</mat-icon>
-                             (click)="verSolicitud(element.id_solicitudEstudiante)" 
-                        </td> 
-                    </ng-container> -->
-                <ng-container matColumnDef="enviarCorreo" >
+                </ng-container>
+                
+                <ng-container matColumnDef="boton" >
                 <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element"> 
                         <div *ngIf="element.estadoRespuesta === 'pendiente' " >

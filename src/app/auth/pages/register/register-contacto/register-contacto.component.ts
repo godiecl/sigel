@@ -131,8 +131,10 @@ export class RegisterContactoComponent implements OnInit, OnDestroy {
             Swal.fire('Ha ocurrido un error.', '', 'info')
             // // console.log('aqui fallo')
           }
+        }, (error)=>{
+          Swal.fire('No se ha podido registrar el contacto. ',error.error.msg,'error')
+          return
         })
-        Swal.fire('Se ha registrado con exito!!', '', 'success')
         //se borra todo lo que contiene el formulario
         //this.empresaForm.reset();
       } else if (result.isDenied) {

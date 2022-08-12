@@ -104,7 +104,7 @@ export class SolicitarEstudianteMenuComponent implements OnInit {
          this.authS.crearSolicitudEstudiante(this.newSolicitud).subscribe((resp)=>{
          if(resp.ok){
          Swal.fire('Se ha registrado su solicitud, pronto será evaluada por el DISC.', '', 'success');
-         this.router.navigateByUrl('/auth/login')
+        //  this.router.navigateByUrl('/auth/login')
          }else{
          Swal.fire(resp.msg, '', 'error')
  

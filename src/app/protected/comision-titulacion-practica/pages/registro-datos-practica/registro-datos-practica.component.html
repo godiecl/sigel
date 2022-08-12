@@ -1,0 +1,189 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Seguimiento de estado de práctica de estudiantes</li>
+        </ul>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col flex-col-c">
+        <div class="m-b-10" *ngIf="data.length === 0" >
+            <span class="text-danger" >
+                No hay estudiantes disponibles 
+            </span>
+        </div>
+        <!-- matSort #profeSort="matSort" -->
+        <div *ngIf="data.length > 0" class="containertabla w-full" style="display: contents;" class="scrolltable" >
+            <mat-form-field>
+                <mat-label>Buscar</mat-label>
+                <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="Rut, Nombre, Apellido">
+            </mat-form-field>
+            <table mat-table [dataSource]="dataSource" matSort #seguimientoSort="matSort" 
+        
+            class="mat-elevation-z8 m-b-10 ">
+        
+                <ng-container matColumnDef="apellidopEstudiante">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDO PATERNO ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.apellidopEstudiante }}
+                    </td>
+                    </ng-container>
+                    <ng-container matColumnDef="apellidomEstudiante">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDO MATERNO ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.apellidomEstudiante }}
+                    </td>
+                    </ng-container>
+                <ng-container matColumnDef="nombreEstudiante">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE ESTUDIANTE </th>
+                <td mat-cell *matCellDef="let element">
+                    {{ element.nombreEstudiante }}
+                </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="rut">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element">
+                           {{ element.rut }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="carrera">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CARRERA </th>
+                    <td mat-cell *matCellDef="let element">
+                           <div *ngIf="element.carrera === 0" >
+                            IenCI
+                           </div>
+                           <div *ngIf="element.carrera === 1">
+                            ICCI
+                           </div>
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="nombreProyecto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE PROYECTO </th>
+                    <td mat-cell *matCellDef="let element">
+                           {{ element.nombreProyecto | titlecase }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="nombreEmpresa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE EMPRESA </th>
+                    <td mat-cell *matCellDef="let element">
+                           {{ element.nombreEmpresa | titlecase }}
+                    </td>
+                </ng-container>        
+                <ng-container matColumnDef="rutEmpresa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT EMPRESA </th>
+                    <td mat-cell *matCellDef="let element">
+                           {{ element.rutEmpresa | titlecase }}
+                    </td>
+                </ng-container>  
+                <ng-container matColumnDef="fechaInicio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA INICIO </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.fechaInicio | date: 'dd-MM-YYYY' }}
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="fechaFinal">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA FINAL </th>
+                    <td mat-cell *matCellDef="let element">
+                           {{ element.fechaFinal | date : 'dd-MM-yyyy' }}
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="fechaDefensa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA DEFENSA </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.fechaDefensa === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.fechaDefensa !== null" >
+                            {{ element.fechaDefensa | date : 'dd-MM-yyyy' }}
+                        </div>
+                          
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="nombreProfesorS">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> EVALUADOR 1 </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.nombreProfesorS === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.nombreProfesorS !== null" >
+                            {{ element.nombreProfesorS | titlecase }}
+                        </div>
+                           
+                    </td>
+                </ng-container>  
+                <ng-container matColumnDef="nombreProfesor2">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> EVALUADOR 2 </th>
+                    <td mat-cell *matCellDef="let element">
+                           <div *ngIf="element.nombreProfesor2 === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.nombreProfesor2 !== null" >
+                            {{ element.nombreProfesor2 | titlecase }}
+                        </div>
+                    </td>
+                </ng-container> 
+                <ng-container matColumnDef="notaInforme">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOTA INFORME </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.notaInforme === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaInforme !== null" >
+                            {{ element.notaInforme }}
+                        </div>
+                    </td>
+                </ng-container>  
+                <ng-container matColumnDef="notaDefensa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOTA DEFENSA </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.notaDefensa === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaDefensa !== null" >
+                            {{ element.notaDefensa }}
+                        </div>
+                    </td>
+                </ng-container>  
+                <ng-container matColumnDef="notaEmpresa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOTA EMPRESA </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.notaEmpresa== null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaEmpresa !== null" >
+                            {{ element.notaEmpresa }}
+                        </div>
+                    </td>
+                </ng-container>  
+                <ng-container matColumnDef="notaFinal">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOTA FINAL </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.notaFinal === null" >
+                            --
+                        </div>
+                        <div *ngIf="element.notaFinal !== null" >
+                            {{ element.notaFinal }}
+                        </div>
+                    </td>
+                </ng-container>
+                
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <!-- <button mat-raised-button color="primary" style="font-size: 20px; "  class="w-full"> CONTINUAR PARA ASIGNAR ESTUDIANTES </button> -->
+            <div style="width: 700px; display: flex; align-items: center; justify-content: center;">
+                
+                <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+            
+        </div>
+        </div>
+    </div>
+</div>

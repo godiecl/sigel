@@ -12,18 +12,6 @@ export class ComisionTitulacionPracticaService {
 
   private baseUrl: string = environment.baseUrl;
   private _refresh$ = new Subject<void>();
-  // private _publicaciones: BehaviorSubject<any[]> = new BehaviorSubject([]);
-
-  // getPublicaciones(): Observable<any[]>
-  //   {
-  //     const url = `${this.baseUrl}publicaciones`;
-  //       return this.http.get<any[]>(url).pipe(
-  //           tap((resp: any) => {
-
-  //               this._publicaciones.next(resp.entidades);
-  //           })
-  //       );
-  //   }
 
   constructor(private http: HttpClient) { }
   get refresh$(){
@@ -202,9 +190,9 @@ export class ComisionTitulacionPracticaService {
     const url=`${this.baseUrl}download-informe/informe-estudiante`;
     return this.http.post(url,body,{responseType:'blob'});
   }
-  getFilesInformeEstudiante(): Observable<any> {
-    const url=`${this.baseUrl}get-informe/informe-estudiante`;
-    return this.http.get(url);
+  getFilesInformeEstudiante(id_comisionCorreccion: any): Observable<any> {
+    const url=`${this.baseUrl}get-informe/informe-estudiante/${id_comisionCorreccion}`;
+    return this.http.get<any>(url);
   }
   deleteFileInformeEstudiante(file:String){
     var body = {filename:file};
@@ -215,5 +203,54 @@ export class ComisionTitulacionPracticaService {
       })
     );
   }
+
+  postCCpractica(data: any){
+    const url = `${this.baseUrl}crear-cc-practica`
+    return this.http.post(url,{data})
+  }
+  getProfesoresCC(): Observable<any>{
+    const url = `${this.baseUrl}profesoresCC`
+    return this.http.get<any>(url);
+  }
+
+  getEstudiantes(): Observable<any>{
+    const url = `${this.baseUrl}/practica-estudiantes`
+    return this.http.get<any>(url);
+  }
+
+  getListaComisiones(): Observable<any>{
+    const url = `${this.baseUrl}comision-correccion/lista`
+    return this.http.get<any>(url);
+  }
+
+  eliminarComision(id_comisionCorreccion: any): Observable<any>{
+    
+    const url = `${this.baseUrl}comision-correccion/lista/eliminar${id_comisionCorreccion}`
+    return this.http.delete<any>(url).pipe(
+      (tap(()=>{
+        this._refresh$.next();
+      }))
+    )
+  }
+
+  getActasEvaluaciones(): Observable<any>{
+    const url = `${this.baseUrl}actas-evaluaciones`
+    return this.http.get<any>(url);
+    
+  }
+
+  getEstudiantesRegistro(): Observable<any>{
+    const url = `${this.baseUrl}estudiantes-registro`
+    return this.http.get<any>(url);
+    
+  }
+
+  getDatosEstudiante(id: any): Observable<any>{
+    const url = `${this.baseUrl}acta-evaluacion/${id}`
+    return this.http.get<any>(url);
+    
+  }
+
+
 }
 

@@ -14,55 +14,99 @@
             <div class="m-b-23">
 
             </div>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="registrarUsuario()">
-                Registrar Usuario
-            </button>
+            <div *ngIf="esAdmin" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="registrarUsuario()">
+                    Registrar Usuario
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="editarUsuario()">
+                    Editar Usuario
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="eliminarUsuario()" >
+                    Deshabilitar Usuario
+                </button>
+            </div>
+
+            <div *ngIf="esEncargadoDePractica" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verSolicitudesEstudiante()" >
+                    Ver Solicitudes de Estudiante
+                </button>
+            </div>
+
+            <div *ngIf="esComisionTitulacionPractica" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="administrarPublicaciones()" >
+                    Administrar Publicaciones
+                </button> 
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="uploadContenido()" >
+                    Subir contenido Práctica o Capstone
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verConformarCC()" >
+                    Lista Comisiones de Corrección
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verGenerarActaPractica()" >
+                    Generar acta de evaluación de práctica
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verRegistroDatosPractica()" >
+                    Seguimiento de estudiantes
+                </button>
+            </div>
+
+            <div *ngIf="esEstudiante" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verPublicaciones()" >
+                    Ver Publicaciones
+                </button> 
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="downloadDocument()" >
+                    Descargar documentos
+                </button> 
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verListaVacantes()" >
+                    Ver Lista de vacantes
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="solicitarCartaVacante()" >
+                    Solicitar Carta Vacante
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verSubirInforme()" >
+                    Subir Informe de práctica
+                </button> 
+            </div>
             
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="editarUsuario()">
-                Editar Usuario
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="eliminarUsuario()" >
-                Deshabilitar Usuario
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verPublicaciones()" >
-                Ver Publicaciones
-            </button> 
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="administrarPublicaciones()" >
-                Administrar Publicaciones
-            </button> 
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="uploadContenido()" >
-                Subir contenido Práctica o Capstone
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="downloadDocument()" >
-                Descargar documentos
-            </button> 
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="irSolicitarEstudiante()" >
-                Solicitar Estudiante
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verSolicitudesEstudiante()" >
-                Ver Solicitudes de Estudiante
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verListaVacantes()" >
-                Ver Lista de vacantes
-            </button> 
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="solicitarCartaVacante()" >
-                Solicitar Carta Vacante
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="autorizarCartaVacante()" >
-                Autorizar Carta Vacante
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="responderCartaVacante()" >
-                Responder Carta Vacante
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verControlarSeguros()" >
-                Controlar Seguros
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verSubirInforme()" >
-                Subir Informe de práctica
-            </button>
-            <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verDescargarInforme()" >
-                Descargar Informe de práctica
-            </button>
+            <div *ngIf="esEncargadoEmpresa" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="irSolicitarEstudiante()" >
+                    Solicitar Estudiante
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="responderCartaVacante()" >
+                    Responder Carta Vacante
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEvaluarEstudiante()" >
+                    Evaluar Estudiante
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEditarEvaluarEstudiante()" >
+                    Editar Evaluación de Estudiante
+                </button>
+            </div>
+            
+            <div *ngIf="esSecretaria" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="autorizarCartaVacante()" >
+                    Autorizar Carta Vacante
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verControlarSeguros()" >
+                    Controlar Seguros
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verHemeroteca()" >
+                    Hemeroteca
+                </button>
+            </div>
+            
+            <div *ngIf="esProfesorCC" >
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verDescargarInforme()" >
+                    Evaluar Informe de práctica
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEvaluarDefensa()" >
+                    Evaluar Defensa de práctica
+                </button>
+                <button mat-button class="boton-dashboard m-b-23" style="margin-bottom: 1rem; font-size: 25px;" (click)="verEditarEvaluarDefensa()" >
+                    Editar Evaluación de Defensa de práctica
+                </button>
+            </div>  
+
         </div>  
     </div>
     

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 
 // import { Component } from "@angular/core";
@@ -7,22 +7,23 @@ import { SolicitudEstudiante } from '../../../../auth/interfaces/documentos/soli
 import { EncargadoEmpresa } from 'src/app/auth/interfaces/encargadoEmpresa.interface';
 import { Empresa } from '../../../../auth/interfaces/empresa.interface';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-ver-solicitudes-estudiante',
   templateUrl: './ver-solicitudes-estudiante.component.html',
   styleUrls: ['./ver-solicitudes-estudiante.component.css']
 })
-export class VerSolicitudesEstudianteComponent implements OnInit {
+export class VerSolicitudesEstudianteComponent implements OnInit, AfterViewInit {
 
   
-  // const solicitudesEstudiante: SolicitudEstudiante[] = this.encargadoTP.solicitudesEstudiante().subscribe((solicitudes: SolicitudEstudiante[]) => {
-  //   // console.log(solicitudes)
-  //   this.solicitudesEstudiante = solicitudes;
-    
-  // })
+  
+  @ViewChild('sort') sort = new MatSort();
+  dataSource!: MatTableDataSource<any>;
+  
   displayedColumns!: string[];
-  solicitudesEstudiante!: [];
+  solicitudesEstudiante!: any[];
   encargadosEmpresa!: EncargadoEmpresa[];
   empresas!: Empresa[];
 
@@ -44,6 +45,9 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
               ) { 
     
   }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
 
   ngOnInit(): void {
 
@@ -52,7 +56,9 @@ export class VerSolicitudesEstudianteComponent implements OnInit {
     this.encargadoTP.getSolicitudesEstudianteTabla().subscribe((solicitudes) => {
       // // console.log(solicitudes)
 
-      this.solicitudesEstudiante = solicitudes
+      this.solicitudesEstudiante = solicitudes;
+      this.dataSource = new MatTableDataSource(this.solicitudesEstudiante)
+      this.dataSource.sort = this.sort;
       this.displayedColumns = ['nombreProyecto', 'nombreEmpresa', 'nombreEncargado', 'apellidoEncargado', 'telefono', 'estado', 'boton']
       
     })

@@ -1,0 +1,21 @@
+
+<div class="row">
+    <div class="flex-col-c">
+        <h2 style="color: black; font-family: 14px Poppins-Bold; " class="m-b-10" mat-dialog-title>Extender seguro</h2>
+        <h3 style="color: black; font-family: 14px Poppins-Bold;" class="m-b-10" mat-dialog-title>Ingrese una nueva fecha final para el seguro</h3>
+        <div mat-dialog-content>
+        <form [formGroup]="extenderForm" >
+            <mat-form-field>
+                <mat-label>Fecha Final</mat-label>
+                <input matInput [matDatepicker]="picker2" [min]="data.fechaFinal" formControlName="fechaFinal">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </form>
+        </div>
+        <div mat-dialog-actions>
+  <!-- <button mat-button (click)="onNoClick()">No</button> -->
+        <button mat-button (click)="save()" [disabled]="extenderForm.invalid" >Actualizar</button>
+        </div>
+    </div>
+</div>

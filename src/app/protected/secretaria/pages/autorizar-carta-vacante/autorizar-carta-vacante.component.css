@@ -47,7 +47,7 @@ nav a:hover{
     text-align: center;
 }
 .mat-column-rutEmpresa{
-    width: 32px;
+    width: 150px;
     padding-right: 24px;
     text-align: center;
 }
@@ -77,13 +77,25 @@ nav a:hover{
     text-align: center;
 }
 .mat-column-rutEstudiante{
+    width: 150px;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-periodoRealizar {
+    width: 32px;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-anioRealizar {
     width: 32px;
     padding-right: 24px;
     text-align: center;
 }
 
 .mat-column-estado {
-    width: 32px;
+    width: 20px;
     padding-right: 24px;
     text-align: center;
 }

@@ -16,137 +16,141 @@
     <div class="col flex-col-c" >
         <!-- <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"> -->
             <!-- *ngIf="isRoute('/dashboard/encargado-practica/ver-solicitudes-estudiante')" -->
-            <table class="mat-elevation-z8" mat-table [dataSource]="solicitudesCartaVacante" class="mat-elevation-z8 ">
+            <div *ngIf="solicitudesCartaVacante.length === 0 " >
+                <span class="text-danger" > No hay solicitudes actualmente.</span>
+            </div>
+            <div *ngIf="solicitudesCartaVacante.length > 0" style="display: contents;" class="scrolltable" >
+                <table class="mat-elevation-z8" 
+                mat-table [dataSource]="dataSource" 
+                matSort #sort="matSort"
+                class="mat-elevation-z8 ">
         
-                <!--- Note that these columns can be defined in any order.
-                    The actual rendered columns are set as a property on the row definition" -->
-                <!-- Name Column -->
-                <!-- Weight Column  -->
-                <ng-container matColumnDef="nombreEmpresa">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE EMPRESA </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa | uppercase }} </td>
-                </ng-container>
-                
-                <ng-container matColumnDef="rutEmpresa">
-                <th mat-header-cell *matHeaderCellDef> RUT EMPRESA </th>
-                <td mat-cell *matCellDef="let element"> {{element.rutEmpresa  | uppercase }} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="giroEmpresa">
-                <th mat-header-cell *matHeaderCellDef> GIRO EMPRESA </th>
-                <td mat-cell *matCellDef="let element"> {{element.giroEmpresa  | uppercase }} </td>
-                </ng-container>
-        
-                <!-- Name Column -->
-                <ng-container matColumnDef="nombreProyecto">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE PROYECTO </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombreProyecto  | uppercase }} </td>
-                </ng-container>  
-
-                <!-- Weight Column  -->
-                <ng-container matColumnDef="nombreEncargado">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE CONTACTO </th>
-                <td mat-cell *matCellDef="let element"> {{element.nombreEncargado | uppercase }} {{element.apellidoEncargado | uppercase }}</td>
-                </ng-container>
-
-                 <!-- Weight Column  -->
-                 <!-- <ng-container matColumnDef="apellidoEncargado">
-                <th mat-header-cell *matHeaderCellDef> APELLIDO CONTACTO </th>
-                <td mat-cell *matCellDef="let element">  </td>
-                </ng-container> -->
-
-                <!-- Weight Column  -->
-                <ng-container matColumnDef="cargoEncargado">
-                <th mat-header-cell *matHeaderCellDef> CARGO CONTACTO </th>
-                <td mat-cell *matCellDef="let element"> {{element.cargoEncargado | uppercase }} </td>
-                </ng-container>
-
-                <!-- Weight Column  -->
-                <ng-container matColumnDef="telefonoEncargado">
-                    <th mat-header-cell *matHeaderCellDef> TELÉFONO CONTACTO </th>
-                    <td mat-cell *matCellDef="let element"> {{element.telefonoEncargado | uppercase }} </td>
+                    <!--- Note that these columns can be defined in any order.
+                        The actual rendered columns are set as a property on the row definition" -->
+                    <!-- Name Column -->
+                    <!-- Weight Column  -->
+                    <ng-container matColumnDef="nombreEmpresa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE EMPRESA </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa | uppercase }} </td>
                     </ng-container>
-
-                <!-- CORREO  -->
-                <!-- <ng-container matColumnDef="correoEncargado">
-                <th mat-header-cell *matHeaderCellDef> CORREO CONTACTO </th>
-                <td mat-cell *matCellDef="let element"> {{element.correoEncargado | uppercase }} </td>
-                </ng-container> -->
-
-                <!-- Weight Column  -->
-                <ng-container matColumnDef="nombreEstudiante">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE ESTUDIANTE </th> 
-                <td mat-cell *matCellDef="let element"> {{element.nombreEstudiante | uppercase}} {{element.apellidoEstudiante | uppercase}}  </td>
-                </ng-container>
-
-                <!-- <ng-container matColumnDef="apellidoEstudiante">
-                <th mat-header-cell *matHeaderCellDef> APELLIDO ESTUDIANTE </th>
-                <td mat-cell *matCellDef="let element"> </td>
-                </ng-container> -->
-
-                <ng-container matColumnDef="rutEstudiante">
-                <th mat-header-cell *matHeaderCellDef> RUT ESTUDIANTE </th>
-                <td mat-cell *matCellDef="let element"> {{element.rutEstudiante | uppercase}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="estado">
-                    <th mat-header-cell *matHeaderCellDef> ESTADO </th>
-                    <td mat-cell *matCellDef="let element">
-                        <!-- <mat-label> {{ element.estado }} </mat-label> -->
-                        <mat-form-field>
-                            <mat-select 
-                                    [(ngModel)]="element.estado"
-                                    (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)"
-                                    #estadoSelect="matSelect"
-                                    disableOptionCentering
-                                    >
-                                    <mat-option *ngFor="let estad of estados" [value]="estad">{{estad | uppercase}} </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </td>
                     
+                    <ng-container matColumnDef="rutEmpresa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT EMPRESA </th>
+                    <td mat-cell *matCellDef="let element"> {{element.rutEmpresa  | uppercase }} </td>
                     </ng-container>
-                <!-- Position Column -->
-               
-                <!-- <ng-container matColumnDef="apellidoEstudiante" >
-                    <th mat-header-cell *matHeaderCellDef> ESTADO   </th>
-                    <td mat-cell *matCellDef="let element"> 
-                        <div *ngIf="element.estado === true">
-                            Aprobado
-                        </div>
-                        <div *ngIf="element.estado === false ">
-                            Reprobado
-                        </div>
-                        <div *ngIf="element.estado === null">
-                            Pendiente
-                        </div>
-                    </td>
-                    </ng-container> -->
+    
+                    <ng-container matColumnDef="giroEmpresa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> GIRO EMPRESA </th>
+                    <td mat-cell *matCellDef="let element"> {{element.giroEmpresa  | uppercase }} </td>
+                    </ng-container>
             
-                <!-- Symbol Column -->
-                <!-- <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-                </ng-container> -->
-
-                <!-- <ng-container matColumnDef="actualizar" >
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nombreProyecto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE PROYECTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreProyecto  | uppercase }} </td>
+                    </ng-container>  
+    
+                    <!-- Weight Column  -->
+                    <ng-container matColumnDef="nombreEncargado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE CONTACTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.nombreEncargado | uppercase }} {{element.apellidoEncargado | uppercase }}</td>
+                    </ng-container>
+    
+                     <!-- Weight Column  -->
+                     <!-- <ng-container matColumnDef="apellidoEncargado">
+                    <th mat-header-cell *matHeaderCellDef> APELLIDO CONTACTO </th>
+                    <td mat-cell *matCellDef="let element">  </td>
+                    </ng-container> -->
+    
+                    <!-- Weight Column  -->
+                    <ng-container matColumnDef="cargoEncargado">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CARGO CONTACTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cargoEncargado | uppercase }} </td>
+                    </ng-container>
+    
+                    <!-- Weight Column  -->
+                    <ng-container matColumnDef="telefonoEncargado">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> TELÉFONO CONTACTO </th>
+                        <td mat-cell *matCellDef="let element"> {{element.telefonoEncargado | uppercase }} </td>
+                        </ng-container>
+    
+                    <!-- CORREO  -->
+                    <!-- <ng-container matColumnDef="correoEncargado">
+                    <th mat-header-cell *matHeaderCellDef> CORREO CONTACTO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.correoEncargado | uppercase }} </td>
+                    </ng-container> -->
+    
+                    <!-- Weight Column  -->
+                    <ng-container matColumnDef="nombreEstudiante">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE ESTUDIANTE </th> 
+                    <td mat-cell *matCellDef="let element"> {{element.nombreEstudiante | uppercase}} {{element.apellidoEstudiante | uppercase}}  </td>
+                    </ng-container>
+    
+                    <!-- <ng-container matColumnDef="apellidoEstudiante">
+                    <th mat-header-cell *matHeaderCellDef> APELLIDO ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element"> </td>
+                    </ng-container> -->
+    
+                    <ng-container matColumnDef="rutEstudiante">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.rutEstudiante | uppercase}} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="periodoRealizar">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PERIODO </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            <div *ngIf="element.periodoRealizar === 1 " >
+                                Primer semestre
+                            </div> 
+                            <div *ngIf="element.periodoRealizar === 2 " >
+                                Segundo semestre
+                            </div> 
+                            <div *ngIf="element.periodoRealizar === 3 " >
+                                Verano 
+                            </div> 
+                        </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="anioRealizar">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> AÑO </th>
+                        <td mat-cell *matCellDef="let element"> {{ element.anioRealizar }} </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
+                        <td mat-cell *matCellDef="let element">
+                            <!-- <mat-label> {{ element.estado }} </mat-label> -->
+                            <mat-form-field>
+                                <mat-select 
+                                        [(ngModel)]="element.estado"
+                                        (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)"
+                                        #estadoSelect="matSelect"
+                                        disableOptionCentering
+                                        >
+                                        <mat-option *ngFor="let estad of estados" [value]="estad">{{estad | uppercase}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        
+                        </ng-container>
+                    
+                    <ng-container matColumnDef="enviarCorreo" >
                     <th mat-header-cell *matHeaderCellDef></th>
-                        <td button style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button  (click)="actualizar(element.id_solicitudCartaVacante)" > 
-                            <mat-icon>refresh</mat-icon>
-                             (click)="verSolicitud(element.id_solicitudEstudiante)" 
+                        <td button  style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button   (click)="enviarCorreo(element.correoEncargado,element.nombreEmpresa)" > 
+                            <mat-icon >outgoing_mail</mat-icon>
+                            <!-- (click)="verSolicitud(element.id_solicitudEstudiante)" -->
                         </td> 
-                    </ng-container> -->
-                <ng-container matColumnDef="enviarCorreo" >
-                <th mat-header-cell *matHeaderCellDef></th>
-                    <td button  style="cursor: pointer" mat-cell *matCellDef="let element" mat-icon-button   (click)="enviarCorreo(element.correoEncargado,element.nombreEmpresa)" > 
-                        <mat-icon >outgoing_mail</mat-icon>
-                        <!-- (click)="verSolicitud(element.id_solicitudEstudiante)" -->
-                    </td> 
-                </ng-container>
-            
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div class="m-t-10" style="width: 700px; display: flex; align-items: center; justify-content: center;">
+                
+                    <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+                
+            </div>
+            </div>  
         </div>
     <!-- </div> -->
 </div>

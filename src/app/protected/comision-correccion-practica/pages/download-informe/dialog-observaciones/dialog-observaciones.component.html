@@ -1,0 +1,25 @@
+<span mat-dialog-title>¿Estás seguro de evaluar este informe?</span>
+<div class="flex-col-c" >
+    <div mat-dialog-content class="dis-flex flex-col-c" style="width: 800px;" >
+        <p>¿Desea agregar observaciones?</p>
+        <form [formGroup]="dataForm">
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Observaciones Evaluador: {{ data.nombreProfesor1 }}  </mat-label>
+                    <textarea maxlength="1200" matInput formControlName="observacionEvaluador1"></textarea>
+                  </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Observaciones Evaluador: {{ data.nombreProfesor2 }}  </mat-label>
+                    <textarea maxlength="1200" matInput formControlName="observacionEvaluador2"></textarea>
+                  </mat-form-field>
+            </p>
+        </form>
+        
+      </div>
+</div>
+<div mat-dialog-actions align="end" >
+  <button mat-button (click)="onNoClick()">No</button>
+  <button mat-button [mat-dialog-close] (click)="guardar()" cdkFocusInitial>Sí, enviar</button>
+</div>

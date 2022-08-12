@@ -48,5 +48,29 @@ export class EncargadoEmpresaService {
       })
     )
   }
+
+  crearEvaluacionEmpresa(evaluacionEmpresa: any): Observable<any>{
+    const url = `${this.baseUrl}evaluacion-empresa/`;
+    return this.http.post<any>(url, evaluacionEmpresa)
+  }
+
+  getEstudiantesAsociados(id_encargadoEmpresa: any): Observable<any>{
+    const url = `${this.baseUrl}evaluacion-empresa/listaEstudiantesAsociados${id_encargadoEmpresa}`;
+    return this.http.get<any>(url)
+  }
  
+  getEstudiantesEditarEvaluacionEmpresa(id_usuario: any): Observable<any>{
+    const url = `${this.baseUrl}estudiantes-editar-evaluacion-empresa/${id_usuario}`;
+    return this.http.get<any>(url)
+  }
+
+  editarEvaluacionEmpresa(id_usuario: any, data: any): Observable<any>{
+    const url = `${this.baseUrl}evaluacion-empresa/${id_usuario}`;
+    return this.http.patch<any>(url, data).pipe(
+      tap(()=>{
+        this._refreshRequired.next();
+      })
+    )
+  }
+
 }

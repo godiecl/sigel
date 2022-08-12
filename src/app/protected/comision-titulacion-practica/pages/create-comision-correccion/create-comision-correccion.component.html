@@ -1,1 +1,85 @@
-<p>create-comision-correccion works!</p>
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Lista comisión de corrección </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col flex-col-c">
+        <div class="containertabla m-b-10 scrolltable" *ngIf="listaComisiones.length > 0">
+            
+            
+            <table mat-table [dataSource]="listaComisiones" class="mat-elevation-z8">
+        
+                <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+                <!-- Name Column -->
+                <!-- Weight Column  -->
+
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="duplasAsignadas">
+                <th mat-header-cell *matHeaderCellDef> DUPLAS ASIGNADAS </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.duplasAsignadas === null" >
+                        --
+                    </div>
+                    <div *ngIf="element.duplasAsignadas !== null">
+                        <div *ngFor="let profesor of element.profesores" >
+                            <div *ngIf="profesor.secretario" >
+                            {{ profesor.nombre | titlecase }} {{ profesor.apellidop | titlecase}} {{ profesor.apellidom | titlecase}} (Secretario)
+                            </div>
+                            <div *ngIf="!profesor.secretario" >
+                                {{ profesor.nombre | titlecase }} {{ profesor.apellidop | titlecase}} {{ profesor.apellidom | titlecase}}   
+                                </div>
+                        </div>
+                    </div>      
+                </td>
+                </ng-container>  
+
+
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="estudiantesAsignados">
+                <th mat-header-cell *matHeaderCellDef> ESTUDIANTES ASIGNADOS </th> 
+                <td mat-cell *matCellDef="let element"> 
+                    <div *ngIf="element.estudiantesAsignados === null" >
+                        --
+                    </div>
+                    <div *ngIf="element.estudiantesAsignados !== null">
+                        <div *ngFor="let estudiante of element.estudiantes" >
+                            {{ estudiante.nombre | titlecase }} {{ estudiante.apellidop | titlecase}} {{ estudiante.apellidom | titlecase }}
+                        </div>
+                    </div>
+                </td>
+                </ng-container>        
+                <ng-container matColumnDef="deshacer" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                            <button mat-raised-button 
+                            (click)="alerta(element.id_comisionCorreccion)"
+                            color="warn">Deshacer</button>
+                    </td> 
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <div class="m-b-20" *ngIf="listaComisiones.length === 0">
+            <span class="text-danger" > NO SE HAN CONFORMADO COMISIONES ACTUALMENTE.</span>
+        </div>
+        <div style="width: 700px;"> 
+            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER AL MENÚ PRINCIPAL </button> 
+            <button mat-raised-button color="warn" style="font-size: 20px;" class="w-full" (click)="crearComision()" > CREAR COMISIÓN DE CORRECCIÓN DE PRÁCTICA </button>
+                
+        </div>
+        
+    </div>
+</div>
+

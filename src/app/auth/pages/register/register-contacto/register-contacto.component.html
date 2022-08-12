@@ -88,6 +88,9 @@
         <div class="text-danger" *ngIf="contactoForm.get('telefono')?.errors?.['required']  && contactoForm.get('telefono')?.touched">
             Este campo es obligatorio.
         </div>
+        <div class="text-danger" *ngIf="contactoForm.get('telefono')?.invalid">
+            El formato es inválido.
+        </div>
     </div>
 
     <div class="wrap-input100">

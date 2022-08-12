@@ -1,0 +1,174 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Conformar comisión de corrección </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col flex-col-c">
+        
+        <div class="m-b-10" *ngIf="listaProfesores.length === 0" >
+            <span class="text-danger" >
+                No hay profesores de comisión de corrección registrados. 
+            </span>
+        </div>
+        <div *ngIf="listaProfesores.length > 0" class="scrolltable" >
+            <table mat-table [dataSource]="dataSourceProfes" 
+            matSort #profeSort="matSort"
+            class="mat-elevation-z8 m-b-10 ">
+        
+                <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+                <!-- Name Column -->
+                <!-- Weight Column  -->
+
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> PROFESORES </th>
+                <td mat-cell *matCellDef="let element">
+                    <div *ngIf="element.id_profesorCC!== null">
+                        {{element.nombre | titlecase}} {{element.apellidop | titlecase}} {{element.apellidom | titlecase}}
+                    </div>      
+                </td>
+                </ng-container>  
+
+
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > ESTADO </th> 
+                <td mat-cell *matCellDef="let element"> 
+                    <div *ngIf="element.estado === 'asignando'" style="background-color: LIGHTgreen;" >
+                            ASIGNANDO...
+                    </div>
+                    <div *ngIf="element.estado !== 'asignando'">
+                        {{ element.estado | uppercase}}
+                    </div>
+                </td>
+                </ng-container>        
+                <ng-container matColumnDef="boton" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.estado === 'disponible' " >
+                            <button 
+                            mat-raised-button color="primary"
+                            [disabled]="element.estado === 'asignado'"
+                            (click)="cambiarEstado('asignando', element.id_profesorCC)" 
+                             >Agregar</button>
+
+                        </div>
+                        <div *ngIf="element.estado === 'asignando' " >
+                            <button 
+                            mat-raised-button color="warn" 
+                            [disabled]="element.estado === 'asignado'"
+                            (click)="cambiarEstado('disponible', element.id_profesorCC)" 
+                             >Quitar</button>
+                        </div>
+                        <div *ngIf="element.estado === 'asignado' " >
+                            <button 
+                            mat-raised-button color="primary"
+                            [disabled]="element.estado === 'asignado'" 
+                             >Deshabilitado</button>
+
+                        </div>
+                        
+                 </td> 
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <!-- <button mat-raised-button color="primary" style="font-size: 20px; "  class="w-full"> CONTINUAR PARA ASIGNAR ESTUDIANTES </button> -->
+
+        </div>
+
+        <div class="m-b-10" *ngIf="listaEstudiantes.length === 0" >
+            <span class="text-danger" >
+                No hay estudiantes registrados. 
+            </span>
+        </div>
+        <div *ngIf="listaEstudiantes.length > 0" class="scrolltable" >
+            <table mat-table [dataSource]="dataSource" 
+            matSort #estudiantesSort="matSort"
+            class="mat-elevation-z8 m-b-10">
+        
+                <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+                <!-- Name Column -->
+                <!-- Weight Column  -->
+
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="nombreEstudiante">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > Estudiantes </th>
+                <td mat-cell *matCellDef="let estudiante">
+                    <div *ngIf="estudiante.id_estudiante !== null">
+                        {{estudiante.nombreEstudiante | titlecase}} {{estudiante.apellidop | titlecase}} {{estudiante.apellidom | titlecase}}
+                    </div>      
+                </td>
+                </ng-container>  
+
+
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="estadoEstudiante">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header > ESTADO </th> 
+                <td mat-cell *matCellDef="let estudiante"> 
+                    <div *ngIf="estudiante.estadoEstudiante === 'asignando'" style="background-color: LIGHTgreen;" >
+                        ASIGNANDO...
+                </div>
+                <div *ngIf="estudiante.estadoEstudiante !== 'asignando'">
+                    {{ estudiante.estadoEstudiante | uppercase}}
+                </div>
+                </td>
+                </ng-container>        
+                <ng-container matColumnDef="boton" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let estudiante"> 
+                        <div *ngIf="estudiante.estadoEstudiante === 'disponible' " >
+                            <button 
+                            mat-raised-button color="primary"
+                            [disabled]="estudiante.estadoEstudiante === 'asignado'"
+                            (click)="cambiarEstadoEstudiante('asignando', estudiante.id_estudiante)" 
+                             >Agregar</button>
+
+                        </div>
+                        <div *ngIf="estudiante.estadoEstudiante === 'asignando' " >
+                            <button 
+                            mat-raised-button color="warn" 
+                            (click)="cambiarEstadoEstudiante('disponible', estudiante.id_estudiante)" 
+                             >Quitar</button>
+                        </div>
+                        <div *ngIf="estudiante.estadoEstudiante === 'asignado' " >
+                            <button 
+                            mat-raised-button color="primary"
+                            [disabled]="estudiante.estadoEstudiante === 'asignado'" 
+                             >Deshabilitado</button>
+
+                        </div>
+                        
+                 </td> 
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+            </table>
+
+            
+        </div>
+        <div class="row" >
+            <div class="col flex-col-c m-b-20" style="width: 600px;">    
+                <button mat-raised-button  (click)="volver()" color="primary" style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER A LISTA DE COMISIONES DE CORRECCIÓN </button>
+                <button mat-raised-button   (click)="alerta()" color="warn" style="font-size: 20px; " class="w-full " > CONFORMAR COMISIÓN DE CORRECCIÓN </button>
+            </div>
+        </div>
+    </div>
+</div>
+

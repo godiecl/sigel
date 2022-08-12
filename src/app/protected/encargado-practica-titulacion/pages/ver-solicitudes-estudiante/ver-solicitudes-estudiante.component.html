@@ -13,8 +13,13 @@
 <div class="row">
     <div class="col flex-col-c">
         <!-- <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"> -->
-            
-            <table *ngIf="isRoute('/dashboard/encargado-practica/ver-solicitudes-estudiante')" mat-table [dataSource]="solicitudesEstudiante" class="mat-elevation-z8 ">
+            <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 25px; width: 700px ; margin-bottom: 20px;" > VOLVER AL MENÚ PRINCIPAL 
+            </button> 
+            <table 
+            *ngIf="isRoute('/dashboard/encargado-practica/ver-solicitudes-estudiante')" 
+            mat-table [dataSource]="dataSource" 
+            matSort #sort="matSort"
+            class="mat-elevation-z8 ">
         
                 <!--- Note that these columns can be defined in any order.
                     The actual rendered columns are set as a property on the row definition" -->
@@ -23,7 +28,7 @@
             
                 <!-- Name Column -->
                 <ng-container matColumnDef="nombreProyecto">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE PROYECTO </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE PROYECTO </th>
                 <td mat-cell *matCellDef="let element"> {{element.nombreProyecto  | uppercase }}
                       
                 </td>
@@ -34,31 +39,31 @@
             
                 <!-- Weight Column  -->
                 <ng-container matColumnDef="nombreEmpresa">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE EMPRESA </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE EMPRESA </th>
                 <td mat-cell *matCellDef="let element"> {{element.nombreEmpresa | uppercase }} </td>
                 </ng-container>
 
                 <!-- Weight Column  -->
                 <ng-container matColumnDef="nombreEncargado">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE CONTACTO </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE CONTACTO </th>
                 <td mat-cell *matCellDef="let element"> {{element.nombreEncargado | uppercase }} </td>
                 </ng-container>
 
                  <!-- Weight Column  -->
                  <ng-container matColumnDef="apellidoEncargado">
-                <th mat-header-cell *matHeaderCellDef> APELLIDO CONTACTO </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> APELLIDO CONTACTO </th>
                 <td mat-cell *matCellDef="let element"> {{element.apellidoEncargado | uppercase }} </td>
                 </ng-container>
 
                 <!-- Weight Column  -->
                 <ng-container matColumnDef="telefono">
-                <th mat-header-cell *matHeaderCellDef> TELEFONO CONTACTO </th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> TELEFONO CONTACTO </th>
                 <td mat-cell *matCellDef="let element"> {{element.telefono | uppercase}} </td>
                 </ng-container>
                 <!-- Position Column -->
                
                 <ng-container matColumnDef="estado" >
-                    <th mat-header-cell *matHeaderCellDef> ESTADO SOLICITUD  </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO SOLICITUD  </th>
                     <td mat-cell *matCellDef="let element"> 
                         <div *ngIf="element.estado === true">
                             Aprobado

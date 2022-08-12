@@ -1,21 +1,25 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { Subject } from 'rxjs/internal/Subject';
 import { SolicitudCartaVacante } from '../../../../auth/interfaces/documentos/solicitudCartaVacante';
 import { SecretariaService } from '../../secretaria.service';
 import { takeUntil } from 'rxjs';
 import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-autorizar-carta-vacante',
   templateUrl: './autorizar-carta-vacante.component.html',
   styleUrls: ['./autorizar-carta-vacante.component.css']
 })
-export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
+export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy, AfterViewInit {
 
   displayedColumns!: string[];
-  solicitudesCartaVacante!: [];
+  solicitudesCartaVacante!: any[];
   estado = new FormControl('');
+  @ViewChild('sort') sort = new MatSort();
+  dataSource!: MatTableDataSource<any>;
 
   estados: string []= ['pendiente', 'aprobado', 'reprobado'];
 
@@ -26,17 +30,26 @@ export class AutorizarCartaVacanteComponent implements OnInit, OnDestroy {
   ) { 
     this._unsubscribeAll = new Subject();
    }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
 
   ngOnInit(): void {
 
     this.secretariaS.getListaVacantes()
       .pipe(takeUntil(this._unsubscribeAll))
-        .subscribe((solicitudes)=>{
+        .subscribe((resp)=>{
           // console.log(solicitudes)
-          this.solicitudesCartaVacante = solicitudes;
-          this.displayedColumns = ['nombreEmpresa','rutEmpresa', 'giroEmpresa', 
-          'nombreProyecto', 'cargoEncargado','nombreEncargado', 'telefonoEncargado',
-          'rutEstudiante','nombreEstudiante', 'estado', 'enviarCorreo',  ]
+          if(resp.ok){
+
+            this.solicitudesCartaVacante = resp.datos;
+            this.dataSource = new MatTableDataSource(this.solicitudesCartaVacante);
+            this.displayedColumns = ['nombreEmpresa','rutEmpresa', 'giroEmpresa', 
+            'nombreProyecto', 'cargoEncargado','nombreEncargado', 'telefonoEncargado',
+            'rutEstudiante','nombreEstudiante', 'periodoRealizar','anioRealizar' ,'estado', 'enviarCorreo',  ]
+          }else{
+            Swal.fire('Ha ocurrido un error', resp.msg, 'error')
+          }
         })
 
   }

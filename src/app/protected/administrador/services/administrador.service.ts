@@ -17,15 +17,6 @@ export class AdministradorService {
 
   constructor(private http: HttpClient) { }
 
-
-  /**
-   * 
-   * USUARIO 
-   * 
-   * 
-   * 
-   *   
-   */
   crearUsuario(user: User): Observable<any>{
 
     // // console.log('peticion post enviada a users');

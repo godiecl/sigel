@@ -1,0 +1,490 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+          <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+          <li style="color:white; font-size: 18px;">></li>
+          <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Editar evaluación examen de práctica</li>
+          
+        </ul>
+    </nav>
+</div>
+<div class="row" >
+    <div class="col flex-col-c">
+        <div class="wrap-login300 p-l-55 p-r-55 p-t-65 p-b-54">
+            <div style="text-align: center; font-size: large; text-transform: uppercase;" class="m-b-20" >
+                <span>Rúbrica para evaluar examen de práctica pre-profesional</span>
+            </div>
+
+            <div style="text-align: center; " class="m-b-20" *ngIf="evaluaciones.length === 0">
+              <span class="text-danger">No hay estudiantes disponibles para evaluar </span>
+            </div>
+            
+            <mat-tab-group mat-align-tabs="start" backgroundColor="primary" >
+                <mat-tab label="Calidad de material de diapositivas">
+                    <table mat-table [dataSource]="dataCalidad" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> CATEGORÍA </th>
+                          <td mat-cell *matCellDef="let element"> {{element.categoria}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="excelente">
+                          <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
+                          <td mat-cell *matCellDef="let element">∙ Sin faltas de ortografía. <br>                           
+                            ∙ Contienen sólo texto mínimo de  apoyo. <br>
+                            ∙ Incluyen figuras. <br>                           
+                            ∙ Con colores y letras de tamaño  legible. <br>
+                            Presentación: <br>                            
+                            ∙ Contiene diapositiva con agenda  de la presentación. <br>                            
+                            ∙ Hace uso adecuado de  transiciones y/o animaciones.</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="bueno">
+                          <th mat-header-cell *matHeaderCellDef> BUENO (5,5 - 6,4)</th>
+                          <td mat-cell *matCellDef="let element">
+ 
+                            ∙ La mayoría con sólo texto mínimo  de apoyo (90 – 99%). <br> 
+                            ∙ Incluyen figuras, <br>
+                            ∙ La mayoría con colores y letras de  tamaño legible  (90 - 99%). <br>
+                            ∙ Hasta 2 faltas de ortografía</td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="regular">
+                          <th mat-header-cell *matHeaderCellDef> REGULAR (4,0 - 5,4) </th>
+                          <td mat-cell *matCellDef="let element">∙ Entre el 75 y 89% de las  diapositivas con sólo texto mínimo  de apoyo las  diapositivas con sólo texto mínimo  de apoyo. <br>
+                            ∙ Entre el 75 y 89% de las  diapositivas tienen colores y letras  de tamaño legible. <br>
+                            ∙ Hasta 4 faltas de ortografía</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="insatisfactorio">
+                            <th mat-header-cell *matHeaderCellDef> INSATISFACTORIO (1,0 - 3,9)</th>
+                            <td mat-cell *matCellDef="let element">∙ Con mucho texto. <br>
+                                ∙ Con colores y letras de tamaño  ilegible. <br>
+                                ∙ 5 ó más faltas de ortografía.</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedCalidad"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedCalidad;"></tr>
+                      </table>
+                </mat-tab>
+                <mat-tab label="Dominio Escénico">
+                    <table mat-table [dataSource]="dataDominio" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> CATEGORÍA </th>
+                          <td mat-cell *matCellDef="let element"> {{element.categoria}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="excelente">
+                          <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
+                          <td mat-cell *matCellDef="let element">∙ Se ve relajado y seguro de sí mismo.<br>
+
+                            ∙ Tiene buena postura. <br>
+                            
+                            ∙ Establece contacto visual con toda la  audiencia durante la resentación. <br>
+                            
+                            ∙ Expresiones faciales y lenguaje. <br>
+                            
+                            corporal generan un fuerte interés y  entusiasmo en la audiencia.  <br>
+                            
+                            ∙ El tono usado expresa las emociones  apropiadas. <br>
+                            
+                            ∙ No lee textualmente material de  apoyo (diapositivas y/o apunte)  durante la presentación</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="bueno">
+                          <th mat-header-cell *matHeaderCellDef> BUENO (5,5 - 6,4)</th>
+                          <td mat-cell *matCellDef="let element">∙ Tiene buena postura. <br>
+                            ∙ Establece contacto visual con la  audiencia durante la presentación. <br>
+                            
+                            ∙ Expresiones faciales y lenguaje corporal algunas veces generan un  fuerte interés y entusiasmo en la  audiencia.  <br>
+                            
+                            ∙ El tono usado algunas veces no  expresa las emociones apropiadas  para el contenido. <br>
+                            
+                            ∙ Lee hasta 2 veces material de apoyo.</td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="regular">
+                          <th mat-header-cell *matHeaderCellDef> REGULAR (4,0 - 5,4) </th>
+                          <td mat-cell *matCellDef="let element"> ∙ Algunas veces tiene buena postura. <br>
+
+                            ∙ Algunas veces establece contacto  visual. <br>
+                            
+                            ∙ Expresiones faciales y lenguaje  corporal son usados para tratar de  generar entusiasmo, pero parecen  ser fingidos. <br>
+                            
+                            ∙ El tono usado expresa emociones  que no son apropiadas para el  contenido. <br>
+                            
+                            ∙ Lee hasta 4 veces material de  apoyo.</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="insatisfactorio">
+                            <th mat-header-cell *matHeaderCellDef> INSATISFACTORIO (1,0 - 3,9)</th>
+                            <td mat-cell *matCellDef="let element">∙ Tiene mala postura. <br>
+
+                                ∙ No mira a las personas durante la  presentación. <br>
+                                
+                                ∙ Muy poco uso de expresiones  faciales o lenguaje corporal, no  generando mucho interés en la  forma de presentar. <br>
+                                
+                                ∙ El tono no fue usado para expresar  las emociones. <br>
+                                
+                                ∙ Lee material de apoyo durante toda  la presentación.</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedDominio"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedDominio;"></tr>
+                      </table>
+                </mat-tab>
+                <mat-tab label="Claridad de la exposición">
+                    <table mat-table [dataSource]="dataClaridad" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> CATEGORÍA </th>
+                          <td mat-cell *matCellDef="let element"> {{element.categoria}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="excelente">
+                          <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
+                          <td mat-cell *matCellDef="let element">∙ Habla clara y distintivamente todo  el tiempo. <br>
+
+                            ∙ Buena pronunciación. <br>
+                            
+                            ∙ El volumen es lo suficientemente alto para ser escuchado por todos los  miembros de la audiencia a través de  toda la presentación. <br>
+                            
+                            ∙ No usa muletillas. <br>
+                            
+                            ∙ Uso de vocabulario formal.</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="bueno">
+                          <th mat-header-cell *matHeaderCellDef> BUENO (5,5 - 6,4)</th>
+                          <td mat-cell *matCellDef="let element">∙ Habla clara y distintivamente todo  el tiempo. <br>
+
+                            ∙ Buena pronunciación. <br>
+                            
+                            ∙ El volumen es lo suficientemente alto para ser escuchado por todos los  miembros de la audiencia al menos  80% del tiempo.  <br>
+                            
+                            ∙ Uso de vocabulario formal.</td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="regular">
+                          <th mat-header-cell *matHeaderCellDef> REGULAR (4,0 - 5,4) </th>
+                          <td mat-cell *matCellDef="let element">∙ Habla clara y distintivamente la  mayor parte del tiempo (80 - 90%). <br>
+
+                            ∙ Tiene mala pronunciación. <br>
+                            
+                            ∙ El volumen es lo suficientemente  alto para ser escuchado por todos  los miembros de la audiencia al  menos el 60% del tiempo.</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="insatisfactorio">
+                            <th mat-header-cell *matHeaderCellDef> INSATISFACTORIO (1,0 - 3,9)</th>
+                            <td mat-cell *matCellDef="let element">∙ A menudo no modula o no se le  puede entender. <br>
+                                
+                                ∙ Tiene muy mala pronunciación. <br>
+                                
+                                ∙ El volumen con frecuencia es muy  débil para ser escuchado por todos  los miembros de la audiencia.</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedDominio"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedDominio;"></tr>
+                      </table>
+                </mat-tab>
+                <mat-tab label="Contenido">
+                    <table mat-table [dataSource]="dataContenido" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> CATEGORÍA </th>
+                          <td mat-cell *matCellDef="let element"> {{element.categoria}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="excelente">
+                          <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
+                          <td mat-cell *matCellDef="let element">∙ Presenta como mínimo los contenidos asociados al informe de  práctica: <br>
+                            ∙  Introducción. <br>
+                            ∙  Trabajo Realizado. <br>                            
+                            ∙  Conclusiones. <br>                            
+                            ∙ Va desde lo general al detalle. <br>                            
+                            ∙ Muestra las evidencias formales del trabajo de ingeniería realizado (por  ejemplo, modelos, diagramas). <br>                            
+                            ∙ Distribuye el tiempo según  importancia:  <br>                            
+                            ∙ Introducción 20 -30 %. <br>                            
+                            ∙ Trabajo Realizado 50 - 60 %.<br>                            
+                            ∙ Conclusiones 20 - 30%.</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="bueno">
+                          <th mat-header-cell *matHeaderCellDef> BUENO (5,5 - 6,4)</th>
+                          <td mat-cell *matCellDef="let element">∙ Presenta contenido mínimo. <br>
+
+                            ∙ Va desde lo general al detalle. <br>
+                            
+                            ∙ Muestra las evidencias formales del  trabajo de ingeniería realizado.</td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="regular">
+                          <th mat-header-cell *matHeaderCellDef> REGULAR (4,0 - 5,4) </th>
+                          <td mat-cell *matCellDef="let element">∙ Presenta a lo menos el 90 % de los  contenidos mínimos. <br>
+
+                            ∙ Va de lo general al detalle. <br>
+                            
+                            ∙ Muestra insuficientes evidencias  formales asociadas a su trabajo de  ingeniería realizado.</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="insatisfactorio">
+                            <th mat-header-cell *matHeaderCellDef> INSATISFACTORIO (1,0 - 3,9)</th>
+                            <td mat-cell *matCellDef="let element">∙ El contenido de la presentación no  corresponde al definido. <br>
+
+                                ∙ La distribución de tiempo no es la  adecuada con respecto a la  importancia de cada contenido. <br>
+                                
+                                ∙ No se muestran evidencias formales  que respalden el trabajo realizado.</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedDominio"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedDominio;"></tr>
+                      </table>
+                </mat-tab>
+                <mat-tab label="Tiempo">
+                    <table mat-table [dataSource]="dataTiempo" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> CATEGORÍA </th>
+                          <td mat-cell *matCellDef="let element">{{element.categoria}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="excelente">
+                          <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
+                          <td mat-cell *matCellDef="let element">La duración de la presentación es de 13 - 15 minutos.</td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="bueno">
+                          <th mat-header-cell *matHeaderCellDef> BUENO (5,5 - 6,4)</th>
+                          <td mat-cell *matCellDef="let element">La duración de la presentación es de 11  - 12 minutos ó de 16 minutos
+
+                          </td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="regular">
+                          <th mat-header-cell *matHeaderCellDef> REGULAR (4,0 - 5,4) </th>
+                          <td mat-cell *matCellDef="let element">La duración de la presentación es de  10 ó 17 minutos</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="insatisfactorio">
+                            <th mat-header-cell *matHeaderCellDef> INSATISFACTORIO (1,0 - 3,9)</th>
+                            <td mat-cell *matCellDef="let element">La duración de la presentación es de  menos de 10 minutos ó más de 18.</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedDominio"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedDominio;"></tr>
+                      </table>
+                </mat-tab>
+                <mat-tab label="Defensa de la presentación">
+                    <table mat-table [dataSource]="dataDefensa" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="categoria">
+                          <th mat-header-cell *matHeaderCellDef> CATEGORÍA </th>
+                          <td mat-cell *matCellDef="let element">{{element.categoria}}</td>
+                        </ng-container>
+                      
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="excelente">
+                          <th mat-header-cell *matHeaderCellDef> EXCELENTE (6,5 - 7,0)</th>
+                          <td mat-cell *matCellDef="let element">Demuestra un buen dominio del trabajo  realizado, <br> 
+                            siendo capaz de contestar con  precisión todas las preguntas planteadas  por la audiencia
+                        </td>
+                        </ng-container>
+                      
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="bueno">
+                          <th mat-header-cell *matHeaderCellDef> BUENO (5,5 - 6,4)</th>
+                          <td mat-cell *matCellDef="let element">Demuestra un buen dominio del trabajo  realizado, <br> 
+                            siendo capaz de contestar con  precisión la mayoría (70 – 90%) de las  preguntas <br> 
+                            planteadas por la audiencia
+                        </td>
+                        </ng-container>
+                      
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="regular">
+                          <th mat-header-cell *matHeaderCellDef> REGULAR (4,0 - 5,4) </th>
+                          <td mat-cell *matCellDef="let element">Demuestra un buen dominio de partes del trabajo realizado, <br> 
+                            siendo capaz de  contestar unas pocas preguntas (50 – 69%) planteadas por la audiencia</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="insatisfactorio">
+                            <th mat-header-cell *matHeaderCellDef> INSATISFACTORIO (1,0 - 3,9)</th>
+                            <td mat-cell *matCellDef="let element">No demuestra dominio sobre el trabajo  realizado, <br>
+                                 no siendo capaz de contestar  las preguntas planteadas por la  audiencia (< 50%)</td>
+                        </ng-container>
+                      
+                        <tr mat-header-row *matHeaderRowDef="displayedDominio"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedDominio;"></tr>
+                      </table>
+                </mat-tab>
+              </mat-tab-group>
+
+            <div *ngIf="evaluaciones.length > 0" >
+                <form [formGroup]="evaluacionSelectForm" >
+                    <mat-form-field style="display: block;" class="m-b-20 m-t-20" appearance="fill">
+                        <mat-label>Seleccione evaluación de defensa para editar: </mat-label>
+                        <mat-select formControlName="evaluacion" >
+                            <mat-option *ngFor="let item of evaluaciones" [value]="item.id_evaluacionDefensa" > 
+                            <div *ngIf="item.periodoExamen === 1">
+                              Evaluación - {{ item.nombreEstudiante }} - 
+                              Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
+                              Periodo Examen: Principio Primer Semestre, {{ item.anioExamen }}
+                            </div>
+                            <div *ngIf="item.periodoExamen === 2">
+                              Evaluación - {{ item.nombreEstudiante }} - 
+                              Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
+                              Periodo Examen: Final Primer Semestre, {{ item.anioExamen }}
+                            </div> 
+                            <div *ngIf="item.periodoExamen === 3">
+                              Evaluación - {{ item.nombreEstudiante }} - 
+                              Periodo Práctica: {{ item.periodoRealizar }}, {{ item.anioRealizar }} - 
+                              Periodo Examen: Final Segundo Semestre, {{ item.anioExamen }}
+                            </div> 
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="evaluacionSelectForm.get('evaluacion')?.errors">
+                            <strong>Seleccione una evaluación por favor</strong>
+                        </mat-error>
+                        </mat-form-field>
+                </form>
+                <div *ngIf="mostrarFormulario" >
+                    <form [formGroup]="evaluarDefensaForm" (ngSubmit)="alerta()" >
+
+                
+
+                        <!-- Evaluador 1 -->
+                        <div >
+                            
+        
+                            <div class="m-t-20 spanc m-b-5">
+                                <span > Evaluador: {{ profesor }} <br> Ingrese las notas para evaluar la defensa.  </span>
+                            </div>
+                            <div class="m-b-10"  >
+                                <div style="display: flex;" >
+                                
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                            <mat-label>Calidad del material:</mat-label>
+                                            <input formControlName="calidadMaterialEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('calidadMaterialEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                        </mat-form-field>
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
+                                          <mat-label>Contenido:</mat-label>
+                                        <input formControlName="contenidoEvaluador" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarDefensaForm.get('contenidoEvaluador')?.errors">
+                                          <strong>Este campo es obligatorio</strong>
+                                      </mat-error> 
+                                        </mat-form-field>
+        
+                                </div>  
+        
+                                <div style="display: flex;">
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                          <mat-label>Dominio Escénico:</mat-label>
+                                            <input formControlName="dominioEscenicoEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('dominioEscenicoEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                            </mat-form-field>
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
+                                          <mat-label>Claridad de la exposición:</mat-label>
+                                            <input formControlName="claridadEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('claridadEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                            </mat-form-field>
+                                </div>
+        
+                                <div style="display: flex;" >
+                                        <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                          <mat-label>Tiempo empleado:</mat-label>
+                                            <input formControlName="tiempoEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('tiempoEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                            </mat-form-field>
+                                   
+                                        <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
+                                          <mat-label>Defensa de la presentación:</mat-label>
+                                            <input formControlName="defensaEvaluador" min="1" max="7" matInput type="number">
+                                            <mat-error *ngIf="evaluarDefensaForm.get('defensaEvaluador')?.errors">
+                                              <strong>Este campo es obligatorio</strong>
+                                          </mat-error> 
+                                        </mat-form-field>
+                                </div>
+                                
+                            </div>
+                            
+                              <div class="m-b-10" >
+                                  <div style="display: flex;">
+                                      <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
+                                          <mat-label>Observaciones:</mat-label>
+                                          <textarea maxlength="1200" formControlName="observacionesEvaluador" matInput ></textarea>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                        </div>
+        
+                        <div class="spanc" >
+                          <span>Observaciones de la empresa:</span>
+                          </div>
+                          <div class="wmitad" >
+                            <mat-tab-group dynamicHeight>
+                              <mat-tab label="Fortalezas">
+                                <div class="example-large-box mat-elevation-z4">
+                                  {{ fortalezasMostrar }}
+                                </div>
+                              </mat-tab>
+                              <mat-tab label="Debilidades">
+                                <div class="example-large-box mat-elevation-z4">
+                                  {{ debilidadesMostrar }}
+                                </div>
+                              </mat-tab>
+                            </mat-tab-group>
+                          </div>
+        
+                    <div style="width: 100%; display: flex; flex-direction: column; align-items: center;" class="m-t-10" > 
+                            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; width: 700px; "  > VOLVER AL MENÚ PRINCIPAL </button> 
+                            <button mat-raised-button color="warn" type="submit" [disabled]="evaluarDefensaForm.invalid" style="font-size: 20px; width: 700px; "  >EDITAR EVALUACIÓN</button>
+                       
+                    </div>
+                   
+        
+                    </form>
+        
+                </div>
+            </div>  
+        </div>
+    </div>
+
+</div>

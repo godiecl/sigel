@@ -28,6 +28,15 @@ import { ResponderCartaSolicitudComponent } from './encargado-empresa/pages/resp
 import { VerCartaSolicitudComponent } from './encargado-empresa/pages/responder-carta-solicitud/ver-carta-solicitud/ver-carta-solicitud.component';
 import { ResponderCartaVacanteResolver } from './encargado-empresa/encargado-empresa.resolver';
 import { ControlarSegurosComponent } from './secretaria/pages/controlar-seguros/controlar-seguros.component';
+import { CreateComisionCorreccionComponent } from './comision-titulacion-practica/pages/create-comision-correccion/create-comision-correccion.component';
+import { AsignarProfesoresCcComponent } from './comision-titulacion-practica/pages/create-comision-correccion/asignar-profesores-cc/asignar-profesores-cc.component';
+import { HemerotecaComponent } from './secretaria/pages/hemeroteca/hemeroteca.component';
+import { EvaluarEstudianteComponent } from './encargado-empresa/pages/evaluar-estudiante/evaluar-estudiante.component';
+import { RegistroDatosPracticaComponent } from './comision-titulacion-practica/pages/registro-datos-practica/registro-datos-practica.component';
+import { EvaluarDefensaComponent } from './comision-correccion-practica/pages/evaluar-defensa/evaluar-defensa.component';
+import { GenerarActaEvaluacionComponent } from './comision-titulacion-practica/pages/generar-acta-evaluacion/generar-acta-evaluacion.component';
+import { EditarEvaluarDefensaComponent } from './comision-correccion-practica/pages/editar-evaluar-defensa/editar-evaluar-defensa.component';
+import { EditarEvaluarEstudianteComponent } from './encargado-empresa/pages/editar-evaluar-estudiante/editar-evaluar-estudiante.component';
 
 
 const routes: Routes = [
@@ -53,7 +62,6 @@ const routes: Routes = [
 
       },
       { path:'main-menu', component: MainMenuComponent},
-      { path: 'upload-contenido', component:UploadContenidoComponent},
       { path: 'download-document',component:DownloadDocumentComponent},
       { path:'encargado-practica',
         // component: DashboardComponent,
@@ -95,6 +103,7 @@ const routes: Routes = [
         {path:'',},
         {path:'controlar-seguros', component: ControlarSegurosComponent},
         {path:'autorizar-carta-vacante', component: AutorizarCartaVacanteComponent},
+        {path:'hemeroteca', component: HemerotecaComponent }
       
       ]
     },
@@ -109,7 +118,8 @@ const routes: Routes = [
         ]
       },
       {path: 'solicitar-estudiante', component: SolicitarEstudianteMenuComponent, },
-      
+      {path: 'evaluar-estudiante', component: EvaluarEstudianteComponent },
+      {path: 'editar-evaluar-estudiante', component: EditarEvaluarEstudianteComponent }
       
     ]
   },
@@ -117,6 +127,7 @@ const routes: Routes = [
       // component: DashboardComponent,
       children: [
         {path:'',},
+        { path: 'upload-contenido', component:UploadContenidoComponent},
         {path: 'administrar-publicaciones', component: PublicacionesCTComponent, 
           children: [
             {path:'',},
@@ -126,6 +137,10 @@ const routes: Routes = [
           ]  
         },
         {path: 'crear-publicacion', component: CrearPublicacionComponent,},
+        {path: 'generar-actas-practica', component: GenerarActaEvaluacionComponent,},
+        {path: 'crear-comision-correccion', component: CreateComisionCorreccionComponent,},
+        {path: 'asignar-comision-correccion', component: AsignarProfesoresCcComponent,},
+        {path: 'registro-datos-practica', component: RegistroDatosPracticaComponent }
       ]
     },
       { path:'comision-correccion-practica',
@@ -133,10 +148,12 @@ const routes: Routes = [
       children: [
           {path:'',},
           { path:'download-informe',component:DownloadInformeComponent}, 
+          { path:'editar-evaluar-defensa',component:EditarEvaluarDefensaComponent}, 
+          {path: 'evaluar-defensa', component: EvaluarDefensaComponent }
         ]
       },
     
-      { path:'**', redirectTo: ''},
+      { path:'**', redirectTo: 'main-menu'},
     ]
   },
   

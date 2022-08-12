@@ -1,8 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit } from '@angular/core';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { UsuarioLog } from '../../../../auth/interfaces/usuarioLog.interface';
 import { AdministradorService } from '../../../administrador/services/administrador.service';
-import { EncargadoTitulacionPracticaService } from '../../../encargado-practica-titulacion/encargado-titulacion-practica.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Empresa } from 'src/app/auth/interfaces/empresa.interface';
 import { EncargadoEmpresaService } from '../../encargado-empresa.service';
@@ -10,33 +9,41 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { VerCartaDialogComponent } from './ver-carta-dialog/ver-carta-dialog.component';
 import Swal from 'sweetalert2';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-responder-carta-solicitud',
   templateUrl: './responder-carta-solicitud.component.html',
   styleUrls: ['./responder-carta-solicitud.component.css']
 })
-export class ResponderCartaSolicitudComponent implements OnInit {
+export class ResponderCartaSolicitudComponent implements OnInit, AfterViewInit {
+  
+  listaResponder!: any[];
+  @ViewChild('sortResponder') sortResponder = new MatSort();
+  dataSource!: MatTableDataSource<any>;
 
   private _unsubscribeAll: Subject<any>;
   usuarioLog!: UsuarioLog;
   empresaLog!: Empresa;
-  listaResponder!: [];
   displayedColumns!: string[];
-
   estados: string []= ['pendiente', 'aprobado', 'reprobado'];
-
   constructor(
     private authS: AuthService,
     private adminS: AdministradorService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private encargadoPS: EncargadoTitulacionPracticaService,
     private encargadoES: EncargadoEmpresaService,
     public dialog: MatDialog,
   ) { 
     
     this._unsubscribeAll = new Subject();
+  }
+
+  ngAfterViewInit(): void {
+    
+      this.dataSource.sort = this.sortResponder
+
   }
 
   ngOnInit(): void {
@@ -48,8 +55,16 @@ export class ResponderCartaSolicitudComponent implements OnInit {
         id_encemp = encargadoEmp.id_encargadoEmpresa;
         this.encargadoES.getListaResponderCartaVacante(encargadoEmp.id_encargadoEmpresa).subscribe((res)=>{
           console.log(res);
-          this.listaResponder = res;
-          this.displayedColumns = ['nombreProyecto', 'nombreEstudiante', 'periodoRealizar', 'anio','estado', 'enviarCorreo',  ]
+          if(res.ok){
+            this.listaResponder = res.datos;
+            
+            this.dataSource = new MatTableDataSource(this.listaResponder)
+            this.dataSource.sort = this.sortResponder
+            
+          }else{
+            Swal.fire('Ha ocurrido un error', res.msg, 'error' )
+          }
+          this.displayedColumns = ['nombreProyecto', 'nombreEstudiante', 'periodoRealizar', 'anioRealizar','estado', 'boton',  ]
         })
 
         // this.encargadoPS.obtenerEmpresa(encargadoEmp.id_empresa).subscribe((empresa)=>{
@@ -58,9 +73,14 @@ export class ResponderCartaSolicitudComponent implements OnInit {
 
       })
     this.encargadoES.Refreshrequider.subscribe((response)=>{
-      this.encargadoES.getListaResponderCartaVacante(id_encemp).subscribe((res)=>{
+      this.encargadoES.getListaResponderCartaVacante(id_encemp).pipe(takeUntil(this._unsubscribeAll)).subscribe((res)=>{
         console.log(res);
-        this.listaResponder = res;
+        if(res.ok){
+          this.listaResponder = res.datos;
+          this.dataSource = new MatTableDataSource(this.listaResponder)
+        }else{
+          Swal.fire('Ha ocurrido un error', res.msg, 'error' )
+        }
       })
     })
   }
@@ -111,7 +131,7 @@ export class ResponderCartaSolicitudComponent implements OnInit {
                     return obj.id_solicitudCartaVacante === id;
                   })
                   actualizar.estadoRespuesta === 'completado';
-                  console.log('solicitud completada:',actualizar)
+                  // console.log('solicitud completada:',actualizar)
                   this.cdr.detectChanges();
 
                 }else{

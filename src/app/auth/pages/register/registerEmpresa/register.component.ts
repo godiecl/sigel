@@ -168,16 +168,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
                       
                     
                       })
-                    }else{
-                    // imprimir error
-                    Swal.fire('Ha ocurrido un error.', '', 'info')
-                    // // console.log('aqui fallo')
                     }
+                  }, (error)=>{
+                    Swal.fire('No se ha podido registrar el contacto. ',error.error.msg,'error')
+                    return
                   })
-                }else{
-                  Swal.fire('No se ha registrado', '', 'info')
-                }            
-          })
+                }          
+          }, (error)=>{
+            Swal.fire('No se ha podido registrar la empresa. ',error.error.msg,'error')
+            return
+          }  )
 
 
         //se borra todo lo que contiene el formulario

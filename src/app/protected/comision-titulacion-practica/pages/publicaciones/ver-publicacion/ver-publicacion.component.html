@@ -5,10 +5,10 @@
         <mat-card-actions class="m-b-50" >
           <a mat-raised-button color="link" href="/dashboard/comision-titulacion-practica/administrar-publicaciones" >Volver </a>
         </mat-card-actions>
-        <mat-card class=" m-b-28">
-            <mat-card-title > {{ publicacionActual.asunto }} </mat-card-title>
-            <mat-card-subtitle> {{publicacionActual.remitente | titlecase}} </mat-card-subtitle>
-            <mat-card-content>
+        <mat-card class=" m-b-28"  >
+            <mat-card-title style="font-size: x-large;" > {{ publicacionActual.asunto }} </mat-card-title>
+            <mat-card-subtitle style="font-size: x-large;"> {{publicacionActual.remitente | titlecase}} </mat-card-subtitle>
+            <mat-card-content style="font-size: x-large;">
             <p>{{ publicacionActual.mensaje }}</p>
             </mat-card-content>
             <mat-card-actions align="end" >

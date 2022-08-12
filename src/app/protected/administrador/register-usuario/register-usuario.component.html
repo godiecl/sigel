@@ -116,10 +116,10 @@
                         
                     <span class="label-input100" style="font-size: 25px;">Roles: (máximo 4)</span>
                     
-                        <fieldset class="checkboxgroup text-left" style="font-size: 23px;">
+                        <fieldset class="checkboxgroup text-left" style="font-size: 23px; ">
                             <label>    <input  type="checkbox" 
                                         id="administrador"
-                                        formControlName="rolAdministrador"> Administrador    
+                                        formControlName="rolAdministrador" style="font-family: Poppins-Regular;" > Administrador    
                             </label>
                             <label>                                   
                                 <input  type="checkbox"
@@ -171,7 +171,7 @@
                     
         
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosEstudiante">
-                        <span class="label-input100" style="font-size: 25px;">Carrera</span>
+                        <span class="label-input101" style="font-size: 25px;">Carrera</span>
         
                         <select class="input100 m-b-23" style="font-size: 20px;" formControlName="carrera">
                             <option class="input102" style="font-size: 20px;" [ngValue]="null" disabled >Selecciona Carrera </option>
@@ -207,11 +207,13 @@
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorCC || mostrarAtributosProfesorGuiaCP">
                         <span class="label-input100" style="font-size: 25px;">Teléfono</span>
                         <input class="input100" style="font-size: 20px;"
-                        minlength="9"
-                        maxlength="15"
+                        type="tel" pattern="[0-9]{9}"
                         placeholder="Ingrese teléfono"
                         formControlName="telefonoCC">
                         <span class="focus-input100"></span>
+                        <div class="text-danger" *ngIf="usuarioForm.get('telefonoCC')?.invalid">
+                            El formato es inválido.
+                        </div>
                     </div>
                     <div class="wrap-input100 m-b-23" *ngIf="mostrarAtributosProfesorGuiaCP">
                         <span class="label-input100" style="font-size: 25px;">Empresa</span>

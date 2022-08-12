@@ -15,20 +15,27 @@
   
     <div class="col flex-col-c">
       
-      <div *ngIf="isRoute('/dashboard/estudiante/ver-publicaciones')"  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+      <div *ngIf="isRoute('/dashboard/estudiante/ver-publicaciones')"  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54 ">
         <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
             Publicaciones 
         </span>
-        <mat-card *ngFor="let item of publicaciones" class=" m-b-28">
-          <mat-card-title > {{ item.asunto }} </mat-card-title>
-          <mat-card-subtitle style="margin-top: 10px;"> {{item.remitente | titlecase }} - Fecha: {{ item.createdAt | date }} </mat-card-subtitle>
-          <mat-card-content>
-          <p>{{ item.mensaje }}</p>
-          </mat-card-content>
-          <mat-card-actions align="end" >
-           <button mat-button (click)="verPublicacion(item.id_publicacion)"><mat-icon>search</mat-icon></button>
+          <mat-card-actions >
+            <button mat-raised-button style="margin-left: 10px; " color="primary" [routerLink]="'/dashboard/main-menu'" > VOLVER AL MENÚ PRINCIPAL </button> 
+          
           </mat-card-actions>
-        </mat-card>
+        <div class="scrolltabla" >
+          <mat-card *ngFor="let item of publicaciones" class=" m-b-28">
+            <mat-card-title > {{ item.asunto }} </mat-card-title>
+            <mat-card-subtitle style="margin-top: 10px;"> {{item.remitente | titlecase }} - Fecha: {{ item.createdAt | date }} </mat-card-subtitle>
+            <mat-card-content>
+            <p>{{ item.mensaje }}</p>
+            </mat-card-content>
+            <mat-card-actions align="end" >
+             <button mat-button (click)="verPublicacion(item.id_publicacion)"><mat-icon>search</mat-icon></button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        
   
       </div>
       <router-outlet></router-outlet>

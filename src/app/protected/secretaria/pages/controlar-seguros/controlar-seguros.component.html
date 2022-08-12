@@ -16,45 +16,126 @@
     <div class="col flex-col-c" >
         <!-- <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"> -->
             <!-- *ngIf="isRoute('/dashboard/encargado-practica/ver-solicitudes-estudiante')" -->
-            <table class="mat-elevation-z8" mat-table [dataSource]="seguros" class="mat-elevation-z8 ">
-        
-               
-
-                
-
-                <!-- Weight Column  -->
-                <ng-container matColumnDef="nombreEstudiante">
-                <th mat-header-cell *matHeaderCellDef> NOMBRE ESTUDIANTE </th> 
-                <td mat-cell *matCellDef="let element"> {{element.nombreEstudiante | uppercase}} {{element.apellidoEstudiante | uppercase}}  </td>
-                </ng-container>
-
-
-                <ng-container matColumnDef="rutEstudiante">
-                <th mat-header-cell *matHeaderCellDef> RUT ESTUDIANTE </th>
-                <td mat-cell *matCellDef="let element"> {{element.rutEstudiante | uppercase}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="estado">
-                    <th mat-header-cell *matHeaderCellDef> ESTADO </th>
-                    <td mat-cell *matCellDef="let element">
-                        <!-- <mat-label> {{ element.estado }} </mat-label> -->
-                        <mat-form-field>
-                            <mat-select 
-                                    [(ngModel)]="element.estado"
-                                    (selectionChange)="actualizar(element.id_seguro, estadoSelect.value)"
-                                    #estadoSelect="matSelect"
-                                    disableOptionCentering
-                                    >
-                                    <mat-option *ngFor="let estad of estados" [value]="estad">{{estad | uppercase}} </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </td>
-                    
+            <div *ngIf="seguros.length === 0" >
+                <span class="text-danger" > No hay seguros actualmente. </span>
+            </div>
+            <div *ngIf="seguros.length > 0" style="display: contents;" class="scrolltable" >
+                <mat-form-field>
+                    <mat-label>Buscar por nombre</mat-label>
+                    <input matInput autocomplete="false" (keyup)="filtrar($event)" placeholder="buscar">
+                </mat-form-field>
+                <table 
+                class="mat-elevation-z8" 
+                mat-table [dataSource]="dataSource" 
+                matSort #segurosSort="matSort" >
+                    <!-- Weight Column  -->
+                    <ng-container matColumnDef="nombreEstudiante">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > NOMBRE ESTUDIANTE </th> 
+                    <td mat-cell *matCellDef="let element"> {{element.nombreEstudiante | uppercase}} {{element.apellidopEstudiante | uppercase}} {{element.apellidomEstudiante | uppercase}}</td>
                     </ng-container>
-            
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+    
+    
+                    <ng-container matColumnDef="rutEstudiante">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> RUT ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element"> {{element.rutEstudiante | uppercase}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="periodoRealizar">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PERIODO </th>
+                        <td mat-cell *matCellDef="let element"> 
+                            <div *ngIf="element.periodoRealizar === 1 " >
+                                Primer semestre
+                            </div> 
+                            <div *ngIf="element.periodoRealizar === 2 " >
+                                Segundo semestre
+                            </div> 
+                            <div *ngIf="element.periodoRealizar === 3 " >
+                                Verano 
+                            </div> 
+                        </td>
+                    </ng-container>
+    
+                    <ng-container matColumnDef="anio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> AÑO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.anio }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaInicio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA INICIO </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fechaInicio | date: 'dd-MM-yyyy'  }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fechaFinal">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA FINAL </th>
+                    <td mat-cell *matCellDef="let element"> {{element.fechaFinal | date: 'dd-MM-yyyy' }} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO </th>
+                        <td mat-cell *matCellDef="let element">
+                            <!-- <mat-label> {{ element.estado }} </mat-label> -->
+                            <mat-form-field>
+                                <mat-select 
+                                        [(ngModel)]="element.estado"
+                                        (selectionChange)="actualizar(element.id_seguro, estadoSelect.value)"
+                                        #estadoSelect="matSelect"
+                                        disableOptionCentering
+                                        >
+                                        <mat-option *ngFor="let estad of estados" [value]="estad">{{estad | uppercase}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        
+                    </ng-container>
+
+                    <ng-container matColumnDef="vigencia">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> VIGENCIA </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="diasPorVencer(element.fechaFinal, now, element.id_seguro) <= 7 && diasPorVencer(element.fechaFinal, now, element.id_seguro) !== 0 && element.vigencia === 'activo'" style="background-color: yellow;" >
+                            {{element.vigencia | uppercase}} 
+                        </div>
+                        <div *ngIf="diasPorVencer(element.fechaFinal, now, element.id_seguro) > 7 && element.vigencia === 'activo'" >
+                            {{element.vigencia | uppercase}} 
+                        </div>
+
+                        <div *ngIf="element.vigencia === 'pendiente'" >
+                            {{element.vigencia | uppercase}} 
+                        </div>
+                        <div *ngIf="element.vigencia === 'terminado'" style="background-color: rgb(255,190,190);"  >
+                            {{element.vigencia | uppercase}} 
+                        </div>
+                        
+                        <div *ngIf="diasPorVencer(element.fechaFinal, now, element.id_seguro) === 0 && element.vigencia === 'activo'" style="background-color: rgb(255,190,190);" >
+                            {{element.vigencia | uppercase}} 
+                        </div>
+                    </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="boton" >
+                        <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-raised-button color="primary" [disabled]="element.vigencia === 'pendiente' || element.vigencia === 'terminado' "  (click)="terminarVigencia(element.id_seguro, element.estado)">Terminar vigencia</button>
+                                
+                            </td> 
+                    </ng-container>
+
+                    <ng-container matColumnDef="boton2" >
+                        <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-raised-button color="primary" [disabled]="element.vigencia === 'pendiente' || element.vigencia === 'terminado' "  (click)="extenderSeguro(element.id_seguro)">Extender Seguro</button>
+                                
+                            </td> 
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <div class="m-t-20" style="width: 700px; display: flex; align-items: center; justify-content: center;">
+                
+                    <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px;" > VOLVER AL MENÚ PRINCIPAL </button> 
+                
+                </div>
+            </div>  
         </div>
     <!-- </div> -->
 </div>

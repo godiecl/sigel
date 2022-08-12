@@ -24,7 +24,7 @@ export class CrearPublicacionComponent implements OnInit {
   id_comisionPracticaTitulacion!: any;
   // remitente!: string;
   // apellidos!: string;
-  nombre!: string;
+  nombre!: string ;
   // espacio: string = " ";
 
   publicacionForm: FormGroup = this.fb.group({

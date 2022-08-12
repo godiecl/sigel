@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col flex-col-c">
-        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54"  >
             <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
                 Solicitar Carta Vacante
             </span>
@@ -50,7 +50,7 @@
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field style="display: inline-block; flex-direction: end;" class="m-b-20 m-t-20" appearance="fill">
-                                <mat-label>Seleccione Año</mat-label>
+                                <mat-label>Ingrese Año</mat-label>
                                 <input matInput  type="text" pattern="\d*" maxlength="4" minlength="4" formControlName="anioRealizar">
                                 <mat-error *ngIf="solicitarCartaForm.get('anioRealizar')?.errors">
                                     <strong>Ingrese un año válido </strong>
@@ -66,9 +66,15 @@
                             </mat-error>
                         </mat-form-field>
                        
-                <mat-card-actions style="display: flex; justify-content: flex-end;" align="end">
-                    <button mat-raised-button color="warn" type="submit" [disabled]="solicitarCartaForm.invalid" cdkFocusInitial>Enviar solicitud</button>
-                </mat-card-actions>
+                <!-- <mat-card-actions style="display: flex; justify-content: flex-end;" align="end"> -->
+                    <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; " > VOLVER AL MENÚ PRINCIPAL </button> 
+                
+                    <button mat-raised-button color="warn" class="w-full" type="submit" [disabled]="solicitarCartaForm.invalid" style="font-size: 20px;" cdkFocusInitial>ENVIAR SOLICITUD</button>
+                <!-- </mat-card-actions> -->
+                
+                
+                    
+            
             </form>
             
         </div>

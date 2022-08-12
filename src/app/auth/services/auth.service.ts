@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, of, tap, Observable, BehaviorSubject } from 'rxjs';
+import { catchError, map, of, tap, Observable, BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../interfaces/authResponse.interface';
 import { UsuarioLog } from '../interfaces/usuarioLog.interface';
@@ -20,6 +20,18 @@ export class AuthService {
   private _encargadoEmpresa = new BehaviorSubject<number>(0);
   empresaActual = this._empresa.asObservable();
   encargadoActual = this._encargadoEmpresa.asObservable();
+  usuarioFalso: AuthResponse | null = {
+    id: '',
+    nombre: '',
+    apellidom: '',
+    apellidop: '',
+    ok: false,
+    roles: [],
+  }
+
+  private _currentUser: BehaviorSubject<AuthResponse | null> = new BehaviorSubject(this.usuarioFalso)
+  currentUser$ = this._currentUser.asObservable();
+  isLogged$ = this.currentUser$.pipe(map(user => !!user));
 
   get usuario(){
     return {... this._usuario};
@@ -63,13 +75,7 @@ export class AuthService {
               apellidom: resp.apellidom!,
               id: resp.id!,
             }
-            // this._usuarioLogeado = {
-            //   nombre: resp.nombre!,
-            //   roles: resp.roles!,
-            //   apellidop: resp.apellidop!,
-            //   apellidom: resp.apellidom!,
-            //   id: resp.id!,
-            // }
+             this._currentUser.next(resp)
           }
         }),
         map(resp => resp.ok),
@@ -99,6 +105,7 @@ export class AuthService {
 
   logout(){
     localStorage.clear();
+    this._currentUser.next(null)
   }
 
   validarToken(): Observable<boolean>{
@@ -119,6 +126,7 @@ export class AuthService {
             apellidop: resp.apellidop!,
             apellidom: resp.apellidom!,
            }
+           this._currentUser.next(resp)
 
           return resp.ok;
         }),
