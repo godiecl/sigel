@@ -14,7 +14,7 @@ export const SolicitudCartaVacante = sequelize.define('solicitud_carta_vacante',
     },
 
     periodoRealizar: {
-        type: DataTypes.STRING
+        type: DataTypes.INTEGER,
     },
     anioRealizar: {
         type: DataTypes.STRING,

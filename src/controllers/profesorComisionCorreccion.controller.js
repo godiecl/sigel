@@ -1,11 +1,12 @@
 import { ProfesorComisionCorrecion } from '../models/ProfesorComisionCorreccion.js'
+import { Usuario } from '../models/Usuario.js';
 
 export const createProfesorComisionCorreccion  = async (request, response) =>{
 
     try{
         // // console.log('request', request);
         // Tomo parametros de la request.
-        const { estadoDisponible, telefono, id_usuario} = request.body.profesorCC;
+        const { telefono, id_usuario} = request.body.profesorCC;
 
         // // console.log('request body', request.body.profesorCC);
 
@@ -24,7 +25,6 @@ export const createProfesorComisionCorreccion  = async (request, response) =>{
 
         // Crear en la bdd
         const newProfesorComisionCorreccion = await ProfesorComisionCorrecion.create({
-            estadoDisponible,
             telefono,
             id_usuario: id_usuario
         })
@@ -36,7 +36,7 @@ export const createProfesorComisionCorreccion  = async (request, response) =>{
     }catch(error){
         return response.status(400).json({
             ok: false,
-            msg: 'Didnt added Profesor Comision Correccion.'
+            msg: error.msg
         })
     }
 }
@@ -129,7 +129,34 @@ export const getProfesorCCPorIdUsuario = async (req, res) => {
       return res.status(204).json({ok: true, message: 'profesor cc borrado'});
       
     } catch (error) {
-      return res.status(500).json({ok: false, message: error.message})
+      return res.status(500).json({ok: false, message: error.msg})
     }
   
   }
+
+export const getProfesoresCC = async (req, res) =>{
+  try {
+
+    const profesores = await ProfesorComisionCorrecion.findAll();
+
+    let data = [];
+
+    for(let x=0; x<profesores.length; x++){
+
+      const usuarioProfesor = await Usuario.findByPk(profesores[x].id_usuario);
+
+      data.push({
+        id_profesorCC: profesores[x].id_profesorCC,
+        nombre: usuarioProfesor.nombre,
+        apellidop: usuarioProfesor.apellidop,
+        apellidom: usuarioProfesor.apellidom,
+        estado: profesores[x].estadoDisponible
+      })
+    }
+
+    return res.json(data)
+    
+  } catch (error) {
+    return res.status(500).json({ok:false, msg: error.msg})
+  }
+}

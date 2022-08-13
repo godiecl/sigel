@@ -2,6 +2,9 @@ import multer from "multer";
 import util from 'util';
 import fs from 'fs';
 import { InformePractica } from "../../models/documentos/InformePractica.js";
+import { ProfesorComisionCorrecion } from "../../models/ProfesorComisionCorreccion.js";
+import { Usuario } from "../../models/Usuario.js";
+import { Estudiante } from "../../models/Estudiante.js";
 
 //Contenido practica
 export const storagePractica = multer.diskStorage({
@@ -13,7 +16,7 @@ export const storagePractica = multer.diskStorage({
         //cb(null,file.originalname);
     },
     destination:function(res,file, cb){
-        cb(null,'./public/contenido/practica')
+        cb(null,'./public/contenido/practica-profesor')
     }
 });
 
@@ -27,7 +30,7 @@ export const storageCapstone = multer.diskStorage({
         cb(null, `${fileName}.${ext}`); 
     },
     destination:function(res,file, cb){
-        cb(null,'./public/contenido/capstone')
+        cb(null,'./public/contenido/capstone-profesor')
     }
 });
 
@@ -51,24 +54,30 @@ export const getListFilesDocPE = (req, res) => {
     const directoryPath = "./documentos/practica-estudiante";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
-      let fileInfos = [];
+      try {
+        let fileInfos = [];
       files.forEach((file) => {
         fileInfos.push({
           name: file
         });
       });
-      res.status(200).send(fileInfos);
+      console.log(fileInfos)
+      return res.status(200).send({ok: true, fileInfos: fileInfos});
+      } catch (error) {
+        return res.json({ok: false, msg: error.msg})
+      }
+      
     });
   };
 
 //descargar documentos practica estudiantes
 export const downloadDocPE=(req,res,next)=>{
     // console.log('recibiendo: ',req);
-    res.download('./documentos/practica-estudiante'+'/'+ req.body.filename);
+    return res.download('./documentos/practica-estudiante'+'/'+ req.body.filename);
 }
 
 //eliminar documentos practica estudiantes
@@ -76,7 +85,7 @@ export const deleteFileDocPE=(req,res)=>{
     const directoryPath = "./documentos/practica-estudiante";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -107,7 +116,7 @@ export const getListFilesDocCE = (req, res) => {
     const directoryPath = "./documentos/capstone-estudiante";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -117,7 +126,7 @@ export const getListFilesDocCE = (req, res) => {
           name: file
         });
       });
-      res.status(200).send(fileInfos);
+      return res.status(200).send(fileInfos);
     });
   };
 
@@ -132,7 +141,7 @@ export const deleteFileDocCE=(req,res)=>{
     const directoryPath = "./documentos/capstone-estudiante";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -163,7 +172,7 @@ export const getListFilesDocPP = (req, res) => {
     const directoryPath = "./documentos/practica-profesor";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -173,14 +182,14 @@ export const getListFilesDocPP = (req, res) => {
           name: file
         });
       });
-      res.status(200).send(fileInfos);
+      return res.status(200).send(fileInfos);
     });
   };
 
 //descargar documentos practica profesor
 export const downloadDocPP=(req,res,next)=>{
     // console.log('recibiendo: ',req);
-    res.download('./documentos/practica-profesor'+'/'+ req.body.filename);
+    return res.download('./documentos/practica-profesor'+'/'+ req.body.filename);
 }
 
 //eliminar documentos practica profesor
@@ -188,7 +197,7 @@ export const deleteFileDocPP=(req,res)=>{
     const directoryPath = "./documentos/practica-profesor";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -219,7 +228,7 @@ export const getListFilesDocCP = (req, res) => {
     const directoryPath = "./documentos/capstone-profesor";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -229,7 +238,7 @@ export const getListFilesDocCP = (req, res) => {
           name: file
         });
       });
-      res.status(200).send(fileInfos);
+      return res.status(200).send(fileInfos);
     });
   };
 
@@ -244,7 +253,7 @@ export const deleteFileDocCP=(req,res)=>{
     const directoryPath = "./documentos/capstone-profesor";
     fs.readdir(directoryPath, function (err, files) {
       if (err) {
-        res.status(500).send({
+        return res.status(500).send({
           message: "Unable to scan files!",
         });
       }
@@ -272,43 +281,39 @@ export const storageInformePractica = multer.diskStorage({
 });
 
 //ver archivos de carpeta Capstone estudiante
-export const getListFilesInformeEstudiante = (req, res) => {
-  const directoryPath = "./documentos/informe-practica";
-  fs.readdir(directoryPath, function (err, files) {
-    if (err) {
-      res.status(500).send({
-        message: "Unable to scan files!",
-      });
-    }
-    let fileInfos = [];
-    files.forEach((file) => {
-      fileInfos.push({
-        name: file
-      });
-    });
-    res.status(200).send(fileInfos);
-  });
-};
+
 
 //descargar documentos Capstone estudiantes
 export const downloadInformeEstudiante=(req,res,next)=>{
   // console.log('recibiendo: ',req);
-  res.download('./documentos/informe-practica'+'/'+ req.body.filename);
+  console.log('./documentos/informe-practica'+'/'+ req.body.filename)
+  return res.download('./documentos/informe-practica'+'/'+ req.body.filename);
 }
 
 //eliminar documentos Capstone estudiantes
-export const deleteFileInformeEstudiante=(req,res)=>{
+export const deleteFileInformeEstudiante = async (req,res)=>{
   const directoryPath = "./documentos/informe-practica";
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
-      res.status(500).send({
+      return res.status(500).send({
+        ok:false,
         message: "Unable to scan files!",
       });
     }
-    fs.unlink('./documentos/informe-practica/'+req.body.filename,(err)=>{
+    fs.unlink('./documentos/informe-practica/'+req.body.filename,async (err)=>{
+
       if(err){
           // console.log(err);
       }
+      let rutaBorrar = './documentos/informe-practica/'+req.body.filename
+      const borrar = await InformePractica.findOne({
+        where:{
+          ruta: rutaBorrar
+        }
+      })
+      await borrar.destroy();
+      return res.status(200).json({ok: true})
     });
   });
 } 
+

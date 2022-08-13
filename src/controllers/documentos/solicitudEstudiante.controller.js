@@ -103,10 +103,10 @@ export const updateSolicitudEstudiante = async (req, res) => {
     // console.log(req.params)
     const id = req.params.id
     const solicitud = await SolicitudEstudiante.findByPk(id);
-    res.json({ok: true, solicitud: solicitud})
+    return res.json({ok: true, solicitud: solicitud})
         
     } catch (error) {
-        res.json({ok: false, msg: error.message})
+       return  res.json({ok: false, msg: error.message})
     }
   }
 
@@ -140,7 +140,7 @@ export const updateSolicitudEstudiante = async (req, res) => {
 
     //  // console.log(data)
 
-    res.json(data)
+    return res.json(data)
 }
 
 export const getListaVacantes = async (req, res) => {
@@ -185,7 +185,7 @@ export const getListaVacantes = async (req, res) => {
 
      // console.log(data)
 
-    res.json(data)
+   return res.json(data)
 }
 
 

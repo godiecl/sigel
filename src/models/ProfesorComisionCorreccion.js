@@ -10,10 +10,15 @@ export const ProfesorComisionCorrecion = sequelize.define('profesores_comision_c
         autoIncrement: true
     },
     estadoDisponible: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.STRING,
+        defaultValue: "disponible"
     },
     telefono: {
         type: DataTypes.STRING,
+    },
+    secretario: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
 })
 Usuario.hasOne(ProfesorComisionCorrecion, {

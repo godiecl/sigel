@@ -6,23 +6,27 @@ import util from 'util';
 import fs from 'fs';
 
 import { getUsers, createUser, loginUser, revalidarToken, deleteUser, updateUser, getUsuarioPorId, getUsuarioPorRut, olvidePassword, crearNuevoPassword } from  '../controllers/user.controller.js';
-import { createEstudiante, deleteEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
+import { createEstudiante, deleteEstudiantePorIdUsuario, getEstudiantePorId, getEstudiantes, getEstudiantesPractica, updateEstudiantePorId } from '../controllers/estudiante.controller.js';
 import { validarCampos } from '../middlewares/validar-campos.js';
 import { validarJWT } from '../middlewares/validar-jwt.js';
 import { createAdmin, deleteAdminPorId } from '../controllers/admin.controller.js';
 import { createProfesorGuiaCP, deleteProfesorGuiaCPPorIdUsuario, getProfesorGuiaCPPorIdUsuario, updateProfesorGuiaPorId } from '../controllers/profesorGuiaCP.controller.js';
-import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
+import { createProfesorComisionCorreccion, deleteProfesorCCPorIdUsuario, getProfesorCCPorIdUsuario, getProfesoresCC, updateProfesorCCPorId } from '../controllers/profesorComisionCorreccion.controller.js'
 import { createEncargadoPractica, deleteEncargadoPracticaPorIdUsuario } from '../controllers/encargadoPractica.controller.js';
 import { createEncargadoEmpresa, deleteEncargadoEmpresaPorIdUsuario, getEncargadoEmpresa, getEncargadoEmpresaPorIdUsuario, updateEncargadoEmpresaPorId } from '../controllers/encargadoEmpresa.controller.js';
 import { createComisionPracticaTitulacion, deleteComisionPracticaTitulacionPorIdUsuario, getComisionPorId, updateComisionPracticaTitulacionPorId } from '../controllers/comisionPracticaTitulacion.controller.js';
 import { createAsistenteAcademica, deleteAsistenteAcademicaPorId } from '../controllers/asistenteAcademica.controller.js';
-import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP,storageInformePractica,getListFilesInformeEstudiante,deleteFileInformeEstudiante,downloadInformeEstudiante } from '../controllers/documentos/documentos.controllers.js';
+import { storagePractica, storageCapstone, storageDocPracticaEstudiante, getListFilesDocPE, deleteFileDocPE, downloadDocPE, storageDocCapstoneEstudiante, getListFilesDocCE, deleteFileDocCE, downloadDocCE,storageDocPracticaProfesor,getListFilesDocPP,deleteFileDocPP,downloadDocPP, storageDocCapstoneProfesor,getListFilesDocCP,deleteFileDocCP,downloadDocCP,storageInformePractica,deleteFileInformeEstudiante,downloadInformeEstudiante } from '../controllers/documentos/documentos.controllers.js';
 import { createEmpresa, getEmpresa, getEmpresaPorRut, getEmpresasSolicitadoEstudiante } from '../controllers/empresa.controller.js';
 import { createSolicitudEstudiante, getListaVacantes, getSolicitudesEstudiante, getSolicitudesEstudianteTabla, getSolicitudEstudiante, updateSolicitudEstudiante } from '../controllers/documentos/solicitudEstudiante.controller.js';
 import { createPublicacion, deletePublicacion, getPublicacion, getPublicaciones, updatePublicacion } from '../controllers/documentos/publicacion.controller.js';
 import { autorizarSolicitudCartaVacante, createSolicitudCartaVacante, dejarPendienteSolicitudCartaVacante, enviarCorreoCartaVacantePendiente, getListaCartaVacantes, getListaResponderCartaVacante, getSolicitudCartaVacante, getSolicitudesCartaVacante, reprobarSolicitudCartaVacante, responderSolicitudCartaVacante, verSolicitudCartaVacante } from '../controllers/documentos/solicitudCartaVacante.controller.js';
-import { autorizarSeguro, dejarPendienteSeguro, getSeguros } from '../controllers/documentos/seguro.controller.js';
-import { createInforme } from '../controllers/documentos/informePractica.controller.js';
+import { autorizarSeguro, dejarPendienteSeguro, extenderSeguro, getSeguros, ocultarSeguro } from '../controllers/documentos/seguro.controller.js';
+import { createInforme, getNotaFinal, getListFilesInformeEstudiante ,evaluarInformeEstudiante, getTodosInformes } from '../controllers/documentos/informePractica.controller.js';
+import { createComisionCorreccion, deleteComision, getListaComisiones } from '../controllers/comisionCorrecion.controller.js';
+import { createEvaluacionEmpresa, editarEvaluacionEmpresa, getEstudiantesAsociados, getEstudiantesParaEditarEvaluacionEmpresaa } from '../controllers/documentos/evaluacionEmpresa.controller.js';
+import { actualizarEvaluacionDefensa, editarEvaluacionDefensa, getDatosAsociados, getEstudiantesParaEditarEvaluacionDefensa } from '../controllers/documentos/evaluacionDefensa.controller.js';
+import { getActaEvaluacion, getActasEvaluaciones , getEstudiantesAprobadosRegistro } from '../controllers/documentos/actaEvaluacion.controller.js';
 
 const router = Router();
 
@@ -78,12 +82,15 @@ router.get('/estudiantes/:id', getEstudiantePorId);
 // router.delete('/estudiantes:id', deleteEstudiante);
 router.patch('/estudiantes', updateEstudiantePorId);
 router.delete('/estudiantes:id', deleteEstudiantePorIdUsuario);
+router.get('/estudiantes', getEstudiantes);
+router.get('/practica-estudiantes', getEstudiantesPractica);
 
 // ProfesorCC
 router.post('/profesorCCs', createProfesorComisionCorreccion)
 router.get('/profesorCCs/:id', getProfesorCCPorIdUsuario);
 router.patch('/profesorCCs', updateProfesorCCPorId);
 router.delete('/profesorCCs:id', deleteProfesorCCPorIdUsuario);
+router.get('/profesoresCC', getProfesoresCC);
 
 
 // ProfesorGuiaCP
@@ -199,7 +206,9 @@ router.patch('/solicitud-carta-vacantes:id', responderSolicitudCartaVacante)
 // Seguros
 router.get('/seguros', getSeguros );
 router.patch('/aprobar-seguro:id', autorizarSeguro);
+router.patch('/ocultar-seguro:id', ocultarSeguro);
 router.patch('/pendiente-seguro:id', dejarPendienteSeguro)
+router.patch('/extender-seguro:id', extenderSeguro);
 
 //INFORME
 //subir informe de práctica estudiante
@@ -217,11 +226,15 @@ router.post('/upload-informe/informe-estudiante',uploadInformeEstudiante.single(
 });
 router.post('/guardar-informe/informe-estudiante', createInforme)
 //ver informes de práctica estudiante
-router.get('/get-informe/informe-estudiante', getListFilesInformeEstudiante);
+router.get('/get-informe/informe-estudiante/:id', getListFilesInformeEstudiante);
 //descargar informe de práctica estudiante
 router.post('/download-informe/informe-estudiante',downloadInformeEstudiante);
+// router.get('/descargar-informe/:id',descargarInforme);
 //Eliminar informe de práctica estudiante
 router.post('/delete-informe/informe-estudiante',deleteFileInformeEstudiante);
+router.patch('/evaluar-informe/informe-estudiante:id', evaluarInformeEstudiante );
+router.get('/notafinal-informe/informe-estudiante:id', getNotaFinal );
+router.get('/get-todos-informe', getTodosInformes)
 
 // solicitud carta vacante
 router.post('/solicitud-carta-vacantes', createSolicitudCartaVacante)
@@ -233,5 +246,26 @@ router.patch('/aprobar-solicitud-carta-vacante:id', autorizarSolicitudCartaVacan
 router.patch('/reprobar-solicitud-carta-vacante:id', reprobarSolicitudCartaVacante)
 router.patch('/pendiente-solicitud-carta-vacante:id', dejarPendienteSolicitudCartaVacante)
 
+// comision de correccion de práctica
+router.post('/crear-cc-practica', createComisionCorreccion);
+router.get('/comision-correccion/lista', getListaComisiones)
+router.delete('/comision-correccion/lista/eliminar:id', deleteComision)
+
+// Evaluaciones de empresa
+
+router.post('/evaluacion-empresa/', createEvaluacionEmpresa)
+router.get('/evaluacion-empresa/listaEstudiantesAsociados:id', getEstudiantesAsociados)
+router.patch('/evaluacion-empresa/:id', editarEvaluacionEmpresa)
+router.get('/estudiantes-editar-evaluacion-empresa/:id', getEstudiantesParaEditarEvaluacionEmpresaa)
+
+// Evaluacion de defensa de práctica
+router.post('/evaluacion-defensa', actualizarEvaluacionDefensa)
+router.patch('/evaluacion-defensa/:id', editarEvaluacionDefensa)
+router.get('/evaluacion-defensa:id', getDatosAsociados)
+router.get('/estudiantes-editar-evaluacion-defensa/:id', getEstudiantesParaEditarEvaluacionDefensa)
+
+router.get('/actas-evaluaciones',getActasEvaluaciones)
+router.get('/estudiantes-registro',getEstudiantesAprobadosRegistro)
+router.get('/acta-evaluacion/:id',getActaEvaluacion)
 
 export default router;

@@ -1,4 +1,16 @@
+import { InformePractica } from '../models/documentos/InformePractica.js';
+import { Seguro } from '../models/documentos/Seguro.js';
+import { SolicitudCartaVacante } from '../models/documentos/SolicitudCartaVacante.js';
+import { SolicitudEstudiante } from '../models/documentos/SolicitudEstudiante.js';
+import { Empresa } from '../models/Empresa.js';
+import { EncargadoEmpresa } from '../models/EncargadoEmpresa.js';
 import { Estudiante } from '../models/Estudiante.js'
+import { ProfesorComisionCorrecion } from '../models/ProfesorComisionCorreccion.js';
+import { Usuario } from '../models/Usuario.js';
+import { EvaluacionDefensa } from '../models/documentos/EvaluacionDefensa.js';
+import { EvaluacionEmpresa } from '../models/documentos/EvaluacionEmpresa.js';
+import { ActaEvaluacion } from '../models/documentos/ActaEvaluacion.js';
+import { Op } from 'sequelize'
 
 export const createEstudiante = async (request, response) => {
 
@@ -167,3 +179,79 @@ export const deleteEstudiantePorIdUsuario = async (req, res) =>{
   }
 
 }
+
+export const getEstudiantes = async (req,res) =>{
+
+  try {
+    const estudiantes = await Estudiante.findAll();
+
+    let data = [];
+
+    for(let x=0; x<estudiantes.length; x++){
+
+      const usuarioEstudiante = await Usuario.findByPk(estudiantes[x].id_usuario);
+
+      data.push({
+        id_estudiante: estudiantes[x].id_estudiante,
+        nombreEstudiante: usuarioEstudiante.nombre,
+        apellidop: usuarioEstudiante.apellidop,
+        apellidom: usuarioEstudiante.apellidom,
+        estadoEstudiante: estudiantes[x].estadoDisponibleCC,
+      })
+    }
+
+    return res.json(data)
+    
+  } catch (error) {
+    return res.status(500).json({ok:false, msg: error.msg})
+  }
+
+}
+
+export const getEstudiantesPractica = async (req,res) =>{
+
+  try {
+    console.log('ejecutando get estudiantes practica')
+    const seguros = await Seguro.findAll();
+    let estudiantes = [];
+
+    for(let i = 0; i < seguros.length; i++){
+      const estudiante = await Estudiante.findOne({where: {
+        id_estudiante: seguros[i].id_estudiante
+      }});
+      if(estudiante){
+        estudiantes.push(estudiante);
+      }
+    } 
+    console.log(estudiantes)
+      let data = [];
+  
+      for(let x=0; x<estudiantes.length; x++){
+  
+        const usuarioEstudiante = await Usuario.findByPk(estudiantes[x].id_usuario);
+  
+        data.push({
+          id_estudiante: estudiantes[x].id_estudiante,
+          nombreEstudiante: usuarioEstudiante.nombre,
+          apellidop: usuarioEstudiante.apellidop,
+          apellidom: usuarioEstudiante.apellidom,
+          estadoEstudiante: estudiantes[x].estadoDisponibleCC,
+        })
+      }
+  
+      return res.json(data)
+    
+
+   
+    
+  } catch (error) {
+    return res.status(500).json({ok:false, msg: error.msg})
+  }
+
+}
+
+
+
+
+
+
