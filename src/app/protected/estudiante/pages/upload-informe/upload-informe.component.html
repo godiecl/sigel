@@ -51,7 +51,7 @@
                 <mat-card-actions style="display:contents   ;" >
                     <button mat-raised-button class="w-full" color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 25px; width: 700px ; margin-bottom: 10px;" > VOLVER AL MENÚ PRINCIPAL 
                     </button> 
-                    <button mat-raised-button color="primary" style="font-size: 25px; width: 700px ; " [disabled]="!fileInformeEstudiante || informeForm.invalid" (click)="alertaAgregarInformeEstudiante()">
+                    <button mat-raised-button color="warn" style="font-size: 25px; width: 700px ; " [disabled]="!fileInformeEstudiante || informeForm.invalid" (click)="alertaAgregarInformeEstudiante()">
                         SUBIR INFORME DE PRÁCTICA
                     </button>
                 </mat-card-actions>
