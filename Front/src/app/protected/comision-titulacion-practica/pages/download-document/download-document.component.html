@@ -1,0 +1,156 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Descargar Documentos</li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-30 p-b-25">
+            <form class="login100-form">
+                <span class="login100-form-title p-b-23" style="text-transform:uppercase;">
+                    Descargar documentos
+                </span>
+            </form>
+        </div>
+        <div id="formPracticaEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Documentos Práctica estudiantes
+                </span>
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100 m-b-23"><p>Subir documentos Práctica Preprofesional para los estudiantes</p><br></span><br>
+                    <div id="fileSelector">
+                        <input class="form-control" style="font-size: 20px;" type="file" #fileDocPracticaEstudiante (change)="getFileDocPracticaEstudiante($event)">
+                    </div>
+                    <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaAgregarDocPracticaEstudiante()">
+                        Subir contenido práctica estudiante
+                    </button>
+                </div>
+                
+                <div class="card mt-3">
+                    <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
+                    <div class="scrollbar" style="overflow-y: auto; height: 400px;">
+                        <ul
+                      class="list-group list-group-flush"
+                      *ngFor="let file of fileInfosDocPracticaEstudiante | async">
+                     
+                      <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
+                        <button style="font-size: 17px;" (click)="downloadDocPracticaEstudiante(file.name)">{{ file.name }}</button>
+                        <div>
+                            <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadDocPracticaEstudiante(file.name)">Descargar</button>
+                            <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarDocPracticaEstudiante(file.name)">Eliminar</button>
+                        </div>
+                    
+                      </li>
+                    </ul>
+
+                    </div>
+                    
+                  </div> 
+        </div>
+
+        <div id="formCapstoneEstudiante" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
+                <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                    Documentos Capstone estudiantes
+                </span>
+                <div class="wrap-input100 m-b-23">
+                    <span class="label-input100 m-b-23"><p>Subir documentos Capstone Project para los estudiantes</p><br></span><br>
+                    <div id="fileSelector">
+                        <input class="form-control" style="font-size: 20px;" type="file" #fileDocCapstoneEstudiante (change)="getFileDocCapstoneEstudiante($event)">
+                    </div>
+                    <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaAgregarDocCapstoneEstudiante()">
+                        Subir contenido Capstone estudiante
+                    </button>
+                </div>
+                
+                <div class="card mt-3">
+                    <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
+                        <div class="scrollbar" style="overflow-y: auto; height: 400px;">
+                        <ul
+                        class="list-group list-group-flush"
+                        *ngFor="let file of fileInfosDocCapstoneEstudiante | async">
+                        <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
+                            <button style="font-size: 17px;" (click)="downloadDocCapstoneEstudiante(file.name)">{{ file.name }}</button>
+                            <div>
+                                <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadDocCapstoneEstudiante(file.name)">Descargar</button>
+                                <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarDocCapstoneEstudiante(file.name)">Eliminar</button>
+                            </div>
+                        
+                        </li>
+                        </ul>
+                    </div>
+                  </div> 
+        </div>
+        <div id="formPracticaProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                Documentos Práctica Profesores
+            </span>
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100 m-b-23"><p>Subir documentos Práctica Preprofesional para los profesores correctores</p><br></span><br>
+                <div id="fileSelector">
+                    <input class="form-control" style="font-size: 20px;" type="file" #fileDocPracticaProfesor (change)="getFileDocPracticaProfesor($event)">
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaAgregarDocPracticaProfesor()">
+                    Subir contenido práctica profesor
+                </button>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
+                <div class="scrollbar" style="overflow-y: auto; height: 400px;">
+                <ul
+                  class="list-group list-group-flush"
+                  *ngFor="let file of fileInfosDocPracticaProfesor | async">
+                  <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
+                    <button style="font-size: 17px;" (click)="downloadDocPracticaProfesor(file.name)">{{ file.name }}</button>
+                    <div>
+                        <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadDocPracticaProfesor(file.name)">Descargar</button>
+                        <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarDocPracticaProfesor(file.name)">Eliminar</button>
+                    </div>
+                
+                  </li>
+                </ul>
+              </div>
+            </div> 
+    </div>
+
+    <div id="formCapstoneProfesor" class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="width: 1000px;">
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                Documentos Capstone Profesores
+            </span>
+            <div class="wrap-input100 m-b-23">
+                <span class="label-input100 m-b-23"><p>Subir documentos Capstone Project para los profesores correctores</p><br></span><br>
+                <div id="fileSelector">
+                    <input class="form-control" style="font-size: 20px;" type="file" #fileDocCapstoneProfesor (change)="getFileDocCapstoneProfesor($event)">
+                </div>
+                <button class="boton-dashboard m-b-23 m-t-23" style="font-size: 25px;" (click)="alertaAgregarDocCapstoneProfesor()">
+                    Subir contenido Capstone Profesor
+                </button>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header" style="font-size: 25px;">Lista de Archivos</div>
+                <div class="scrollbar" style="overflow-y: auto; height: 400px;">
+                <ul
+                  class="list-group list-group-flush"
+                  *ngFor="let file of fileInfosDocCapstoneProfesor | async">
+                  <li class="list-group-item" style="justify-content:space-between;padding: 1rem; align-items: center;align-content: center;display: flex; background-color:rgb(231, 229, 229);">
+                    <button style="font-size: 17px;" (click)="downloadDocCapstoneProfesor(file.name)">{{ file.name }}</button>
+                    <div>
+                        <button mat-raised-button color="primary" style="font-size: 20px;" (click)="downloadDocCapstoneProfesor(file.name)">Descargar</button>
+                        <button mat-raised-button color="warn" style="font-size: 20px;" (click)="alertaEliminarDocCapstoneProfesor(file.name)">Eliminar</button>
+                    </div>
+                
+                  </li>
+                </ul>
+              </div>
+            </div> 
+    </div>
+    </div>
+</div>
+

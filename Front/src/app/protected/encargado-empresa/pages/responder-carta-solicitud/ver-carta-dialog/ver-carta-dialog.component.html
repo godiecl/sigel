@@ -1,0 +1,99 @@
+
+<mat-card class="example-card">
+    
+    <mat-card-header class="dis-flex flex-m flex-c m-t-20 m-b-20" style="flex-direction: column;" >
+  
+        <mat-card-title>Responder carta vacante</mat-card-title>
+        <a (click)="verCarta()" class="txt2" style="cursor: pointer; font-size: 15px;">
+            Ver carta vacante
+        </a>
+      
+    </mat-card-header>
+    
+    <div class="tablita p-b-54" >
+        <div class="tabla" >
+            
+            <div class="izq" >
+                <h2>Estudiante</h2>
+            </div>
+
+            <div class="der" >            
+                <p>
+                    {{ datos.usuario.nombre }} {{datos.usuario.apellidop }} {{ datos.usuario.apellidom }}
+                </p>
+            </div>
+            <div class="izq" >
+                <h2>Periodo</h2>
+            </div>
+
+            <div class="der" >            
+                
+                    <div *ngIf="datos.solicitud.periodoRealizar === '1' " >
+                        <p>
+                            Primer semestre {{datos.anioRealizar | uppercase}} 
+
+                        </p>
+                    </div> 
+                    <div *ngIf="datos.solicitud.periodoRealizar === '2' " >
+                        <p>
+                        Segundo semestre {{datos.anioRealizar | uppercase}} 
+                        </p>
+                    </div> 
+                    <div *ngIf="datos.solicitud.periodoRealizar === '3' " >
+                        <p>
+                            Verano {{datos.anioRealizar | uppercase}} 
+                        </p>
+                    </div> 
+                
+            </div>
+            <div class="izq" >
+                <h2>Nombre del proyecto</h2>
+            </div>
+
+            <div class="der" >            
+                <p>
+                    {{ datos.solicitudE.nombreProyecto }}
+                </p>
+            </div>
+
+            <div class="izq" >
+                <h2>Empresa</h2>
+            </div>
+
+            <div class="der" >            
+                <p>
+                    {{ datos.nombreEmpresa }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <mat-card-content>
+        <div class="row">
+            <div class="col flex-col-c ">
+                <form [formGroup]="respuestaForm" >
+                    <div class="col flex-col-c ">
+                        <mat-form-field>
+                            <mat-label>Fecha inicial</mat-label>
+                            <input matInput [matDatepicker]="picker" [min]="now" formControlName="fechaInicio">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Fecha Final</mat-label>
+                            <input matInput [matDatepicker]="picker2" [min]="now" formControlName="fechaFinal">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="warn" [disabled]="respuestaForm.invalid" (click)="enviarRespuesta()" >Enviar respuesta</button>
+
+    </mat-card-actions>
+  </mat-card>

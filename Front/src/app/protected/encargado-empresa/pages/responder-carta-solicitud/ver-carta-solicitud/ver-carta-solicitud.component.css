@@ -1,0 +1,64 @@
+.example-card {
+    max-width: 900px;
+  }
+  
+  /* .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  } */
+
+  table {
+    width: 80%;
+    display: flex;
+
+  }
+
+  .tablita {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tabla{
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    background-color: #f6f4f4;
+    align-items: center;
+    justify-items: center;
+    width: 80%;
+    box-shadow: 6px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .cuerpo{
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+  }
+
+  /* .izq,.der{
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    width: 100%;
+    height: 100%;
+      
+    margin: 0;
+    padding: 0; 
+  }
+  .izq h2, .der p{
+    color: #666666;
+    margin: 0;
+    font-family: 14px Poppins-Bold;
+    padding: 0;
+  } */
+  .izq{
+    margin-right: auto;
+    margin-left: 0;
+  }
+  .der{
+    margin-left: auto; 
+    margin-right: 0;
+  }

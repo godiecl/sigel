@@ -1,0 +1,35 @@
+.header{
+    width: 100%;
+    background-color: rgb(0, 70, 127); 
+    height: 11rem;
+    padding: 30px 5%;
+    margin: 0;
+    list-style:none;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    justify-content: space-between;
+}
+.log{
+    margin-right: 2rem;
+}
+[id=logoheader1]{
+    /*float: left;*/
+    width: 20%;
+    padding-left: 0px;
+    /*background-color: rgb(9, 2, 204);*/
+}
+[id=textHeader]{
+    width: 32%;
+    font-size: 30px;
+    /*background-color: black;*/
+}
+[id=login1]{
+    /*float: right;*/
+    padding-left: 0px;
+    /*background-color: blueviolet;*/
+
+}
+.logoheader{
+    align-content: center;
+}

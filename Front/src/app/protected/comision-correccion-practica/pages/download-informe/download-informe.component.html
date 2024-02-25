@@ -1,0 +1,163 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+            <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+            <li style="color:white; font-size: 18px;">></li>
+            <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+            <li style="color:white; margin-right: 2rem; font-size: 18px;">> Evaluar Informes de Práctica</li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col flex-col-c">
+        <div *ngIf="!fileInfosInformePractica">
+            <span class="text-danger" > No se han conformado o no perteneces a una comisión de corrección </span>     
+        </div>
+        <div *ngIf="fileInfosInformePractica">
+            <table  
+            mat-table 
+            [dataSource]="fileInfosInformePractica" 
+            
+            class="mat-elevation-z8 scrolltable">
+            <form [formGroup]="notasForm" >
+                <!--- Note that these columns can be defined in any order.
+                    The actual rendered columns are set as a property on the row definition" -->
+                <!-- Name Column -->
+                <!-- Weight Column  -->
+
+        
+                <!-- Name Column -->
+                <ng-container matColumnDef="nombreEstudiante">
+                    <th mat-header-cell *matHeaderCellDef> NOMBRE ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element">{{ element.nombreEstudiante | titlecase }} {{ element.apellidopEstudiante | titlecase }} {{ element.apellidomEstudiante | titlecase }}</td>
+                </ng-container>  
+
+                <ng-container matColumnDef="rutEstudiante">
+                    <th mat-header-cell *matHeaderCellDef> RUT ESTUDIANTE </th>
+                    <td mat-cell *matCellDef="let element">{{ element.rutEstudiante }}</td>
+                </ng-container>  
+
+                <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> INFORME </th>
+                <td mat-cell *matCellDef="let element"> <a style="cursor: pointer; color: blue;" (click)="downloadInformePractica(element.nombre)"> <u> {{element.nombre  | uppercase }} </u> </a> 
+                     </td>
+                </ng-container>  
+
+
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="notaEvaluador1">
+                    <div *ngIf="profesores === null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR </th> 
+                    </div>
+                    <div *ngIf="profesores !== null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR: <br> {{ nombreProfesor1 }} </th> 
+                    </div>
+                <td mat-cell *matCellDef="let element"> 
+                    <div style="display: flex; flex-direction: column-reverse; " *ngIf="element.notaEvaluador1 === null && element.editarNota === true" >
+                        
+                            <mat-form-field>
+                                <input matInput type="number" formControlName="notaEvaluador1" step="1.0" min="1" max="7">
+                            </mat-form-field>
+                        
+                    </div>
+                    <div *ngIf="element.notaEvaluador1 !== null">
+                        {{element.notaEvaluador1 }} 
+                    </div>
+                </td>
+                </ng-container>
+
+                <!-- Weight Column  -->
+                <ng-container matColumnDef="notaEvaluador2">
+                    <div *ngIf="profesores === null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR </th> 
+                    </div>
+                    <div *ngIf="profesores !== null">
+                        <th mat-header-cell *matHeaderCellDef> NOTA EVALUADOR: <br> {{ nombreProfesor2 }} </th> 
+                    </div>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.notaEvaluador2 === null && element.editarNota === true" >
+                            <mat-form-field>
+                                <input matInput type="number" formControlName="notaEvaluador2" step="1.0" min="1" max="7">
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="element.notaEvaluador2 !== null || element.editarNota === false ">
+                            {{element.notaEvaluador2 }} 
+                        </div>
+                    </td>
+                    </ng-container>
+    
+                    <!-- Weight Column  -->
+                <ng-container matColumnDef="notaFinal">
+                    <th mat-header-cell *matHeaderCellDef> NOTA FINAL </th> 
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.notaFinal === null" >
+                            Pendiente
+                        </div>
+                        <div *ngIf="element.notaFinal >= 4 " style="background-color: lightblue;" >
+                             {{ element.notaFinal }}
+                        </div>
+                        <div *ngIf="element.notaFinal < 4 " style="background-color: rgb(255,190,190);" >
+                            {{ element.notaFinal }}
+                       </div>
+                    </td>
+                    </ng-container>
+    
+
+                
+
+                <ng-container matColumnDef="descargar">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <!-- <mat-label> {{ element.estado }} </mat-label> -->
+                        <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
+                        <button mat-raised-button color="warn" (click)="downloadInformePractica(element.nombre)" > Descargar </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="evaluar">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.notaEvaluador1 !== null   && element.notaEvaluador2 !== null  " >
+                            <button mat-raised-button color="warn" (click)="editarNota(element.id_informePractica)" > Editar nota </button>
+                        </div>
+                        <!-- <mat-label> {{ element.estado }} </mat-label> -->
+                        <!-- (selectionChange)="actualizar(element.id_solicitudCartaVacante, estadoSelect.value)" -->
+                        <div *ngIf="!element.notaEvaluador1 || !element.notaEvaluador2 " >    
+                            <button mat-raised-button style="background-color: rgb(240,60,60);; color: white;" [disabled]="notasForm.invalid" (click)="openDialog(element.id_informePractica)" > Evaluar nota </button>
+                        </div>
+                     </td>
+                </ng-container>
+            
+                <!-- <ng-container matColumnDef="enviarCorreo" >
+                <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <div *ngIf="element.estadoRespuesta === 'pendiente' " >
+                            <button 
+                            mat-raised-button color="warn" 
+                             >Responder</button>
+
+                        </div>
+                        <div *ngIf="element.estadoRespuesta === 'completada' " >
+                            <button 
+                            mat-raised-button color="primary" 
+                             >Ver carta</button>
+                        </div>
+                        (click)="verSolicitud(element.id_solicitudEstudiante)"
+                 </td> 
+                </ng-container> -->
+            
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </form>
+            </table>
+        </div>
+        <div style="width: 700px;" class="m-t-10" > 
+            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; " class="w-full " > VOLVER AL MENÚ PRINCIPAL </button> 
+               
+        </div>
+
+        <!-- </div> -->
+    </div>
+</div>

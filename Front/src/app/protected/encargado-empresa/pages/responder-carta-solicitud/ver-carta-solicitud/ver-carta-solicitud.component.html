@@ -1,0 +1,104 @@
+<mat-card class="example-card">
+    <mat-card-subtitle>
+      <div class="m-t-20" style="display: flex;" >
+        <div  >
+          <p>
+            Sr(a). {{ datos.nombreEncargado | titlecase }} {{ datos.apellidopEncargado | titlecase }} {{ datos.apellidomEncargado | titlecase }} <br>
+            {{ datos.cargoEncargado | titlecase }} <br>
+            {{ datos.nombreEmpresa | titlecase }} <br>
+            Presente
+          </p>        
+        </div>
+         <div class="der" >
+          <p>
+            MAT.: SOLICITA VACANTE PRÁCTICA ÚNICA <br>
+            ANTOFAGASTA, {{ now | date }}
+          </p>
+         </div>
+      </div>
+    </mat-card-subtitle>
+
+    <mat-divider inset></mat-divider>
+
+    <mat-card-content class="cuerpo">
+      <div *ngIf="datos.carreraEstudiante === 0" >
+        <p>
+          De mi consideración: <br>
+          Junto con saludarle, me permito solicitar a usted una vacante para que nuestro estudiante de la carrera de Ingeniería en Computación e Informática, 
+          {{ datos.nombreEstudiante | titlecase }} {{ datos.apellidopEstudiante | titlecase }} {{ datos.apellidomEstudiante | titlecase }} , 
+          Rut <u><FONT COLOR="blue">{{ datos.rutEstudiante }}</FONT></u> , pueda realizar su práctica pre-profesional y cumplir uno de los requisitos 
+          para su formación integral.
+        </p>
+      </div>
+
+      <div *ngIf="datos.carreraEstudiante === 2" >
+        <p>
+          De mi consideración: <br>
+          Junto con saludarle, me permito solicitar a usted una vacante para que nuestro estudiante de la carrera de Ingeniería Civil en Computación e Informática, 
+          {{ datos.nombreEstudiante | titlecase }} {{ datos.apellidopEstudiante | titlecase }} {{ datos.apellidomEstudiante | titlecase }} , 
+          Rut {{ datos.rutEstudiante }} , pueda realizar su práctica pre-profesional y cumplir uno de los requisitos 
+          para su formación integral.
+        </p>
+      </div>
+       
+
+      <p>
+        La realización de esta práctica permite a los estudiantes demostrar y fomentar sus competencias técnicas y de carácter 
+        genérico, tal como el necesario trabajo en equipo, la comunicación oral y escrita y las relaciones interpersonales.
+      </p>
+
+      <p>
+        Cabe mencionar que el estudiante debe tener el V Semestre aprobado. Además de tener aprobadas las asignaturas: 
+        Ingeniería de Software y Proyecto de Procesamiento Analítico de Datos. Para una mejor comprensión del plan de 
+        estudios se adjunta descripción de su perfil de egreso y malla curricular.
+      </p>
+
+      <p>
+        El objetivo de esta práctica es que el estudiante participe en equipos de trabajo y desempeñe funciones relacionadas 
+        con su especialidad, tales como: programador de aplicaciones, análisis de sistemas de información, desarrollo de bases
+         de datos, soporte de sistemas computacionales e instalación y configuración de computadores.
+      </p>
+
+      <p>
+        El período normal de práctica considerado por este Departamento es de un mínimo de 8 semanas en régimen de jornada completa, 
+        o tiempo equivalente.  
+      </p>
+      
+      <p>
+        En el caso que el estudiante sea aceptado en vuestra empresa agradeceré confirmar vía correo electrónico a <u><FONT COLOR="blue">ehormaza@ucn.cl</FONT></u> , 
+        indicando además el periodo de la práctica (fecha de inicio y finalización). 
+      </p>
+
+      <p>
+        Dada la incertidumbre provocada por la emergencia sanitaria del covid 19, el desarrollo de la práctica pre-profesional que requieran 
+        presencialidad, por disposición de nuestra Casa de Estudios y para el resguardo de la seguridad del o la estudiante, 
+        vuestra empresa debe presentar un protocolo respecto a la seguridad y prevención del covid-19 y además contar con el 
+        consentimiento firmado por parte de o la estudiante en que consta su voluntad de concurrir a la empresa.
+      </p>
+
+      <p>
+        Una vez entregado los documentos por vía correo electrónica a <u><FONT COLOR="blue">ehormaza@ucn.cl</FONT></u> por parte de ustedes, se procederán a 
+        gestionar la emisión del Seguro de Vida Colectivo, contratado en la Compañía de Seguros Liberty.
+      </p>
+
+      <p>
+        Agradeciendo de antemano su compromiso con nuestra Universidad al concretar esta modalidad de vinculación y la oportunidad de 
+        práctica que nos permite, saluda atentamente a usted,
+      </p>
+
+      <mat-divider inset></mat-divider>
+
+      <div class="m-t-30" >
+      <p>
+        HUGO ROCHA CÁCERES <br>
+        Encargado de Prácticas <br>
+        Departamento de Ingeniería de Sistemas y Computación
+      </p>
+      </div>
+
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color="warn" (click)="volver()" >Volver</button>
+      <!-- <button mat-button>SHARE</button> -->
+    </mat-card-actions>
+  </mat-card>

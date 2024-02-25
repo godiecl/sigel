@@ -1,0 +1,23 @@
+
+<div class="row">
+    <div class="col flex-col-c">
+      <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+        <mat-card-actions class="m-b-50" >
+          <a mat-raised-button color="link" href="/dashboard/comision-titulacion-practica/administrar-publicaciones" >Volver </a>
+        </mat-card-actions>
+        <mat-card class=" m-b-28"  >
+            <mat-card-title style="font-size: x-large;" > {{ publicacionActual.asunto }} </mat-card-title>
+            <mat-card-subtitle style="font-size: x-large;"> {{publicacionActual.remitente | titlecase}} </mat-card-subtitle>
+            <mat-card-content style="font-size: x-large;">
+            <p>{{ publicacionActual.mensaje }}</p>
+            </mat-card-content>
+            <mat-card-actions align="end" >
+              <button mat-button (click)="editarDialog()" ><mat-icon>edit</mat-icon></button>
+             <button mat-button (click)="borrarPublicacion(publicacionActual.id_publicacion)" ><mat-icon>delete</mat-icon></button>
+            </mat-card-actions>
+          </mat-card>
+      </div>
+    </div>
+</div>
+  
+      

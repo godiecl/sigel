@@ -1,0 +1,19 @@
+<h1 mat-dialog-title class="titulo" >Evaluar solicitud: {{ data.nombreProyecto }}</h1>
+<div mat-dialog-content style="display: flex; flex-direction:column;"  [formGroup]="evaluarForm" >
+  
+  <mat-form-field  >
+    <mat-label  >Descripción del requerimiento</mat-label>
+    <input required matInput [formControlName]="'descripcionRequerimientoPractica'">
+  </mat-form-field>
+  <!-- <mat-form-field>   -->
+    
+  <mat-label > ¿Desea aprobar esta solicitud? </mat-label>
+
+  <!-- </mat-form-field> -->
+</div>
+<div mat-dialog-actions>
+  
+  <button mat-button (click)="pendiente()">Dejar Pendiente</button>
+  <button mat-button [disabled]="evaluarForm.invalid" (click)="aprobar()" cdkFocusInitial>Aprobar</button>
+  <button mat-button (click)="reprobar()" cdkFocusInitial>Reprobar</button>
+</div>

@@ -1,0 +1,232 @@
+<div id=menuheader class="header" style="background-color: rgb(0,44,79); ">
+    <nav>
+        <ul class="nav_links">
+            <li><a routerLink="/home" class="nav-link"><img src="./assets/images/icons/home_icon.png" width="23px"></a></li>
+          <li><a routerLink="/home" class="nav-link" style="font-size: 18px;">Home</a></li>
+          <li style="color:white; font-size: 18px;">></li>
+          <li><a routerLink="/dashboard/main-menu" class="nav-link" style="font-size: 18px;">Menú</a></li>
+          <li style="color:white; margin-right: 2rem; font-size: 18px;">> Evaluar Estudiante</li>
+          
+        </ul>
+    </nav>
+</div>
+
+
+<div class="row">
+    <div class="col flex-col-c">
+        <div  class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+            <span class="login100-form-title p-b-49" style="text-transform:uppercase;">
+                Evaluar Estudiante
+            </span>
+            <div class="spanc" >
+                <span>Ingrese las notas para evaluar el trabajo del estudiante en los siguientes campos.</span>
+            </div>
+            <div *ngIf="estudiantes.length === 0" >
+                <span class="text-danger" >No hay estudiantes disponibles para evaluar</span>
+            </div>
+            <div *ngIf="estudiantes.length > 0" >
+                <form mat-form [formGroup]="evaluarTrabajoForm" (ngSubmit)="alertaSeguro()" >
+                
+                        <div class="w-full" >
+                            <mat-form-field style="display: block;" class="m-b-10 m-t-20" appearance="fill">
+                                <mat-label>Seleccione estudiante</mat-label>
+                                <mat-select formControlName="estudiante" >
+                                    <mat-option  *ngFor="let item of estudiantes" [value]="item.id_estudiante" >{{item.nombre}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="evaluarTrabajoForm.get('estudiante')?.errors">
+                                    <strong>Seleccione un estudiante por favor</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="alinear" >
+                            <mat-form-field style="display: inline-block; flex-direction: end;"class="m-b-20" appearance="fill">
+                                <mat-label>Seleccione periodo</mat-label>
+                                <mat-select formControlName="periodoRealizar" >
+                                    <mat-option *ngFor="let periodo of periodos"  [value] ="periodo.id">{{periodo.periodo}} </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="evaluarTrabajoForm.get('periodoRealizar')?.errors">
+                                    <strong>El periodo es obligatorio</strong>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field style="display: inline-block; flex-direction: end;" class="m-b-20" appearance="fill">
+                                <mat-label>Ingrese Año</mat-label>
+                                <input matInput  type="text" pattern="\d*" maxlength="4" minlength="4" formControlName="anioRealizar">
+                                <mat-error *ngIf="evaluarTrabajoForm.get('anioRealizar')?.errors">
+                                    <strong>Ingrese un año válido </strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="spanc" >
+                            <span>Rango de calificaciones</span>
+                        </div>
+                        
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z3 m-t-20 m-b-30">
+
+                          
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="sobresaliente">
+                              <th mat-header-cell *matHeaderCellDef> Sobresaliente </th>
+                              <td mat-cell *matCellDef="let element"> {{element.sobresaliente}}</td>
+                            </ng-container>
+                          
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="muybueno">
+                              <th mat-header-cell *matHeaderCellDef> Muy Bueno </th>
+                              <td mat-cell *matCellDef="let element"> {{ element.muybueno }}</td>
+                            </ng-container>
+                          
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="bueno">
+                              <th mat-header-cell *matHeaderCellDef> Bueno </th>
+                              <td mat-cell *matCellDef="let element"> {{element.bueno}} </td>
+                            </ng-container>
+                          
+                            <!-- Symbol Column -->
+                            <ng-container matColumnDef="regular">
+                              <th mat-header-cell *matHeaderCellDef> Regular </th>
+                              <td mat-cell *matCellDef="let element"> {{element.regular }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="insatisfactorio">
+                                <th mat-header-cell *matHeaderCellDef> Insatisfactorio </th>
+                                <td mat-cell *matCellDef="let element"> {{element.insatisfactorio }}</td>
+                            </ng-container>
+                          
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+                        <div class="m-t-20 spanc m-b-5">
+                            <span > Competencias genéricas</span>
+                        </div>
+                        <div class="m-b-10"  >
+                            <div style="display: flex;" >
+                            
+                                    <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                        <mat-label>Asistencia y puntualidad</mat-label>
+                                        <input formControlName="asistenciaPuntualidad" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('asistenciaPuntualidad')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error>                                                                                                    
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
+                                    <mat-label>Conducta personal</mat-label>
+                                    <input formControlName="conducta" min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('conducta')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error>  
+                                    
+                                    </mat-form-field>
+
+                            </div>  
+
+                            <div style="display: flex;">
+                                    <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                        <mat-label>Dedicación e interés por el trabajo</mat-label>
+                                        <input formControlName="dedicacion" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('dedicacion')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error>  
+                                        </mat-form-field>
+                                    <mat-form-field appearance="fill" style="flex-basis: 100%;" > 
+                                        <mat-label>Habilidad para aprender</mat-label>
+                                        <input formControlName="habilidadAprender" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('habilidadAprender')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error> 
+                                        </mat-form-field>
+                            </div>
+
+                            <div style="display: flex;" >
+                                    <mat-form-field appearance="fill" style="flex-basis: 100%; margin-right: 5px;" > 
+                                        <mat-label>Adaptación a cambios y circunstancias</mat-label>
+                                        <input formControlName="adaptacion" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('adaptacion')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error> 
+                                        </mat-form-field>
+                               
+                                    <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
+                                        <mat-label>Iniciativa y proactividad</mat-label>
+                                        <input formControlName="iniciativa" min="1" max="7" matInput type="number">
+                                        <mat-error *ngIf="evaluarTrabajoForm.get('iniciativa')?.errors">
+                                            <strong>Este campo es obligatorio</strong>
+                                        </mat-error> 
+                                    </mat-form-field>
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                        </div>
+                        <div class="spanc m-b-5">
+                            <span > Competencias técnicas</span>
+                        </div>
+                        <div class="m-b-10" >
+                            <div style="display: flex;" >
+                                <mat-form-field appearance="fill"style="flex-basis: 100%;" > 
+                                    <mat-label>Aporte y apreciación de la práctica para la empresa</mat-label>
+                                    <input formControlName="aporteEmpresa"  min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('aporteEmpresa')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
+                                </mat-form-field>
+                                
+                                
+                            </div>  
+                            <div style="display: flex;" >
+                                <mat-form-field appearance="fill"  style="flex-basis: 100%;"> 
+                                    <mat-label>Conocimientos y nivel de preparación del estudiante</mat-label>
+                                    <input formControlName="conocimientos"  min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('conocimientos')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
+                                </mat-form-field>
+                            </div>
+                            <div style="display: flex;" >
+                                <mat-form-field appearance="fill"  style="flex-basis: 100%;"> 
+                                    <mat-label>Criterio profesional</mat-label>
+                                    <input formControlName="criterio"  min="1" max="7" matInput type="number">
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('criterio')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
+                                </mat-form-field>
+                            </div>
+                        </div>
+                       <div class="spanc m-b-5" >
+                        <span> Observaciones <br> Recuerde que las observaciones son importantísimas para el crecimiento profesional del estudiante. </span>
+                       </div>
+                        <div class="m-b-10" >
+                            <div style="display: flex;">
+                                <mat-form-field appearance="fill" style="flex-basis: 100%;"  >
+                                    <mat-label>Fortalezas del estudiante</mat-label>
+                                    <textarea maxlength="1200" formControlName="fortalezas" matInput ></textarea>
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('fortalezas')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
+                                </mat-form-field>
+                            </div>
+                            <div style="display: flex;">
+                                <mat-form-field appearance="fill" style="flex-basis: 100%;" >
+                                    <mat-label>Debilidades del estudiante</mat-label>
+                                    <textarea maxlength="1200" formControlName="debilidades" matInput ></textarea>
+                                    <mat-error *ngIf="evaluarTrabajoForm.get('debilidades')?.errors">
+                                        <strong>Este campo es obligatorio</strong>
+                                    </mat-error> 
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        
+                <div style="width: 100%; display: flex; flex-direction: column; align-items: center;" class="m-t-10" > 
+                            <button mat-raised-button color="primary" [routerLink]="'/dashboard/main-menu'"  style="font-size: 20px; margin-bottom: 10px; width: 700px; "  > VOLVER AL MENÚ PRINCIPAL </button> 
+                            <button mat-raised-button color="warn" type="submit" [disabled]="evaluarTrabajoForm.invalid" style="font-size: 20px; width: 700px; "  >EVALUAR ESTUDIANTE</button>
+                       
+                </div>
+                
+            </form>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
