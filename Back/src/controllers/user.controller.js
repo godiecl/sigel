@@ -1,5 +1,5 @@
 import {Usuario} from '../models/Usuario.js'
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import {generarJWT} from '../helpers/jwt.js'
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -32,7 +32,7 @@ export const loginUser = async (req, res) => {
     }
     // Confirmar el password
 
-    const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+    const validPassword = bcryptjs.compareSync(password, usuarioDB.password);
 
     if(!validPassword){
       return res.status(400).json({
@@ -86,9 +86,9 @@ export const createUser = async (request, response) => {
       // // console.log('request del body user', request.body.user)
 
       // Hash contraseña
-      const salt = bcrypt.genSaltSync(10)
+      const salt = bcryptjs.genSaltSync(10)
 
-      const passHash = bcrypt.hashSync(password, salt);
+      const passHash = bcryptjs.hashSync(password, salt);
 
       const UsuarioRepetido = await Usuario.findOne({
         where: {
@@ -362,8 +362,8 @@ export const crearNuevoPassword = async (req, res) =>{
   }
 
   
-  const salt = bcrypt.genSaltSync(10)
-  const passHash = bcrypt.hashSync(newPassword, salt);
+  const salt = bcryptjs.genSaltSync(10)
+  const passHash = bcryptjs.hashSync(newPassword, salt);
   usuario.password = passHash;
   // const validationOps = {validationError: {target: false, value: false}}
   // const errors = await validate(usuario, validationOps);
