@@ -1,4 +1,3 @@
-
 import { Sequelize } from 'sequelize';
 
 export const sequelize = new Sequelize(
@@ -6,8 +5,9 @@ export const sequelize = new Sequelize(
     'postgres', 
     'disc2022', 
     {
-    host: 'localhost',
-    dialect: 'postgres'
+        host: 'localhost',
+        dialect: 'postgres'
     }
-  );
+);
+
 
