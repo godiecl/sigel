@@ -9,12 +9,12 @@ services:
        database:
           condition: service_started
   database:
-    image: postgres
+    image: dc1339e99752cdcef151d102fbe45f1fc1b21c47cf9e7a9881e6e0ec5be7f661
     environment:
       POSTGRES_DB: sistemaPracticaCapstone
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: disc2022  
     volumes:
       - db-data:/var/lib/postgresql/data
-
- 
+volumes:
+  db-data: 

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:3000/api/'
+  baseUrl: 'http://localhost:3000/api/' // Cambiar 'localhost' por 'backend'
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
