@@ -5,7 +5,7 @@ export const sequelize = new Sequelize(
     'postgres', 
     'disc2022', 
     {
-        host: 'localhost',
+        host: 'database',
         dialect: 'postgres'
     }
 );

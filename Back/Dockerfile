@@ -10,6 +10,6 @@ COPY . .
 
 ENV PORT=3000
 
-EXPOSE 300
+EXPOSE 3000
 
-CMD ["npm","run","dev"]
+CMD ["node","src/seeders/admin.js","&&","npm","run","dev"]
