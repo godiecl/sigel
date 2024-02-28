@@ -7,7 +7,6 @@ services:
       - "3000:3000"
     depends_on:
       - database
-      - admin-seeder
 
   database:
     image: postgres
@@ -17,26 +16,6 @@ services:
       POSTGRES_PASSWORD: disc2022
     volumes:
       - db-data:/var/lib/postgresql/data
-
-  admin-seeder:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - database
-    environment:
-      - DATABASE_HOST=database
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=disc2022
-      - DATABASE_NAME=sistemaPracticaCapstone
-      - ADMIN_NAME=Hans
-      - ADMIN_LASTNAME=Marco
-      - ADMIN_RUT=20.211.694-9
-      - ADMIN_PASSWORD=hola
-      - ADMIN_EMAIL=hola@gmail.com
-      - ADMIN_ROLES=Administrador
-      - ADMIN_STATE=true
-    command: node src/seeders/admin.js
 
 volumes:
   db-data:

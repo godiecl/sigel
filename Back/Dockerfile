@@ -12,4 +12,5 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["node","src/seeders/admin.js","&&","npm","run","dev"]
+
+CMD ["npm","run","dev"]
