@@ -29,10 +29,7 @@ export class SolicitarEstudianteComponent implements OnInit {
   newSolicitud!: SolicitudEstudiante
 
   modalidades = [
-    { id:0, name: 'Práctica pre-profesional'},
-    { id:1, name: 'Capstone project (Proyecto de Titulación)'},
-    { id:2, name: 'Por definir (que quede a elección del encargado de práctica y titulación de la universidad)'}
-  ];
+    { id:0, name: 'Práctica pre-profesional'},];
 
   constructor(
     private fb: FormBuilder,
