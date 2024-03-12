@@ -1,16 +1,16 @@
-FROM node:12
+# docker buildx build --tag sigel/backend:1.0 .
+FROM node:lts-alpine3.18
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm clean-install
 
 COPY . .
 
 ENV PORT=3000
 
 EXPOSE 3000
-
 
 CMD ["npm","run","dev"]

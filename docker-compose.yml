@@ -1,29 +1,27 @@
-version: '3'
-
+---
 services:
-  backend:
-    image: Back/back:1.0
-    ports:
-      - "3000:3000"
+  sigel-backend:
+    image: sigel/backend:1.0
+    container_name: sigel_backend
+    expose:
+      - "80:3000"
     depends_on:
-      - database
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      - sigel-database
 
-  database:
-    image: postgres
+  sigel-database:
+    image: postgres:16.2-alpine3.19
+    container_name: sigel_database
     environment:
-      POSTGRES_DB: sistemaPracticaCapstone
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: disc2022
+      - POSTGRES_DB=sigel
+      - POSTGRES_USER=sigel
+      - POSTGRES_PASSWORD=mane_bled_scraped_purged
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./data:/var/lib/postgresql/data
 
-  frontend:
-    image: Front/front:1.0
-    ports:
-      - "4200:4200"
-
-volumes:
-  db-data:
-
+  sigel-frontend:
+    image: sigel/frontend:1.0
+    container_name: sigel_frontend
+    expose:
+      - "80:4200"
+    depends_on:
+      - sigel-backend
