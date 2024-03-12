@@ -1,16 +1,16 @@
 ---
 services:
-  sigel-backend:
+  sigelbackend:
     image: sigel/backend:1.0
-    container_name: sigel_backend
+    container_name: sigelbackend
     expose:
       - "80:3000"
     depends_on:
-      - sigel-database
+      - sigeldatabase
 
-  sigel-database:
+  sigeldatabase:
     image: postgres:16.2-alpine3.19
-    container_name: sigel_database
+    container_name: sigeldatabase
     environment:
       - POSTGRES_DB=sigel
       - POSTGRES_USER=sigel
@@ -18,10 +18,10 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
 
-  sigel-frontend:
+  sigelfrontend:
     image: sigel/frontend:1.0
-    container_name: sigel_frontend
+    container_name: sigelfrontend
     expose:
       - "80:4200"
     depends_on:
-      - sigel-backend
+      - sigelbackend

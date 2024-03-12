@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://100.111.63.7:3000/api/' // Cambiar 'localhost' por 'backend'
+  baseUrl: 'https://backendsigel.disc.cl/api/' // Cambiar 'localhost' por 'backend'
 };
 
 

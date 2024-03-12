@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN npm install -g npm@10.5.0
 RUN npm install -g @angular/cli@13
 
 RUN npm clean-install
@@ -15,4 +16,4 @@ ENV PORT=4200
 
 EXPOSE 4200
 
-CMD ["npm","start","--","--host","0.0.0.0"]
+CMD ["npm","start","--","--host","0.0.0.0","--disable-host-check","--verbose"]
