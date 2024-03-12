@@ -21,7 +21,7 @@ Frontend:
 "@angular/material": "^13.3.9",
 "@angular/platform-browser": "~13.3.0",
 "@angular/platform-browser-dynamic": "~13.3.0",
-"@angular/router": "~13.3.0
+"@angular/router": "~13.3.0"
 ```
 
 # License
